@@ -4,7 +4,7 @@ teaching: 0
 exercises: 0
 questions:
 - "How do I process multiple files at once?"
-- "How do I make Snakemake detect what to process?"
+- "How do I make Snakemake decide what to process?"
 - "How do I combine multiple outputs together?"
 objectives:
 - "Use Snakemake to filter and count the lines in a FASTQ file"
@@ -24,7 +24,7 @@ Consider the following:
 
 
 
-Note that we can also use Python syntax.
+Note that we can also use Python syntax. But we don't expect Python knowledge.
 
 {% include links.md %}
 

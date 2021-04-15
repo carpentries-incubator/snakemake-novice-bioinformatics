@@ -5,13 +5,14 @@ exercises: 0
 questions:
 - "How do I make a generic rule?"
 objectives:
-- "Use Snakemake to count the lines in any file"
+- "Use Snakemake to count the sequences in any file"
+- "See how Snakemake deals with missing inputs and outputs"
 keypoints:
 - "Add key points"
 ---
 
-Similar to the workflows-snakemake thing that already exists. It intros wildcards after getting the first
-workflow running.
+(Similar to the workflows-snakemake thing that already exists. It intros wildcards after getting the first
+workflow running.)
 
 In the previous ep you wrote two rules to count the sequences in two files. These work, but they are not
 a very efficient use of Snakemake. We don't want to copy-paste rules avery time we want to process a new
@@ -32,7 +33,7 @@ do it. test it.
 
 Now snakemake doesn't know what output we want, so we have to set it manually on the command line.
 
-Maybe introduce the filtering here too? But not the chaining of rules yet.
+Maybe introduce the filtering here too? Yes but remember we want two inputs, maybe just have a 1-input version here.
 
 Exercises:
 
@@ -40,7 +41,16 @@ Some multiple choice? Like what's wrong with this Snakefile?
 
 What if I wanted to make the output be "gut_count_1.txt"? How could I make this work.
 
+Missing inputs - what if you ask for a file for which there is no rule? Fairly self-explanatory.
 
+What if you ask for a file and there is a rule, but no input? "No rule to make" error. Note that Snakemake
+does not even try to run the rule.
+
+What if the rule doesn't generate the output file? Give an example here. Or maybe ask it as a question.
+
+Q: Break your rule so that it doesn't produce an output file (be more specific). What happens when you run it?
+
+Hmmm. Maybe this not so good. We'll come back to it.
 
 {% include links.md %}
 

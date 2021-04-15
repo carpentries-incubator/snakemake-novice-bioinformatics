@@ -6,10 +6,13 @@ These instructions set out how to obtain and install the course pre-requisites f
 that you have:
 * access to the BASH shell on a fairly modern Linux system
 * sufficient disk space (~1GB) to store the software and data
+
 You *do not* need root/administrator level access.
 
-Note: There are other ways to install these tools, and it should also be possible to run the exercises on
-non-Linux systems. However, this is not covered here.
+> ## Note
+> There are other ways to install these tools, and it should also be possible to run the exercises on
+> non-Linux systems. However, this is not covered here.
+{: .callout}
 
 To prepare for the course you will need:
 
@@ -20,6 +23,6 @@ To prepare for the course you will need:
 
 Add editor settings here see screenshots from the workbook.
 
-Also the settings for Nano I can work out.
+Also the settings for Nano - I looked at this for the Python course and I can work out.
 
 {% include links.md %}
