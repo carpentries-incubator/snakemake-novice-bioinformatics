@@ -101,4 +101,4 @@ highlighter: rouge
 
 
 # Remote theme
-remote_theme: carpentries/carpentries-theme
+remote_theme: carpentries/carpentries-theme@main
