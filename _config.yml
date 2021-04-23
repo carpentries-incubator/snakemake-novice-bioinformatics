@@ -30,7 +30,7 @@ kind: "lesson"
 repository: <USERNAME>/<PROJECT>
 
 # Email address, no mailto:
-email: "tbooth2@ed.ac.uk"
+email: "tim.booth@ed.ac.uk"
 
 # Sites.
 amy_site: "https://amy.carpentries.org/"

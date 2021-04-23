@@ -149,10 +149,10 @@ rule kallisto_quant:
         json = "kallisto.{sample}/run_info.json",
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
-        fq1   = "reads/{sample}_1.fq",
-        fq2   = "reads/{sample}_2.fq",
+        fq1   = "trimmed/{sample}_1.fq",
+        fq2   = "trimmed/{sample}_2.fq",
     shell:
-        "kallisto quant -i {input.index} -o kallisto.{wildcards.sample} {input.fq2} {input.fq2}"
+        "kallisto quant -i {input.index} -o kallisto.{wildcards.sample} {input.fq2} {input.fq1}"
 ~~~
 {: .language}
 
@@ -161,6 +161,7 @@ There are many things to note here:
 1. The individual input and output files are given names using the `=` syntax
 1. Each of these lines must end with a `,`
 1. In the `shell` part, the input placeholders are now like `{input.name}`
+1. We've chosen to always quantify the trimmed version of the reads
 1. Because `kallisto quant` only takes the output directory name, we've used the placeholder
    `{wildcards.sample}` rather than `{output}` which would give the full file names
 1. We don't actually have the `{input.index}` file yet. This will need to be created using the `kallisto_index`
@@ -175,7 +176,7 @@ happy with the rule definition.
 >
 > Given that the index is missing, what would you expect Snakemake to do if the new rule was run now?
 >
-> Try it by telling Snakemake to run the new rule on the files `reads/ref1_1.fq` and `reads/ref1_2.fq`.
+> Try it by telling Snakemake to run the new rule on the files `ref1_1.fq` and `ref1_2.fq`.
 > Since the rule defines multiple outputs, asking for any one of the output files will be enough.
 >
 > > ## Solution
@@ -236,7 +237,7 @@ Once we get the new rules to run, you'll see something like this:
 
 ~~~
 ...
-kallisto quant -i Saccharomyces_cerevisiae.R64-1-1.kallisto_index -o kallisto.ref1 reads/ref1_2.fq reads/ref1_2.fq
+kallisto quant -i Saccharomyces_cerevisiae.R64-1-1.kallisto_index -o kallisto.ref1 trimmed/ref1_2.fq trimmed/ref1_2.fq
 
 [quant] fragment length distribution will be estimated from the data
 ...more Kallisto output...
@@ -249,13 +250,13 @@ kallisto.ref1/abundances.h5
 kallisto.ref1/abundances.tsv
 This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait.
 Job id: 0 completed successfully, but some output files are missing. 0
-  File "/home/tbooth2/miniconda3/lib/python3.7/site-packages/snakemake/executors/__init__.py", line 583, in handle_job_success
-  File "/home/tbooth2/miniconda3/lib/python3.7/site-packages/snakemake/executors/__init__.py", line 259, in handle_job_success
+  File "/opt/python3.7/site-packages/snakemake/executors/__init__.py", line 583, in handle_job_success
+  File "/opt/python3.7/site-packages/snakemake/executors/__init__.py", line 259, in handle_job_success
 Removing output files of failed job kallisto_quant since they might be corrupted:
 kallisto.ref1/run_info.json
 Shutting down, this might take some time.
 Exiting because a job execution failed. Look above for error message
-Complete log: /home/tbooth2/carpentries/nextflow_rnaseq_training_dataset/data/yeast/.snakemake/log/2021-04-23T142649.632834.snakemake.log
+Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834.snakemake.log
 ~~~
 
 There's a lot to take in here. Some of the messages are very informative. Some less so.
