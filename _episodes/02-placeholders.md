@@ -6,7 +6,8 @@ questions:
 - "How do I make a generic rule?"
 objectives:
 - "Use Snakemake to count the sequences in any file"
-- "See how Snakemake deals with missing inputs and outputs" # FIXME
+- "Understand the basic steps Snakamake goes through when running a workflow"
+- "See how Snakemake deals with missing inputs"
 keypoints:
 - "Add key points"
 ---
@@ -20,11 +21,11 @@ In the previous episode you wrote two rules to count the sequences in two files.
 a very efficient use of Snakemake. We have eighteen input files to process and we don't want to write eighteen
 near-identical rules.
 
-To make a more general-purpose rule we need placeholders and wildcards. Here is a new rule that will count the
+To make a more general-purpose rule we need **placeholders** and **wildcards**. Here is a new rule that will count the
 sequences in **any** of the `.fq` files.
 
 ~~~
-# Generic version
+# New generic read counter
 rule countreads:
   output: "{asample}.fq.count"
   input:  "reads/{asample}.fq"
@@ -55,16 +56,16 @@ rule countreads:
 
 The new rule has replaced file names with things in `{curly brackets}`, specifically `{asample}`, `{input}` and `{output}`.
 
-`{asample}` is a **wildcard**. Wildcards are used in the `input` and `output` definitions to represent parts of filenames.
-As with rule names, you may choose any name you like, so here we chose `asample`.
-If two rules use wildcards with the same name then Snakemake will treat them as completely different - rules in Snakemake
+`{asample}` is a **wildcard**. Wildcards are used in the `input` and `output` lines of the rule to represent parts of filenames.
+As with rule names, you may choose any name you like for your wildcards, so here we chose `asample`.
+If two rules use a wildcard with the same name then Snakemake will treat them as completely different - rules in Snakemake
 are self-contained in this way.
 
 `{input}` and `{output}` are **placeholders**. Placeholders are used in the `shell` section of a rule, and Snakemake will
 replace them with appropriate values - `{input}` with the full name of the input file, and `{output}` with the full name of
 the output file -- before running the command.
 
-If we had wanted to include the value of the `asample` widcard directly in the shell command we sould have used the placeholder
+If we had wanted to include the value of the `asample` wildcard directly in the `shell` command we sould have used the placeholder
 `{wildcards.asample}` but in most cases, as here, we just need the `{input}` and `{output}` placeholders.
 
 > ## Running the general-purpose rule
@@ -94,12 +95,14 @@ If we had wanted to include the value of the `asample` widcard directly in the s
 
 > ## Choosing the right wildcards
 >
-> Our rule puts the sequence counts into files named like `ref1_1.fq.count`. How would you have to change the "countreads"
+> Our rule puts the sequence counts into output files named like `ref1_1.fq.count`. How would you have to change the "countreads"
 > rule definition if you wanted:
 >
->  1. the output file for `reads/ref1_1.fq` to be `counts/ref1_1.txt`?
->  1. the output file for `reads/ref1_1.fq` to be `ref1_counts/fq.1.count` (and `reads/ref1_2.fq` to be `ref1_counts/fq.2.count`)?
->  1. the output file for `reads/ref1_1.fq` to be `countreads_1.txt`?
+>  1) the output file for `reads/ref1_1.fq` to be `counts/ref1_1.txt`?
+>
+>  2) the output file for `reads/ref1_1.fq` to be `ref1_counts/fq.1.count` (for `reads/ref1_2.fq` to be `ref1_counts/fq.2.count`)?
+>
+>  3) the output file for `reads/ref1_1.fq` to be `countreads_1.txt`?
 >
 > > ## Solution
 > >
@@ -215,7 +218,7 @@ to us indeed.
 > standard input so we're using `<` to specify the input file, and the `-o` flag specifies the output name.
 {: .callout}
 
-
+More here??
 
 Some multiple choice? Like what's wrong with this Snakefile?
 
