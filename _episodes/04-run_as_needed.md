@@ -10,3 +10,6 @@ objectives:
 keypoints:
 - "Snakemake is awesome"
 ---
+
+First, can I run Kallisto on the filtered reads because that makes the demo here easier? If not
+I can introduce my re-pair script tho.
