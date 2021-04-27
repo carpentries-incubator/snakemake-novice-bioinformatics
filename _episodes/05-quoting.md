@@ -10,6 +10,10 @@ keypoints:
 - "Add key points"
 ---
 
+# Note - the Carpentries way seems to be that we intro quoting issues as they become relevant to the
+# job in hand. So maybe do it that way? I think intro prameters here and quoting follows, then
+# configuration from that.
+
 Note - we probably want to introduce parameters first. The 'k' example in my assembly was perfect for this
 but I can work out something else. Maybe a subsampling number? Or a quality cutoff?
 

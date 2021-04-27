@@ -13,6 +13,9 @@ keypoints:
 - "Add key points"
 ---
 
+I already introduced the DAG back in chapter4, but now we have more steps and I can do more regarding
+error debugging and DAG visualisation. Reinforcement is good.
+
 Put my > < \/ diagram here.
 
 "Mo Analysis Mo Problems" - The Notorious B.I.G.
