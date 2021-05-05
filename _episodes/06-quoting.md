@@ -5,6 +5,7 @@ exercises: 0
 questions:
 - "How do I make my Snakefiles robust?"
 objectives:
+- "Adding parameters to rules"
 - "Understand issues regarding string quoting, escaping and ..."
 keypoints:
 - "Add key points"
