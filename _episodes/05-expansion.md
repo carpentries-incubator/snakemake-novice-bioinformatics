@@ -24,22 +24,26 @@ the command line. Often you want Snakemake to process all available samples. How
 
 The `yeast/reads` directory contains results from three conditions: `ref`, `etoh60` and `temp33`. There
 are three replicates for each condition. There is minor inconsistency in the naming convention, as the `ref`
-files do not have an underscore before the replicate number, while the other two do. Consistent naming is
+files do not have an underscore before the replicate number. Consistent naming is
 important for Snakemake, so let's fix up the names before we go any further.
 
 A good way to do this is by making symlinks, because that way you don't lose sight of the original file names.
 
 ~~~
+$ mv reads original_reads
+$ mkdir reads
+$ ln -sr -t reads original_reads/*
 $ for afile in reads/ref?_?.fq
 > do
 > newname=$( sed 's/ref/ref_/' <<<$afile )
-> ln -srv $afile $newname
+> mv -v $afile $newname
 > done
 ~~~
 {: .language-bash}
 
-This shell loop should make you 6 new symlinks. To tell Snakemake about our conditions and replicates we can define some
-lists as Snakemake **global variables**. Global variables can be set before the rules in the Snakefile.
+These shell commands should symlink all the files and rename six of them. To tell Snakemake about our conditions
+and replicates we can define some lists as Snakemake **global variables**.
+Global variables can be added before the rules in the Snakefile.
 
 ~~~
 # Input conditions and replicates to process
@@ -77,7 +81,7 @@ names:
 $ snakemake -j1 -p all_counts
 ~~~
 
-> Excercises
+> ## Adding a target rule to the Snakefile
 >
 > Check that the `all_counts` rule is working. Now adapt the Snakefile so that it makes all the counts for both of the pairs of
 > reads (`_1.fq` and `_2.gq`, and also for both trimmed and untrimmed versions of the files. So you should end up with 36 count
@@ -85,39 +89,46 @@ $ snakemake -j1 -p all_counts
 >
 >
 > Tricky? Maybe a hint? Hmmm.
-~~~
-# Input conditions and replicates to process
-CONDITIONS = ["ref", "etoh60", "temp33"]
-REPLICATES = ["1", "2", "3"]
-READ_ENDS  = ["1", "2"]
-COUNT_DIR  = ["reads", "trimmed"]
-
-# Rule to make all counts at once
-rule all_counts:
-    input: expand("{indir}.{cond}_{rep}_{end}.fq.count", indir=COUNT_DIR, cond=CONDITIONS, rep=REPLICATES, end=READ_ENDS)
-~~~
-
-You can also put the lists directly into the `expand()` function if you think this is more readable. It's also possible to
-split the function over more than one line, but note that you then need to start it on a new line too.
-
-~~~
-# Input conditions and replicates to process
-CONDITIONS = ["ref", "etoh60", "temp33"]
-REPLICATES = ["1", "2", "3"]
-
-# Rule to make all counts at once
-rule all_counts:
-    input:
-        expand( "{indir}.{cond}_{rep}_{end}.fq.count", indir = ["reads", "trimmed"],
-                                                       cond  = CONDITIONS,
-                                                       rep   = REPLICATES,
-                                                       end   = ["1", "2"] )
-~~~
+> > ## Solution
+> >
+> > ~~~
+> > # Input conditions and replicates to process
+> > CONDITIONS = ["ref", "etoh60", "temp33"]
+> > REPLICATES = ["1", "2", "3"]
+> > READ_ENDS  = ["1", "2"]
+> > COUNT_DIR  = ["reads", "trimmed"]
+> >
+> > # Rule to make all counts at once
+> > rule all_counts:
+> >   input: expand("{indir}.{cond}_{rep}_{end}.fq.count", indir=COUNT_DIR, cond=CONDITIONS, rep=REPLICATES, end=READ_ENDS)
+> > ~~~
+> > {: .language}
+> >
+> > You can also put the lists directly into the `expand()` function if you think this is more readable. It's also possible to
+> > split the function over more than one line, but note that you then need to start it on a new line too.
+> >
+> > ~~~
+> > # Input conditions and replicates to process
+> > CONDITIONS = ["ref", "etoh60", "temp33"]
+> > REPLICATES = ["1", "2", "3"]
+> >
+> > # Rule to make all counts at once
+> > rule all_counts:
+> >   input:
+> >     expand( "{indir}.{cond}_{rep}_{end}.fq.count", indir = ["reads", "trimmed"],
+> >                                                    cond  = CONDITIONS,
+> >                                                    rep   = REPLICATES,
+> >                                                    end   = ["1", "2"] )
+> > ~~~
+> > {: .language}
+> >
+> {: .solution}
+{: .challenge}
 
 ## Dynamically determining the inputs
 
 At the start of this episode we ran a shell loop using a glob pattern: `reads/ref?_?.fq`. This matched all six files that we
-needed to symlink, and we didn't need to list them out explicitly. Snakemake allows you to do something similar with the
+needed to rename, and we didn't need to list them out explicitly. Snakemake allows you to do something similar with the
 `glob_wildcards()` function.
 
 ~~~
@@ -160,41 +171,28 @@ This is the result we got before. So far, so good. Now to try listing the sample
 
 ~~~
 >>> glob_wildcards("reads/{sample}_1.fq")
-Wildcards(sample=['temp33_3', 'temp33_2', 'etoh60_1', 'etoh60_3', 'ref_2', 'temp33_1', 'ref3', 'etoh60_2', 'ref_1', 'ref_3', 'ref2', 'ref1'])
+Wildcards(sample=['temp33_3', 'temp33_2', 'etoh60_1', 'etoh60_3', 'ref_2', 'temp33_1', 'etoh60_2', 'ref_1', 'ref_3'])
 
->>> glob_wildcards("reads/{condition}_{samplenum}_1.fq")
+>>> glob_wildcards("reads/{condition}_{repnum}_1.fq")
 Wildcards(condition=['temp33', 'temp33', 'etoh60', 'etoh60', 'ref', 'temp33', 'etoh60', 'ref', 'ref'], samplenum=['3', '2', '1', '3', '2', '1', '2', '1', '3'])
 ~~~
 
-Both of these are working, but neither is ideal.  The second, using two wildcards, yields two lists. It's possible to
-re-combine these lists to construct the list of samples, but it's tricky.
+Both of these are working and finding the same files. The second, using two wildcards, yields two lists. It's possible to
+re-combine and manipulate these multiple lists, but it's tricky (see note below). We'll use the simple version with a single
+wildcard containing the condition and replicate number together.
 
-The first is picking up both the `ref1` and `ref_1` files because the wildcard matches either. We could avoid this by
-cleaning up the input directory, but we can also be more specific about what the wildcards can match.
-
-~~~
->>> glob_wildcards("reads/{sample,.+_.}_1.fq")
-Wildcards(sample=['temp33_3', 'temp33_2', 'etoh60_1', 'etoh60_3', 'ref_2', 'temp33_1', 'etoh60_2', 'ref_1', 'ref_3'])
-~~~
-
-This does the trick. We added a regex pattern to the wildcard to restrict what it can match. Note the syntax:
-
-* The wildcard name is folloed by a comma, then the regex pattern
-* The expression is `.+_.` meaning:
- * `.+` One or more of any character
- * `_` Followed by a literal underscore
- * `.` Followed by a single character
-
-We could have been even more prescriptive, but this does the job. Now we can put this into the Snakefile:
+Before leaving the Python interpreter, we can also test the `expand` function.
 
 ~~~
-SAMPLES = glob_wildcards("reads/{sample,.+_.}_1.fq")
+>>> SAMPLES = glob_wildcards("reads/{sample}_1.fq").sample
+>>> expand("{sample}_{end}.fq.count", sample=SAMPLES, end=["1","2"])
 ~~~
 
 > # Info box
 >
-> For completeness, here's one way to work with two wildcards. I'll present this here without explanation, but
-> you'll see it's not pretty.
+> For completeness, here's one way to work with two separate wildcards. I'll present this here without explanation, but
+> unless you're a Python programmer you probably don't want to have to deal with code like this, and for most
+> cases in Snakemake there is no need to.
 >
 > ~~~
 > SAMPLES = expand( "{condition}_{samplenum}",
@@ -220,7 +218,7 @@ There are two other valid approaches:
 
 1. List just a subset of the output files as outputs of the rule. Snakemake does not care (in fact does not check) if the
    command produces other files too. So for the `kallisto_quant` rule we could have just said `output: "abundance.h5"` and
-   the rule would work. The other outputs still get crrated but Snakemake does not condifer them when linking rules.
+   the rule would work. The other outputs still get created but Snakemake does not consider them when linking rules.
 
 1. Tell snakemake that the output of the rule is a directory. This way, Snakemake will not consider the files inside the
    directory at all. Do this by adding `directory(...)` around the output path.
@@ -234,15 +232,13 @@ rules kallisto_quant:
 Note that you only have to do this for outputs. The input to a rule may be a directory without the need for any special
 syntax.
 
-Exercise needed here. glob_wildcards gets hairy when used with mutiple wildcards since you get back a named tuple of lists.
-
 > ## Challenge
 >
 > Adapt the Snakefile to run 'kallisto quant' on all 9 samples, that is all three repeats of all three conditions. Rather than
-> listing the inputs explicitly, use `glob_wildcards` to find them and make a 
+> listing the inputs explicitly, use `glob_wildcards` to find them as demonstrated above.
 >
 > An alternative to kallisto for transcript quantification is `salmon`. The procedure is virtually identical, having an indexing
-> step and a quantification step. Note that in real usage one is advised to add decoy sequences to the index but for the
+> step and a quantification step. Note that in real usage one is advised to prepare and add decoy sequences to the index but for the
 > purposes of this tutorial we'll just keep things simple.
 >
 > Based upon the following commands:
@@ -258,7 +254,7 @@ Exercise needed here. glob_wildcards gets hairy when used with mutiple wildcards
 >
 
 
-CONDITIONS = glob_wildcards("reads/{condition}_{read}_1.fq").condition
+CONDITIONS = glob_wildcards("reads/{sample}_1.fq").condition
 
 {% include links.md %}
 

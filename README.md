@@ -2,7 +2,28 @@
 
 TODO - get this listed on the  [Community Developed Lessons page][community-lessons] once ready.
 
-## What to do next
+## Snakemake for Bioinformatics
+
+This lesson introduces the Snakemake workflow system in the context of a bioinformatics data
+analysis task.
+
+To quote from the [official Snakemake documentation](https://snakemake.readthedocs.io/):
+
+> The Snakemake workflow management system is a tool to create reproducible and scalable data analyses.
+> Workflows are described via a human readable, Python based language. They can be seamlessly scaled to
+> server, cluster, grid and cloud environments, without the need to modify the workflow definition.
+> Finally, Snakemake workflows can entail a description of required software, which will be automatically
+> deployed to any execution environment.
+
+Snakemake originated as, and remains most popular as, a tool for bioinformatics. This is how we present
+it here. However, Snakemake is a general-purpose system and may be used for all manner of data processing
+tasks.
+
+Snakemake is a superset of the Python language and as such can draw on the full power of Python, but you
+do not need to be a Python programmer to use it. This leson **assumes no prior knowledge of Python** and
+intruduces just a few concepts as needed to construct useful workflows.
+
+## Lesson development checklist
 
 Before you begin developing your new lesson,
 here are a few things we recommend you do:
@@ -54,8 +75,8 @@ will welcome a pull request fixing this issue.
 
 Current maintainers of this lesson are
 
-* @tbooth
-* @ggrimes
+* [Tim Booth](http://github.com/tbooth)
+* [Graeme Grimes](http://github.com/ggrimes)
 
 ## Authors
 
