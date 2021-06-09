@@ -5,28 +5,38 @@ exercises: 0
 questions:
 - "How do I make my Snakefiles robust?"
 objectives:
-- "Adding parameters to rules"
-- "Understand issues regarding string quoting, escaping and ..."
+- "Understand issues regarding quoting special characters"
+- "Commands that don't quite behave"
 keypoints:
 - "Add key points"
 ---
 
+###################
 # Note - the Carpentries way seems to be that we intro quoting issues as they become relevant to the
 # job in hand. So maybe do it that way? I think intro prameters here and quoting follows, then
 # configuration from that.
 
+## Adding Parameters to rules
+
+So far, we've written rules with `input`, `output` and `shell` parts. Another useful section you can add to
+a rule is `parameters`.
+
+# Yeah but doesn't this belong in chapter 8? Maybe I should finish the DAG first?
+
 Note - we probably want to introduce parameters first. The 'k' example in my assembly was perfect for this
 but I can work out something else. Maybe a subsampling number? Or a quality cutoff?
+###################
 
-Consider the following simple shell command:
+Consider the following simple Bash shell command:
 
-  $ echo How "cool" are you?
+  $ echo How "cool" are    you?
   How cool are you?
 
 The message is printed back, but not before the shell has interpreted the text as per the standard command-line
 parsing rules
 
- * The quotes around "cool" have been removed
+ * The quotes around '"cool"' have been removed
+ * The extra spaces after 'are   ' have been ignored
  * More subtly, the last work will be interpreted as a glob pattern...
 
   $ touch youX youY
@@ -36,12 +46,12 @@ parsing rules
 Note: if you have certain shell settings you may see a warning about the unmatched glob pattern.
 
 Anyone who has done any amount of programming or shell scripting will have come across quoting issues in code. Bugs related
-to quoting can be particularly troublesome. In Snakemake these are particularly complex because the "shell" part of each rule
+to quoting can be very troublesome. In Snakemake these are particularly complex because the "shell" part of each rule
 undergoes three rounds of interpretation before it is actually run:
 
  1. The string is parsed according to Python quoting rules
  1. Placeholders (eg. {input} {output}) are then replaced
- 1. The resulting string goes to the shell and is subject to all shell parsing rules
+ 1. The resulting string goes to the shell and is subject to all Bash parsing rules
 
 In this episode we introduce the best practises for making your Snakefiles robust, and some simple rules to avoid most
 mis-quoting complications.

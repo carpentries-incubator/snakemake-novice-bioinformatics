@@ -28,20 +28,24 @@ You may have noticed that one of the messages Snakemake always prints is:
 Building DAG of jobs...
 ~~~
 
-A DAG is a Directed Acyclic Graph and it can easily be pictured like so:
+A DAG is a **Directed Acyclic Graph** and it can be pictured like so:
 
->>> Insert hot DAG pic here <<<
+![DAG for our workflow][fig-dag]
+
 
 The above DAG is based on our existing rules, and shows all the jobs Snakemake would run to trim, count and
-quantify the "ref1" sample. Note that:
+quantify the "ref1" sample.
 
-* A rule can appear more than once, with different wildcards (a **rule** plus **wildcard values** defines a **job**)
-* The arrows show data flow and also dependency ordering between jobs
-* Snakemake can run the jobs in any order that doesn't break dependency - for example 'kallisto quant' cannot run before
-  'kallisto index' or 'trimreads', but it may run before or after 'countreads', or at the same time if you enable concurrent
-  processing
-* This is not a flowchart - there are no if/else decisions or loops - Snakemake runs every job in the DAG once
-* The DAG depends not only on the Snakefile but on the requested target outputs
+> ## Note that:
+>
+> * A rule can appear more than once, with different wildcards (a **rule** plus **wildcard values** defines a **job**)
+> * The arrows show data flow, as well as dependency ordering between jobs
+> * Snakemake can run the jobs in any order that doesn't break dependency - for example `kallisto quant` cannot run until
+>   both `kallisto index` and `trimreads` have completed, but it may run before or after `countreads`
+> * This is a work list, not a flowchart, There are no if/else decisions or loops - Snakemake runs every job in the DAG
+>   exactly once
+> * The DAG depends not only on the Snakefile, but on the requested target outputs and the files already present
+{: .checklist}
 
 > Some question about the DAG here...
 >
@@ -96,7 +100,7 @@ $ snakemake -j1 -p kallisto.ref1/abundance.h5
 This just re-runs the kallisto quantification - the final step.
 
 ~~~
-rm trimmed/ref1_?.fq
+$ rm trimmed/ref1_?.fq
 $ snakemake -j1 -p kallisto.ref1/abundance.h5
 ~~~
 {: .language-bash}
@@ -143,6 +147,8 @@ more when we write rules that take lists of files as input.
 
 ### Incomplete jobs
 
+TODO - not sure we need this, or it should be a a callout.
+
 Snakemake has a feature that it keeps a log of currently running jobs (this and other info is logged into the `.snakemake`
 directory within your working directory). If Snakemake crashes or exits uncleanly then the next time
 it runs it will refuse to use output files from incomplete jobs as the files may be partial output. We'll not look into
@@ -154,6 +160,8 @@ You tend to come across these more when working on a compute cluster, as opposed
 > TODO - now convert stuff from the existing slides. And see what we can do regarding the exercises. Or do we need more steps
 > to make these useful?
 >
+
+[fig-dag]: ../fig/dag_1.svg
 
 {. :callout}
 

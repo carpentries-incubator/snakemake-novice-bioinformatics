@@ -25,4 +25,8 @@ Add editor settings here see screenshots from the workbook.
 
 Also the settings for Nano - I looked at this for the Python course and I can work out.
 
+```
+nano -wiSOE -T 4 -Y python Snakefile
+```
+
 {% include links.md %}

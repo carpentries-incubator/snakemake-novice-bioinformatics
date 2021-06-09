@@ -155,9 +155,11 @@ Job counts:
 ...
 ~~~
 
-Using glob_wildcards gets a little more tricky when you need a more complex match. For example, what if we want to list all the
-samples rather than all the conditions? Firstly, we're going to quickly test out results by activating the Python interpreter.
-This saves editing the Snakefile and running Snakemake just to see what `glob_wildcards` will match. The Python interpreter is
+FIXME - I think this next bit can be converted into an exercise. Keep with the Python interpreter but ask some questions.
+
+Using glob_wildcards() gets a little more tricky when you need a more complex match. To refine the match we can quickly test
+out results by activating the Python interpreter.
+This saves editing the Snakefile and running Snakemake just to see what `glob_wildcards()` will match. The Python interpreter is
 like a special shell for Python commands, and because Snakemake functions are actually Python functions we can test them here.
 
 ~~~
@@ -172,35 +174,35 @@ This is the result we got before. So far, so good. Now to try listing the sample
 ~~~
 >>> glob_wildcards("reads/{sample}_1.fq")
 Wildcards(sample=['temp33_3', 'temp33_2', 'etoh60_1', 'etoh60_3', 'ref_2', 'temp33_1', 'etoh60_2', 'ref_1', 'ref_3'])
-
->>> glob_wildcards("reads/{condition}_{repnum}_1.fq")
-Wildcards(condition=['temp33', 'temp33', 'etoh60', 'etoh60', 'ref', 'temp33', 'etoh60', 'ref', 'ref'], samplenum=['3', '2', '1', '3', '2', '1', '2', '1', '3'])
 ~~~
 
-Both of these are working and finding the same files. The second, using two wildcards, yields two lists. It's possible to
-re-combine and manipulate these multiple lists, but it's tricky (see note below). We'll use the simple version with a single
-wildcard containing the condition and replicate number together.
+Yeah this can be an exercise...
 
-Before leaving the Python interpreter, we can also test the `expand` function.
+Before leaving the Python interpreter, we can also test the `expand()` function.
 
 ~~~
 >>> SAMPLES = glob_wildcards("reads/{sample}_1.fq").sample
 >>> expand("{sample}_{end}.fq.count", sample=SAMPLES, end=["1","2"])
 ~~~
 
-> # Info box
+> ## Glob with multiple wildcards
 >
-> For completeness, here's one way to work with two separate wildcards. I'll present this here without explanation, but
-> unless you're a Python programmer you probably don't want to have to deal with code like this, and for most
+> If there are two wildcards in the glob pattern, dealing with the result becomes a little more tricky.
+> Unless you're a Python programmer you probably don't want to start writing code like this, and for most
 > cases in Snakemake there is no need to.
+>
+> However, for completeness, here is one way to re-combine two wildcards using `expand()` and `zip`.
 >
 > ~~~
 > SAMPLES = expand( "{condition}_{samplenum}",
 >                   zip,
 >                   **glob_wildcards( "reads/{condition}_{samplenum}_1.fq" )._asdict() )
 > ~~~
+{: .callout}
 
 ## Directories as inputs and outputs
+
+Maybe this goes in the next chapter??
 
 In the exercise below, we'll work with a program that produces a whole directory of files as output. We already saw this
 for `kallisto quant` and in this case the directory contained three files, so we listed these as three outputs of the rule.
@@ -253,8 +255,38 @@ syntax.
 > Kallisto.
 >
 
-
 CONDITIONS = glob_wildcards("reads/{sample}_1.fq").condition
+
+## Rules that combine multiple inputs
+
+Hold up, we already made a rule that requires multiple inputs. Now we just need to give it an output and run multiqc, right?
+
+MultiQC and FastQC have some finicky issues, so let's just 'cat' all the count files together. If the input to a rule is a list of
+files, the `{input}` placeholder in the shell command will simply expand to that list. So, for example, to concetenate a list of text
+files we can say:
+
+> shell:
+>     "cat {input} > {output}"
+
+So yeach we can add an output to our summary rule. So let's do that. And make an exercise out of it. Yes.
+
+Erm. Write the rule first then come back to this!! And run FastQC earlier instead of just counting the reads. Yeah. But that
+does need directory output and multi inputs so yeah hmmm.
+
+In typical workflows, the final step will combine all the results together into some big report. We'll do this for our FastQC, Kallisto
+and Salmon results. **MultiQC** is a program that can take combine this data into one report. It can be run like so:
+
+~~~
+$ multiqc -o multiqc_report .
+~~~
+
+We can define a new rule like so:
+
+Things to note:
+
+* The output of multiqc is a directory
+* Something about supplying filenames to MultiQC
+* ?? Do I need to add -f flag?
 
 {% include links.md %}
 
