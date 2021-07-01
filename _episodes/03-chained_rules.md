@@ -172,6 +172,13 @@ There are many things to note here:
 Even though the rule is not going to work without the index, we can still run it to check that Snakemake is
 happy with the rule definition.
 
+> ## Running Kallisto on all replicates
+>
+> If you know about the Kallisto software, you may be thinking that running Kallisto on each individual replicate
+> is incorrect, and it should be run on all replicates of the sample at once (really, why, explain??). We'll rectify
+> this later in the course, but for now assume that Kallisto is run once for each pair of FASTQ files.
+{: .callout}
+
 > ## Running the kallisto_quant rule
 >
 > Given that the index is missing, what would you expect Snakemake to do if the new rule was run now?

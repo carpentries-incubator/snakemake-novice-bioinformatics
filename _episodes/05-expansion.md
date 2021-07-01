@@ -4,8 +4,9 @@ teaching: 0
 exercises: 0
 questions:
 - "How do I process multiple files at once?"
+- "How do I define a default set of outputs for my Snakefile?"
 - "How do I make Snakemake decide what to process?"
-- "How do I combine multiple outputs together?"
+- "How do I combine multiple files together?"
 objectives:
 - "Use Snakemake to filter and count the lines in a FASTQ file"
 keypoints:
@@ -59,7 +60,7 @@ REPLICATES = ["1", "2", "3"]
 
 ## Using a Snakemake rule to define a batch of outputs
 
-We'll add another rule to our Snakefile. This special target rule will have an `input` section but no `output` or `shell` sections.
+We'll add another rule to our Snakefile. This special target rule will have an `input` section but no `output` or `shell` sections (yet).
 
 ~~~
 rule all_counts:
@@ -81,10 +82,17 @@ names:
 $ snakemake -j1 -p all_counts
 ~~~
 
+If you don't specify a target rule name or any file names on the command line when running Snakemake, the default is to use the
+first rule in the Snakefile. So if `all_counts` is defined above the other rules you can simply say:
+
+~~~
+$ snakemake -j1 -p
+~~~
+
 > ## Adding a target rule to the Snakefile
 >
 > Check that the `all_counts` rule is working. Now adapt the Snakefile so that it makes all the counts for both of the pairs of
-> reads (`_1.fq` and `_2.gq`, and also for both trimmed and untrimmed versions of the files. So you should end up with 36 count
+> reads (`_1.fq` and `_2.fq`), and also for both trimmed and untrimmed versions of the files. So you should end up with 36 count
 > files in total.
 >
 >
@@ -200,82 +208,54 @@ Before leaving the Python interpreter, we can also test the `expand()` function.
 > ~~~
 {: .callout}
 
-## Directories as inputs and outputs
-
-Maybe this goes in the next chapter??
-
-In the exercise below, we'll work with a program that produces a whole directory of files as output. We already saw this
-for `kallisto quant` and in this case the directory contained three files, so we listed these as three outputs of the rule.
-
-~~~
-rule kallisto_quant:
-    output:
-        h5   = "kallisto.{sample}/abundance.h5",
-        tsv  = "kallisto.{sample}/abundance.tsv",
-        json = "kallisto.{sample}/run_info.json",
-    ...
-~~~
-
-There are two other valid approaches:
-
-1. List just a subset of the output files as outputs of the rule. Snakemake does not care (in fact does not check) if the
-   command produces other files too. So for the `kallisto_quant` rule we could have just said `output: "abundance.h5"` and
-   the rule would work. The other outputs still get created but Snakemake does not consider them when linking rules.
-
-1. Tell snakemake that the output of the rule is a directory. This way, Snakemake will not consider the files inside the
-   directory at all. Do this by adding `directory(...)` around the output path.
-
-~~~
-rules kallisto_quant:
-    output: directory("kallisto.{sample}")
-    ...
-~~~
-
-Note that you only have to do this for outputs. The input to a rule may be a directory without the need for any special
-syntax.
-
-> ## Challenge
->
-> Adapt the Snakefile to run 'kallisto quant' on all 9 samples, that is all three repeats of all three conditions. Rather than
-> listing the inputs explicitly, use `glob_wildcards` to find them as demonstrated above.
->
-> An alternative to kallisto for transcript quantification is `salmon`. The procedure is virtually identical, having an indexing
-> step and a quantification step. Note that in real usage one is advised to prepare and add decoy sequences to the index but for the
-> purposes of this tutorial we'll just keep things simple.
->
-> Based upon the following commands:
->
-> ~~~
-> $ salmon index -t <transcriptome as fastq> -i <index name> -k 31
-> $ salmon quant -i <index name> -l A -1 <fastq1> -2 <fastq2> --validateMappings -o <output path>
-> ~~~
->
-> Add rules to build a transcriptome index and run quantification using salmon. Keep the existing Kallisto rules so that the pipeline
-> now supports both options. Amend the target rule to run all 18 quantifications, that is all 9 samples in Salmon and all 9 in
-> Kallisto.
->
-
-CONDITIONS = glob_wildcards("reads/{sample}_1.fq").condition
 
 ## Rules that combine multiple inputs
 
-Hold up, we already made a rule that requires multiple inputs. Now we just need to give it an output and run multiqc, right?
+Our `all_counts` rule is a rule which takes a list of input files. The length of that list is variable, and we've shown it can even be
+calculated as part of the workflow by using `glob_wildcards()`. If we want to perform some combining operation on the list of files,
+we can add `output` and `shell` sections to this rule.
 
-MultiQC and FastQC have some finicky issues, so let's just 'cat' all the count files together. If the input to a rule is a list of
-files, the `{input}` placeholder in the shell command will simply expand to that list. So, for example, to concetenate a list of text
-files we can say:
+In typical workflows, the final steps will combine all the results together into some big report. For our final workflow we'll be
+doing this with *MultiQC*, but as a simple first example, let's just concatenate all the count files. In the shell this would be:
 
-> shell:
->     "cat {input} > {output}"
+~~~
+$ cat file1.count file2.count file3.count ... > all_counts.txt
+~~~
 
-So yeach we can add an output to our summary rule. So let's do that. And make an exercise out of it. Yes.
+If the input to a rule is a list of files, the `{input}` placeholder in the shell command will simply expand to that whole list,
+separated by spaces. So to concetenate all the input files we just say:
 
-Erm. Write the rule first then come back to this!! And run FastQC earlier instead of just counting the reads. Yeah. But that
-does need directory output and multi inputs so yeah hmmm.
+~~~
+shell:
+  "cat {input} > {output}"
+~~~
 
-In typical workflows, the final step will combine all the results together into some big report. We'll do this for our FastQC, Kallisto
-and Salmon results. **MultiQC** is a program that can take combine this data into one report. It can be run like so:
+You can also combine named inputs and list inputs - any named input can be list of files rather than just a single file. Now,
+using the `{input.name}` placeholder in the shell command will expand to that full list.
 
+
+## Exercises
+
+1. We already have an all_counts rule. Make it so that the rule concatenates all the count files into a single output file
+   named 'all_counts_concatenated.txt'.
+1. Adapt the rule so that trimmed and untrimmed reads are treated separately. That is, the rule will now have two named
+   inputs rather than one single list. The output will still be a single concatenated file, with the untrimmed counts first and
+   then the trimmed ones.
+
+> ## Rules that make multiple outputs
+>
+> If we can have rules that combine lists of files, can we do the opposite and have a rule that produces a list of outputs?
+> The answer is yes, but the situation is not completely symmetrical. Remember that Snakemake works out the full list of
+> input and output files to every job *before* it runs a single job in the workflow. For a combining step, Snakemake will
+> know how many samples/replicates are being combined from the start. For a splitting step, it may or may not be possible
+> to predict the number of output files in advance. For cases where you really do need to handle a dynamic list of outputs,
+> Snakemake has things called "dynamic rules" and "checkpoint rules". In practise these are very rarely needed, so we'll
+> not be covering them here in the course.
+>
+{: .callout}
+
+
+# Move to later...
 ~~~
 $ multiqc -o multiqc_report .
 ~~~
