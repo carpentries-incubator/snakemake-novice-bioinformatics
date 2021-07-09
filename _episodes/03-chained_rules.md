@@ -159,7 +159,7 @@ rule kallisto_quant:
 There are many things to note here:
 
 1. The individual input and output files are given names using the `=` syntax
-1. Each of these lines must end with a `,`
+1. Each of these lines must end with a `,` (optional for the last one)
 1. In the `shell` part, the input placeholders are now like `{input.name}`
 1. We've chosen to always quantify the trimmed version of the reads
 1. Because `kallisto quant` only takes the output directory name, we've used the placeholder
@@ -270,7 +270,7 @@ There's a lot to take in here. Some of the messages are very informative. Some l
 
 1. Snakemake did actually run kallisto, as evidenced by the output from kallisto that we see
 1. There is no obvious error in the kallisto output
-1. Some expected output files are missing: `kallisto.ref1/abundances.h5` and `kallisto.ref1/abundances.tsv`
+1. Snakemake complains some expected output files are missing: `kallisto.ref1/abundances.h5` and `kallisto.ref1/abundances.tsv`
 1. The third output file `kallisto.ref1/run_info.json` was found but has now been removed by Snakemake
 1. Snakemake suggest this might be due to "filesystem latency"
 
@@ -295,8 +295,6 @@ point you are doing this course, but it was true back when the course was writte
 > and potentially running junk calculations on partial or corrupted data. Another advantage is that when a step fails we can resume
 > from where we left off, as we'll see in the next episode.
 {: .callout}
-
-**Note that GG is running MultiQC and FastQC so where do we include those?**
 
 {% include links.md %}
 

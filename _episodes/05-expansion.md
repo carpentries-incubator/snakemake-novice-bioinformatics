@@ -255,18 +255,5 @@ using the `{input.name}` placeholder in the shell command will expand to that fu
 {: .callout}
 
 
-# Move to later...
-~~~
-$ multiqc -o multiqc_report .
-~~~
-
-We can define a new rule like so:
-
-Things to note:
-
-* The output of multiqc is a directory
-* Something about supplying filenames to MultiQC
-* ?? Do I need to add -f flag?
-
 {% include links.md %}
 
