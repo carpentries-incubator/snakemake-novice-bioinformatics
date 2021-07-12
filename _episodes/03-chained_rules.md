@@ -1,5 +1,5 @@
 ---
-title: "Chaining rules"
+title: "Chaining Rules"
 teaching: 0
 exercises: 0
 questions:
@@ -16,7 +16,7 @@ keypoints:
 ## A pipeline of multiple rules
 
 We now have a "trimreads" rule and a "countreads" rule. Following the previous chapter, the contents
-of the `Snakefile` should be:
+of the Snakefile should be:
 
 ~~~
 # New generic read counter
@@ -39,7 +39,7 @@ The problem is there is no good way to use these rules together, that is, to tri
 then count the reads in the trimmed file. The "countreads" rule only takes input reads from the "reads"
 directory, whereas the "trimreads" rule puts all results into the "trimmed" directory.
 
-Chaining rules in Snakemake is a matter of choosing filename patterns that connect the rules. There's a bit of
+Chaining rules in Snakemake is a matter of choosing filename patterns that connect the rules. There's something of
 an art to it - most times there are several options that will work. Consider the following alternative version
 of the "countreads" rule:
 
@@ -164,7 +164,7 @@ There are many things to note here:
 1. We've chosen to always quantify the trimmed version of the reads
 1. Because `kallisto quant` only takes the output directory name, we've used the placeholder
    `{wildcards.sample}` rather than `{output}` which would give the full file names
-1. We don't actually have the `{input.index}` file yet. This will need to be created using the `kallisto_index`
+1. We don't actually have the `{input.index}` file yet. This will need to be created using the `kallisto index`
    command
 1. If the number of input or output files had been variable, we'd need a slightly different approach. We'll
    come on to this in a later episode.
@@ -175,7 +175,7 @@ happy with the rule definition.
 > ## Running Kallisto on all replicates
 >
 > If you know about the Kallisto software, you may be thinking that running Kallisto on each individual replicate
-> is incorrect, and it should be run on all replicates of the sample at once (really, why, explain??). We'll rectify
+> is incorrect, and it should be run on all replicates of the sample at once (TODO - explain). We'll rectify
 > this later in the course, but for now assume that Kallisto is run once for each pair of FASTQ files.
 {: .callout}
 
@@ -221,7 +221,7 @@ happy with the rule definition.
 > > ## Solution
 > >
 > > The rule you write could look something like this, but there are many variations that will work just as well.
-> > Since there is only one transcriptome in the project, you may feel that use of the `{transcriptome}` wildcard
+> > Since there is only one transcriptome in the project, you may feel that use of the `{strain}` wildcard
 > > is overkill, but who's to say we might not want to use another in future?
 > >
 > > ~~~

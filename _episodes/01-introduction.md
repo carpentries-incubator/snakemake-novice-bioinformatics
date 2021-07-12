@@ -17,8 +17,8 @@ keypoints:
 ## Looking at the sample data
 
 You should have the sample data files unpacked already (if not, refer back to the lesson setup). Under `yeast/reads` you'll
-see a number of FASTQ files (extension `.fq`). These represent RNA-seq reads from an experiment on yeast cultured under three
-experimental conditions. For now we'll just look at one single file, `ref1_1.fq`.
+see a number of FASTQ files (extension `.fq`). These represent short paired RNA-seq reads from an experiment on yeast cultured
+under three experimental conditions. For now we'll just look at one single file, `ref1_1.fq`.
 
 In the terminal:
 

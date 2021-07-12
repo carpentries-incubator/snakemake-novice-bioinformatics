@@ -153,12 +153,6 @@ shell:
 
 Hmmm. A little obscure. Well have a think.
 
-## Adding Parameters to rules
-
-So far, we've written rules with `input`, `output` and `shell` parts. Another useful section you can add to
-a rule is `parameters`.
-
-Use the example of setting a filter quality cutoff. Or maybe something 
 
 {% include links.md %}
 

@@ -1,5 +1,5 @@
 ---
-title: "How snakemake chooses what jobs to run"
+title: "How Snakemake chooses what jobs to run"
 teaching: 0
 exercises: 0
 questions:
@@ -12,13 +12,6 @@ objectives:
 keypoints:
 - "Snakemake is awesome"
 ---
-
-(First, can I run Kallisto on the filtered reads because that makes the demo here easier? If not
-I can introduce my re-pair script tho. OK, yes it works. Or at least it doesn't give an error and
-the output looks like output, so I'll take it.)
-
-Maybe I should introduce the DAG concept first? The concept of dependencies makes more sense then.
-Let's do a brief DAG intro.
 
 ## The DAG
 
@@ -42,14 +35,22 @@ quantify the "ref1" sample.
 > * The arrows show data flow, as well as dependency ordering between jobs
 > * Snakemake can run the jobs in any order that doesn't break dependency - for example `kallisto quant` cannot run until
 >   both `kallisto index` and `trimreads` have completed, but it may run before or after `countreads`
-> * This is a work list, not a flowchart, There are no if/else decisions or loops - Snakemake runs every job in the DAG
+> * This is a work list, not a flowchart. There are no if/else decisions or loops - Snakemake runs every job in the DAG
 >   exactly once
 > * The DAG depends not only on the Snakefile, but on the requested target outputs and the files already present
 {: .checklist}
 
-> Some question about the DAG here...
+> ## Question
 >
+> If we asked Snakemake to run 'kallisto quant' on all three of the reference samples (ref1, ref2, ref3), how many jobs would
+> that be in total?
 >
+> > ## Answer
+> >
+> > 10 in total: 3 * kallisto_quant // 6 * trim // 1 * kallisto_index // 0 * countreads
+> >
+> {: .solution}
+{: .challenge}
 
 ## Snakemake is lazy and laziness is good
 
@@ -84,9 +85,9 @@ Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T172441.519500
 
 In normal operation, Snakemake only runs a job if:
 
-1. An target file you explicitly requested to make is missing
+1. A target file you explicitly requested to make is missing
 1. An output file is missing and it is needed in the process of making a target file
-1. Snakemake can see an input file which is newer than the output file
+1. Snakemake can see an input file which is newer than an output file
 
 Let's demonstrate each of these in turn, by altering some files and re-running Snakemake without the
 `-F` option.
@@ -116,18 +117,18 @@ $ snakemake -j1 -p kallisto.ref1/abundance.h5
 The `touch` command is a standard Linux command which sets the timestamp of the file, so now the transcriptome looks
 to Snakemake as if it was just modified.
 
-Snakemake sees that one of the input files used in the process of producing kallisto.ref1/abundance.h5 is newer than
+Snakemake sees that one of the input files used in the process of producing `kallisto.ref1/abundance.h5` is newer than
 the existing output file, so it needs to run the `kallisto index` and `kallisto quant` steps again. Of course, the
 `kallisto quant` step needs the trimmed reads which we deleted earlier, so now the trimming step is re-run also.
 
 This behaviour is really useful when you want to:
 
-1. Change some inputs to an existing analysis without re-processing everything
+1. Change or add some inputs to an existing analysis without re-processing everything
 1. Continue running a workflow that failed part-way
 
 In this case, the default Snakemake behaviour will just do the right thing. There are a few gotchas:
 
-### Changing the rules
+### Gotcha 1: Changing the rules
 
 If the rules in the Snakefile change, rather than the input, Snakemake won't see that the results are out of date.
 For example, if we changed the quality cutoffs within the trimreads rule then this would not cause the step to be re-run,
@@ -140,28 +141,26 @@ need to be reevaluated.
 $ snakemake -j1 -R trimreads -p kallisto.ref1/abundance.h5
 ```
 
-### Removing input files
+### Gotcha 2: Removing input files
 
 Snakemake can detect if you have added new input files, but not if you have removed input files. We'll look into this
 more when we write rules that take lists of files as input.
 
-### Incomplete jobs
-
-TODO - not sure we need this, or it should be a a callout.
+### Gotcha 3: Incomplete jobs
 
 Snakemake has a feature that it keeps a log of currently running jobs (this and other info is logged into the `.snakemake`
 directory within your working directory). If Snakemake crashes or exits uncleanly then the next time
-it runs it will refuse to use output files from incomplete jobs as the files may be partial output. We'll not look into
+it runs it will refuse to use output files from incomplete jobs as the files may be partial output.
+
+We'll probably not see
 this during the course, but just be aware that this is what the Snakemake docs mean when they talk about incomplete jobs.
 You tend to come across these more when working on a compute cluster, as opposed to a single machine.
 
+> ## Challenge
 >
-> 
-> TODO - now convert stuff from the existing slides. And see what we can do regarding the exercises. Or do we need more steps
-> to make these useful?
+> TODO - need some exercixes here. Maybe look at the `--touch` and `--dryrun` options to Snakemake.
 >
+{: .challenge}
 
 [fig-dag]: ../fig/dag_1.svg
-
-{. :callout}
 

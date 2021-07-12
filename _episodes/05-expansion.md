@@ -8,15 +8,11 @@ questions:
 - "How do I make Snakemake decide what to process?"
 - "How do I combine multiple files together?"
 objectives:
-- "Use Snakemake to filter and count the lines in a FASTQ file"
+- "Use Snakemake to process all our samples at once"
+- "Make a summary of all read counts"
 keypoints:
-- "Add key points"
+- "Points mean prizes"
 ---
-
-We're introducing 'expand' and 'glob_wildcards' functions.
-We'll also need to introduce the idea of lists and variables. Maybe do variables earlier?
-
---
 
 ## Defining a list of samples to process
 
@@ -51,6 +47,7 @@ Global variables can be added before the rules in the Snakefile.
 CONDITIONS = ["ref", "etoh60", "temp33"]
 REPLICATES = ["1", "2", "3"]
 ~~~
+{: .language}
 
 * The lists of quoted strings are enclosed in square brackets and comma-separated. If you know any Python you'll recognise
   this as Python list syntax.
@@ -66,6 +63,7 @@ We'll add another rule to our Snakefile. This special target rule will have an `
 rule all_counts:
     input: expand("trimmed.{cond}_{rep}_1.fq.count", cond=CONDITIONS, rep=REPLICATES)
 ~~~
+{: .language}
 
 The `expand(...)` function in this rule generates a list of filenames, by taking the first thing in the parentheses as
 a template and replacing `{cond}` with all the `CONDITIONS` and `{rep}` with all the `REPLICATES`. Since there are 3 of
@@ -81,6 +79,7 @@ names:
 ~~~
 $ snakemake -j1 -p all_counts
 ~~~
+{: .language-bash}
 
 If you don't specify a target rule name or any file names on the command line when running Snakemake, the default is to use the
 first rule in the Snakefile. So if `all_counts` is defined above the other rules you can simply say:
@@ -88,6 +87,7 @@ first rule in the Snakefile. So if `all_counts` is defined above the other rules
 ~~~
 $ snakemake -j1 -p
 ~~~
+{: .language-bash}
 
 > ## Adding a target rule to the Snakefile
 >
@@ -95,8 +95,6 @@ $ snakemake -j1 -p
 > reads (`_1.fq` and `_2.fq`), and also for both trimmed and untrimmed versions of the files. So you should end up with 36 count
 > files in total.
 >
->
-> Tricky? Maybe a hint? Hmmm.
 > > ## Solution
 > >
 > > ~~~
@@ -143,9 +141,10 @@ needed to rename, and we didn't need to list them out explicitly. Snakemake allo
 CONDITIONS = glob_wildcards("reads/{condition}_1_1.fq").condition
 print("Conditions are: ", CONDITIONS)
 ~~~
+{: .language}
 
-Here, the list of conditions is being set based on the files seen in the reads directory. The pattern used in glob_wildcards
-looks much like the input and output parts of rules, with a wildcard in `{curly brackets}`, but here the pattern is being used
+Here, the list of conditions is being set based on the files seen in the reads directory. The pattern used in `glob_wildcards()`
+looks much like the input and output parts of rules, with a wildcard in {curly brackets}, but here the pattern is being used
 to search for matching files. We're only looking for read 1 of replicate 1 so this will return just three matches, and there is
 just one wildcard in the glob pattern so we can assign this directly to a list. The `print()` statement will print out the value
 of `CONDITIONS` when the Snakefile is run, and reassures us that the list really is the same as before.
@@ -162,10 +161,9 @@ Job counts:
 	55
 ...
 ~~~
+{: .language-bash}
 
-FIXME - I think this next bit can be converted into an exercise. Keep with the Python interpreter but ask some questions.
-
-Using glob_wildcards() gets a little more tricky when you need a more complex match. To refine the match we can quickly test
+Using `glob_wildcards()` gets a little more tricky when you need a more complex match. To refine the match we can quickly test
 out results by activating the Python interpreter.
 This saves editing the Snakefile and running Snakemake just to see what `glob_wildcards()` will match. The Python interpreter is
 like a special shell for Python commands, and because Snakemake functions are actually Python functions we can test them here.
@@ -177,21 +175,38 @@ $ python3
 Wildcards(condition=['etoh60', 'temp33', 'ref'])
 ~~~
 
-This is the result we got before. So far, so good. Now to try listing the samples.
+This is the result we got before. So far, so good.
 
-~~~
->>> glob_wildcards("reads/{sample}_1.fq")
-Wildcards(sample=['temp33_3', 'temp33_2', 'etoh60_1', 'etoh60_3', 'ref_2', 'temp33_1', 'etoh60_2', 'ref_1', 'ref_3'])
-~~~
-
-Yeah this can be an exercise...
-
-Before leaving the Python interpreter, we can also test the `expand()` function.
-
-~~~
->>> SAMPLES = glob_wildcards("reads/{sample}_1.fq").sample
->>> expand("{sample}_{end}.fq.count", sample=SAMPLES, end=["1","2"])
-~~~
+> ## Exercise
+>
+> Staying in the Python interpreter, use `glob_wildcards()` to list the names of all nine samples, that is the three replicates
+> of each condtion.
+>
+> > ## Answer
+> >
+> > ~~~
+> > >>> glob_wildcards("reads/{sample}_1.fq")
+> > Wildcards(sample=['temp33_3', 'temp33_2', 'etoh60_1', 'etoh60_3', 'ref_2', 'temp33_1', 'etoh60_2', 'ref_1', 'ref_3'])
+> > ~~~
+> >
+> {: .solution}
+>
+> Still in the Python interpreter, use the `expand()` function in combination with the `glob_wildcards()` to make a list
+> of all the count files, and then all the `kallisto_quant` output files that would be generated for all the nine samples.
+>
+> Remember you can save the result of `glob_wildcards()` to a variable - this works the same way in the interpreter as
+> it does in the Snakefile.
+>
+> > ## Answer
+> >
+> > ~~~
+> > >>> SAMPLES = glob_wildcards("reads/{sample}_1.fq").sample
+> > >>> expand("{indir}.{sample}_{end}.fq.count", indir=['reads', 'trimmed'], sample=SAMPLES, end=["1","2"])
+> > >>> expand("kallisto.{sample}/{outfile}", sample=SAMPLES, outfile=['abundance.h5', 'abundance.tsv', run_info.json'])
+> > ~~~
+> >
+> {: .solution}
+{: .challenge}
 
 > ## Glob with multiple wildcards
 >
@@ -199,12 +214,21 @@ Before leaving the Python interpreter, we can also test the `expand()` function.
 > Unless you're a Python programmer you probably don't want to start writing code like this, and for most
 > cases in Snakemake there is no need to.
 >
-> However, for completeness, here is one way to re-combine two wildcards using `expand()` and `zip`.
+> However, for completeness, here is one way to re-combine two wildcards using `expand()` and `zip` (demonstrated in the
+> Python interpreter as above).
 >
 > ~~~
-> SAMPLES = expand( "{condition}_{samplenum}",
->                   zip,
->                   **glob_wildcards( "reads/{condition}_{samplenum}_1.fq" )._asdict() )
+> $ python3
+> >>> from snakemake.io import glob_wildcards, expand
+> >>> DOUBLE_MATCH = glob_wildcards( "reads/{condition}_{samplenum}_1.fq" )
+> >>> DOUBLE_MATCH
+> Wildcards(condition=['temp33', 'temp33', 'etoh60', 'etoh60', 'ref', 'temp33', 'etoh60', 'ref', 'ref'],
+>           samplenum=['3', '2', '1', '3', '2', '1', '2', '1', '3'])
+> >>> SAMPLES = expand( "{condition}_{samplenum}", zip, **DOUBLE_MATCH._asdict() )
+> >>> SAMPLES
+> ['temp33_3', 'temp33_2', 'etoh60_1', 'etoh60_3', 'ref_2', 'temp33_1', 'etoh60_2', 'ref_1', 'ref_3']
+> >>> sorted(SAMPLES)
+> ['etoh60_1', 'etoh60_2', 'etoh60_3', 'ref_1', 'ref_2', 'ref_3', 'temp33_1', 'temp33_2', 'temp33_3']
 > ~~~
 {: .callout}
 
@@ -215,8 +239,8 @@ Our `all_counts` rule is a rule which takes a list of input files. The length of
 calculated as part of the workflow by using `glob_wildcards()`. If we want to perform some combining operation on the list of files,
 we can add `output` and `shell` sections to this rule.
 
-In typical workflows, the final steps will combine all the results together into some big report. For our final workflow we'll be
-doing this with *MultiQC*, but as a simple first example, let's just concatenate all the count files. In the shell this would be:
+In typical bioinformatics workflows, the final steps will combine all the results together into some big report. For our final workflow
+we'll be doing this with *MultiQC*, but as a simple first example, let's just concatenate all the count files. In the shell this would be:
 
 ~~~
 $ cat file1.count file2.count file3.count ... > all_counts.txt
@@ -230,17 +254,24 @@ shell:
   "cat {input} > {output}"
 ~~~
 
-You can also combine named inputs and list inputs - any named input can be list of files rather than just a single file. Now,
-using the `{input.name}` placeholder in the shell command will expand to that full list.
+Within a rule definition you can combine named inputs and list inputs - any named input can be list of files rather than
+just a single file. Then, using the `{input.name}` placeholder in the shell command will expand to that full list.
 
 
-## Exercises
-
-1. We already have an all_counts rule. Make it so that the rule concatenates all the count files into a single output file
-   named 'all_counts_concatenated.txt'.
-1. Adapt the rule so that trimmed and untrimmed reads are treated separately. That is, the rule will now have two named
-   inputs rather than one single list. The output will still be a single concatenated file, with the untrimmed counts first and
-   then the trimmed ones.
+> ## Exercises
+>
+> 1. We already have an all_counts rule. Make it so that the rule concatenates all the count files into a single output file
+>    named `all_counts_concatenated.txt`.
+> 1. Adapt the rule so that trimmed and untrimmed reads are treated separately. That is, the rule will now have two named
+>    inputs rather than one single list. The output will still be a single concatenated file, with the untrimmed counts first and
+>    then the trimmed ones.
+>
+> > ## Solution
+> >
+> > TODO
+> >
+> {:.solution}
+{: .challenge}
 
 > ## Rules that make multiple outputs
 >
