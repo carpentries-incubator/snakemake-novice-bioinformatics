@@ -141,7 +141,7 @@ to be printed with `echo`. Don't worry if this is unfamiliar - you just need to 
 > > {: .language}
 > {: .solution}
 >
-> Add a second rule to count the sequences in *etoh_60_1_1.fq*. Add this to the same Snakefile you already made, under the "countreads" rule,
+> Add a second rule to count the sequences in *etoh60_1_1.fq*. Add this to the same Snakefile you already made, under the "countreads" rule,
 > and run your rules in the terminal. When running the `snakemake` command you'll need to tell Snakemake to make both the output files.
 >
 > > ## Solution 2

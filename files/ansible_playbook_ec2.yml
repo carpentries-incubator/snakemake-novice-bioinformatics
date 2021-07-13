@@ -10,6 +10,21 @@
   become_user: training
   tasks:
 
+    - name: Set alternative password for VNC
+      vars:
+        passwd: "ed-dash-1307"
+      become_user: training
+      shell: 
+        executable: /bin/bash
+        chdir: /home/training/.vnc
+        cmd: |
+             set -euo pipefail
+             mv passwd passwd.old
+             echo '{{ passwd }}' | /opt/tigervnc/usr/bin/vncpasswd -f > passwd
+             chmod 0600 passwd
+      args:
+        creates: /home/training/.vnc/passwd.old
+
     - name: Fetch Miniconda Installer
       get_url:
         url: https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh
