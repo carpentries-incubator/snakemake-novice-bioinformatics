@@ -55,6 +55,29 @@ $ head -v *.count
 ~~~
 {: .language-bash}
 
+> ## The sample dataset
+>
+> The sample dataset represents a transcriptomics experiment in brewer's yeast (Saccharomyces cerevisiae) under three
+> conditions:
+>
+> * **etoh60** - Treated with 60% ethanol
+> * **temp33** - Treated at 33 degrees celsius
+> * **ref**    - Untreated
+>
+> For each condition there are 3 repeats, making 9 total samples. For each, total RNA (or rather, cDNA) was sequenced
+> on an Illumina HiSeq instrument.
+> For each repeat there is a pair of files as the sequencing is double-ended, so for example `reads/etoh60_3_2.fq` contains
+> the second of the read pairs from the third ethanol-treated sample.
+>
+> Don't worry about the biological meaning of this set-up. In the course, we're only going to get as far as assessing
+> the quality of the data and a very preliminary analysis. The data has been subsampled to a fraction of the original size
+> to make filtering and alignment operations fast, so any deeper analysis is not going to yield meaningful results.
+>
+> As well as the reads, we have a transcriptome for the yeast. This comes in a single FASTA file (as opposed to the cDNA
+> reads which are in FASTQ format) which has been GZip compressed.
+>
+{: .callout}
+
 ## Making a Snakefile
 
 Edit a new file named `Snakefile`.
@@ -151,17 +174,17 @@ to be printed with `echo`. Don't worry if this is unfamiliar - you just need to 
 > >
 > > ~~~
 > > rule countreads2:
-> >   output: "etoh_60_1_1.fq.count"
-> >   input:  "reads/etoh_60_1_1.fq"
+> >   output: "etoh60_1_1.fq.count"
+> >   input:  "reads/etoh60_1_1.fq"
 > >   shell:
-> >     "echo $(( $(wc -l <reads/etoh_60_1_1.fq) / 4 )) > etoh_60_1_1.fq.count"
+> >     "echo $(( $(wc -l <reads/etoh60_1_1.fq) / 4 )) > etoh60_1_1.fq.count"
 > > ~~~
 > > {: .language}
 > >
 > > Then in the shell...
 > >
 > > ~~~
-> > $ snakemake -j1 -F -p ref1_1.fq.count etoh_60_1_1.fq.count
+> > $ snakemake -j1 -F -p ref1_1.fq.count etoh60_1_1.fq.count
 > > ~~~
 > > {: .language-bash}
 > >

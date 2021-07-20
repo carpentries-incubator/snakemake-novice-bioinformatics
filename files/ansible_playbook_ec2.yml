@@ -14,7 +14,7 @@
       vars:
         passwd: "ed-dash-1307"
       become_user: training
-      shell: 
+      shell:
         executable: /bin/bash
         chdir: /home/training/.vnc
         cmd: |
