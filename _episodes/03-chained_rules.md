@@ -152,7 +152,7 @@ rule kallisto_quant:
         fq1   = "trimmed/{sample}_1.fq",
         fq2   = "trimmed/{sample}_2.fq",
     shell:
-        "kallisto quant -i {input.index} -o kallisto.{wildcards.sample} {input.fq2} {input.fq1}"
+        "kallisto quant -i {input.index} -o kallisto.{wildcards.sample} {input.fq1} {input.fq2}"
 ~~~
 {: .language}
 

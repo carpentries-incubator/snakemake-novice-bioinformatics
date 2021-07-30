@@ -138,8 +138,11 @@ The `-R` flag allows you to explicitly tell Snakemake that a rule has changed an
 need to be reevaluated.
 
 ```
-$ snakemake -j1 -R trimreads -p kallisto.ref1/abundance.h5
+$ snakemake -j1 -Rtrimreads -p kallisto.ref1/abundance.h5
 ```
+
+(Note - for some reaosn this only works if there is no space between `-R` and `trimreads`. This may be a bug in the
+version of Snakemake we're using)
 
 ### Gotcha 2: Removing input files
 

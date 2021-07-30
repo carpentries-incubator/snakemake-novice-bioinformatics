@@ -113,7 +113,9 @@ $ snakemake -j1 -F -p ref1_1.fq.count
 
 > ## Running Snakemake
 >
-> What does the `-p` option to `snakemake` do? (You can run `snakemake --help` to see the list of all available options.)
+> Run `snakemake --help | less` to see the help for all available options.
+> What does the `-p` option in the `snakemake` command above do?
+> (Hint - you can search the text by pressing `/`)
 >
 > 1. Protects existing output files
 > 1. Prints the shell commands that are being run to the terminal
