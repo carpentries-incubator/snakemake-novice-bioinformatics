@@ -1,7 +1,7 @@
 ---
-title: "Handling awkward programs - directory output and wrappers"
-teaching: 0
-exercises: 0
+title: "Handling awkward programs"
+teaching: 20
+exercises: 10
 questions:
 - "How do I handle real bioinformatics tools?"
 - "How do I define a rule where the output is a directory?"
@@ -13,13 +13,22 @@ keypoints:
 - "Add key points"
 ---
 
-We've now seen how to link rules in a pipeline and how to merge results at the final step. For simplicity, we made
-a rule that counts sequences, and a rule that combines the results using a simple `cat` command. We'll now replace
-these with the FastQC and MultiQC tools respectively. We'll also add a Salmon step.
+We've now seen how to link rules in a pipeline and how to merge results at the final step. This is the basic
+pattern for many analysis workflows. For simplicity, we used mostly basic shell commands, but we'll now replace
+these with bioinformatics tools:
 
+* **Salmon** is a alternative to Kallisto, using a different alignment algorithm
 * **FastQC** calculates a variety of metrics on a FASTQ file and produces an HTML report and a ZIP file.
 * **MultiQC** combines the reports from various tools, including FastQC, Kallisto, and Salmon, into a single HTML report.
-* **Salmon** is a alternative to Kallisto, using a different alignment algorithm
+
+Real programs like this can have quirks like:
+
+* Not allowing you to specify input or output file locations
+* Outputting a whole directory of files
+* Creating temporary files
+* Not supporting robust error handling
+
+With a little care we can handle all these problems.
 
 ## Adding a FastQC rule
 

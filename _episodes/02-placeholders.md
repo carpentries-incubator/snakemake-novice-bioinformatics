@@ -1,7 +1,7 @@
 ---
 title: "Placeholders and Wildcards"
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 10
 questions:
 - "How do I make a generic rule?"
 objectives:

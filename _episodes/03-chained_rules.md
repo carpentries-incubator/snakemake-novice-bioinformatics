@@ -1,7 +1,7 @@
 ---
 title: "Chaining Rules"
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 10
 questions:
 - "How do I combine rules into a workflow?"
 - "How do I make a rule with multiple inputs and outputs?"
@@ -91,7 +91,7 @@ in all out rules - to remind us that these are what Snakemake looks at first!
 
 > ## Thinking about your own workflows
 >
-> Think about any data processing task you have done yourself, and write down three steps from that
+> Think about any data processing task you have done yourself, and write down three or four steps from that
 > workflow.
 >
 > What were the inputs to, and outputs from, each step?

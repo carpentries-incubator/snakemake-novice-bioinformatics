@@ -1,3 +1,7 @@
+# Much as I like this topic, I think it has to die.
+# Add quoting info as it comes up
+
+
 ---
 title: "Robust quoting in Snakefiles"
 teaching: 0

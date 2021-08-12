@@ -1,5 +1,5 @@
 ---
-title: "How Snakemake chooses what jobs to run"
+title: "How Snakemake plans what jobs to run"
 teaching: 0
 exercises: 0
 questions:
@@ -35,7 +35,7 @@ quantify the "ref1" sample.
 > * The arrows show data flow, as well as dependency ordering between jobs
 > * Snakemake can run the jobs in any order that doesn't break dependency - for example `kallisto quant` cannot run until
 >   both `kallisto index` and `trimreads` have completed, but it may run before or after `countreads`
-> * This is a work list, not a flowchart. There are no if/else decisions or loops - Snakemake runs every job in the DAG
+> * This is a work list, *not a flowchart*. There are no if/else decisions or loops - Snakemake runs every job in the DAG
 >   exactly once
 > * The DAG depends not only on the Snakefile, but on the requested target outputs and the files already present
 {: .checklist}
@@ -126,42 +126,35 @@ This behaviour is really useful when you want to:
 1. Change or add some inputs to an existing analysis without re-processing everything
 1. Continue running a workflow that failed part-way
 
-In this case, the default Snakemake behaviour will just do the right thing. There are a few gotchas:
+In these case, the default Snakemake behaviour will just do the right thing. In other situations you may need to
+explicitly tell Snakemake to re-run some steps. For example...
 
-### Gotcha 1: Changing the rules
+## Changing the rules
 
-If the rules in the Snakefile change, rather than the input, Snakemake won't see that the results are out of date.
-For example, if we changed the quality cutoffs within the trimreads rule then this would not cause the step to be re-run,
-because Snakemake just sees that the output file is newer than the input file.
+If rules in the Snakefile change, rather than input files, Snakemake won't see that the results are out-of-date.
+For example, if we changed the quality cutoffs within the trimreads rule then Snakemake would not automatically
+re-run thos rules, because it only checks that the output file is newer than the input file.
 
 The `-R` flag allows you to explicitly tell Snakemake that a rule has changed and that all outputs from that rule
-need to be reevaluated.
+need to be re-evaluated.
 
 ```
 $ snakemake -j1 -Rtrimreads -p kallisto.ref1/abundance.h5
 ```
 
-(Note - for some reaosn this only works if there is no space between `-R` and `trimreads`. This may be a bug in the
+(Note - for some reason this only works if there is no space between `-R` and `trimreads`. This may be a bug in the
 version of Snakemake we're using)
-
-### Gotcha 2: Removing input files
-
-Snakemake can detect if you have added new input files, but not if you have removed input files. We'll look into this
-more when we write rules that take lists of files as input.
-
-### Gotcha 3: Incomplete jobs
-
-Snakemake has a feature that it keeps a log of currently running jobs (this and other info is logged into the `.snakemake`
-directory within your working directory). If Snakemake crashes or exits uncleanly then the next time
-it runs it will refuse to use output files from incomplete jobs as the files may be partial output.
-
-We'll probably not see
-this during the course, but just be aware that this is what the Snakemake docs mean when they talk about incomplete jobs.
-You tend to come across these more when working on a compute cluster, as opposed to a single machine.
 
 > ## Challenge
 >
-> TODO - need some exercixes here. Maybe look at the `--touch` and `--dryrun` options to Snakemake.
+> TODO - need some exercises here. Maybe look at the `--touch` and `--dryrun` options to Snakemake.
+>
+> We can look at visualising the dag - showing how it changes for certain requests.
+> We can ask how you would ensure that a certain file was re-made:
+>   1) By using the -R flag
+>   2) By using the -f flag
+>   3) By using touch
+> We deffo want to encourage use of the '-n' flag for dry running, and compare it with the DAG visualisation
 >
 {: .challenge}
 
