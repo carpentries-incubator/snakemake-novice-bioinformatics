@@ -8,8 +8,10 @@ questions:
 objectives:
 - "Understand some components of Python useful for working in Snakemake"
 - "Use an input function to supply complex inputs to a rule"
+- "Use input functions to set parameters"
 keypoints:
-- "Python functions blah"
+- "Python functions can be useful in some Snakemake rules"
+- ""
 ---
 
 ## Python functions in general
@@ -285,51 +287,26 @@ the read number. Yeah.
 >     "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
 > ~~~
 >
-> In your function, you'll need to make an if/else decision. The syntax to do this is:
+> Within your function, you'll need to make an if/else decision. The syntax to do this is:
 >
 > ~~~
 > min_length = "100" if (read_num == "1") else "80"
 > ~~~
+>
+> > ## Solution
+> >
+> > TODO. First thing is you need to add another wildcard.
+>
 {: .challenge}
 
-I think we get to this in regard to Salmon and Kallisto. Let me see...
-
-OK, so if ref_1, ref_2 and ref_3 are really three replicates then we should be running them one at a time.
-But if they are all reads from the same sample, we want to add them all at once.
-
-So for this we'd run kallisto three times, and each time would have 9 inputs.
-
-Like:
-
-rule kallisto_quant:
-    output:
-        outdir = directory("kallisto.{sample}"),
-    input:
-        index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
-        fq1   = [ "trimmed/{sample}_1_1.fq", "trimmed/{sample}_2_1.fq", "trimmed/{sample}_3_1.fq" ],
-        fq2   = [ "trimmed/{sample}_1_2.fq", "trimmed/{sample}_2_2.fq", "trimmed/{sample}_3_2.fq" ],
-    shell:
-        "kallisto quant -i {input.index} -o {output.outdir} {input.fq1} {input.fq2}"
-
-Hmmm. So because I always have 3 repeats I can get away without an input funtion.
-I could use glob_wildcards() though and it would be legit.
-
-Then how do I get the fq1 and fq2 into the shell command? It's tricky - I actually need to turn the shell
-part into a run part:
-
-run:
-    foo = [ i for p in zip(input.list1, input.list2) for i in p ]
-    shell("echo {foo}")
-
-Oh gods we've hit advanced Python syntax. Is there a small-brain way to do this??? I think we just have to make
-the fqs a single list in the first place, then use expand() in the input function. Yep. Do this. It computes.
-
-def all_reads_for_sample(wildcards):
-    sample = wildcards.sample
-    reps_for_sample = glob_wildcards("reads/sample_{rep}_1.fq").rep
-
-    expand( "trimmed/{sample}_{rep}_{end}.fq", sample = sample,
-                                               rep = rep,
-                                               end = [1, 2] )
-
-
+> ## Testing input functions
+>
+> If you want to test an input function directly, you need to make your own `wildcards` object to pass in to it. The syntax is:
+>
+> ~~~
+> test_wildcards = snakemake.io.Wildcards(fromdict=dict(sample = 'etoh60'))
+> print(yourfunc(test_wildcards))
+> ~~~
+>
+{: .callout}
+{% include links.md %}

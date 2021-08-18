@@ -268,7 +268,33 @@ just a single file. Then, using the `{input.name}` placeholder in the shell comm
 >
 > > ## Solution
 > >
-> > TODO
+> > ~~~
+> > rule all_counts:
+> >   input:
+> >     expand( "{indir}.{cond}_{rep}_{end}.fq.count", indir = ["reads", "trimmed"],
+> >                                                    cond  = CONDITIONS,
+> >                                                    rep   = REPLICATES,
+> >                                                    end   = ["1", "2"] )
+> >   output:
+> >     "all_counts_concatenated.txt"
+> >   shell:
+> >     "cat {input} > {output}"
+> > ~~~
+> >
+> > ~~~
+> > rule all_counts:
+> >   input:
+> >     untrimmed = expand( "untrimmed.{cond}_{rep}_{end}.fq.count", cond  = CONDITIONS,
+> >                                                                  rep   = REPLICATES,
+> >                                                                  end   = ["1", "2"] ),
+> >     trimmed = expand( "trimmed.{cond}_{rep}_{end}.fq.count", cond  = CONDITIONS,
+> >                                                              rep   = REPLICATES,
+> >                                                              end   = ["1", "2"] ),
+> >   output:
+> >     "all_counts_concatenated.txt"
+> >   shell:
+> >     "cat {input.untrimmed} {input.trimmed} > {output}"
+> > ~~~
 > >
 > {:.solution}
 {: .challenge}

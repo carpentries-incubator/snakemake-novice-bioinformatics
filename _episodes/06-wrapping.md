@@ -1,13 +1,13 @@
 ---
 title: "Handling awkward programs"
 teaching: 20
-exercises: 10
+exercises: 30
 questions:
 - "How do I handle real bioinformatics tools?"
 - "How do I define a rule where the output is a directory?"
 objectives:
 - "Understand the different choices available when defining a rule"
-- "Learn about the directory() function"
+- "Learn about the `directory()` function"
 - "Add multiple commands to the shell section of a rule"
 keypoints:
 - "Add key points"
@@ -20,6 +20,10 @@ these with bioinformatics tools:
 * **Salmon** is a alternative to Kallisto, using a different alignment algorithm
 * **FastQC** calculates a variety of metrics on a FASTQ file and produces an HTML report and a ZIP file.
 * **MultiQC** combines the reports from various tools, including FastQC, Kallisto, and Salmon, into a single HTML report.
+
+## The full workflow we are constructing
+
+![Our full QC workflow][fig-workflow]
 
 Real programs like this can have quirks like:
 
@@ -95,6 +99,8 @@ We'll try all four, as all are valid options. It's often the case in Snakemake t
 >
 > > ## Solution
 > >
+> > Since the `shell` command is not to be changed, the output names will be dictated by fastqc.
+> >
 > > ~~~
 > > rule fastqc:
 > >   output:
@@ -121,9 +127,24 @@ directory, so we can use that.
 > trimmed.fastqc.ref_1_1/ref_1_1_fastqc.html
 > trimmed.fastqc.ref_1_1/ref_1_1_fastqc.zip
 > ~~~
-
-> > Solution involves using the {asample} wildcard twice and then constructing the output directory name
-> > `-o {wildcards.indir}.fastqc.{wildcards.asample}`
+>
+> > ## Solution
+> >
+> > This involves using the {asample} wildcard twice and then constructing the output directory name
+> > to give to fastqc in the `-o` option.
+> >
+> > ~~~
+> > rule fastqc:
+> >   output:
+> >     html = "{indir}.fastqc.{asample}/{asample}_fastqc.html",
+> >     zip  = "{indir}.fastqc.{asample}/{asample}_fastqc.zip",
+> >   input: "{indir}/{asample}.fq"
+> >   shell:
+> >     "fastqc -o {wildcards.indir}.fastqc.{wildcards.asample} {input}"
+> > ~~~
+> >
+> {: .solution}
+{: .challenge}
 
 Our next option is to not worry about the individual files at all. Snakemake allows any output of a rule to be a
 directory; you just have to specify this with the `directory()` function.
@@ -148,7 +169,8 @@ Specified output directory 'reads.fastqc2.ref_1_1' does not exist
 ...
 ~~~
 
-This can be rectified by making the directory explicitly in the `shell` code.
+FastQC requires that the output directory must exist. (Other programs might insist that the output directory
+does *not* exist.) The error can be rectified by making the directory explicitly in the `shell` code.
 
 ~~~
 rule fastqc:
@@ -174,7 +196,7 @@ rule fastqc:
 The "triple quoting" syntax comes from Python. Not only does it allow multiple lines to be added within the quotes but it
 also allows you to embed both single and double quotes into the shell commands. The `r` character before the quotes disables
 interpretation of "backslash escapes" like "\n" and "\t". This is good, as you want the Bash shell, not Snakemake itself, to
-interpret these special characters. **So when adding more complex shell sections, always format them like this.**
+interpret these special characters. So when adding more complex shell sections, *always format them like this.*
 
 This rule is also fine, but because the individual files are not explicitly named as outputs we may have problems chaining
 later rules. Also consider that some applications won't give you any control over the output filenames. The most
@@ -196,10 +218,10 @@ powerful solution is to use shell commands to move and/or rename the files to ex
 >         """
 > ~~~
 >
-> > # Solution
+> > ## Solution
 > >
 > > This is one solution, using `-o .` to tell FastQC to output the files in the current directory.
-> > They are then renamed to match the declared outputs. Remember that after Snakemake runs all the shell commands
+> > They are then renamed to match the declared outputs. Remember that, after Snakemake runs all the shell commands,
 > > it checks to see that all output file really were created.
 > >
 > > ~~~
@@ -214,12 +236,14 @@ powerful solution is to use shell commands to move and/or rename the files to ex
 > >            mv {wildcards.asample}_fastqc.zip  {output.zip}
 > >         """
 > > ~~~
+> {: .solution}
+{: .challenge}
 
 ## Adding a Salmon rule
 
 We saw above that the output of a rule can be a directory and saw the `directory()` function which declares this.
 If you remember the rule for `kallisto quant` you may be thinking that this could have been written with
-the whole directory as the output.
+the whole directory as the output, and you would be right.
 
 ~~~
 # Existing rule for kallisto_quant
@@ -236,8 +260,9 @@ rule kallisto_quant:
     ...
 ~~~
 
-> ### Make this a callout
-> Note that you only use the  for outputs. The input to a rule may be a directory without the need for any special
+> ## Directories as input
+>
+> Note that you only use the `directory()` syntax for outputs. The input to a rule may be a directory without the need for any special
 > syntax.
 {: .callout}
 
@@ -256,8 +281,10 @@ rule kallisto_quant:
 >
 > Add a pair of rules to index and align the reads with Salmon. Note that:
 >
-> 1. Unlike Kallisto, the index produced by Salmon is a directory, not a single file
-> 1. You only need the `directory()` on the outputs. The input to a rule may be a directory without the need for any special syntax.
+> 1. Unlike Kallisto, the index produced by Salmon is a directory of files, not a single file
+> 1. As per the note above, you only need the `directory()` marker on the outputs of rules
+>
+{: .challenge}
 
 
 ## Combining the outputs with MultiQC
@@ -280,9 +307,21 @@ $ multiqc . -o multiqc_out
 > 1. Ensure that both "kallisto quant" and "salmon quant" are run on all 9 samples, that is all three repeats of all three conditions.
 > 1. Since multiqc scans for input files, the input names don't have to be explicitly mentioned in the `shell` part.
 >
-> > # Solution
+> > ## Solution
 > >
 > > TODO
+> >
+> {: .solution}
+>
+> ### Bonus exercise
+>
+> Because `multiqc` scans for suitable input rather than taking an explicit list of files, there is a risk that it picks up
+> unwanted reports if you leave old files in the directory. To make the rule fully explicit, one idea might be to make a
+> temporary directory and symlink all the files into it, and then tell multiqc to look in there. Amend the rule so it does this.
+>
+> Tip - when making links, use `ln -sr <src> <target>` to avoid link relativity issues.
+>
+{: .challenge}
 
 > ## Exercise - fixing Kallisto
 >
@@ -297,9 +336,13 @@ $ multiqc . -o multiqc_out
 > Fix the Snakefile so that Kallisto standard output is redirected to a file and can be collected by MultiQC. (Hint - MultiQC does not
 > mind what you call the file so choose your own sensible name).
 >
-> > # Solution
+> > ## Solution
 > >
 > > TODO
+> {: .solution}
+{: .challenge}
+
+[fig-workflow]: ../fig/overview.svg
 
 {% include links.md %}
 

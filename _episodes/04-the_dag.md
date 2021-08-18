@@ -145,18 +145,63 @@ $ snakemake -j1 -Rtrimreads -p kallisto.ref1/abundance.h5
 (Note - for some reason this only works if there is no space between `-R` and `trimreads`. This may be a bug in the
 version of Snakemake we're using)
 
+## Visualising the DAG
+
+Snakemake can draw a picture of the DAG, if you run it like this:
+
+~~~
+snakemake -f --dag kallisto.etoh60_1/abundance.h5 | dot | display
+~~~
+
+![DAG for partial workflow][fig-dag2]
+
+The boxes drawn with dotted lines indicate steps that are not to be run, as the output files are newer than the
+input files.
+
 > ## Challenge
 >
-> TODO - need some exercises here. Maybe look at the `--touch` and `--dryrun` options to Snakemake.
+> Run `kallisto_quant` on all three of the **etoh60** samples. Now edit the Snakefile so that the `qual_threshold`
+> for `trimreads` is "22", rather than "20".
 >
-> We can look at visualising the dag - showing how it changes for certain requests.
-> We can ask how you would ensure that a certain file was re-made:
+> How would you get Snakemake to update all three Kallisto results:
+>
 >   1) By using the -R flag
+>
 >   2) By using the -f flag
->   3) By using touch
-> We deffo want to encourage use of the '-n' flag for dry running, and compare it with the DAG visualisation
+>
+>   3) By using the touch command
+>
+>   4) By deleting input files
+>
+> Use the `--dag` option as shown above to check your answers.
+>
+> > ## Solution
+> >
+> > To make all the Kallisto results in the first place:
+> >
+> > ~~~
+> > snakemake -j1 -p kallisto.etoh60_{1,2,3}/abundance.h5
+> > ~~~
+> >
+> > The {1,2,3} syntax is expanded by the shell into the 3 file names. You could also type all three names in full.
+> >
+> > 1) `$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | dot | display"`
+> >
+> > 2) `$ snakemake -j1 -p -f trimmed/etoh60_*.fq kallisto.etoh60_{1,2,3}/abundance.h5 --dag | dot | display`
+> >
+> > 3) `$ touch reads/etoh_*`
+> >
+> > 4) `$ rm -r trimmed/etoh60_*.fq kallisto.etoh60_*`
+> >
+> > In general, getting Snakemake to re-run things by removing files is a bad idea. Using the `-R` flag or `touch` is
+> > simpler and more reliable. If in doubt, and if it will not be too time consuming, use `-F` to run the whole
+> > workflow from scratch.
+> >
+> {: .solution}
 >
 {: .challenge}
 
 [fig-dag]: ../fig/dag_1.svg
+[fig-dag2]: ../fig/dag_2.png
 
+{% include links.md %}

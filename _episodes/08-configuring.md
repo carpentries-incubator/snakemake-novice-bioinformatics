@@ -1,7 +1,7 @@
 ---
 title: "Configuration files and parameters"
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 20
 questions:
 - "How do I separate my rules from my configuration?"
 objectives:
@@ -43,13 +43,13 @@ rule trimreads:
 Now it is a little clearer what these numbers mean. Use of parameters does not give you extra functionality but it is
 good practise to make important settings into parameters as it makes the rule more readable.
 
-> # Exercise
+> ## Exercise
 >
 > Modify the existing salmon_index rule so that the `-k` setting (k-mer length) is a parameter.
 >
 > Change the length to 33 and re-build the index with the amended rule.
 >
-> > Answer
+> > ## Solution
 > >
 > > ~~~
 > > rule salmon_index:
@@ -72,6 +72,9 @@ good practise to make important settings into parameters as it makes the rule mo
 > > * You can choose a different parameter name, but it must be a valid identifier, no spaces or hyphens.
 > > * Changing the parameters does automatically trigger Snakemake to re-run the rule (remember it only looks
 > >   at file modification times) so you need to use `-f` (or `-R` or `-F`) to force the job to be re-run.
+> >
+> {: .solution}
+{: .challenge}
 
 ## Making Snakefiles configurable
 
@@ -114,7 +117,17 @@ The final step is to tell Snakemake to load your config file. You can do this on
 $ snakemake --configfile config.yaml ...
 ~~~
 
-> Exercise - fix the salmon_index rule to use salmon_kmer_len. Use a default of "31" if nothing is supplied.
+> ## Exercise
+>
+> Fix the `salmon_index` rule to use `salmon_kmer_len` as in the config file sample above. Use a default of "31" if
+> no config setting is supplied.
+>
+> > ## Solution
+> >
+> > TODO
+> >
+> {: .solution}
+{: .challenge}
 
 Before proceeding, we'll tweak the Snakefile in a couple of ways:
 
@@ -142,11 +155,12 @@ This is all getting quite complex, so in summary:
 * Individual `--config` items always take precedence over settings in the config file.
 * Use the `config.get("item_name", "default_val")` syntax to supply a default value which takes lowest precedence.
 
-> Exercise
+> ## Exercise
 >
 > Modify the Snakefile and config.yaml so that you are setting the CONDITIONS and REPLICATES in the config file.
 > Note that setting lists works just the same way as single values.
 >
-> Re-run the workflow to make a report on just replicates 2 and 3. Hint that you'll need to clean out some old files,
-> or run on a fresh copy of the data, or MultiQC will find and scoop up the old reports.
-
+> Re-run the workflow to make a report on just replicates 2 and 3. Check the MultiQC report to see that it really
+> does have just these replicates in there.
+>
+{: .challenge}
