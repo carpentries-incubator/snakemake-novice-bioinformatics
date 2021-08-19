@@ -5,14 +5,14 @@
 #
 # If other VMs are running then you'll need to do something smarter.
 #
-- hosts: tag_Role_trainingdash
+- hosts: tag_Role_trainingvm
   become: yes
   become_user: training
   tasks:
 
     - name: Set alternative password for VNC
       vars:
-        passwd: "ed-dash-1307"
+        passwd: "ed-dash-aug"
       become_user: training
       shell:
         executable: /bin/bash

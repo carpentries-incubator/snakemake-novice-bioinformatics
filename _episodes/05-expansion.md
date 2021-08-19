@@ -260,7 +260,8 @@ just a single file. Then, using the `{input.name}` placeholder in the shell comm
 
 > ## Exercises
 >
-> 1. We already have an all_counts rule. Make it so that the rule concatenates all the count files into a single output file
+> 1. We already have an all_counts rule, but it produces no output. Make it so that the rule concatenates all the count files
+>    into a single output file
 >    named `all_counts_concatenated.txt`.
 > 1. Adapt the rule so that trimmed and untrimmed reads are treated separately. That is, the rule will now have two named
 >    inputs rather than one single list. The output will still be a single concatenated file, with the untrimmed counts first and

@@ -63,7 +63,7 @@ $ fastqc --help
 ~~~
 
 For the `countreads` rule we wrote earlier, we chose our preferred output file name first, then wrote the shell command
-so as to put the results into that file:
+so as to put the results into that file. This allowed us to have a rule the counts both *trimmed* and *untrimmed* reads.
 
 ~~~
 # Our existing countreads rule...
@@ -74,11 +74,11 @@ rule countreads:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
 
-With FastQC have four options:
+To do the same with FastQC have four options:
 
 1. Work with the default file names produced by FastQC and leave the reports in the same directory with the FASTQ files.
 1. Make the outputs in a new directory named, eg. "reads.fastqc.ref_1_1/" (similar to what we did with Kallisto).
-1. Do this, but explicitly tell Snakiemake that the directory _is_ the output.
+1. Do this, but explicitly tell Snakemake that the directory _is_ the output.
 1. Force our preferred naming convention by renaming the FastQC output files within the rule.
 
 We'll try all four, as all are valid options. It's often the case in Snakemake that you have options like this.
@@ -189,7 +189,7 @@ rule fastqc:
   input:  "{indir}/{asample}.fq"
   shell:
      r"""mkdir {output}
-         fastqc -o {output} {input}"
+         fastqc -o {output} {input}
       """
 ~~~
 

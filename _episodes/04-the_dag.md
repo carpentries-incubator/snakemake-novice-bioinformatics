@@ -1,7 +1,7 @@
 ---
 title: "How Snakemake plans what jobs to run"
-teaching: 0
-exercises: 0
+teaching: 30
+exercises: 15
 questions:
 - "How do I visualise a Snakemake workflow?"
 - "How does Snakemake avoid unecessary work?"
@@ -150,7 +150,7 @@ version of Snakemake we're using)
 Snakemake can draw a picture of the DAG, if you run it like this:
 
 ~~~
-snakemake -f --dag kallisto.etoh60_1/abundance.h5 | dot | display
+snakemake -f --dag kallisto.etoh60_1/abundance.h5 | display -visual StaticColor
 ~~~
 
 ![DAG for partial workflow][fig-dag2]
@@ -189,7 +189,7 @@ input files.
 > >
 > > 2) `$ snakemake -j1 -p -f trimmed/etoh60_*.fq kallisto.etoh60_{1,2,3}/abundance.h5 --dag | dot | display`
 > >
-> > 3) `$ touch reads/etoh_*`
+> > 3) `$ touch reads/etoh60_*`
 > >
 > > 4) `$ rm -r trimmed/etoh60_*.fq kallisto.etoh60_*`
 > >
