@@ -1,5 +1,5 @@
 ---
-title: "Placeholders and Wildcards"
+title: "Placeholders and wildcards"
 teaching: 20
 exercises: 10
 questions:

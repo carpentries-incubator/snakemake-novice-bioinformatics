@@ -1,5 +1,5 @@
 ---
-title: "Constructing a Simple Assembly Workflow"
+title: "Constructing a simple assembly workflow"
 teaching: 10
 exercises: 30
 questions:

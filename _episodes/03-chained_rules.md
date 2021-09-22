@@ -1,5 +1,5 @@
 ---
-title: "Chaining Rules"
+title: "Chaining rules"
 teaching: 20
 exercises: 10
 questions:

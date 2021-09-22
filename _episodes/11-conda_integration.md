@@ -1,5 +1,5 @@
 ---
-title: "Conda Integration"
+title: "Conda integration"
 teaching: 20
 exercises: 10
 questions:
