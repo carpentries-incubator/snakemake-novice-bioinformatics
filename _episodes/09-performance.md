@@ -13,27 +13,28 @@ objectives:
 keypoints:
 - "Add key points"
 ---
+
 ## Processes, threads and processors
 
-Soe definitions:
+Some definitions:
 
-* **Process** - 	A running program (in our case, a Snakemake job)
-* **Threads** - 	Each process has one or more threads
-* **Processor** -	Your computer has multiple CPU cores, which may run threads or processes in parallel
+* **Process** - 	A running program (in our case, each Snakemake job can be considered one process)
+* **Threads** - 	Each process has one or more threads which run in parallel
+* **Processor** -	Your computer has multiple *CPU cores* or processors, each of which can run one thread at a time
 
-Linux shares out threads among processors:
+These definitions are a little simplified, but fine for our needs. The operating system kernel shares out threads among processors:
 
-* Having fewer threads than processors means you are not fully using all your cores
-* Having more threads than processors is generally suboptimal
+* Having *fewer threads* than *processors* means you are not fully using all your CPU cores
+* Having *more threads* than *processors* means threads have to share a core which is generally suboptimal
 
-If you tell Snakemake how many threads a rule will use, and how many cores you have available, it will start jobs
+If you tell Snakemake how many threads each rule will use, and how many cores you have available, it will start jobs
 in parallel to use all your cores.
 
 ![Allocating cores to jobs in Snakemake][fig-threads]
 
 ## Profiling your Linux machine
 
-Find out how many CPU cores you have on your VM with the `lscpu` command.
+Find out how many CPU cores you have on your machine with the `lscpu` command.
 
 ~~~
 $ lscpu
@@ -53,13 +54,10 @@ $ df -h .
 
 (or `df -h` to show all partitions)
 
-## Performance and Resource Usage
+## Parallel jobs in Snakemake
 
 You may want to see the relevant part of
 [the Snakemake documentation](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#threads).
-
-
-Optimising CPU Usage
 
 We'll force all the trimming and  kallisto steps to re-run by using the -F flag to Snakemake and time
 the whole run using the standard `/usr/bin/time -v` command. You have to type the command like this because
@@ -69,61 +67,72 @@ the whole run using the standard `/usr/bin/time -v` command. You have to type th
 $ /usr/bin/time -v snakemake -j1 -F -- kallisto.{ref,temp33,etoh60}_{1,2,3}
 ~~~
 
+
 > ## Exercise
-> Do this two more times. What is the average 'wallclock time' over the three?
-> Now try again, using the Snakemake option "-j 2". How does the execution time change? What about "-j 3" or "-j 4".
-> What limits the power of this setting to reduce the execution time?
 >
+> What is the 'wallclock time' reported by the above command? We'll work out the average for the whole class, or
+> if you are working through the material on your own repeat the measurement three times to get your own average.
+>
+> Now change the Snakemake concurrency option to  `-j 2` and then `-j 4`. How does the total execution time change?
+> What do you think limits the power of this setting to reduce the execution time?
+>
+> > ## Solution
+> >
+> > The time will vary depending on the system configuration but somewhere around 30 seconds is expected, and this
+> > should reduce to around 25 secs with `-j 2` but higher `-j` will produce diminishing returns.
+> >
+> > Things that may limit the effectiveness of parallel execution include:
+> >
+> > * The number of processors in the machine
+> > * The number of jobs in the DAG which are independent and can therefore be run in parallel
+> > * The existence of single long-running jobs like *kallisto_index*
+> > * The amount of RAM in the machine
+> > * The speed at which data can be read from and written to disk
+> >
+> {: .solution}
 {: .challenge}
 
 
-Rather than timing the entire workflow, we can ask Snakemake to benchmark just one rule.
+> ## Fine-grained profiling
+>
+> Rather than timing the entire workflow, we can ask Snakemake to benchmark an individual rule.
+>
+> For example, to benchmark the `kallisto_quant` step we could add this to the rule definition:
+>
+> ~~~
+> benchmark:
+> 	"benchmarks/kallisto_quant.{sample}.txt"
+> ~~~
+>
+> The dataset here is so small that the numbers are tiny, but for real data this can be very useful as it shows time, memory
+> usage and IO load for all jobs.
+>
+>
+{: .callout}
 
-To benchmark the `kallisto_quant` step we add this to the rule definition:
+There are **a few gotchas** to bear in mind when using parallel execution:
 
-~~~
-benchmark:
-	"benchmarks/kallisto_quant.{sample}.txt"
-~~~
+1. Parallel jobs will use more RAM. If you run out then either your OS will swap data to disk, or a process will crash
+1. Parallel jobs may trip over each other if they try to write to the same file at the same time (can happen with temporary files)
+1. The on-screen output from paralle jobs will be jumbled, so save output to log files instead
 
-How long is Kallisto taking to run? (For simplicity, just use "-j 1" for all these tests.)
+## Running jobs on a cluster
 
-Now increase the number of threads used by BWA to 2 by setting the "-t 2" option in the "bwa aln" command. What impact does this have?
+Learning about clusters is beyond the scope of this course, but for modern bioinformatics they are an essential tool because
+many analysis jobs would take too long on a single computer. Learning to run jobs on clusters normally means writing batch
+scripts and re-organising your code to be cluster-aware. But if your workflow is written in Snakemake, it will run on a cluster
+will little to no modification. Snakemake turns the jobs into cluster jobs, then submits and monitors them for you.
 
-FIXME - Kallisto runs too quickly :-(. I need to find a better example here.
+![Some high performance compute][fig-cluster]
 
-What limits our ability to speed up workflows in this way?
 
-## Optimising memory usage
-
-Monitoring memory use is actually quite tricky. The /usr/bin/time -v command gives you a "Maximum resident set size" which is the amount
-of RAM used, but when you timed the whole pipeline only Snakemake itself (ie. the Python runtime) was actually monitored. Most of the
-resources were being used by child processes like `kallisto` and were never counted. Snakemake benchmarking can be used to profile the
-individual tasks, but to find the overall memory usage of your workflow a simpler option is to monitor the total free memory on the system
-and then see how much is used up as the pipeline runs. Various memory monitoring tools are available for Linux, but here is a simple method
-that works with just the basic tools on the Linux system and a spreadsheet to visualise the result.
-
-Exercise G.4:
-
-In a separate terminal window, run this monitoring command and leave it running:
-
-~~~
-$ ( while true ; do grep 'MemAvailable' /proc/meminfo ; \
-  sleep 0.5 ; done ) | tee ~/memavail.log
-~~~
-
-Now while the monitor is running, re-run Snakemake with the "-j 1" option and when that finishes run it with the "-j 3" option.
-
-Now stop the memory monitoring (with Ctrl+C).
-
-Open the LibreOffice Calc spreadsheet from the Applications menu and open the memavail.log file. You'll need to set the delimiter to
-"space" so that all the numbers end up in one column. Select just this column and make a chart (Insert > Chart...). Make it a line graph.
-
-How does the shape of the graph reflect the processes being run by Snakemake? How does the memory usage compare between the two runs?
-Why do we see this shape?
-
-### FIXME - this doesn't work too well with the example we have. Work it out.
+> ## Cluster demo
+>
+> A this point in the course there may be a cluster demo...
+>
+{: .callout}
 
 [fig-threads]: ../fig/snake_threads.svg
+[fig-cluster]: ../fig/Multiple_Server_.jpg
 
 {% include links.md %}
