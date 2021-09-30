@@ -10,7 +10,10 @@ objectives:
 - "View the DAG for our pipeline"
 - "Understand the logic Snakemake uses when running and re-running rules"
 keypoints:
-- "Snakemake is awesome"
+- "A 'job' in Snakemake is a rule plus wilcard values determined from the requested output"
+- "Snakemake plans its work by arranging jobs into a DAG (directed acyclic graph)"
+- "If outputs already exist, Snakemake can skip parts of the DAG"
+- "Snakemake checks file timestamps to see if outputs need regenerating"
 ---
 
 ## The DAG
@@ -26,8 +29,8 @@ A DAG is a **Directed Acyclic Graph** and it can be pictured like so:
 ![DAG for our workflow][fig-dag]
 
 
-The above DAG is based on our existing rules, and shows all the jobs Snakemake would run to trim, count and
-quantify the "ref1" sample.
+The above DAG is based on our four existing rules, and shows all the jobs Snakemake would run to trim, count and
+quantify the *ref1* sample.
 
 > ## Note that:
 >
@@ -64,19 +67,19 @@ $ snakemake -j1 -F -p desired_output_file
 As a reminder, the `-j1` flag tells Snakemake to run one job at a time, and `-p` is to print out
 the shell commands before running them.
 
-The `-F` flag turns on `forceall` mode, and in normal usage you probably don't want this.
+The `-F` flag turns on `forceall` mode, and in normal usage you don't want this.
 
 At the end of the last chapter, we generated some kallisto results by running:
 
 ~~~
-$ snakemake -j1 -F -p kallisto.ref1/abundance.h5
+$ snakemake -j1 -F -p kallisto.temp33_1/abundance.h5
 ~~~
 {: .language-bash}
 
 Now try without the `-F` option. Assuming that the output files are already created, you'll see this:
 
 ~~~
-$ snakemake -j1 -p kallisto.ref1/abundance.h5
+$ snakemake -j1 -p kallisto.temp33_1/abundance.h5
 Building DAG of jobs...
 Nothing to be done.
 Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T172441.519500.snakemake.log
@@ -86,23 +89,23 @@ Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T172441.519500
 In normal operation, Snakemake only runs a job if:
 
 1. A target file you explicitly requested to make is missing
-1. An output file is missing and it is needed in the process of making a target file
+1. An intermediate file is missing and it is needed in the process of making a target file
 1. Snakemake can see an input file which is newer than an output file
 
 Let's demonstrate each of these in turn, by altering some files and re-running Snakemake without the
 `-F` option.
 
 ~~~
-$ rm kallisto.ref1/*
-$ snakemake -j1 -p kallisto.ref1/abundance.h5
+$ rm kallisto.temp33_1/*
+$ snakemake -j1 -p kallisto.temp33_1/abundance.h5
 ~~~
 {: .language-bash}
 
 This just re-runs the kallisto quantification - the final step.
 
 ~~~
-$ rm trimmed/ref1_?.fq
-$ snakemake -j1 -p kallisto.ref1/abundance.h5
+$ rm trimmed/temp33_*.fq
+$ snakemake -j1 -p kallisto.temp33_1/abundance.h5
 ~~~
 {: .language-bash}
 
@@ -111,52 +114,61 @@ make, so it doesn't worry.
 
 ~~~
 $ touch transcriptome/*.fa.gz
-$ snakemake -j1 -p kallisto.ref1/abundance.h5
+$ snakemake -j1 -p kallisto.temp33_1/abundance.h5
 ~~~
 
 The `touch` command is a standard Linux command which sets the timestamp of the file, so now the transcriptome looks
 to Snakemake as if it was just modified.
 
-Snakemake sees that one of the input files used in the process of producing `kallisto.ref1/abundance.h5` is newer than
+Snakemake sees that one of the input files used in the process of producing `kallisto.temp33_1/abundance.h5` is newer than
 the existing output file, so it needs to run the `kallisto index` and `kallisto quant` steps again. Of course, the
 `kallisto quant` step needs the trimmed reads which we deleted earlier, so now the trimming step is re-run also.
 
-This behaviour is really useful when you want to:
+## Explicitly telling Snakemake what to re-run
+
+The default timestamp-based logic is really useful when you want to:
 
 1. Change or add some inputs to an existing analysis without re-processing everything
 1. Continue running a workflow that failed part-way
 
-In these case, the default Snakemake behaviour will just do the right thing. In other situations you may need to
-explicitly tell Snakemake to re-run some steps. For example...
-
-## Changing the rules
-
-If rules in the Snakefile change, rather than input files, Snakemake won't see that the results are out-of-date.
-For example, if we changed the quality cutoffs within the trimreads rule then Snakemake would not automatically
-re-run thos rules, because it only checks that the output file is newer than the input file.
+But it doesn't help us in the situation when rules in the Snakefile change, rather than input files, Snakemake
+won't see that the results are out-of-date. For example, if we changed the quality cutoffs within the trimreads
+rule then Snakemake would not automatically re-run thos rules, because it only checks that the output file is
+newer than the input file.
 
 The `-R` flag allows you to explicitly tell Snakemake that a rule has changed and that all outputs from that rule
 need to be re-evaluated.
 
 ```
-$ snakemake -j1 -Rtrimreads -p kallisto.ref1/abundance.h5
+$ snakemake -j1 -Rtrimreads -p kallisto.temp33_1/abundance.h5
 ```
 
-(Note - for some reason this only works if there is no space between `-R` and `trimreads`. This may be a bug in the
-version of Snakemake we're using)
+*Note: for some reason this only works if there is no space between `-R` and `trimreads`. This may be a bug in the
+current version of Snakemake*
+
+The `-f` flag specifies that the target outputs named on the command line should always be regenerated, so you can
+use this to explicitly re-make specific files.
+
+```
+$ snakemake -j1 -f -p kallisto.temp33_1/abundance.h5
+```
+
+This always re-runs *kallisto_quant*, regardless of whether the output file is there already. For all intermediate
+outputs, Snakemake applies the default timestamp-based logic. Contrast with `-F` which runs the entire DAG every time.
+
 
 ## Visualising the DAG
 
-Snakemake can draw a picture of the DAG, if you run it like this:
+Snakemake can draw a picture of the DAG for you, if you run it like this:
 
 ~~~
-snakemake -f --dag kallisto.etoh60_1/abundance.h5 | display -visual StaticColor
+$ snakemake -f --dag kallisto.etoh60_1/abundance.h5 | display -visual StaticColor
 ~~~
 
 ![DAG for partial workflow][fig-dag2]
 
-The boxes drawn with dotted lines indicate steps that are not to be run, as the output files are newer than the
-input files.
+The boxes drawn with dotted lines indicate steps that are not to be run, as the output files are already present and
+newer than the input files.
 
 > ## Challenge
 >
@@ -183,9 +195,9 @@ input files.
 > > snakemake -j1 -p kallisto.etoh60_{1,2,3}/abundance.h5
 > > ~~~
 > >
-> > The {1,2,3} syntax is expanded by the shell into the 3 file names. You could also type all three names in full.
+> > *The {1,2,3} syntax is expanded by the shell into the 3 file names. You could also type all three names in full.*
 > >
-> > 1) `$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | dot | display"`
+> > 1) `$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | dot | display`
 > >
 > > 2) `$ snakemake -j1 -p -f trimmed/etoh60_*.fq kallisto.etoh60_{1,2,3}/abundance.h5 --dag | dot | display`
 > >

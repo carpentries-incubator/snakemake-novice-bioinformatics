@@ -8,9 +8,11 @@ questions:
 objectives:
 - "Use Snakemake to filter and then count the lines in a FASTQ file"
 - "Add an RNA quantification step in the data analysis"
-- "See how Snakemake deals with missing inputs"
+- "See how Snakemake deals with missing outputs"
 keypoints:
-- "Snakemake is awesome"
+- "Snakemake links rules by iteratively looking for rules that make missing inputs"
+- "Rules may have several named inputs and/or outputs"
+- "If a shell command does not yield an expected output then Snakemake will regard that job as failed"
 ---
 
 ## A pipeline of multiple rules
@@ -36,12 +38,12 @@ rule trimreads:
 {: .language}
 
 The problem is there is no good way to use these rules together, that is, to trim an input file and
-then count the reads in the trimmed file. The "countreads" rule only takes input reads from the "reads"
-directory, whereas the "trimreads" rule puts all results into the "trimmed" directory.
+then count the reads in the trimmed file. The *countreads* rule only takes input reads from the *reads*
+directory, whereas the *trimreads* rule puts all results into the *trimmed* directory.
 
 Chaining rules in Snakemake is a matter of choosing filename patterns that connect the rules. There's something of
 an art to it - most times there are several options that will work. Consider the following alternative version
-of the "countreads" rule:
+of the *countreads* rule:
 
 ~~~
 # New even-more-generic read counter
@@ -79,7 +81,7 @@ This, in a nutshell, is how we build workflows in Snakemake.
 
 1. Define rules for all the processing steps
 1. Choose `input` and `output` naming patterns that allow Snakemake to link the rules
-1. Tell Snakemake to make the final output files
+1. Tell Snakemake to generate the final output files
 
 If you are used to writing regular scripts this takes a little
 getting used to. Rather than listing steps in order of execution, you are always **working
@@ -174,14 +176,15 @@ happy with the rule definition.
 
 > ## Running Kallisto on all replicates
 >
-> If you know about the Kallisto software, you may be thinking that running Kallisto on each individual replicate
-> is incorrect, and it should be run on all replicates of the sample at once (TODO - explain). We'll rectify
-> this later in the course, but for now assume that Kallisto is run once for each pair of FASTQ files.
+> If you know about the Kallisto software, you may be thinking about running Kallisto on all replicates of
+> the sample at once. We'll look at this later in the course, but for now assume that Kallisto is run once
+> for each pair of FASTQ files.
+>
 {: .callout}
 
 > ## Running the kallisto_quant rule
 >
-> Given that the index is missing, what would you expect Snakemake to do if the new rule was run now?
+> Given that the *index* input is missing, what would you expect Snakemake to do if the new rule was run now?
 >
 > Try it by telling Snakemake to run the new rule on the files `ref1_1.fq` and `ref1_2.fq`.
 > Since the rule defines multiple outputs, asking for any one of the output files will be enough.
@@ -209,7 +212,7 @@ happy with the rule definition.
 > ~~~
 >
 > The file to be indexed is `transcriptome/Saccharomyces_cerevisiae.R64-1-1.cdna.all.fa.gz`. As there is only
-> one input to the rule you don't have to name it, but you may do so if you like.
+> one input to the rule you don't have to give it a name, but you may do so if you like.
 >
 > Make it so that the output printed by the program is captured to a file, and therefore your rule will have
 > two separate outputs: the index file and the log file. Note that the program prints messages on STDERR, so
@@ -269,7 +272,7 @@ Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834
 There's a lot to take in here. Some of the messages are very informative. Some less so.
 
 1. Snakemake did actually run kallisto, as evidenced by the output from kallisto that we see
-1. There is no obvious error in the kallisto output
+1. There is no obvious error message in the kallisto output
 1. Snakemake complains some expected output files are missing: `kallisto.ref1/abundances.h5` and `kallisto.ref1/abundances.tsv`
 1. The third output file `kallisto.ref1/run_info.json` was found but has now been removed by Snakemake
 1. Snakemake suggest this might be due to "filesystem latency"
@@ -284,8 +287,8 @@ abundance.h5  abundance.tsv
 {: .language-bash}
 
 So the file names created by kallisto are not quite the same as we saw in the manual (note - the manual may have been fixed at the
-point you are doing this course, but it was true back when the course was written!). Having changed the rule definition in the
-`Snakefile` to use the correct names, you should have everything working.
+point you are doing this course, but it was true back when the course was written!). Change the rule definition in the
+`Snakefile` to use the correct names, then you should have everything working.
 
 > ## Errors are normal
 >
@@ -294,7 +297,15 @@ point you are doing this course, but it was true back when the course was writte
 > the Snakemake approach compared to regular scripts is that Snakemake fails fast when there is a problem, rather than ploughing on
 > and potentially running junk calculations on partial or corrupted data. Another advantage is that when a step fails we can resume
 > from where we left off, as we'll see in the next episode.
+>
 {: .callout}
+
+Finally, check that the rules are still generic by processing the *temp33_1* sample:
+
+~~~
+$ snakemake -j1 -F -p kallisto.temp33_1/abundances.h5
+~~~
+{: .language-bash}
 
 {% include links.md %}
 

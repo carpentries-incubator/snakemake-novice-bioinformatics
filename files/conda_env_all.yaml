@@ -22,10 +22,10 @@ dependencies:
   - brotlipy=0.7.0=py39h3811e60_1001
   - bzip2=1.0.8=h7f98852_4
   - c-ares=1.17.1=h7f98852_1
-  - ca-certificates=2020.12.5=ha878542_0
+  - ca-certificates=2021.5.30=ha878542_0
   - cachetools=4.2.2=pyhd8ed1ab_0
   - cairo=1.16.0=h6cf1ce9_1008
-  - certifi=2020.12.5=py39hf3d152e_1
+  - certifi=2021.5.30=py39hf3d152e_0
   - cffi=1.14.5=py39he32792d_0
   - chardet=4.0.0=py39hf3d152e_1
   - click=7.1.2=pyh9f0ad1d_0
@@ -190,6 +190,7 @@ dependencies:
   - pyyaml=5.4.1=py39h3811e60_0
   - ratelimiter=1.2.0=py_1002
   - readline=8.1=h46c0cb4_0
+  - rename=1.601=hdfd78af_1
   - requests=2.25.1=pyhd3deb0d_0
   - rich=10.1.0=py39hf3d152e_0
   - rsa=4.7.2=pyh44b312d_0

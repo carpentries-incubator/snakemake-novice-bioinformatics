@@ -5,7 +5,7 @@ exercises: 0
 questions:
 - "How do I process multiple files at once?"
 - "How do I define a default set of outputs for my Snakefile?"
-- "How do I make Snakemake decide what to process?"
+- "How do I make Snakemake detect what to process?"
 - "How do I combine multiple files together?"
 objectives:
 - "Use Snakemake to process all our samples at once"
@@ -30,17 +30,21 @@ A good way to do this is by making symlinks, because that way you don't lose sig
 $ mv reads original_reads
 $ mkdir reads
 $ ln -sr -t reads original_reads/*
-$ for afile in reads/ref?_?.fq
-> do
-> newname=$( sed 's/ref/ref_/' <<<$afile )
-> mv -v $afile $newname
-> done
+$ rename -v -s ref ref_ reads/*
 ~~~
 {: .language-bash}
 
+> ## File renaming
+>
+> The **rename** command here is [the one provided by Bioconda](http://plasmasturm.org/code/rename/). Other Linux
+> systems may have a different rename command installed by default.
+>
+{: .callout}
+
 These shell commands should symlink all the files and rename six of them. To tell Snakemake about our conditions
 and replicates we can define some lists as Snakemake **global variables**.
-Global variables can be added before the rules in the Snakefile.
+
+Global variables should be added before the rules in the Snakefile.
 
 ~~~
 # Input conditions and replicates to process
@@ -303,12 +307,14 @@ just a single file. Then, using the `{input.name}` placeholder in the shell comm
 > ## Rules that make multiple outputs
 >
 > If we can have rules that combine lists of files, can we do the opposite and have a rule that produces a list of outputs?
+>
 > The answer is yes, but the situation is not completely symmetrical. Remember that Snakemake works out the full list of
 > input and output files to every job *before* it runs a single job in the workflow. For a combining step, Snakemake will
 > know how many samples/replicates are being combined from the start. For a splitting step, it may or may not be possible
 > to predict the number of output files in advance. For cases where you really do need to handle a dynamic list of outputs,
-> Snakemake has things called "dynamic rules" and "checkpoint rules". In practise these are very rarely needed, so we'll
-> not be covering them here in the course.
+> Snakemake has things called [checkpoint rules](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#data-dependent-conditional-execution).
+>
+> In practise these are very rarely needed, so we'll not be covering them here in the course.
 >
 {: .callout}
 

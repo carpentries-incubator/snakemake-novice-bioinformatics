@@ -4,12 +4,16 @@ teaching: 20
 exercises: 10
 questions:
 - "How do I make a generic rule?"
+- "How does Snakemake decide what rule to run?"
 objectives:
 - "Use Snakemake to count the sequences in any file"
 - "Understand the basic steps Snakemake goes through when running a workflow"
-- "See how Snakemake deals with missing inputs"
+- "See how Snakemake deals with some errors"
 keypoints:
-- "Add key points"
+- "Snakemake rules are made generic with placeholders and wildcards"
+- "Snakemake chooses the appropriate rule by looking for output patterns that can match the target"
+- "Placeholders in the shell part of the rule are replaced with values based on the requested output"
+- "Snakemake checks for various error conditions and will stop if it sees a problem"
 ---
 
 ## Wildcards and placeholders
@@ -53,7 +57,9 @@ rule countreads:
 
 The new rule has replaced file names with things in `{curly brackets}`, specifically `{asample}`, `{input}` and `{output}`.
 
-`{asample}` is a **wildcard**. Wildcards are used in the `input` and `output` lines of the rule to represent parts of filenames.
+### `{asample}` is a **wildcard**
+
+Wildcards are used in the `input` and `output` lines of the rule to represent parts of filenames.
 Much like the `*` pattern in the shell, the wildcard can be replaced by any text in order to make up the desired filename.
 As with naming your rules, you may choose any name you like for your wildcards, so here we chose `asample`. Using the same
 wildcards in the input and output is what tells Snakemake how to match input files to output files.
@@ -61,7 +67,9 @@ wildcards in the input and output is what tells Snakemake how to match input fil
 If two rules use a wildcard with the same name then Snakemake will treat them as completely different - rules in Snakemake
 are self-contained in this way.
 
-`{input}` and `{output}` are **placeholders**. Placeholders are used in the `shell` section of a rule, and Snakemake will
+### `{input}` and `{output}` are **placeholders**
+
+Placeholders are used in the `shell` section of a rule, and Snakemake will
 replace them with appropriate values - `{input}` with the full name of the input file, and `{output}` with the full name of
 the output file -- before running the command.
 
@@ -74,7 +82,7 @@ If we had wanted to include the value of the `asample` wildcard directly in the 
 > You should resist the urge to copy-and-paste from this workbook, but rather edit the file by hand, as this will stick
 > better in your memory.
 >
-> You should delete the now-redundant second rule, so your Snakefile should contain just one rule named "countreads".
+> You should delete the now-redundant second rule, so your Snakefile should contain just one rule named *countreads*.
 >
 > Using this new rule, determine: how many reads are in the `temp33_1_1.fq` file?
 >
@@ -100,7 +108,7 @@ If we had wanted to include the value of the `asample` wildcard directly in the 
 >
 >  1) the output file for `reads/ref1_1.fq` to be `counts/ref1_1.txt`?
 >
->  2) the output file for `reads/ref1_1.fq` to be `ref1_counts/fq.1.count` (for `reads/ref1_2.fq` to be `ref1_counts/fq.2.count`)?
+>  2) the output file for `reads/ref1_1.fq` to be `ref1_counts/fq.1.count` (for `reads/ref1_2.fq` to be `ref1_counts/fq.2.count`, etc.)?
 >
 >  3) the output file for `reads/ref1_1.fq` to be `countreads_1.txt`?
 >
@@ -151,7 +159,7 @@ when you run it:
     1. Checks that this input file is actually available
 1. Runs the steps:
     1. Creates the directory for the output file, if needed
-    1. Removes the output file if it is already there
+    1. Removes the old output file if it is already there
     1. Only then, runs the shell command with the placeholders replaced
     1. Checks that the command ran without errors *and* made the new output file as expected
 
@@ -165,7 +173,7 @@ Missing input files for rule countreads:
 reads/wibble_1.fq
 ~~~
 
-Snakemake sees that a file with a name like this could be produced by the "countreads" rule. However, when it performs
+Snakemake sees that a file with a name like this could be produced by the *countreads* rule. However, when it performs
 the wildcard substitution it sees that the input file would need to be named `reads/wibble_1.fq`, and there is no such
 file available. Therefore Snakemake stops and gives an error before any commands are run.
 
@@ -218,16 +226,6 @@ to us indeed.
 > The options `-t 20 -l 100` happen to be reasonable quality cutoffs for this dataset. This program reads from
 > standard input so we're using `<` to specify the input file, and the `-o` flag specifies the output name.
 {: .callout}
-
-## TODO
-
-More here?? Some thoughts for further exercises on single rules.
-
-Some multiple choice? Like what's wrong with this Snakefile?
-
-What if the rule doesn't generate the output file? Give an example here. Or maybe ask it as a question.
-
-Q: Break your rule so that it doesn't produce an output file (be more specific). What happens when you run it?
 
 {% include links.md %}
 

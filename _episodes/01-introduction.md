@@ -80,7 +80,7 @@ $ head -v *.count
 
 ## Making a Snakefile
 
-Edit a new file named `Snakefile`.
+Within the `yeast` directory, edit a new text file named `Snakefile`.
 
 Contents of `Snakefile`:
 ~~~
@@ -95,12 +95,15 @@ rule countlines:
 > ## Key points about this file
 >
 > 1. The file is named `Snakefile` - with a capital `S` and no file extension.
-> 1. Some lines are indented. Indents must be with space characters, not tabs. See the [setup section]({{ page.root }}{% link setup.md %}) for how to make your text editor do this.
+> 1. Some lines are indented. Indents must be with space characters, not tabs. See the [setup section]({{ page.root }}{% link setup.md %})
+>    for how to make your text editor do this.
 > 1. The rule definition starts with the keyword `rule` followed by the rule name, then a colon.
-> 1. We chose a descriptive name for the rule. You may use letters, numbers or underscores, but the rule name must begin with a letter and may not be a keyword.
+> 1. We named the rule `countreads`. You may use letters, numbers or underscores, but the rule name must begin with a letter and
+>    may not be a keyword.
 > 1. The keywords `input`, `output`, `shell` are all followed by a colon.
 > 1. The file names and the shell command are all in `"quotes"`.
-> 1. The output filename is given before the input filename. In fact, Snakemake doesn't care what order they appear in but we give the output first throughout this course. We'll see why soon.
+> 1. The output filename is given before the input filename. In fact, Snakemake doesn't care what order they appear in but we give the output
+>    first throughout this course. We'll see why soon.
 >
 {: .checklist}
 
@@ -115,12 +118,13 @@ $ snakemake -j1 -F -p ref1_1.fq.count
 >
 > Run `snakemake --help | less` to see the help for all available options.
 > What does the `-p` option in the `snakemake` command above do?
-> (Hint - you can search in the text by pressing `/`, and quit back to the shell with `q`)
 >
 > 1. Protects existing output files
 > 1. Prints the shell commands that are being run to the terminal
 > 1. Tells Snakemake to only run one process at a time
 > 1. Prompts the user for the correct input file
+>
+> *Hint: you can search in the text by pressing `/`, and quit back to the shell with `q`*
 >
 > > ## Solution
 > >
@@ -148,7 +152,7 @@ to be printed with `echo`. Don't worry if this is unfamiliar - you just need to 
 
 > ## Counting sequences in Snakemake
 >
-> Modify the Snakefile to count the number of **sequences** in reads/ref1_1.fq, rather than the number of **lines**.
+> Modify the Snakefile to count the number of **sequences** in `reads/ref1_1.fq`, rather than the number of **lines**.
 >
 > * Rename the rule to "countreads"
 > * Keep the output file name the same
@@ -166,7 +170,7 @@ to be printed with `echo`. Don't worry if this is unfamiliar - you just need to 
 > > {: .language}
 > {: .solution}
 >
-> Add a second rule to count the sequences in *etoh60_1_1.fq*. Add this to the same Snakefile you already made, under the "countreads" rule,
+> Add a second rule to count the sequences in `reads/etoh60_1_1.fq`. Add this to the same Snakefile you already made, under the "countreads" rule,
 > and run your rules in the terminal. When running the `snakemake` command you'll need to tell Snakemake to make both the output files.
 >
 > > ## Solution 2
