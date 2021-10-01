@@ -145,9 +145,9 @@ all that is needed to spot a problem.
 >
 > > ## Solution
 > >
-> > A sample solution to this exercise is available in (insert link here). However, there is no one "correct" answer,
-> > so don't worry if your approach looks different. Hopefully we will have time in the course to look through and
-> > compare some different answers.
+> > A sample solution to this exercise [is available here](../code/assembly_with_conda.Snakefile). However, there is
+> > no single "correct" answer, so don't worry if your approach looks different. Hopefully we will have time in the
+> > course to look through and compare some different answers.
 > >
 > {: .solution}
 {: .challenge}

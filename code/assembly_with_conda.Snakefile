@@ -1,4 +1,4 @@
-# vim: ft=python
+# Run this Snakefile with the --use-conda flag to ensure the correct applications are present.
 
 conditions = ['ref', 'etoh60', 'temp33']
 kmers = [19, 21, 25, 27]
