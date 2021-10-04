@@ -16,6 +16,8 @@ keypoints:
 
 ## Python functions in general
 
+### FIXME - add a picture of a complex Snakemake workflow - this is where we need input functions.
+
 We've already made use of utility functions like `expand()` and `glob_wildcards()` in writing Snakefiles. For some rule
 definitions in Snakemake it's useful to write our own **input functions**. Before seeing how these work, we need to
 talk about Python function in general.
@@ -309,4 +311,5 @@ the read number. Yeah.
 > ~~~
 >
 {: .callout}
+
 {% include links.md %}

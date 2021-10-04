@@ -1,12 +1,12 @@
 ---
-title: "Configuration files and parameters"
+title: "Configuring workflows"
 teaching: 20
 exercises: 20
 questions:
 - "How do I separate my rules from my configuration?"
 objectives:
 - "Add parameters to rules"
-- "Use configuration files and command line params"
+- "Use configuration files and command line params to set the parameters"
 keypoints:
 - "Add key points"
 ---

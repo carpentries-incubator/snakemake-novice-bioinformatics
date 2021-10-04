@@ -139,7 +139,7 @@ quicker. The environment that Snakemake made is stored under `./.snakemake/conda
 of the contents of the `new-env.yaml` file. As long as the file is unchanged, Snakemake will re-use the same environment, but if the
 YAML file is edited at all Snakemake will see that the hash has changed and make a new environment.
 
-We'll do something useful with cutadapt in the next episode.
+We'll do something useful with *cutadapt* in the next episode.
 
 > ## Challenge
 >

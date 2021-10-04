@@ -1,14 +1,10 @@
-# Much as I like this topic, I think it has to die.
-# Add quoting info as it comes up
-
-
 ---
 title: "Robust quoting in Snakefiles"
 teaching: 0
 exercises: 0
 questions:
 - "How are shell commands processed before being run?"
-- "How do I make my Snakefiles robust?"
+- "How do I avoid quoting problems in filenames and commands?"
 objectives:
 - "Review quoting rules in the shell"
 - "Understand how shell command strings are processed"
