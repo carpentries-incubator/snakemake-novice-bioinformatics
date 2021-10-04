@@ -10,7 +10,10 @@ objectives:
 - "Learn about the `directory()` function"
 - "Add multiple commands to the shell section of a rule"
 keypoints:
-- "Add key points"
+- "Different bioinformatics tools will have different quirks"
+- "If programs limit your options for choosing input and output filenames, you have several ways to deal with this"
+- "Use triple-quote syntax to make longer shell scripts with multiple commands"
+- "Use these extra commands to set up inputs and rename outputs"
 ---
 
 We've now seen how to link rules in a pipeline and how to merge results at the final step. This is the basic
@@ -87,7 +90,7 @@ We'll try all four, and see where this gets us.
 
 > ## Exercise - adding a FastQC rule using the default output file names
 >
-> Fill in the ??? to make a working rule for FastQC where `indir` may be "reads" or "trimmed". Do not change the
+> Fill in the **???** to make a working rule for FastQC where `indir` may be "reads" or "trimmed". Do not change the
 > shell command or input pattern at all. Remember FastQC always makes two output files, so add two named outputs.
 >
 > ~~~
@@ -289,7 +292,8 @@ rule kallisto_quant:
 >
 > Add a pair of rules to index and align the reads with Salmon. Note that:
 >
-> 1. Unlike Kallisto, the index produced by Salmon is a directory of files, not a single file
+> 1. Unlike Kallisto, the index produced by Salmon is a directory of files, not a single file - both
+>    of these new rules will produce a directory as output.
 > 1. As per the note above, you only need the `directory()` marker on the outputs of rules
 >
 > > ## Solution
@@ -343,11 +347,13 @@ $ multiqc . -o multiqc_out
 >
 > > ## Solution
 > >
+> > *Note: This answer assumes that the **kallisto_quant** rule has been modified with a directory output as above.*
+> >
 > > rule multiqc:
 > > output: directory('multiqc_out')
 > > input:
 > >     salmon =   expand("salmon.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
-> >     kallisto = expand("kallisto.{cond}_{rep}/abundance.tsv", cond=CONDITIONS, rep=REPLICATES),
+> >     kallisto = expand("kallisto.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
 > >     fastqc =   expand("reads.{cond}_{rep}_{end}_fastqc.zip", cond=CONDITIONS, rep=REPLICATES, end=["1","2"]),
 > > shell:
 > >     "multiqc . -o multiqc_out"
@@ -365,30 +371,86 @@ $ multiqc . -o multiqc_out
 > As such, you must capture the Kallisto stdout to a file when running to use the MultiQC module.
 > ~~~
 >
-> Fix the Snakefile so that Kallisto standard output is redirected to a file and can be collected by MultiQC. (Hint - MultiQC does not
-> mind what you call the file so choose your own sensible name).
+>
+> Fix the Snakefile so that Kallisto terminal output is redirected to a file and can be collected by MultiQC.
+>
+>  * *Hint 1: The manual above is not quite right - you need to capture both **stdout and stderr**, so using `>&` rather than `>`.*
+>  * *Hint 2: MultiQC does not mind what you call the file, so choose your own sensible name.*
 >
 > > ## Solution
 > >
-> > TODO
+> > ~~~
+> > # Kallisto quantification of one sample, with log capture.
+> > rule kallisto_quant:
+> >     output: directory("kallisto.{sample}")
+> >     input:
+> >         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
+> >         fq1   = "trimmed/{sample}_1.fq",
+> >         fq2   = "trimmed/{sample}_2.fq",
+> >     shell:
+> >      r"""mkdir {output}
+> >          kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} 2> {output}/kallisto_quant.log
+> >       """
+> > ~~~
+> >
+> > There are several perfectly good ways of structuring this, so don't worry if your answer is different.
+> >
+> > A gotcha with the above version is that the output directory needs to be created before *kallisto quant* is run,
+> > much like with FastQC.
+> > Remember that Snakemake deletes any existing outputs, including outputs that are directories, before the job is
+> > run, and while Kallisto will create the directory for you this is too late for the shell to make the log file
+> > and without the `mkdir` command it will report "No such file or directory".
+> >
+> > Another option is to make the log file outside of the directory, or stick with declaring the individual files as
+> > outputs, as when we first made the rule, in which case the directory will be made by Snakemake. It's possible to
+> > declare both a directory and a file within that directory as separate outputs, but this is probably not the best
+> > idea.
+> >
 > {: .solution}
 {: .challenge}
 
 > ## Bonus exercise - making the MultiQC rule more robust
 >
-> Because `multiqc` scans for suitable input rather than taking an explicit list of files, there is a risk that it picks up
+> Because MultiQC scans for suitable input rather than taking an explicit list of files, there is a risk that it picks up
 > unwanted reports if you leave old files sitting in the directory. To make the rule fully explicit, one idea is to make a
-> temporary directory and symlink all the files into it, and then tell multiqc to look in there. Amend the rule so it does this.
+> temporary directory and symlink all the files into it, and then tell MultiQC to look in there. Amend the *multiqc* rule
+> so it does this.
 >
-> *Tip: when making links, use `ln -snr -t <target_dir> <src>` to avoid link relativity issues.*
-> *Tip2: this may be easier if you tweak some of other rules too, so feel free to do that*
+>  * *Hint 1: when making links, use `ln -snr -t <target_dir> <src>` to avoid link relativity issues.*
+>  * *Hint 2: if you feel that tweaking some other rules would make this easier, feel free to do that*
 >
 > > ## Solution
 > >
-> > TODO
+> > This solution will work with the version of *kallisto_quant* in the solution above.
+> >
+> > ~~~
+> > rule multiqc:
+> >     output:
+> >         mqc_out = directory('multiqc_out'),
+> >         mqc_in  = directory('multiqc_in'),
+> >     input:
+> >         salmon =   expand("salmon.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
+> >         kallisto = expand("kallisto.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
+> >         fastqc =   expand("reads.{cond}_{rep}_{end}_fastqc.zip", cond=CONDITIONS, rep=REPLICATES, end=["1","2"]),
+> >     shell:
+> >       r"""mkdir {output.mqc_in}
+> >           ln -snr -t {output.mqc_in} {input}
+> >           multiqc {output.mqc_in} -o {output.mqc_out}
+> >        """
+> > ~~~
 > >
 > {: .solution}
 {: .challenge}
+
+To see the actual MultiQC report, open the file *multiqc_out/multiqc_report.html* in a web browser. You can do this from the
+command line:
+
+~~~
+$ xdg-open multiqc_out/multiqc_report.html
+~~~
+{: .language-bash}
+
+The report has a few issues, but we'll not get distracted by the details of how to configure MultiQC to resolve them.
 
 [fig-workflow]: ../fig/overview.svg
 
