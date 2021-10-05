@@ -1,11 +1,23 @@
 ###
-# Snakefile you should have at the start of Episode 07
+# Snakefile you should have at the start of Episode 08
 ###
 
+# Configuration
+configfile: "config.yaml"
+print("Config is: ", config)
+
+### config.yaml contents is:
+# salmon_kmer_len: "31"
+# trimreads_qual_threshold: "20"
+# trimreads_min_length: "100"
+# conditions: ["etoh60", "temp33", "ref"]
+# replicates: ["1", "2", "3"]
+
 # Input conditions and replicates to process
-CONDITIONS = glob_wildcards("reads/{condition}_1_1.fq").condition
+CONDITIONS = config["conditions"]
+REPLICATES = config["replicates"]
 print("Conditions are: ", CONDITIONS)
-REPLICATES = ["1", "2", "3"]
+print("Replicates are: ", REPLICATES)
 
 # Rule to make all counts and compile the results in two files
 rule all_counts:
@@ -34,8 +46,11 @@ rule countreads:
 rule trimreads:
   output: "trimmed/{asample}.fq"
   input:  "reads/{asample}.fq"
+  params:
+    qual_threshold = config["trimreads_qual_threshold"],
+    min_length     = config.get("trimreads_min_length", "100"),
   shell:
-    "fastq_quality_trimmer -t 22 -l 100 -o {output} <{input}"
+    "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
 
 # Kallisto quantification of one sample.
 # Modified to declare the whole directory as the output.
@@ -84,8 +99,10 @@ rule salmon_index:
         idx = directory("{strain}.salmon_index")
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
+    params:
+        kmer_len = config.get("salmon_kmer_len", "33")
     shell:
-        "salmon index -t {input.fasta} -i {output.idx} -k 31"
+        "salmon index -t {input.fasta} -i {output.idx} -k {params.kmer_len}"
 
 # A version of the MultiQC rule that ensures nothing unexpected is hoovered up by multiqc,
 # by linking the files into a temporary directory.

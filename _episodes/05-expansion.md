@@ -12,10 +12,10 @@ objectives:
 - "Make a summary of all read counts"
 keypoints:
 - "Rename your input files if necessary to maintain consistent naming"
-- "List the things you want to proces as global variables, or discover input files with glob_wildcards()"
-- "Use the expand() function to generate lists of filenames you want to combine"
+- "List the things you want to proces as global variables, or discover input files with `glob_wildcards()`"
+- "Use the `expand()` function to generate lists of filenames you want to combine"
 - "These functions can be tested in the Python interpreter"
-- "Any {input} to a rule can be a variable-length list, but lists of outputs are trickier and rarely needed"
+- "Any `{input}` to a rule can be a variable-length list, but lists of outputs are trickier and rarely needed"
 ---
 
 ## Defining a list of samples to process

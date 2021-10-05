@@ -13,7 +13,7 @@ keypoints:
 - "A 'job' in Snakemake is a rule plus wilcard values determined from the requested output"
 - "Snakemake plans its work by arranging jobs into a DAG (directed acyclic graph)"
 - "If outputs already exist, Snakemake can skip parts of the DAG"
-- "Snakemake checks file timestamps to see if outputs need regenerating"
+- "Snakemake checks file timestamps to determine if outputs need regenerating"
 ---
 
 ## The DAG
