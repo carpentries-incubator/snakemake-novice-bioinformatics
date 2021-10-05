@@ -192,5 +192,11 @@ will little to no modification. Snakemake turns the individual jobs into cluster
 
 [fig-threads]: ../fig/snake_threads.svg
 [fig-cluster]: ../fig/Multiple_Server_.jpg
+{% comment %}
+Photo credit: Cskiran
+Sourced from Wikimedia Commons
+CC-BY-SA-4.0
+{% endcomment %}
+
 
 {% include links.md %}

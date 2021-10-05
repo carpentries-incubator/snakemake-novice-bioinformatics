@@ -13,6 +13,10 @@ keypoints:
 - "Clean up yer mess"
 ---
 
+## Temporary files in Snakemake
+
+
+
 This chapter for:
 
 reminder of how Snakemake regards missing intermediate files

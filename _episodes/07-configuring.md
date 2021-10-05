@@ -225,3 +225,5 @@ This is all getting quite complex, so in summary:
 > >
 > {: .solution}
 {: .challenge}
+
+{% include links.md %}

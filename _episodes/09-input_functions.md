@@ -15,13 +15,20 @@ keypoints:
 ---
 *For reference, [this is the Snakefile](../code/ep09.Snakefile) you should have to start the episode.*
 
+## Workflows can get really complex
+
+If you turn your entire analysis project into a Snakemake workflow, you may end up with something like this.
+
+![A flying Snakemake spaghetti monster][fig-spaghetti]
+
+Sometimes, the standard Snakemake filename matching is not enough to express the connections you need
+to make, especially with complex combining steps. In these cases we can use **input functions**. Before
+seeing how these work, we need to talk about Python functions in general.
+
 ## Python functions in general
 
-### FIXME - add a picture of a complex Snakemake workflow - this is where we need input functions.
-
-We've already made use of utility functions like `expand()` and `glob_wildcards()` in writing Snakefiles. For some rule
-definitions in Snakemake it's useful to write our own **input functions**. Before seeing how these work, we need to
-talk about Python function in general.
+We've already made use of utility functions like `expand()` and `glob_wildcards()` in writing Snakefiles. Now we
+are going to write some new functions of our own.
 
 If you are already a Python programmer this will be familiar to you. If not, we're just going to cover the essentials
 needed for use in Snakemake. Functions in Python look like this:
@@ -78,9 +85,9 @@ Nothing to be done.
 >
 {: .callout}
 
-> # Challenge
+> ## Challenge
 >
-> The above `myfunc` function just generates useless pairs of strings, but we're going to be generating lists
+> The above *myfunc* function just generates useless pairs of strings, but we're going to be generating lists
 > of input file names for our rules. Write a function that takes a single argument called `sample_name` and returns
 > a list of all the *read 1* files for that sample. So, for example, if your function is called like:
 >
@@ -207,7 +214,7 @@ kallisto quant -i Saccharomyces_cerevisiae.R64-1-1.kallisto_index -o kallisto.et
 > > The fundamental problem is that Snakemake will try to run the `expand(...)` function at the point where it is building the rule
 > > definition, and this is well before it knows the output and the wildcards. Indeed, the rule is probably going to be applied to
 > > multiple samples, and so we want Snakemake to calculate `input.fq_pairs` and run `expand()` and `glob_wildcards()` for each of
-> > those samples, ie. for each job *(remember - a job = a rule + keywords)*, not just for the rule as a whole.
+> > those samples, ie. for each job *(remember: a job = a rule + keywords)*, not just for the rule as a whole.
 > >
 > > This fundamental problem means we can't just fix this by teaking the syntax. We need to tell Snakemake that the `fq_pairs` input
 > > of this rule is to be provided by an **input function**.
@@ -312,5 +319,12 @@ the read number. Yeah.
 > ~~~
 >
 {: .callout}
+
+[fig-spaghetti]: ../fig/rulegraph_complex.svg
+{% comment %}
+Leif Wigge, Rasmus Ågren and John Sundh SciLifeLab, National Bioinformatics Infrastructure Sweden (NBIS), Bioinformatics Long-term Support
+https://nbis-reproducible-research.readthedocs.io/en/course_1911/snakemake/
+MIT License
+{% endcomment %}
 
 {% include links.md %}
