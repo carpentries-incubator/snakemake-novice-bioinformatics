@@ -12,8 +12,12 @@ objectives:
 - "Understand the *threads* declaration"
 - "Use standard Linux tools to look at resource usage"
 keypoints:
-- "Add key points"
+- "To make your workflow run as fast as possible, try to match the number of threads to the number of cores you have"
+- "You also need to consider RAM, disk, and network bottlenecks"
+- "Profile your jobs to see what is taking most resources"
+- "Snakemake is great for running workflows on compute clusters"
 ---
+*For reference, [this is the Snakefile](../code/ep08.Snakefile) you should have to start the episode.*
 
 ## Processes, threads and processors
 
@@ -77,7 +81,7 @@ $ /usr/bin/time -v snakemake -j1 -F -- kallisto.{ref,temp33,etoh60}_{1,2,3}
 >
 > Now change the Snakemake concurrency option to  `-j 2` and then `-j 4`.
 >  * How does the total execution time change?
->  * What do you think limits the power of this setting to reduce the execution time?
+>  * What factors do you think limit the power of this setting to reduce the execution time?
 >
 > > ## Solution
 > >
@@ -103,7 +107,7 @@ There are **a few gotchas** to bear in mind when using parallel execution:
 
 ## Multi-thread rules in Snakemake
 
-In the diagram at the top, we showed jobs with 2 and 8 threads. These are defined by simply adding a **threads:**
+In the diagram at the top, we showed jobs with 2 and 8 threads. These are defined by adding a `threads:`
 part to the rule definition. We could do this for the *kallisto_quant* rule:
 
 ~~~
@@ -119,8 +123,8 @@ rule kallisto_quant:
         "kallisto quant -t {threads} -i {input.index} -o {output.outdir} {input.fq1} {input.fq2}"
 ~~~
 
-You should explicitly use `threads: 4` rather than `params: threads = 4` because Snakemake uses the number of threads
-when scheduling jobs. Also, if the number of threads requested for a rule is less than the number of avaialable processors
+You should explicitly use `threads: 4` rather than `params: threads = "4"` because Snakemake considers the number of threads
+when scheduling jobs. Also, if the number of threads requested for a rule is less than the number of available processors
 then Snakemake will use the lower number.
 
 We also added `-t {threads}` to the shell command. This only works for programs which allow you to specify the number
@@ -155,8 +159,10 @@ of threads as a command-line option, but this applies to a lot of different bioi
 > For example, to benchmark the `kallisto_quant` step we could add this to the rule definition:
 >
 > ~~~
-> benchmark:
-> 	"benchmarks/kallisto_quant.{sample}.txt"
+> rule kallisto_quant:
+>     benchmark:
+>         "benchmarks/kallisto_quant.{sample}.txt"
+>     ...
 > ~~~
 >
 > The dataset here is so small that the numbers are tiny, but for real data this can be very useful as it shows time, memory
@@ -170,10 +176,10 @@ of threads as a command-line option, but this applies to a lot of different bioi
 Learning about clusters is beyond the scope of this course, but for modern bioinformatics they are an essential tool because
 many analysis jobs would take too long on a single computer. Learning to run jobs on clusters normally means writing batch
 scripts and re-organising your code to be cluster-aware. But if your workflow is written in Snakemake, it will run on a cluster
-will little to no modification. Snakemake turns the jobs into cluster jobs, then submits and monitors them for you.
+will little to no modification. Snakemake turns the individual jobs into cluster jobs, then submits and monitors them for you.
 
  * [The Snakemake manual explains how to set this up](https://snakemake.readthedocs.io/en/stable/executing/cluster.html)
- * [Some specific suggestions for Eddie, the University of Edinburgh cluster](linky to PDF)
+ * [We have some specific suggestions for Eddie, the University of Edinburgh cluster](../files/snakemake_on_eddie.pdf)
 
 ![Some high performance compute][fig-cluster]
 

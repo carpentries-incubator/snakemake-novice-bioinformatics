@@ -15,6 +15,7 @@ keypoints:
 - "Use triple-quote syntax to make longer shell scripts with multiple commands"
 - "Use these extra commands to set up inputs and rename outputs"
 ---
+*For reference, [this is the Snakefile](../code/ep06.Snakefile) you should have to start the episode.*
 
 We've now seen how to link rules in a pipeline and how to merge results at the final step. This is the basic
 pattern for many analysis workflows. For simplicity, we used mostly basic shell commands, but we'll now replace

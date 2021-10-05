@@ -15,6 +15,7 @@ keypoints:
 - "If outputs already exist, Snakemake can skip parts of the DAG"
 - "Snakemake checks file timestamps to determine if outputs need regenerating"
 ---
+*For reference, [this is the Snakefile](../code/ep04.Snakefile) you should have to start the episode.*
 
 ## The DAG
 

@@ -13,6 +13,7 @@ keypoints:
 - "Python functions can be useful in some Snakemake rules"
 - ""
 ---
+*For reference, [this is the Snakefile](../code/ep09.Snakefile) you should have to start the episode.*
 
 ## Python functions in general
 

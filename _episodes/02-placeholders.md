@@ -15,6 +15,7 @@ keypoints:
 - "Placeholders in the shell part of the rule are replaced with values based on the requested output"
 - "Snakemake checks for various error conditions and will stop if it sees a problem"
 ---
+*For reference, [this is the Snakefile](../code/ep02.Snakefile) you should have to start the episode.*
 
 ## Wildcards and placeholders
 

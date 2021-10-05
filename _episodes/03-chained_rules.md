@@ -14,6 +14,7 @@ keypoints:
 - "Rules may have several named inputs and/or outputs"
 - "If a shell command does not yield an expected output then Snakemake will regard that job as failed"
 ---
+*For reference, [this is the Snakefile](../code/ep03.Snakefile) you should have to start the episode.*
 
 ## A pipeline of multiple rules
 
