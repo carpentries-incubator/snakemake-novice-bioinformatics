@@ -1,4 +1,0 @@
-Add to Ansible...
-
-~/.config/xfce4/terminal/terminalrc
-
