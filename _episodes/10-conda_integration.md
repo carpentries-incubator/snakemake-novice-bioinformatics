@@ -6,9 +6,13 @@ questions:
 - "How do I get Snakemake to manage software dependencies?"
 objectives:
 - "Understand how Snakemake works with Conda and Bioconda"
-- "Add a new package to the workflow with Conda integration"
+- "Modify a package in the workflow with Conda integration"
 keypoints:
-- "Add key points"
+- "Conda is a system for managing software packages in self-contained environments"
+- "Snakemake rules may be associated with specific Conda environments"
+- "When run with the `--use-conda` option, Snakemake will set these up for you"
+- "Conda gives you fine control over software versions, without modifying globally-installed packages"
+- "Workflows made this way are super-portable, because Conda handles installing the correct versions of everything"
 ---
 
 ## Conda and Snakemake

@@ -8,10 +8,11 @@ questions:
 objectives:
 - "Understand some components of Python useful for working in Snakemake"
 - "Use an input function to supply complex inputs to a rule"
-- "Use input functions to set parameters"
+- "Use an input function to set a rule parameter"
 keypoints:
-- "Python functions can be useful in some Snakemake rules"
-- ""
+- "Python functions are needed to resolve some complex input/output relationships"
+- "Input functions for rules always take a single argument which contains the keywords for the specific job"
+- "Input functions may also be used to determine parameters"
 ---
 *For reference, [this is the Snakefile](../code/ep09.Snakefile) you should have to start the episode.*
 
@@ -42,7 +43,7 @@ def myfunc(in_val1, in_val2):
 
 There are many things to note in these three lines:
 
-* The keyword **def**, as well as the parentheses and the colon, are always used when defining a Python function
+* The keyword `def`, as well as the parentheses and the colon, are always used when defining a Python function
 * As with rules, the function has a name of our choosing - `myfunc`
 * The function has *arguments*, ie. placeholders for values to pass in, which are also named - `in_val1` and `in_val2`
 * The function body is indented and consists of one or more statements to be run when the function is called
@@ -80,8 +81,13 @@ Nothing to be done.
 > ## Note
 >
 > You could also run the above file directly in Python - `$ python3 myfunc_test.py` - but to make it work you'd
-> also need to add the line `from snakemake.io import glob_wildcards, expand` to the top. When the code is run
-> via Snakemake these functions and others are imported for you.
+> also need to add the line
+>
+> ~~~
+> from snakemake.io import glob_wildcards, expand
+> ~~~
+>
+> to the top. When the code is run via Snakemake these functions, among other things, are imported for you.
 >
 {: .callout}
 
@@ -269,8 +275,9 @@ rule kallisto_quant_all:
         "kallisto quant -i {input.index} -o {output.outdir} {input.fq_pairs}"
 ~~~
 
-Note that there are no parentheses, just the plain function name. Snakemake only runs the function when it determines
-that the rule is needed to make some particular output, and at this point it passes in the *wildcards* values.
+Note that there are no parentheses, just the plain function name. Snakemake stores the function and only runs it
+when it determines that the rule is needed to make some particular output, and at this point it passes in the
+*wildcards* values for that job.
 
 ---
 
@@ -300,13 +307,29 @@ the read number. Yeah.
 > Within your function, you'll need to make an if/else decision. The syntax to do this is:
 >
 > ~~~
-> min_length = "100" if (read_num == "1") else "80"
+> min_length = "100" if read_name.endswith("1") else "80"
 > ~~~
 >
 > > ## Solution
 > >
-> > TODO. First thing is you need to add another wildcard.
->
+> > This is one way to write the function:
+> >
+> > ~~~
+> > def min_length_func(wildcards):
+> >     read_name = wildcards.asample
+> >     min_length = "100" if read_name.endswith("1") else "80"
+> >     return min_length
+> > ~~~
+> >
+> > And in the *trimreads* rule, the *params* will now be:
+> >
+> > ~~~
+> > params:
+> >   qual_threshold = "20",
+> >   min_length     = min_length_func,
+> > ~~~
+> >
+> {: .solution}
 {: .challenge}
 
 > ## Testing input functions

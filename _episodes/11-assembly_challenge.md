@@ -9,7 +9,8 @@ objectives:
 - "Apply what you have learned so far in a new example"
 - "Understand how to diagnose errors in a workflow"
 keypoints:
-- "Add key points"
+- "By now, you are ready to try using Snakemake for your own workflow tasks."
+- "Don't be disheartened by errors, which are normal. Use a systematic approach to diagnose the problem."
 ---
 
 ## Assembling the sequences

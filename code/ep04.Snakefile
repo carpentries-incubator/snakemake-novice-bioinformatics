@@ -1,5 +1,5 @@
 ###
-# Snakefile you should have at the start of Episode 04
+# Snakefile you should have at the start of Episodes 04 and 05
 ###
 
 # Generic read counter rule using wildcards and placeholders,
