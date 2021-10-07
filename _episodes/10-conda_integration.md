@@ -14,6 +14,7 @@ keypoints:
 - "Conda gives you fine control over software versions, without modifying globally-installed packages"
 - "Workflows made this way are super-portable, because Conda handles installing the correct versions of everything"
 ---
+*For reference, [this is the Snakefile](../code/ep10.Snakefile) you should have to start the episode.*
 
 ## Conda and Snakemake
 

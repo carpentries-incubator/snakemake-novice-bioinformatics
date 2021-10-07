@@ -16,6 +16,7 @@ keypoints:
 - "Watch out for commands that have {curly brackets} and double them up"
 - "Use the built-in `:q` feature to protect arguments from Bash interpretation"
 ---
+*For reference, [this is the Snakefile](../code/ep13.Snakefile) you should have to start the episode.*
 
 ## A review of quoting rules in the Bash shell
 
