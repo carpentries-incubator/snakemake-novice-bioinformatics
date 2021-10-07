@@ -8,9 +8,13 @@ questions:
 objectives:
 - "Review quoting rules in the shell"
 - "Understand how shell command strings are processed"
-- "Understand issues regarding quoting special characters"
+- "Understand how to make Snakemake commands robust"
 keypoints:
-- "Add key points"
+- "Having a handle on string quoting is boring but important"
+- "Understand the three processing steps each *shell* command goes through before it is actually run"
+- "Make use of triple-quotes"
+- "Watch out for commands that have {curly brackets} and double them up"
+- "Use the built-in `:q` feature to protect arguments from Bash interpretation"
 ---
 
 ## A review of quoting rules in the Bash shell
@@ -18,24 +22,24 @@ keypoints:
 Consider the following simple Bash shell command:
 
 ~~~
-$ echo How "cool" are    you?
-How cool are you?
+$ echo Why is a "mouse" when     it spins?
+Why is a mouse when it spins?
 ~~~
 
 The message is printed back, but not before the shell has interpreted the text as per the standard command-line
 parsing rules
 
- * The quotes around '"cool"' have been removed
- * The extra spaces between 'are' and 'you' have been ignored
+ * The quotes around '"mouse"' have been removed
+ * The extra spaces between 'when' and 'if' have been ignored
  * More subtly, the last word will be interpreted as a glob pattern...
 
 ~~~
-$ touch youX youY
-$ echo How "cool" are    you?
-How cool are youX youY
+$ touch spinsX spinsY
+$ echo Why is a "mouse" when     it spins?
+Why is a mouse when it spinsX spinsY
 ~~~
 
-*Note: if you have certain shell settings you may see a warning about the unmatched glob pattern.*
+*Note: if you have certain shell settings you may have seen a warning about the unmatched glob pattern.*
 
 In shell commands, some characters are "safe", in that Bash does not try to interpret them at all:
 
@@ -56,9 +60,12 @@ The 'single quotes' ensure that the expression is passed directly to `awk`. If d
 replace "$0" with the name of the current script and break the awk logic, giving a meaningless result.
 
 ~~~
-# With double quotes the "$0" is replaced by Bash before awk can see it.
+# With double quotes the "$0" is substituted by Bash, rather than being passed on to awk.
 $ awk "NR%4==2{sum+=length($0)}END{print sum/(NR/4)}" reads/ref_1_1.fq
 0
+# In an interactive shell $0 is a variable containing "bash"
+$ echo "NR%4==2{sum+=length($0)}END{print sum/(NR/4)}"
+NR%4==2{sum+=length(bash)}END{print sum/(NR/4)}
 ~~~
 
 So in Bash, putting a string in single quotes is normally enough to preserve the contents, but if you need to add literal
@@ -78,16 +85,14 @@ undergoes three rounds of interpretation before anything is actually run:
 
  1. The string is parsed according to Python quoting rules
  1. Placeholders in curly brackets (eg. {input} {output}) are then replaced
- 1. The resulting string goes to the shell and is subject to all Bash parsing rules
+ 1. The resulting string goes to the Bash shell and is subject to all Bash parsing rules
 
 We'll now look at some best practises for making your Snakefiles robust, and some simple rules to avoid most
 mis-quoting complications.
 
-###### Now have some exercises that illustrate the three points and introduce ways to deal with them:
-
 > ## Exercise - adding a lenreads rule
 >
-> Say we add a new rule named 'lenreads', looking very much like the existing 'countreads' rule and using the awk
+> Say we add a new rule named *lenreads*, looking very much like the existing *countreads* rule and using the awk
 > expression we saw earlier.
 >
 > ~~~
@@ -98,21 +103,24 @@ mis-quoting complications.
 >       "awk 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}' {input} > {output}"
 > ~~~
 >
-> Will this work as shown? If not, why not?
+> Will this work as shown? If not, why not? Try it and see.
 >
 > > ## Answer
 > >
-> > It won't work. Snakemake assumes that all parts of the string in {curlies} are placeholders. In this case, we
-> > have to double them up:
+> > It won't work. Snakemake assumes that all parts of the string in {curlies} are placeholders.  The error will say
+> > something like `NameError: The name 'sum+=length($0)' is unknown in this context`. To resolve this, we
+> > have to double up all the curly braces:
 > >
 > > ~~~
 > >   shell:
-> >     "awk 'NR%4==2{{sum+=length($0)}}END{{print sum/(NR/4)}}' {input} > {output}"
+> >     "awk 'NR%4==2{{"{{"}}sum+=length($0)}}END{{"{{"}}print sum/(NR/4)}}' {input} > {output}"
 > > ~~~
+> {: .solution}
+{: .challenge}
 
 ## Best practise for quoting
 
-For complex commands, use the triple-quote strings we saw earlier.
+For complex commands, use the *triple-quoted r-strings* we saw earlier.
 
 ~~~
 r"""Strings like this"""
@@ -121,38 +129,62 @@ r"""Strings like this"""
 The syntax allows embedded newlines, literal \n \t, and both types of '"quotes"'. In other words, the interpretation
 as a Python string does as little as possible, leaving most interpretation to the shell.
 
-Choose file names that only contain shell-safe characters and no spaces. This is good general proactise in any case.
-
-
-Double-escaping {{curlies}}. There is no good way to avoid this. Or is there? We can add them outside of the rule, maybe?
-The AWK example is good here.
+The triple-quoting does not protect {curlies}, so if you are needing to use awk commands like the one above, rather
+the adding extra braces into the command you can put it in a variable.
 
 ~~~
-LEN_READS_CMD = ['awk', 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}']
+LEN_READS_CMD = "NR%4==2{sum+=length($0)}END{print sum/(NR/4)}"
 
 rule lenreads:
-  output: "{indir}.{asample}.fq.len"
-  input:  "{indir}/{asample}.fq"
   shell:
-      "{LEN_READS_CMD:q} {input} > {output}"
-
+      "awk '{LEN_READS_CMD}' {input} > {output}"
 ~~~
 
-Shell parsing rules. Normally you want this because you want your pipes, redirects, shell variables, etc. to work.
-If you choose filenames using only [0-9A-Z-a-z.\_] then you will always be "safe", but sometimes you have to deal with
-awkwardly named files or parameters. If you want them unmolested. Use {foo:q}. Not '{foo}'!
-Have an exercise that demonstrates why this is good.
+Or even better:
 
-Getting increasingly unsure about this. Nead more hummus to work out how to make this a good chapter.
+~~~
+rule lenreads:
+  shell:
+      "awk {LEN_READS_CMD:q} {input} > {output}"
+~~~
 
-How will I best demonstrate the power of {:q}?
+Using `{LEN_READS_CMD:q}` instead of `'{LEN_READS_CMD}'` is asking Snakemake to quote the awk command for you. In
+this case, Snakemake will just put it into single quites, but if your variable contains single quotes or embedded
+newlines or tabs or any other oddities then Snakemake will quote it robustly for you.
 
-letters = ['"', "'", "$ ", "\n\tx", "{:}"]
-shell:
-    "echo {letters:q}"
+The `:q` syntax works on any placeholder and you can safely add it to all the placeholders, so we could well say:
 
-Hmmm. A little obscure. Well have a think.
+~~~
+rule lenreads:
+  shell:
+      "awk {LEN_READS_CMD:q} {input:q} > {output:q}"
+~~~
 
+Now the *lenreads* rule would be able to work on an input file that contains spaces or other unusual characters,
+and if the *input* is a list of files this will still work just fine, whereas `'{input}'` will fail as it just
+combines all the filenames into one big string.
+
+In general, choose file names that only contain shell-safe characters and no spaces, but if you can't do that
+then just ensure all your placeholders have `:q` and you should be fine.
+
+> ## Exercise
+>
+> Use the following command to rename the *temp33* and *etoh60* samples so that the filenames contain spaces:
+>
+> ~~~
+> $ rename -v -s 'etoh' 'etoh ' -s 'temp' 'temp ' reads/*.fq
+> ~~~
+>
+> Fix the workflow so you can still run the MultiQC report over all the samples (run Snakemake with `-F` to check
+> that all the steps work).
+>
+> > ## Solution
+> >
+> > This just involves adding `:q` to a whole bunch of placeholders. Unless you are very diligent it will probably
+> > take a few tries to catch every one of them and make the workflow functional again.
+> >
+> {: .solution}
+{: .challenge}
 
 {% include links.md %}
 
