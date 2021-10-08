@@ -278,7 +278,7 @@ rule kallisto_quant:
     ...
 ~~~
 
-> ## Exercise
+> ## Exercise - adding Salmon as an alternative to Kallisto
 >
 > An alternative to *kallisto* for transcript quantification is *salmon*. The procedure is virtually identical, having an indexing
 > step and a quantification step. Note that in real usage you are advised to prepare and add decoy sequences to the index, but for the
@@ -350,6 +350,7 @@ $ multiqc . -o multiqc_out
 > >
 > > *Note: This answer assumes that the **kallisto_quant** rule has been modified with a directory output as above.*
 > >
+> > ~~~
 > > rule multiqc:
 > > output: directory('multiqc_out')
 > > input:
@@ -358,6 +359,7 @@ $ multiqc . -o multiqc_out
 > >     fastqc =   expand("reads.{cond}_{rep}_{end}_fastqc.zip", cond=CONDITIONS, rep=REPLICATES, end=["1","2"]),
 > > shell:
 > >     "multiqc . -o multiqc_out"
+> > ~~~
 > >
 > {: .solution}
 {: .challenge}
@@ -367,16 +369,14 @@ $ multiqc . -o multiqc_out
 > You may notice that MultiQC is not capturing Kallisto output when making the reports. The reason for this is given in the
 > [MultiQC manual here](https://multiqc.info/docs/#kallisto):
 >
-> ~~~
-> Note - MultiQC parses the standard out from Kallisto, not any of its output files (abundance.h5, abundance.tsv, and run_info.json).
-> As such, you must capture the Kallisto stdout to a file when running to use the MultiQC module.
-> ~~~
+> > *Note - MultiQC parses the standard out from Kallisto, not any of its output files (abundance.h5, abundance.tsv, and run_info.json).
+> > As such, you must capture the Kallisto stdout to a file when running to use the MultiQC module.*
 >
 >
 > Fix the Snakefile so that Kallisto terminal output is redirected to a file and can be collected by MultiQC.
 >
->  * *Hint 1: The manual above is not quite right - you need to capture both **stdout and stderr**, so using `>&` rather than `>`.*
->  * *Hint 2: MultiQC does not mind what you call the file, so choose your own sensible name.*
+>  * *Hint 1:* The manual above is not quite right - you need to capture both **stdout and stderr**, so using `>&` rather than `>`.
+>  * *Hint 2:* MultiQC does not mind what you call the file, so choose your own sensible name.
 >
 > > ## Solution
 > >
@@ -417,8 +417,8 @@ $ multiqc . -o multiqc_out
 > temporary directory and symlink all the files into it, and then tell MultiQC to look in there. Amend the *multiqc* rule
 > so it does this.
 >
->  * *Hint 1: when making links, use `ln -snr -t <target_dir> <src>` to avoid link relativity issues.*
->  * *Hint 2: if you feel that tweaking some other rules would make this easier, feel free to do that*
+>  * *Hint 1:* When making links, use `ln -snr -t <target_dir> <src>` to avoid link relativity issues.
+>  * *Hint 2:* If you feel that tweaking some other rules would make this easier, feel free to do that.
 >
 > > ## Solution
 > >

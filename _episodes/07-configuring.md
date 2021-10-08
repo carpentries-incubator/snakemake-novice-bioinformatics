@@ -45,7 +45,7 @@ rule trimreads:
     "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
 ~~~
 
-Now it is a little clearer what these numbers mean. Use of parameters does not give you extra functionality but it is
+Now it is a little clearer what these numbers mean. Use of parameters doesn't give you extra functionality but it is
 good practise put settings like these into parameters as it makes the whole rule more readable.
 
 > ## Exercise
@@ -75,7 +75,7 @@ good practise put settings like these into parameters as it makes the whole rule
 > > Notes:
 > >
 > > * You can choose a different parameter name, but it must be a valid identifier - no spaces or hyphens.
-> > * Changing the parameters does automatically trigger Snakemake to re-run the rule (remember it only looks
+> > * Changing the parameters doesn't automatically trigger Snakemake to re-run the rule (remember it only looks
 > >   at file modification times) so you need to use `-f` (or `-R` or `-F`) to force the job to be re-run.
 > >
 > {: .solution}

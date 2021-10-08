@@ -156,7 +156,7 @@ rule kallisto_quant:
 ~~~
 {: .language}
 
-This rule can perform quantification on any fair of FASTQ reads, and assumes each file pair corresponds to one
+This rule can perform quantification on any pair of FASTQ reads, and assumes each file pair corresponds to one
 sample. But if the sample is split over multiple files we may want to feed all of these to Kallisto at once.
 
 ~~~
@@ -279,12 +279,6 @@ Note that there are no parentheses, just the plain function name. Snakemake stor
 when it determines that the rule is needed to make some particular output, and at this point it passes in the
 *wildcards* values for that job.
 
----
-
-What's next? Need an exercise, really. Is there anything else which I can force an input function for?
-Could combine it with paremeters, but I get into if/else or dicts or other Python syntax. Ick. But maybe
-I could provide some canned syntax and get them to make a function? Yeah! Choose the trim params based on
-the read number. Yeah.
 
 > ## Exercise
 >

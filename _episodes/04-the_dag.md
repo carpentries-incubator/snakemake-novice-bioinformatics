@@ -134,7 +134,7 @@ The default timestamp-based logic is really useful when you want to:
 
 But it doesn't help us in the situation when rules in the Snakefile change, rather than input files, Snakemake
 won't see that the results are out-of-date. For example, if we changed the quality cutoffs within the trimreads
-rule then Snakemake would not automatically re-run thos rules, because it only checks that the output file is
+rule then Snakemake would not automatically re-run those rules, because it only checks that the output file is
 newer than the input file.
 
 The `-R` flag allows you to explicitly tell Snakemake that a rule has changed and that all outputs from that rule
@@ -200,19 +200,24 @@ newer than the input files.
 > >
 > > 1) `$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | dot | display`
 > >
-> > 2) `$ snakemake -j1 -p -f trimmed/etoh60_*.fq kallisto.etoh60_{1,2,3}/abundance.h5 --dag | dot | display`
+> > 2) `$ snakemake -j1 -p --dag -f trimmed/etoh60_*.fq kallisto.etoh60_{1,2,3}/abundance.h5 | dot | display`
 > >
 > > 3) `$ touch reads/etoh60_*`
 > >
 > > 4) `$ rm -r trimmed/etoh60_*.fq kallisto.etoh60_*`
 > >
-> > In general, getting Snakemake to re-run things by removing files is a bad idea. Using the `-R` flag or `touch` is
-> > simpler and more reliable. If in doubt, and if it will not be too time consuming, use `-F` to run the whole
-> > workflow from scratch.
-> >
 > {: .solution}
 >
 {: .challenge}
+
+> ## Removing files to trigger reprocessing
+>
+> In general, getting Snakemake to re-run things by removing files is a bad idea, because it's easy to forget
+> about intermediate files that actually contain stale results and need to be updated. Using the `-R` flag or
+> `touch` is simpler and more reliable. If in doubt, and if it will not be too time consuming, keep it simple
+> and just use `-F` to run the whole workflow from scratch.
+>
+{: .callout}
 
 [fig-dag]: ../fig/dag_1.svg
 [fig-dag2]: ../fig/dag_2.png
