@@ -304,7 +304,7 @@ point you are doing this course, but it was true back when the course was writte
 Finally, check that the rules are still generic by processing the *temp33_1* sample:
 
 ~~~
-$ snakemake -j1 -F -p kallisto.temp33_1/abundances.h5
+$ snakemake -j1 -F -p kallisto.temp33_1/abundance.h5
 ~~~
 {: .language-bash}
 
