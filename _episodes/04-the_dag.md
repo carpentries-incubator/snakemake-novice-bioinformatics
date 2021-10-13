@@ -46,7 +46,7 @@ quantify the *ref1* sample.
 
 > ## Question
 >
-> If we asked Snakemake to run 'kallisto quant' on all three of the reference samples (ref1, ref2, ref3), how many jobs would
+> If we asked Snakemake to run *kallisto_quant* on all three of the reference samples (ref1, ref2, ref3), how many jobs would
 > that be in total?
 >
 > > ## Answer
@@ -56,7 +56,7 @@ quantify the *ref1* sample.
 > {: .solution}
 {: .challenge}
 
-## Snakemake is lazy and laziness is good
+## Snakemake is lazy, and laziness is good
 
 For the last few episodes, we've told you to run Snakemake like this:
 
@@ -140,19 +140,34 @@ newer than the input file.
 The `-R` flag allows you to explicitly tell Snakemake that a rule has changed and that all outputs from that rule
 need to be re-evaluated.
 
-```
+~~~
 $ snakemake -j1 -Rtrimreads -p kallisto.temp33_1/abundance.h5
-```
+~~~
 
-*Note: for some reason this only works if there is no space between `-R` and `trimreads`. This may be a bug in the
-current version of Snakemake*
+> ## Note on `-R`
+>
+> Due to a quirk of the way Snakemake parses command-line options, you either need to make sure there is no space
+> between `-R` and `trimreads`, or else that there are further options afterwards, before the list of target files.
+> If you don't do this, the behaviour of Snakemake will not be what you expect, as it will try to run a default
+> rule rather than your desired targets.
+>
+> If you are only re-running a single rule, then having no space is the simplest way to go. But if you have updated
+> multiple rules then you need to do it like so:
+>
+> ~~~
+> $ snakemake -j1 -R trimreads kallisto_index -p kallisto.temp33_1/abundance.h5
+> ~~~
+>
+> The `-p` flag is a good one to add before the targets, because you generally always want this option anyway.
+>
+{: .callout}
 
 The `-f` flag specifies that the target outputs named on the command line should always be regenerated, so you can
 use this to explicitly re-make specific files.
 
-```
+~~~
 $ snakemake -j1 -f -p kallisto.temp33_1/abundance.h5
-```
+~~~
 
 This always re-runs *kallisto_quant*, regardless of whether the output file is there already. For all intermediate
 outputs, Snakemake applies the default timestamp-based logic. Contrast with `-F` which runs the entire DAG every time.
