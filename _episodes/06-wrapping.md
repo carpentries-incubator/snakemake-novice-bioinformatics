@@ -223,7 +223,7 @@ powerful solution is to use shell commands to move and/or rename the files to ex
 > ## Exercise - fixing FastQC to use our own output file names
 >
 > Complete the rule below so that the output filenames are correctly produced. You will need to add extra commands to the
-> `shell` part aside from multiqc. Do not alter the `output` or `input` parts of the rule.
+> `shell` part after running `fastqc`. Do not alter the `output` or `input` parts of the rule.
 >
 > ~~~
 > rule fastqc:
