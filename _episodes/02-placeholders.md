@@ -29,8 +29,8 @@ sequences in **any** of the `.fq` files.
 ~~~
 # New generic read counter
 rule countreads:
-  output: "{asample}.fq.count"
-  input:  "reads/{asample}.fq"
+  output: "{sample}.fq.count"
+  input:  "reads/{sample}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
@@ -56,13 +56,13 @@ rule countreads:
 ~~~
 {: .language}
 
-The new rule has replaced file names with things in `{curly brackets}`, specifically `{asample}`, `{input}` and `{output}`.
+The new rule has replaced file names with things in `{curly brackets}`, specifically `{sample}`, `{input}` and `{output}`.
 
-### `{asample}` is a **wildcard**
+### `{sample}` is a **wildcard**
 
 Wildcards are used in the `input` and `output` lines of the rule to represent parts of filenames.
 Much like the `*` pattern in the shell, the wildcard can be replaced by any text in order to make up the desired filename.
-As with naming your rules, you may choose any name you like for your wildcards, so here we chose `asample`. Using the same
+As with naming your rules, you may choose any name you like for your wildcards, so here we chose `sample`. Using the same
 wildcards in the input and output is what tells Snakemake how to match input files to output files.
 
 If two rules use a wildcard with the same name then Snakemake will treat them as completely different - rules in Snakemake
@@ -74,8 +74,8 @@ Placeholders are used in the `shell` section of a rule, and Snakemake will
 replace them with appropriate values - `{input}` with the full name of the input file, and `{output}` with the full name of
 the output file -- before running the command.
 
-If we had wanted to include the value of the `asample` wildcard directly in the `shell` command we could have used the placeholder
-`{wildcards.asample}` but in most cases, as here, we just need the `{input}` and `{output}` placeholders.
+If we had wanted to include the value of the `sample` wildcard directly in the `shell` command we could have used the placeholder
+`{wildcards.sample}` but in most cases, as here, we just need the `{input}` and `{output}` placeholders.
 
 > ## Running the general-purpose rule
 >
@@ -117,8 +117,8 @@ If we had wanted to include the value of the `asample` wildcard directly in the 
 > >
 > > 1)
 > > ~~~
-> > output: "counts/{asample}.txt"
-> > input:  "reads/{asample}.fq"
+> > output: "counts/{sample}.txt"
+> > input:  "reads/{sample}.fq"
 > > ~~~
 > > {: .language}
 > >
@@ -127,8 +127,8 @@ If we had wanted to include the value of the `asample` wildcard directly in the 
 > >
 > > 2)
 > > ~~~
-> > output: "{asample}_counts/fq.{readnum}.count"
-> > input:  "reads/{asample}_{readnum}.fq"
+> > output: "{sample}_counts/fq.{readnum}.count"
+> > input:  "reads/{sample}_{readnum}.fq"
 > > ~~~
 > > {: .language}
 > >
@@ -202,8 +202,8 @@ to us indeed.
 > > ~~~
 > > # Trim any FASTQ reads for base quality
 > > rule trimreads:
-> >   output: "trimmed/{asample}.fq"
-> >   input:  "reads/{asample}.fq"
+> >   output: "trimmed/{sample}.fq"
+> >   input:  "reads/{sample}.fq"
 > >   shell:
 > >     "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 > > ~~~

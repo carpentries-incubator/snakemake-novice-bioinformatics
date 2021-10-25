@@ -67,7 +67,7 @@ read `.fq.gz` files fine. Finally, declare the output of *trimreads* to be *temp
 
 ~~~
 rule trimreads:
-  output: temporary("trimmed/{asample}.fq")
+  output: temporary("trimmed/{sample}.fq")
 ~~~
 
 And now re-run the workflow. Since we modified the *trimreads* rule, we'll force that rule to be re-run with the

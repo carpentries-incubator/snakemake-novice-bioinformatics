@@ -4,14 +4,14 @@
 
 # Generic read counter rule using wildcards and placeholders
 rule countreads:
-  output: "{asample}.fq.count"
-  input:  "reads/{asample}.fq"
+  output: "{sample}.fq.count"
+  input:  "reads/{sample}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: "trimmed/{asample}.fq"
-  input:  "reads/{asample}.fq"
+  output: "trimmed/{sample}.fq"
+  input:  "reads/{sample}.fq"
   shell:
     "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"

@@ -98,8 +98,8 @@ mis-quoting complications.
 >
 > ~~~
 > rule lenreads:
->   output: "{indir}.{asample}.fq.len"
->   input:  "{indir}/{asample}.fq"
+>   output: "{indir}.{sample}.fq.len"
+>   input:  "{indir}/{sample}.fq"
 >   shell:
 >       "awk 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}' {input} > {output}"
 > ~~~

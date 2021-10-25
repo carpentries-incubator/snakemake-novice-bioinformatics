@@ -72,8 +72,8 @@ so as to put the results into that file. This allowed us to have a rule the coun
 ~~~
 # Our existing countreads rule...
 rule countreads:
-  output: "{indir}.{asample}.fq.count"
-  input:  "{indir}/{asample}.fq"
+  output: "{indir}.{sample}.fq.count"
+  input:  "{indir}/{sample}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
@@ -98,7 +98,7 @@ We'll try all four, and see where this gets us.
 > rule fastqc:
 >   output:
 >       ???
->   input:  "{indir}/{asample}.fq"
+>   input:  "{indir}/{sample}.fq"
 >   shell:
 >       "fastqc {input}"
 > ~~~
@@ -110,9 +110,9 @@ We'll try all four, and see where this gets us.
 > > ~~~
 > > rule fastqc:
 > >   output:
-> >       html = "{indir}/{asample}_fastqc.html",
-> >       zip  = "{indir}/{asample}_fastqc.zip",
-> >   input:  "{indir}/{asample}.fq"
+> >       html = "{indir}/{sample}_fastqc.html",
+> >       zip  = "{indir}/{sample}_fastqc.zip",
+> >   input:  "{indir}/{sample}.fq"
 > >   shell:
 > >       "fastqc {input}"
 > > ~~~
@@ -138,17 +138,17 @@ directory, so we can use that.
 >
 > > ## Solution
 > >
-> > This involves using the {asample} wildcard twice and then constructing the output directory name
+> > This involves using the {sample} wildcard twice and then constructing the output directory name
 > > to give to fastqc in the `-o` option.
 > >
 > > ~~~
 > > rule fastqc:
 > >   output:
-> >     html = "{indir}.fastqc.{asample}/{asample}_fastqc.html",
-> >     zip  = "{indir}.fastqc.{asample}/{asample}_fastqc.zip",
-> >   input: "{indir}/{asample}.fq"
+> >     html = "{indir}.fastqc.{sample}/{sample}_fastqc.html",
+> >     zip  = "{indir}.fastqc.{sample}/{sample}_fastqc.zip",
+> >   input: "{indir}/{sample}.fq"
 > >   shell:
-> >     "fastqc -o {wildcards.indir}.fastqc.{wildcards.asample} {input}"
+> >     "fastqc -o {wildcards.indir}.fastqc.{wildcards.sample} {input}"
 > > ~~~
 > >
 > {: .solution}
@@ -163,8 +163,8 @@ We'll amend the *fastqc* rule like so:
 
 ~~~
 rule fastqc:
-  output: directory("{indir}.fastqc.{asample}")
-  input:  "{indir}/{asample}.fq"
+  output: directory("{indir}.fastqc.{sample}")
+  input:  "{indir}/{sample}.fq"
   shell:
      "fastqc -o {output} {input}"
 ~~~
@@ -190,8 +190,8 @@ does *not* exist.) The error can be rectified by making the directory explicitly
 
 ~~~
 rule fastqc:
-  output: directory("{indir}.fastqc.{asample}")
-  input:  "{indir}/{asample}.fq"
+  output: directory("{indir}.fastqc.{sample}")
+  input:  "{indir}/{sample}.fq"
   shell:
      "mkdir {output} ; fastqc -o {output} {input}"
 ~~~
@@ -201,8 +201,8 @@ we used a semicolon to split the commands. For putting multiple lines into a `sh
 
 ~~~
 rule fastqc:
-  output: directory("{indir}.fastqc.{asample}")
-  input:  "{indir}/{asample}.fq"
+  output: directory("{indir}.fastqc.{sample}")
+  input:  "{indir}/{sample}.fq"
   shell:
      r"""mkdir {output}
          fastqc -o {output} {input}
@@ -228,9 +228,9 @@ powerful solution is to use shell commands to move and/or rename the files to ex
 > ~~~
 > rule fastqc:
 >     output:
->         html = "{indir}.{asample}_fastqc.html",
->         zip  = "{indir}.{asample}_fastqc.zip"
->     input:  "{indir}/{asample}.fq"
+>         html = "{indir}.{sample}_fastqc.html",
+>         zip  = "{indir}.{sample}_fastqc.zip"
+>     input:  "{indir}/{sample}.fq"
 >     shell:
 >        r"""???
 >         """
@@ -245,13 +245,13 @@ powerful solution is to use shell commands to move and/or rename the files to ex
 > > ~~~
 > > rule fastqc:
 > >     output:
-> >         html = "{indir}.{asample}_fastqc.html",
-> >         zip  = "{indir}.{asample}_fastqc.zip"
-> >     input:  "{indir}/{asample}.fq"
+> >         html = "{indir}.{sample}_fastqc.html",
+> >         zip  = "{indir}.{sample}_fastqc.zip"
+> >     input:  "{indir}/{sample}.fq"
 > >     shell:
 > >        r"""fastqc -o . {input}
-> >            mv {wildcards.asample}_fastqc.html {output.html}
-> >            mv {wildcards.asample}_fastqc.zip  {output.zip}
+> >            mv {wildcards.sample}_fastqc.html {output.html}
+> >            mv {wildcards.sample}_fastqc.zip  {output.zip}
 > >         """
 > > ~~~
 > {: .solution}

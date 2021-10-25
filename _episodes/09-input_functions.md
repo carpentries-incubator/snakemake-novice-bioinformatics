@@ -289,8 +289,8 @@ when it determines that the rule is needed to make some particular output, and a
 >
 > ~~~
 > rule trimreads:
->   output: "trimmed/{asample}.fq"
->   input:  "reads/{asample}.fq"
+>   output: "trimmed/{sample}.fq"
+>   input:  "reads/{sample}.fq"
 >   params:
 >     qual_threshold = "20",
 >     min_length     = "100",
@@ -310,7 +310,7 @@ when it determines that the rule is needed to make some particular output, and a
 > >
 > > ~~~
 > > def min_length_func(wildcards):
-> >     read_name = wildcards.asample
+> >     read_name = wildcards.sample
 > >     min_length = "100" if read_name.endswith("1") else "80"
 > >     return min_length
 > > ~~~

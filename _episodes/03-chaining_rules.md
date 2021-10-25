@@ -24,15 +24,15 @@ of the Snakefile should be:
 ~~~
 # New generic read counter
 rule countreads:
-  output: "{asample}.fq.count"
-  input:  "reads/{asample}.fq"
+  output: "{sample}.fq.count"
+  input:  "reads/{sample}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: "trimmed/{asample}.fq"
-  input:  "reads/{asample}.fq"
+  output: "trimmed/{sample}.fq"
+  input:  "reads/{sample}.fq"
   shell:
     "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 ~~~
@@ -49,8 +49,8 @@ of the *countreads* rule:
 ~~~
 # New even-more-generic read counter
 rule countreads:
-  output: "{indir}.{asample}.fq.count"
-  input:  "{indir}/{asample}.fq"
+  output: "{indir}.{sample}.fq.count"
+  input:  "{indir}/{sample}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
@@ -69,11 +69,11 @@ $ cat trimmed.ref1_1.fq.count
 Look at the logging messages that Snakemake prints in the terminal. What has happened here?
 
 1. Snakemake looks for a rule to make `trimmed.ref1_1.fq.count`
-1. It determines that "countreads" can make this if `indir=trimmed` and `asample=ref1_1`
+1. It determines that "countreads" can make this if `indir=trimmed` and `sample=ref1_1`
 1. It sees that the input needed is therefore `trimmed/ref1_1.fq`
 <br/><br/>
 1. Snakemake looks for a rule to make `trimmed/ref1_1.fq`
-1. It determines that "trimreads" can make this if `asample=ref1_1`
+1. It determines that "trimreads" can make this if `sample=ref1_1`
 1. It sees that the input needed is therefore `reads/ref1_1.fq`
 <br/><br/>
 1. Now Snakemake has reached an available input file, it runs both steps to get the final output

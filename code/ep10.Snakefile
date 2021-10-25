@@ -37,21 +37,21 @@ rule all_counts:
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
 rule countreads:
-  output: "{indir}.{asample}.fq.count"
-  input:  "{indir}/{asample}.fq"
+  output: "{indir}.{sample}.fq.count"
+  input:  "{indir}/{sample}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Input function for trimreads
 def min_length_func(wildcards):
-    read_name = wildcards.asample
+    read_name = wildcards.sample
     min_length = "100" if read_name.endswith("1") else "80"
     return min_length
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: "trimmed/{asample}.fq"
-  input:  "reads/{asample}.fq"
+  output: "trimmed/{sample}.fq"
+  input:  "reads/{sample}.fq"
   params:
     qual_threshold = "20",
     min_length     = min_length_func,
@@ -83,13 +83,13 @@ rule kallisto_index:
 
 rule fastqc:
     output:
-        html = "{indir}.{asample}_fastqc.html",
-        zip  = "{indir}.{asample}_fastqc.zip"
-    input:  "{indir}/{asample}.fq"
+        html = "{indir}.{sample}_fastqc.html",
+        zip  = "{indir}.{sample}_fastqc.zip"
+    input:  "{indir}/{sample}.fq"
     shell:
        r"""fastqc -o . {input}
-           mv {wildcards.asample}_fastqc.html {output.html}
-           mv {wildcards.asample}_fastqc.zip  {output.zip}
+           mv {wildcards.sample}_fastqc.html {output.html}
+           mv {wildcards.sample}_fastqc.zip  {output.zip}
         """
 
 rule salmon_quant:

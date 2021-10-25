@@ -25,15 +25,15 @@ rule all_counts:
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
 rule countreads:
-  output: "{indir}.{asample}.fq.count"
-  input:  "{indir}/{asample}.fq"
+  output: "{indir}.{sample}.fq.count"
+  input:  "{indir}/{sample}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: "trimmed/{asample}.fq"
-  input:  "reads/{asample}.fq"
+  output: "trimmed/{sample}.fq"
+  input:  "reads/{sample}.fq"
   shell:
     "fastq_quality_trimmer -t 22 -l 100 -o {output} <{input}"
 
