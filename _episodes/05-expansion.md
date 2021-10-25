@@ -83,16 +83,21 @@ This list goes into the *input* section of the rule. You might think that since 
 from our workflow they should go into the *output* section. However, remember that *output*s of a rule are things the rule can
 make itself, and this rule doesn't actually make anything. It's just a placeholder for a bunch of filenames.
 
-We can now tell Snakemake to make all these files by using the target rule name on the command line, rather than the list of file
-names:
+We now tell Snakemake to make all these files by using the *target rule name* on the command line:
 
 ~~~
 $ snakemake -j1 -p all_counts
 ~~~
 {: .language-bash}
 
+Here, Snakemake sees that *all_counts* is the name of a rule in the Snakefile, so rather than trying to make a file literally
+named "all_counts" it looks at the input files for the rule and
+tries to make them all. In this case, all of the inputs to *all_counts* can be made by the *countreads* rule, and all of the
+inputs for those jobs are made by *trimreads*. The resulting workflow is the same as if we had typed out all 9 of the filenames
+on the command line.
+
 If you don't specify a target rule name or any file names on the command line when running Snakemake, the default is to use the
-first rule in the Snakefile. So if `all_counts` is defined before the other rules you can simply say:
+first rule in the Snakefile as the target. So if `all_counts` is defined before the other rules you can simply say:
 
 ~~~
 $ snakemake -j1 -p
