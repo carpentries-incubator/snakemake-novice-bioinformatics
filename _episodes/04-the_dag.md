@@ -178,7 +178,7 @@ outputs, Snakemake applies the default timestamp-based logic. Contrast with `-F`
 Snakemake can draw a picture of the DAG for you, if you run it like this:
 
 ~~~
-$ snakemake -f --dag kallisto.etoh60_1/abundance.h5 | display -visual StaticColor
+$ snakemake -f --dag kallisto.etoh60_1/abundance.h5 | gm display -
 ~~~
 
 ![DAG for partial workflow][fig-dag2]
@@ -213,9 +213,9 @@ newer than the input files.
 > >
 > > *The {1,2,3} syntax is expanded by the shell into the 3 file names. You could also type all three names in full.*
 > >
-> > 1) `$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | dot | display`
+> > 1) `$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -`
 > >
-> > 2) `$ snakemake -j1 -p --dag -f trimmed/etoh60_*.fq kallisto.etoh60_{1,2,3}/abundance.h5 | dot | display`
+> > 2) `$ snakemake -j1 -p --dag -f trimmed/etoh60_*.fq kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -`
 > >
 > > 3) `$ touch reads/etoh60_*`
 > >
