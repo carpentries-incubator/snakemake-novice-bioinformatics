@@ -98,7 +98,7 @@ Nothing to be done.
 > a list of all the *read 1* files for that sample. So, for example, if your function is called like:
 >
 > ~~~
-> print(yourfunc('etoh16'))
+> print(yourfunc('etoh60'))
 > ~~~
 >
 > the result should be: `['reads/etoh60_1_1.fq', 'reads/etoh60_2_1.fq', 'reads/etoh60_3_1.fq']`
