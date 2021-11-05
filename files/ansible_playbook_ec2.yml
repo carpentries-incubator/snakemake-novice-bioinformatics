@@ -26,8 +26,18 @@
         creates: /home/training/.vnc/passwd.old
       when: false # skip for now
 
+    # This one runs as root. The conda-forge versions of these packages are problematic
+    - name: Install some packages we need via APT
+      become_user: root
+      apt:
+        update_cache: yes
+        name:
+          - graphicsmagick
+          - graphviz
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+
     - name: Make the terminal black on white
-      become_user: training
       copy:
         src: "terminalrc"
         dest: "~/.config/xfce4/terminal/"
