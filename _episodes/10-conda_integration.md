@@ -149,10 +149,16 @@ We'll do something useful with *cutadapt* in the next episode.
 > ## Challenge
 >
 > Going back to our RNA-Seq workflow, imagine we want to try running the analysis with an older version of Salmon,
-> to see if the results are different.
-> We don't want to mess with the version of Salmon that's currently installed, or change any other parts of the
-> workflow other than *salmon_index* and *salmon_quant*. Define a new Conda environment that contains `salmon=1.2.1`
-> and then use this for the two rules by adding appropriate `conda:` directives. Then run your amended workflow.
+> to see if the results are different. We'll use **Salmon 1.2.1** which is available in Bioconda.
+>
+> One note about this particular package is it needs a dependency, `tbb=2020.2`, which is not installed by
+> default but we can explicitly list it in the environment definition file. Without this Salmon 1.2.1 will crash
+> out with the message *error while loading shared libraries*.
+>
+> We don't want to mess with the version of Salmon that's currently installed, or change any parts of the
+> workflow other than adding directives to *salmon_index* and *salmon_quant*. Define a new Conda environment
+> that has packages `salmon=1.2.1` and `tbb=2020.2` and then use this for the two rules by adding appropriate
+> `conda:` directives. Then run your amended workflow.
 >
 > > ## Solution
 > >
@@ -160,7 +166,7 @@ We'll do something useful with *cutadapt* in the next episode.
 > > follow the process shown above for cutadapt, that is to *conda create* an environment and then *export* it.
 > >
 > > ~~~
-> > $ conda create -n salmon-1.2.1 --channel bioconda --channel conda-forge salmon=1.2.1
+> > $ conda create -n salmon-1.2.1 --channel bioconda --channel conda-forge salmon=1.2.1 tbb=2020.2
 > > $ conda env export -n salmon-1.2.1 > salmon-1.2.1.yaml
 > > ~~~
 > >
@@ -170,7 +176,7 @@ We'll do something useful with *cutadapt* in the next episode.
 > > $ conda env remove -n salmon-1.2.1
 > > ~~~
 > >
-> > Next add the *conda* declarations to both the *salmon_index* and *salmon_quant* rules.
+> > Next add the same *conda* declaration to both the *salmon_index* and *salmon_quant* rules.
 > >
 > > ~~~
 > > conda: "salmon-1.2.1.yaml"
