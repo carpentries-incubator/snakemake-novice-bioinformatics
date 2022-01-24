@@ -140,9 +140,9 @@ all that is needed to spot a problem.
 
 > ## Challenge
 >
-> Design a Snakemake workflow based upon the above script which will assemble reads from all the three conditions
-> (ref, etoh60 and temp33) and will do so at four different kmer lengths (19, 21, 25 and 27), so twelve assemblies
-> in total. Use this to discover the length of the longest contig from all these assemblies.
+> Design a Snakemake workflow based upon the above script which will assemble all reads from each of the three
+> conditions (ref, etoh60 and temp33) and will do so at four different kmer lengths (19, 21, 25 and 27), so twelve
+> assemblies in total. Use your workflow to discover the length of the longest contig in each of the twelve assemblies.
 >
 > > ## Solution
 > >
