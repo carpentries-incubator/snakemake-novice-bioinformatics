@@ -1,7 +1,7 @@
 ---
 title: "Handling awkward programs"
-teaching: 20
-exercises: 30
+teaching: 40
+exercises: 40
 questions:
 - "How do I handle real bioinformatics tools?"
 - "How do I define a rule where the output is a directory?"

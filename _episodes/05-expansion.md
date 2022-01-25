@@ -1,7 +1,7 @@
 ---
 title: "Processing lists of inputs"
-teaching: 20
-exercises: 20
+teaching: 50
+exercises: 30
 questions:
 - "How do I process multiple files at once?"
 - "How do I define a default set of outputs for my Snakefile?"

@@ -1,7 +1,7 @@
 ---
 title: "Robust quoting in Snakefiles"
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 20
 questions:
 - "How are shell commands processed before being run?"
 - "How do I avoid quoting problems in filenames and commands?"
@@ -177,7 +177,7 @@ then just ensure all your placeholders have `:q` and you should be fine.
 > ~~~
 >
 > Fix the workflow so you can still run the MultiQC report over all the samples (run Snakemake with `-F` to check
-> that all the steps work).
+> that all the steps really work).
 >
 > > ## Solution
 > >

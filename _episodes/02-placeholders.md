@@ -1,7 +1,7 @@
 ---
 title: "Placeholders and wildcards"
-teaching: 20
-exercises: 10
+teaching: 40
+exercises: 30
 questions:
 - "How do I make a generic rule?"
 - "How does Snakemake decide what rule to run?"

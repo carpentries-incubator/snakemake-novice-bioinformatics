@@ -1,7 +1,7 @@
 ---
 title: "Chaining rules"
-teaching: 20
-exercises: 10
+teaching: 40
+exercises: 30
 questions:
 - "How do I combine rules into a workflow?"
 - "How do I make a rule with multiple inputs and outputs?"

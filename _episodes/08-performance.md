@@ -1,7 +1,7 @@
 ---
 title: "Optimising workflow performance"
-teaching: 15
-exercises: 15
+teaching: 20
+exercises: 20
 questions:
 - "What compute resources are available on my system?"
 - "How do I define jobs with more than one thread?"

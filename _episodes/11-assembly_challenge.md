@@ -1,7 +1,7 @@
 ---
 title: "Constructing a whole new workflow"
 teaching: 10
-exercises: 30
+exercises: 60
 questions:
 - "How do I approach making a new workflow from scratch?"
 - "How do I understand and debug the errors I see?"

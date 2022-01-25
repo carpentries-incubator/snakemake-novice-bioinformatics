@@ -1,7 +1,7 @@
 ---
 title: "Cleaning up"
 teaching: 20
-exercises: 10
+exercises: 20
 questions:
 - "How do I save disk space by removing temporary files?"
 - "How do I protect important outputs from deletion?"

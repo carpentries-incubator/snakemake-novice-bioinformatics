@@ -1,7 +1,7 @@
 ---
 title: "Running commands with Snakemake"
-teaching: 20
-exercises: 10
+teaching: 30
+exercises: 30
 questions:
 - "How do I run a simple command with Snakemake?"
 objectives:

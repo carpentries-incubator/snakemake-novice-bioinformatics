@@ -1,7 +1,7 @@
 ---
 title: "Input functions"
-teaching: 20
-exercises: 10
+teaching: 40
+exercises: 30
 questions:
 - "What is a Python function?"
 - "How can Python functions help in defining Snakemake rules?"

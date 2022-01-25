@@ -1,7 +1,7 @@
 ---
 title: "How Snakemake plans what jobs to run"
-teaching: 30
-exercises: 15
+teaching: 40
+exercises: 30
 questions:
 - "How do I visualise a Snakemake workflow?"
 - "How does Snakemake avoid unecessary work?"

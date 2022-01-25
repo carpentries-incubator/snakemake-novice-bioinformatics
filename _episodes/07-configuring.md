@@ -1,6 +1,6 @@
 ---
 title: "Configuring workflows"
-teaching: 20
+teaching: 30
 exercises: 20
 questions:
 - "How do I separate my rules from my configuration?"
