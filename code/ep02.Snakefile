@@ -1,16 +1,17 @@
 ###
-# Snakefile you should have at the start of Episode 02
+# Snakefile you should have after completing episode 02
 ###
 
-# Count reads by counting lines in the file then dividing by 4 (using shell syntax)
+# Generic read counter rule using wildcards and placeholders
 rule countreads:
-  output: "ref1_1.fq.count"
-  input:  "reads/ref_1.fq"
+  output: "{sample}.fq.count"
+  input:  "reads/{sample}.fq"
   shell:
-    "echo $(( $(wc -l <reads/ref1_1.fq) / 4 )) > ref1_1.fq.count"
+    "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
-rule countreads2:
-  output: "etoh60_1_1.fq.count"
-  input:  "reads/etoh60_1_1.fq"
+# Trim any FASTQ reads for base quality
+rule trimreads:
+  output: "trimmed/{sample}.fq"
+  input:  "reads/{sample}.fq"
   shell:
-    "echo $(( $(wc -l <reads/etoh60_1_1.fq) / 4 )) > etoh60_1_1.fq.count"
+    "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
