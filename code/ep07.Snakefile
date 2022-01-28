@@ -1,5 +1,6 @@
 ###
 # Snakefile you should have after completing episode 07
+# Assuming you start with ep06.Snakefile
 ###
 
 # Set configuration

@@ -1,5 +1,5 @@
 ###
-# Snakefile you should have after completing episode 07
+# Snakefile you should have after completing episode 08
 # Assuming you start with ep06.Snakefile
 ###
 
@@ -91,8 +91,6 @@ rule salmon_index:
         idx = directory("{strain}.salmon_index")
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
-    params:
-        kmer_len = config.get("salmon_kmer_len", "33")
     shell:
         "salmon index -t {input.fasta} -i {output.idx} -k 31"
 
