@@ -199,6 +199,7 @@ to be printed with `echo`. Don't worry if this is unfamiliar - you just need to 
 > {: .solution}
 {: .challenge}
 
+*For reference, [this is the full Snakefile](../code/ep01.Snakefile) we should have by the end of this episode.*
 
 {% include links.md %}
 

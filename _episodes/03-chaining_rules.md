@@ -308,5 +308,7 @@ $ snakemake -j1 -F -p kallisto.temp33_1/abundance.h5
 ~~~
 {: .language-bash}
 
+*For reference, [this is a Snakefile](../code/ep03.Snakefile) incorporating the changes made in this episode.*
+
 {% include links.md %}
 

@@ -17,7 +17,8 @@ keypoints:
 - "Profile your jobs to see what is taking most resources"
 - "Snakemake is great for running workflows on compute clusters"
 ---
-*For reference, [this is the Snakefile](../code/ep08.Snakefile) you should have to start the episode.*
+*For reference, [this is the final Snakefile from episodes 1 to 6](../code/ep06.Snakefile) you may use to
+start this episode.*
 
 ## Processes, threads and processors
 
@@ -76,7 +77,7 @@ $ /usr/bin/time -v snakemake -j1 -F -- kallisto.{ref,temp33,etoh60}_{1,2,3}
 
 > ## Exercise
 >
-> What is the 'wallclock time' reported by the above command? We'll work out the average for the whole class, or
+> What is the *wallclock time* reported by the above command? We'll work out the average for the whole class, or
 > if you are working through the material on your own repeat the measurement three times to get your own average.
 >
 > Now change the Snakemake concurrency option to  `-j 2` and then `-j 4`.

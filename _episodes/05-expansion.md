@@ -332,6 +332,7 @@ just a single file. Then, using the `{input.name}` placeholder in the shell comm
 >
 {: .callout}
 
+*For reference, [this is a Snakefile](../code/ep05.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}
 

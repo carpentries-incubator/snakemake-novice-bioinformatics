@@ -1,9 +1,11 @@
 ###
-# Snakefile you should have at the start of Episode 09
+# Snakefile you should have after completing episode 07
 ###
 
-# Configuration
+# Set configuration
 configfile: "config.yaml"
+# Print the configuration to the screen
+# note - I could have used logger.info() in place of print()
 print("Config is: ", config)
 
 ### config.yaml contents is:
@@ -60,10 +62,9 @@ rule kallisto_quant:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
         fq1   = "trimmed/{sample}_1.fq",
         fq2   = "trimmed/{sample}_2.fq",
-    threads: 4
     shell:
      r"""mkdir {output}
-         kallisto quant -t {threads} -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
+         kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
       """
 
 rule kallisto_index:
@@ -92,9 +93,8 @@ rule salmon_quant:
         index = "Saccharomyces_cerevisiae.R64-1-1.salmon_index",
         fq1   = "trimmed/{sample}_1.fq",
         fq2   = "trimmed/{sample}_2.fq",
-    threads: 4
     shell:
-        "salmon quant -p {threads} -i {input.index} -l A -1 {input.fq1} -2 {input.fq2} --validateMappings -o {output}"
+        "salmon quant -i {input.index} -l A -1 {input.fq1} -2 {input.fq2} --validateMappings -o {output}"
 
 rule salmon_index:
     output:
@@ -108,8 +108,8 @@ rule salmon_index:
 
 # A version of the MultiQC rule that ensures nothing unexpected is hoovered up by multiqc,
 # by linking the files into a temporary directory.
-# Note that this requires the *kallisto_quant* rule to be amended so that it has a directory
-# as the output, and that directory contains the console log.
+# Note that this requires the *kallisto_quant* rule to be amended as above so that it has
+# a directory as the output, with that directory containing the console log.
 rule multiqc:
     output:
         mqc_out = directory('multiqc_out'),

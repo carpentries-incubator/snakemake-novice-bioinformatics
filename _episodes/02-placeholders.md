@@ -228,5 +228,7 @@ to us indeed.
 > standard input so we're using `<` to specify the input file, and the `-o` flag specifies the output name.
 {: .callout}
 
+*For reference, [this is a Snakefile](../code/ep02.Snakefile) incorporating the changes made in this episode.*
+
 {% include links.md %}
 
