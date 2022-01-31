@@ -16,7 +16,8 @@ keypoints:
 - "Watch out for commands that have {curly brackets} and double them up"
 - "Use the built-in `:q` feature to protect arguments from Bash interpretation"
 ---
-*For reference, [this is the Snakefile](../code/ep13.Snakefile) you should have to start the episode.*
+*For reference, [this is the final Snakefile from episodes 1 to 6](../code/ep06.Snakefile) you may use to
+start this episode.*
 
 ## A review of quoting rules in the Bash shell
 
@@ -150,7 +151,7 @@ rule lenreads:
 ~~~
 
 Using `{LEN_READS_CMD:q}` instead of `'{LEN_READS_CMD}'` is asking Snakemake to quote the awk command for you. In
-this case, Snakemake will just put it into single quites, but if your variable contains single quotes or embedded
+this case, Snakemake will just put it into single quotes, but if your variable contains single quotes or embedded
 newlines or tabs or any other oddities then Snakemake will quote it robustly for you.
 
 The `:q` syntax works on any placeholder and you can safely add it to all the placeholders, so we could well say:
@@ -161,8 +162,8 @@ rule lenreads:
       "awk {LEN_READS_CMD:q} {input:q} > {output:q}"
 ~~~
 
-Now the *lenreads* rule would be able to work on an input file that contains spaces or other unusual characters,
-and if the *input* is a list of files this will still work just fine, whereas `'{input}'` will fail as it just
+Now the *lenreads* rule would be able to work on an input file that contains spaces or other unusual characters.
+Also, if the *input* is a list of files, this will still work just fine, whereas `'{input}'` will fail as it just
 combines all the filenames into one big string.
 
 In general, choose file names that only contain shell-safe characters and no spaces, but if you can't do that

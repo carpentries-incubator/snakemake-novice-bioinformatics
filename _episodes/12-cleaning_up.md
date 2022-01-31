@@ -1,7 +1,7 @@
 ---
 title: "Cleaning up"
 teaching: 20
-exercises: 20
+exercises: 10
 questions:
 - "How do I save disk space by removing temporary files?"
 - "How do I protect important outputs from deletion?"
@@ -13,8 +13,8 @@ keypoints:
 - "Make use of the `temporary()` function on outputs you don't need to keep"
 - "Shadow rules can solve some issues with commands that produce unwanted files, but are not normally needed"
 ---
-*For reference, [this is the Snakefile](../code/ep11.Snakefile) you should have to start the episode.
-We're going back the original RNA-Seq workflow, not the assembly workflow from episode 11.*
+*For reference, [this is the final Snakefile from episodes 1 to 6](../code/ep06.Snakefile) you may use to
+start this episode.*
 
 ## Temporary files in Snakemake
 
@@ -38,7 +38,7 @@ To get Snakemake to delete the files for you, mark them with the `temporary()` f
 be removed by Snakemake as soon as it is no longer needed.
 
 To provide a better example, lets say we decide to compress the trimmed reads with *gzip*. It's very common
-to store FASTQ files in this compressed format, and most software will read the files directly. Add a new
+to store FASTQ files in this compressed format, and most software will read the gzipped files directly. Add a new
 rule like so:
 
 ~~~
@@ -62,8 +62,7 @@ rule salmon_quant:
     ...
 ~~~
 
-We'll pretend for now that Kallisto and FastQC will only work on the uncompressed files, even though these tools can
-read `.fq.gz` files fine. Finally, declare the output of *trimreads* to be *temporary*.
+Finally, declare the output of the *trimreads* rule to be *temporary*.
 
 ~~~
 rule trimreads:
@@ -87,6 +86,19 @@ etoh60_3_2.fq.gz  ref_3_2.fq.gz  temp33_3_2.fq.gz
 
 Snakemake kept the uncompressed trimmed reads long enough to run *kallisto_quant* on all the samples, then removed
 them leaving only the gzipped versions.
+
+
+> ## Exercise
+>
+> The Kallisto and FastQC programs can read the compressed `.fq.gz` files too. Amend the *kallisto_quant*
+> and *fastqc* rules to use gzipped input files.
+>
+> If the workflow is now re-run in full, which extra files are now produced?
+>
+> And which temporary files are removed?
+>
+> {: .solution}
+{: .challenge}
 
 ## Protected outputs and *touch* mode
 
@@ -171,6 +183,8 @@ In *shadow* mode, Snakemake links the input files into a temporary working direc
 command and finally copies the outputs back. If you have ever used [NextFlow](https://nextflow.io) this idea
 will be familiar as NextFlow runs all workflow steps this way.
 
+# Maybe a little diagram?
+
 Advantages of using shadow rules are:
 
 * Extra temporary files created by applications do not require explicit removal
@@ -181,5 +195,7 @@ Disadvantages are:
 * Can be confusing when error messages reference the shadow directory
 * Symlinks to subdirectories do not always work the way you expect
 * Shadow directories are not always removed cleanly if Snakemake exits with an error
+
+*For reference, [this is a Snakefile](../code/ep10.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}

@@ -14,7 +14,8 @@ keypoints:
 - "Input functions for rules always take a single argument which contains the keywords for the specific job"
 - "Input functions may also be used to determine parameters"
 ---
-*For reference, [this is the Snakefile](../code/ep09.Snakefile) you should have to start the episode.*
+*For reference, [this is the final Snakefile from episodes 1 to 6](../code/ep06.Snakefile) you may use to
+start this episode.*
 
 ## Workflows can get really complex
 
@@ -157,12 +158,14 @@ rule kallisto_quant:
 {: .language}
 
 This rule can perform quantification on any pair of FASTQ reads, and assumes each file pair corresponds to one
-sample. But if the sample is split over multiple files we may want to feed all of these to Kallisto at once.
+sample. But what if all three reads were technical replicates from the same sample?
+In this case we would want to feed all of these to Kallisto at once.
 
 ~~~
+# In a new file named kallisto_all.Snakefile...
 rule kallisto_quant_all:
     output:
-        outdir = directory("kallisto.{sample}"),
+        outdir = directory("kallisto_all.{sample}"),
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
         fq_pairs = [ "trimmed/{sample}_1_1.fq", "trimmed/{sample}_1_2.fq",
@@ -176,10 +179,11 @@ rule kallisto_quant_all:
 Running the above in dry-run mode produces the command as expected (there's no need to try this):
 
 ~~~
-$ snakemake -s Snakefile.kallisto_list -pn -- kallisto.etoh60
+$ snakemake -s kallisto_all.Snakefile -pn -- kallisto_all.etoh60
 ...
-kallisto quant -i Saccharomyces_cerevisiae.R64-1-1.kallisto_index -o kallisto2.etoh60 trimmed/etoh60_1_1.fq trimmed/etoh60_1_2.fq trimmed/etoh60_2_1.fq trimmed/etoh60_2_2.fq trimmed/etoh60_3_1.fq trimmed/etoh60_3_2.fq
+kallisto quant -i Saccharomyces_cerevisiae.R64-1-1.kallisto_index -o kallisto_all.etoh60 trimmed/etoh60_1_1.fq trimmed/etoh60_1_2.fq trimmed/etoh60_2_1.fq trimmed/etoh60_2_2.fq trimmed/etoh60_3_1.fq trimmed/etoh60_3_2.fq
 ~~~
+{: .language-bash}
 
 The problem with this rule is that it's inflexible. It only works if there are exactly three sets of paired files
 for every sample. We can fix this with a use of `expand()` and `glob_wildcards()`, but we need to use a function
@@ -188,7 +192,7 @@ like the one above. To see why, try:
 ~~~
 rule kallisto_quant_all:
     output:
-        outdir = directory("kallisto.{sample}"),
+        outdir = directory("kallisto_all.{sample}"),
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
         fq_pairs = expand( "trimmed/{sample}_{rep}_{end}.fq",
@@ -199,10 +203,10 @@ rule kallisto_quant_all:
         "kallisto quant -i {input.index} -o {output.outdir} {input.fq_pairs}"
 ~~~
 
-This runs, but the result is no good:
+This runs, but the result is no good - the command has too many input files:
 
 ~~~
-kallisto quant -i Saccharomyces_cerevisiae.R64-1-1.kallisto_index -o kallisto.etoh60 trimmed/etoh60_3_1.fq trimmed/etoh60_3_2.fq trimmed/etoh60_2_1.fq trimmed/etoh60_2_2.fq trimmed/etoh60_1_1.fq trimmed/etoh60_1_2.fq trimmed/etoh60_3_1.fq trimmed/etoh60_3_2.fq trimmed/etoh60_2_1.fq trimmed/etoh60_2_2.fq trimmed/etoh60_1_1.fq trimmed/etoh60_1_2.fq trimmed/etoh60_2_1.fq trimmed/etoh60_2_2.fq trimmed/etoh60_1_1.fq trimmed/etoh60_1_2.fq trimmed/etoh60_3_1.fq trimmed/etoh60_3_2.fq
+kallisto quant -i Saccharomyces_cerevisiae.R64-1-1.kallisto_index -o kallisto_all.etoh60 trimmed/etoh60_3_1.fq trimmed/etoh60_3_2.fq trimmed/etoh60_2_1.fq trimmed/etoh60_2_2.fq trimmed/etoh60_1_1.fq trimmed/etoh60_1_2.fq trimmed/etoh60_3_1.fq trimmed/etoh60_3_2.fq trimmed/etoh60_2_1.fq trimmed/etoh60_2_2.fq trimmed/etoh60_1_1.fq trimmed/etoh60_1_2.fq trimmed/etoh60_2_1.fq trimmed/etoh60_2_2.fq trimmed/etoh60_1_1.fq trimmed/etoh60_1_2.fq trimmed/etoh60_3_1.fq trimmed/etoh60_3_2.fq
 ~~~
 
 > ## Question
@@ -267,13 +271,20 @@ Having made the function, we can tell Snakemake that this is to be used to deter
 ~~~
 rule kallisto_quant_all:
     output:
-        outdir = directory("kallisto.{sample}"),
+        outdir = directory("kallisto_all.{sample}"),
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
         fq_pairs = make_fq_pairs
     shell:
         "kallisto quant -i {input.index} -o {output.outdir} {input.fq_pairs}"
 ~~~
+
+~~~
+$ snakemake -s kallisto_all.Snakefile -pn -- kallisto_all.etoh60
+...
+kallisto quant -i Saccharomyces_cerevisiae.R64-1-1.kallisto_index -o kallisto_all.etoh60 trimmed/etoh60_1_1.fq trimmed/etoh60_1_2.fq trimmed/etoh60_2_1.fq trimmed/etoh60_2_2.fq trimmed/etoh60_3_1.fq trimmed/etoh60_3_2.fq
+~~~
+{: .language-bash}
 
 Note that there are no parentheses, just the plain function name. Snakemake stores the function and only runs it
 when it determines that the rule is needed to make some particular output, and at this point it passes in the
@@ -285,14 +296,14 @@ when it determines that the rule is needed to make some particular output, and a
 > Input functions can also be used to set **params** values. Alter the definition of the **trimreads** function
 > so that **min_length** is "100" for read 1 of any FASTQ pair, but "80" for read 2.
 >
-> As a reminder, here's the basic version of the rule:
+> As a reminder, here's the basic version of the rule with params added:
 >
 > ~~~
 > rule trimreads:
 >   output: "trimmed/{sample}.fq"
 >   input:  "reads/{sample}.fq"
 >   params:
->     qual_threshold = "20",
+>     qual_threshold = "22",
 >     min_length     = "100",
 >   shell:
 >     "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
@@ -319,7 +330,7 @@ when it determines that the rule is needed to make some particular output, and a
 > >
 > > ~~~
 > > params:
-> >   qual_threshold = "20",
+> >   qual_threshold = "22",
 > >   min_length     = min_length_func,
 > > ~~~
 > >
@@ -336,6 +347,8 @@ when it determines that the rule is needed to make some particular output, and a
 > ~~~
 >
 {: .callout}
+
+*For reference, [this is a Snakefile](../code/ep09.Snakefile) incorporating the changes made in this episode.*
 
 [fig-spaghetti]: ../fig/rulegraph_complex.svg
 {% comment %}

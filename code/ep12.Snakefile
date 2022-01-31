@@ -1,23 +1,14 @@
 ###
-# Snakefile you should have at the start of Episode 13
+# Snakefile you should have after completing episode 12
+# Assuming you start with ep06.Snakefile
 ###
 
-# Configuration
-configfile: "config.yaml"
-# Changed print() statements to logger.info() because print() interferes with --dag and
-# we get the error "display: no decode delegate for this image format"
-logger.info("Config is: " + str(config))
-
-### config.yaml contents is:
-# salmon_kmer_len: "31"
-# trimreads_qual_threshold: "20"
-# trimreads_min_length: "100"
-# conditions: ["etoh60", "temp33", "ref"]
-# replicates: ["1", "2", "3"]
-
 # Input conditions and replicates to process
-CONDITIONS = config["conditions"]
-REPLICATES = config["replicates"]
+CONDITIONS = glob_wildcards("reads/{condition}_1_1.fq").condition
+REPLICATES = ["1", "2", "3"]
+
+# Changed print() statements to logger.info() because print() interferes with --dag and
+# we get the confusing error "display: no decode delegate for this image format"
 logger.info("Conditions are: " + str(CONDITIONS))
 logger.info("Replicates are: " + str(REPLICATES))
 
@@ -44,23 +35,14 @@ rule countreads:
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
-# Variable trim length for trimreads
-def min_length_func(wildcards):
-    read_name = wildcards.sample
-    min_length = "100" if (read_name.endswith("1")) else "80"
-    return min_length
-
 # Trim any FASTQ reads for base quality
 rule trimreads:
   output: temporary("trimmed/{sample}.fq")
   input:  "reads/{sample}.fq"
-  params:
-    qual_threshold = config["trimreads_qual_threshold"],
-    min_length     = min_length_func,
   shell:
-    "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
+    "fastq_quality_trimmer -t 22 -l 100 -o {output} <{input}"
 
-# Generic zipper command
+# Rule to zip any FASTQ file
 rule gzip_fastq:
     output: "{afile}.fq.gz"
     input:  "{afile}.fq"
@@ -75,15 +57,14 @@ rule kallisto_quant:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
         fq1   = "trimmed/{sample}_1.fq",
         fq2   = "trimmed/{sample}_2.fq",
-    threads: 4
     shell:
      r"""mkdir {output}
-         kallisto quant -t {threads} -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
+         kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
       """
 
 rule kallisto_index:
     output:
-        idx = "{strain}.kallisto_index",
+        idx = protected("{strain}.kallisto_index"),
         log = "{strain}.kallisto_log",
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
@@ -107,26 +88,21 @@ rule salmon_quant:
         index = "Saccharomyces_cerevisiae.R64-1-1.salmon_index",
         fq1   = "trimmed/{sample}_1.fq.gz",
         fq2   = "trimmed/{sample}_2.fq.gz",
-    conda: "salmon-1.2.1.yaml"
-    threads: 4
     shell:
-        "salmon quant -p {threads} -i {input.index} -l A -1 {input.fq1} -2 {input.fq2} --validateMappings -o {output}"
+        "salmon quant -i {input.index} -l A -1 {input.fq1} -2 {input.fq2} --validateMappings -o {output}"
 
 rule salmon_index:
     output:
-        idx = directory("{strain}.salmon_index")
+        idx = protected(directory("{strain}.salmon_index"))
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
-    params:
-        kmer_len = config.get("salmon_kmer_len", "33")
-    conda: "salmon-1.2.1.yaml"
     shell:
-        "salmon index -t {input.fasta} -i {output.idx} -k {params.kmer_len}"
+        "salmon index -t {input.fasta} -i {output.idx} -k 31"
 
 # A version of the MultiQC rule that ensures nothing unexpected is hoovered up by multiqc,
 # by linking the files into a temporary directory.
-# Note that this requires the *kallisto_quant* rule to be amended so that it has a directory
-# as the output, and that directory contains the console log.
+# Note that this requires the *kallisto_quant* rule to be amended as above so that it has
+# a directory as the output, with that directory containing the console log.
 rule multiqc:
     output:
         mqc_out = directory('multiqc_out'),

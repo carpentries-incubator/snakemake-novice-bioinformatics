@@ -143,6 +143,8 @@ of threads as a command-line option, but this applies to a lot of different bioi
 >
 > *Hint: use `salmon quant --help-alignment` and `fastqc --help`, or search the online documentation.*
 >
+> Make the corresponding changes to the Snakefile.
+>
 > > ## Solution
 > >
 > > For *salmon_quant*, `-p {threads}` or equivalently `--threads {threads}` will work.
@@ -199,5 +201,6 @@ Sourced from Wikimedia Commons
 CC-BY-SA-4.0
 {% endcomment %}
 
+*For reference, [this is a Snakefile](../code/ep08.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}

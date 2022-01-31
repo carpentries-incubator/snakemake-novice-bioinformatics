@@ -15,7 +15,8 @@ keypoints:
 - "Conda gives you fine control over software versions, without modifying globally-installed packages"
 - "Workflows made this way are super-portable, because Conda handles installing the correct versions of everything"
 ---
-*For reference, [this is the Snakefile](../code/ep10.Snakefile) you should have to start the episode.*
+*For reference, [this is the final Snakefile from episodes 1 to 6](../code/ep06.Snakefile) you may use to
+start this episode.*
 
 ## Conda and Snakemake
 
@@ -147,7 +148,7 @@ We can actually run the above rule, even though it doens't produce any data. We 
 Snakemake.
 
 ~~~
-$ snakemake -j1 --use-conda
+$ snakemake -j1 --use-conda a_conda_rule
 Building DAG of jobs...
 Creating conda environment new-env.yaml...
 Downloading and installing remote packages.
@@ -231,6 +232,7 @@ We'll do something useful with *cutadapt* in the next episode.
 > {: .solution}
 {: .challenge}
 
+*For reference, [this is a Snakefile](../code/ep10.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}
 
