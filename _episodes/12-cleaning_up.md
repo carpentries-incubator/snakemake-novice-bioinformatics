@@ -223,7 +223,7 @@ will be familiar as NextFlow runs all workflow steps this way.
 This test rule serves to demonstrate the operation of rules using the *shadow* directive:
 
 ~~~
-rule shadow_rule:
+rule shallow_shadow_rule:
     output: "shadow_out.txt"
     shadow: "shallow"
     shell:
@@ -231,7 +231,7 @@ rule shadow_rule:
           echo shallow shadow mode
           echo Current directory is: `pwd`
           touch temp_file.txt
-          ls -lA
+          tree
         """
 ~~~
 
@@ -247,6 +247,6 @@ Disadvantages are:
 * Symlinks to subdirectories do not always work the way you expect
 * Shadow directories are not always removed cleanly if Snakemake exits with an error
 
-*For reference, [this is a Snakefile](../code/ep10.Snakefile) incorporating the changes made in this episode.*
+*For reference, [this is a Snakefile](../code/ep12.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}

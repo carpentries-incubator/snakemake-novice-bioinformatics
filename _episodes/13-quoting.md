@@ -10,67 +10,71 @@ objectives:
 - "Understand how shell command strings are processed"
 - "Understand how to make Snakemake commands robust"
 keypoints:
-- "Having a handle on string quoting is boring but important"
+- "Having a grasp of string quoting rules is boring but important"
 - "Understand the three processing steps each *shell* command goes through before it is actually run"
 - "Make use of triple-quotes"
-- "Watch out for commands that have {curly brackets} and double them up"
-- "Use the built-in `:q` feature to protect arguments from Bash interpretation"
+- "Watch out for commands that have {curly brackets}, and double them up"
+- "Use the built-in `:q` feature to protect arguments from *bash* interpretation"
 ---
 *For reference, [this is the final Snakefile from episodes 1 to 6](../code/ep06.Snakefile) you may use to
 start this episode.*
 
-## A review of quoting rules in the Bash shell
+## A review of quoting rules in the *bash* shell
 
-Consider the following simple Bash shell command:
+Consider the following simple *bash* shell command:
 
 ~~~
 $ echo Why is a "mouse" when     it spins?
 Why is a mouse when it spins?
 ~~~
+{: .language-bash}
 
-The message is printed back, but not before the shell has interpreted the text as per the standard command-line
+The message is printed back, but not before the shell has interpreted the text as per various command-line
 parsing rules
 
- * The quotes around '"mouse"' have been removed
- * The extra spaces between 'when' and 'if' have been ignored
- * More subtly, the last word will be interpreted as a glob pattern...
+ * The quotes around `"mouse"` have been removed
+ * The extra spaces between `when` and `it` have been ignored
+ * More subtly, `spins?` will be interpreted as a glob pattern if there is any possible match...
 
 ~~~
 $ touch spinsX spinsY
 $ echo Why is a "mouse" when     it spins?
 Why is a mouse when it spinsX spinsY
 ~~~
+{: .language-bash}
 
 *Note: if you have certain shell settings you may have seen a warning about the unmatched glob pattern.*
 
-In shell commands, some characters are "safe", in that Bash does not try to interpret them at all:
+In shell commands, some characters are "safe", in that *bash* does not try to interpret them at all:
 
 * Letters `A-Z` and `a-z`
 * Digits `0-9`
-* Period, underscore, forward slash, and hyphen `._-`
+* Period, underscore, forward slash, and hyphen `._/-`
 
 Most other characters have some sort of special meaning and must be enclosed in quotes if you want to pass them through
-verbatim to the program you are running. This is essential with things like `awk` commands:
+verbatim to the program you are running. This is essential with things like *awk* commands:
 
 ~~~
 # Print mean read length in FASTQ file - from https://github.com/stephenturner/oneliners
 $ awk 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}' reads/ref_1_1.fq
 101
 ~~~
+{: .language-bash}
 
-The 'single quotes' ensure that the expression is passed directly to `awk`. If double quotes had been used, Bash would
-replace "$0" with the name of the current script and break the awk logic, giving a meaningless result.
+The 'single quotes' ensure that the expression is passed directly to *awk*. If "double quotes" had been used, *bash* would
+replace `$0` with the name of the current script and break the awk logic, giving a meaningless result.
 
 ~~~
-# With double quotes the "$0" is substituted by Bash, rather than being passed on to awk.
+# With double quotes the "$0" is substituted by *bash*, rather than being passed on to awk.
 $ awk "NR%4==2{sum+=length($0)}END{print sum/(NR/4)}" reads/ref_1_1.fq
 0
-# In an interactive shell $0 is a variable containing "bash"
+# In an interactive shell $0 is a variable containing the value "bash"
 $ echo "NR%4==2{sum+=length($0)}END{print sum/(NR/4)}"
 NR%4==2{sum+=length(bash)}END{print sum/(NR/4)}
 ~~~
+{: .language-bash}
 
-So in Bash, putting a string in single quotes is normally enough to preserve the contents, but if you need to add literal
+So in *bash*, putting a string in single quotes is normally enough to preserve the contents, but if you need to add literal
 single quotes to the awk command for any reason you have to do some awkward (pun intended) construction.
 
 ~~~
@@ -78,6 +82,7 @@ single quotes to the awk command for any reason you have to do some awkward (pun
 $ awk '{print "\"double\" '"'"'single'"'"'"}' <<<''
 "double" 'single'
 ~~~
+{: .language-bash}
 
 ## Quoting rules in Snakemake
 
@@ -86,15 +91,15 @@ to quoting can be very troublesome. In Snakemake these are particularly complex 
 undergoes three rounds of interpretation before anything is actually run:
 
  1. The string is parsed according to Python quoting rules
- 1. Placeholders in curly brackets (eg. {input} {output}) are then replaced
- 1. The resulting string goes to the Bash shell and is subject to all Bash parsing rules
+ 1. Placeholders in curly brackets (eg. `{input}` `{output}`) are then replaced
+ 1. The resulting string goes to the *bash* shell and is subject to all *bash* parsing rules
 
 We'll now look at some best practises for making your Snakefiles robust, and some simple rules to avoid most
 mis-quoting complications.
 
-> ## Exercise - adding a lenreads rule
+> ## Exercise - adding a *lenreads* rule
 >
-> Say we add a new rule named *lenreads*, looking very much like the existing *countreads* rule and using the awk
+> Say we add a new rule named *lenreads*, looking very much like the existing *countreads* rule and using the *awk*
 > expression we saw earlier.
 >
 > ~~~
@@ -120,22 +125,22 @@ mis-quoting complications.
 > {: .solution}
 {: .challenge}
 
-## Best practise for quoting
+## Best practise for writing robust workflows
 
-For complex commands, use the *triple-quoted r-strings* we saw earlier.
+For complex commands in Snakemake rules, use the *triple-quoted r-strings* we saw earlier.
 
 ~~~
 r"""Strings like this"""
 ~~~
 
 The syntax allows embedded newlines, literal \n \t, and both types of '"quotes"'. In other words, the interpretation
-as a Python string does as little as possible, leaving most interpretation to the shell.
+as a Python string does as little as possible, leaving most interpretation to the *bash* shell.
 
-The triple-quoting does not protect {curlies}, so if you are needing to use awk commands like the one above, rather
-the adding extra braces into the command you can put it in a variable.
+The triple-quoting does not protect {curlies}, so if you are needing to use *awk* commands like the one above, rather
+than adding extra braces into the command you could define it as a variable.
 
 ~~~
-LEN_READS_CMD = "NR%4==2{sum+=length($0)}END{print sum/(NR/4)}"
+LEN_READS_CMD = r"""NR%4==2{sum+=length($0)}END{print sum/(NR/4)}"""
 
 rule lenreads:
   shell:
@@ -164,7 +169,7 @@ rule lenreads:
 
 Now the *lenreads* rule would be able to work on an input file that contains spaces or other unusual characters.
 Also, if the *input* is a list of files, this will still work just fine, whereas `'{input}'` will fail as it just
-combines all the filenames into one big string.
+combines all the filenames into one big string within the quotes.
 
 In general, choose file names that only contain shell-safe characters and no spaces, but if you can't do that
 then just ensure all your placeholders have `:q` and you should be fine.
@@ -176,6 +181,7 @@ then just ensure all your placeholders have `:q` and you should be fine.
 > ~~~
 > $ rename -v -s 'etoh' 'etoh ' -s 'temp' 'temp ' reads/*.fq
 > ~~~
+> {: .language-bash}
 >
 > Fix the workflow so you can still run the MultiQC report over all the samples (run Snakemake with `-F` to check
 > that all the steps really work).
@@ -187,6 +193,8 @@ then just ensure all your placeholders have `:q` and you should be fine.
 > >
 > {: .solution}
 {: .challenge}
+
+*For reference, [this is a Snakefile](../code/ep13.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}
 

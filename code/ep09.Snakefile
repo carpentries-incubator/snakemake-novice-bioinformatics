@@ -12,21 +12,6 @@ REPLICATES = ["1", "2", "3"]
 logger.info("Conditions are: " + str(CONDITIONS))
 logger.info("Replicates are: " + str(REPLICATES))
 
-# Rule to make all counts and compile the results in two files
-rule all_counts:
-  input:
-    untrimmed = expand( "reads.{cond}_{rep}_{end}.fq.count",   cond  = CONDITIONS,
-                                                               rep   = REPLICATES,
-                                                               end   = ["1", "2"] ),
-    trimmed   = expand( "trimmed.{cond}_{rep}_{end}.fq.count", cond  = CONDITIONS,
-                                                               rep   = REPLICATES,
-                                                               end   = ["1", "2"] ),
-  output:
-    untrimmed = "untrimmed_counts_concatenated.txt",
-    trimmed   = "trimmed_counts_concatenated.txt",
-  shell:
-    "cat {input.untrimmed} > {output.untrimmed} ; cat {input.trimmed} > {output.trimmed}"
-
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
 rule countreads:
