@@ -55,8 +55,8 @@ rule kallisto_quant:
     output: directory("kallisto.{sample}")
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
-        fq1   = "trimmed/{sample}_1.fq",
-        fq2   = "trimmed/{sample}_2.fq",
+        fq1   = "trimmed/{sample}_1.fq.gz",
+        fq2   = "trimmed/{sample}_2.fq.gz",
     shell:
      r"""mkdir {output}
          kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
@@ -73,7 +73,7 @@ rule kallisto_index:
 
 rule fastqc:
     output:
-        html = "{indir}.{sample}_fastqc.html",
+        html = temporary("{indir}.{sample}_fastqc.html"),
         zip  = "{indir}.{sample}_fastqc.zip"
     input:  "{indir}/{sample}.fq"
     shell:

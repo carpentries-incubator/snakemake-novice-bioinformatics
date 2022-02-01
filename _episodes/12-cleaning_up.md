@@ -1,7 +1,7 @@
 ---
 title: "Cleaning up"
 teaching: 20
-exercises: 10
+exercises: 15
 questions:
 - "How do I save disk space by removing temporary files?"
 - "How do I protect important outputs from deletion?"
@@ -24,7 +24,7 @@ that you can regenerate them again with a single Snakemake command means you may
 This way you save disk space and reduce clutter.
 
 Remember that Snakemake only re-generates intermediate files if it needs them to make a target, so simply
-deleting them is fine. Assuming you already made the *multiqc* report:
+deleting intermediate files manually works fine. Assuming you already made the *multiqc* report:
 
 ~~~
 $ rm trimmed/ref*.fq
@@ -33,13 +33,13 @@ $ snakemake -j1 -p multiqc_out
 Nothing to be done.
 ~~~
 
-To get Snakemake to delete the files for you, mark them with the `temporary()` function. Much like the
+To get Snakemake to clean up files for you, mark them with the `temporary()` function. Much like the
 `directory()` function, this is applied only on the outputs of rules. Any file marked as *temporary* will
 be removed by Snakemake as soon as it is no longer needed.
 
 To provide a better example, lets say we decide to compress the trimmed reads with *gzip*. It's very common
-to store FASTQ files in this compressed format, and most software will read the gzipped files directly. Add a new
-rule like so:
+to store FASTQ files in this compressed format, and most software will read the gzipped files directly, so
+there is no need to keep the uncompressed files. Add a new rule like so:
 
 ~~~
 rule gzip_fastq:
@@ -87,17 +87,54 @@ etoh60_3_2.fq.gz  ref_3_2.fq.gz  temp33_3_2.fq.gz
 Snakemake kept the uncompressed trimmed reads long enough to run *kallisto_quant* on all the samples, then removed
 them leaving only the gzipped versions.
 
-
 > ## Exercise
 >
-> The Kallisto and FastQC programs can read the compressed `.fq.gz` files too. Amend the *kallisto_quant*
-> and *fastqc* rules to use gzipped input files.
+> Like Salmon, Kallisto can read compressed `.fq.gz` files directly. Amend the *kallisto_quant* rule to use gzipped
+> input files.
+> Show that the new rule can be re-run on all samples without triggering the *trimreads* or *gzip_fastq* rules.
 >
-> If the workflow is now re-run in full, which extra files are now produced?
->
-> And which temporary files are removed?
->
+> > ## Answer
+> >
+> > In the first instance, this involves changing two input lines in the *kallisto_quant* rule definition.
+> >
+> > ~~~
+> >     fq1   = "trimmed/{sample}_1.fq.gz",
+> >     fq2   = "trimmed/{sample}_2.fq.gz",
+> > ~~~
+> >
+> > One quick way to check the result is:
+> >
+> > ~~~
+> > $ snakemake -n -Rkallisto_quant multiqc
+> > ~~~
+> >
+> > You should see that Snakemake wants to run the *kallisto_quant* and *multiqc* steps but no others.
+> >
 > {: .solution}
+>
+> We have no use for the HTML reports produced by FastQC. Modify the Snakefile to automatically
+> remove them.
+>
+> > ## Answer
+> >
+> > Amend the *html* output of the *fastqc* rule to mark it as `temporary()`:
+> >
+> > ~~~
+> > html = temporary("{indir}.{sample}_fastqc.html"),
+> > ~~~
+> >
+> > Since the files are already there, Snakemake will not normally remove them unless the jobs are re-run,
+> > so you could do that as was done for *trimreads* above.
+> > However, there is also a `--delete-temp-output` option which forces all temporary files in the DAG to
+> > be removed, and this provides the cleanest way to remove the files after modifying the Snakefile.
+> >
+> > ~~~
+> > $ snakemake -p -j1 --delete-temp-output multiqc
+> > ~~~
+> > {: .language-bash}
+> >
+> {: .solution}
+>
 {: .challenge}
 
 ## Protected outputs and *touch* mode
@@ -183,12 +220,26 @@ In *shadow* mode, Snakemake links the input files into a temporary working direc
 command and finally copies the outputs back. If you have ever used [NextFlow](https://nextflow.io) this idea
 will be familiar as NextFlow runs all workflow steps this way.
 
-# Maybe a little diagram?
+This test rule serves to demonstrate the operation of rules using the *shadow* directive:
+
+~~~
+rule shadow_rule:
+    output: "shadow_out.txt"
+    shadow: "shallow"
+    shell:
+      r"""exec >{output}
+          echo shallow shadow mode
+          echo Current directory is: `pwd`
+          touch temp_file.txt
+          ls -lA
+        """
+~~~
 
 Advantages of using shadow rules are:
 
-* Extra temporary files created by applications do not require explicit removal
-* When running jobs in parallel (eg. `-j 2`) certain conflicts are resolved by not running multiple jobs in the same directory at once
+* Extra temporary files created by applications do not require explicit removal (see `temp_file.txt` in the above example)
+* When running jobs in parallel (`-j 2`) certain conflicts related to temporary file are resolved by not running multiple
+jobs in the same directory at once
 
 Disadvantages are:
 
