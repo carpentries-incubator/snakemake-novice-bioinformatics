@@ -97,7 +97,7 @@ inputs for those jobs are made by *trimreads*. The resulting workflow is the sam
 on the command line.
 
 If you don't specify a target rule name or any file names on the command line when running Snakemake, the default is to use the
-first rule in the Snakefile as the target. So if `all_counts` is defined before the other rules you can simply say:
+first rule in the Snakefile as the target. So if *all_counts* is defined before the other rules you can simply say:
 
 ~~~
 $ snakemake -j1 -p
@@ -106,11 +106,13 @@ $ snakemake -j1 -p
 
 > ## Exercise
 >
-> Check that the `all_counts` rule is working. Now adapt the Snakefile so that it makes all the counts for both of the pairs of
+> Check that the *all_counts* rule is working. Now adapt the Snakefile so that it makes all the counts for both of the pairs of
 > reads (`_1.fq` and `_2.fq`), and also for both trimmed and untrimmed versions of the files. So you should end up with 36 count
 > files in total.
 >
 > > ## Solution
+> >
+> > This will work.
 > >
 > > ~~~
 > > # Input conditions and replicates to process
@@ -125,9 +127,9 @@ $ snakemake -j1 -p
 > > ~~~
 > > {: .language}
 > >
-> > You can also put the lists directly into the `expand()` function if you think this is more readable. It's possible to
-> > split the function over more than one line, but note that this only works if you put a newline after the *input:*
-> > line too.
+> > Alternatively you can put the lists directly into the `expand()` function rather than declaring more variables. To aid
+> > readability of the code it's also possible to split the function over more than one line, but note that this only works
+> > if you put a newline after the `input:` line too.
 > >
 > > ~~~
 > > # Input conditions and replicates to process
