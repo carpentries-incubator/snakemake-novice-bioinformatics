@@ -216,7 +216,7 @@ happy with the rule definition.
 > one input to the rule you don't have to give it a name, but you may do so if you like.
 >
 > Make it so that the output printed by the program is captured to a file, and therefore your rule will have
-> two separate outputs: the index file and the log file. Note that the program prints messages on STDERR, so
+> two separate outputs: the index file and the log file. Note that the program prints messages on *stderr*, so
 > you will need to use `>&` rather than `>` to capture the output.
 >
 > Also, once you get all this to run, you will still see an error after Snakemake runs the "kallisto_quant" step.

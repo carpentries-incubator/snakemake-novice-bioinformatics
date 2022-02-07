@@ -284,7 +284,7 @@ rule kallisto_quant:
 > step and a quantification step. Note that in real usage you are advised to prepare and add decoy sequences to the index, but for the
 > purposes of this tutorial we'll just keep things as simple as possible.
 >
-> Based upon the following commands:
+> Based upon the following command templates:
 >
 > ~~~
 > $ salmon index -t <transcriptome as fastq> -i <index name> -k 31
@@ -375,7 +375,8 @@ $ multiqc . -o multiqc_out
 >
 > Fix the Snakefile so that Kallisto terminal output is redirected to a file and can be collected by MultiQC.
 >
->  * *Hint 1:* The manual above is not quite right - you need to capture both **stdout and stderr**, so using `>&` rather than `>`.
+>  * *Hint 1:* The manual above is not quite right - you need to capture both **stdout and stderr**, so use `>&` rather than `>`, as
+>    we did with the indexing step.
 >  * *Hint 2:* MultiQC does not mind what you call the file, so choose your own sensible name.
 >
 > > ## Solution
@@ -390,7 +391,7 @@ $ multiqc . -o multiqc_out
 > >         fq2   = "trimmed/{sample}_2.fq",
 > >     shell:
 > >      r"""mkdir {output}
-> >          kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} 2> {output}/kallisto_quant.log
+> >          kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
 > >       """
 > > ~~~
 > >
