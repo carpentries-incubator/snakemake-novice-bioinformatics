@@ -90,7 +90,7 @@ backwards** from the final desired result. The order of operations is determined
 pattern matching rules to the filenames, not by the order of the rules in the Snakefile.
 
 This logic of working backwards from the desired output is why we're putting the `output` lines first
-in all out rules - to remind us that these are what Snakemake looks at first!
+in all our rules - to remind us that these are what Snakemake looks at first!
 
 > ## Thinking about your own workflows
 >
