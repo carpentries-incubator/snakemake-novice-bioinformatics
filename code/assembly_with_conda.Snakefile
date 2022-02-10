@@ -1,12 +1,12 @@
 # Run this Snakefile with the --use-conda flag to ensure the correct applications are present.
 
-conditions = ['ref', 'etoh60', 'temp33']
-kmers = [19, 21, 25, 27]
+CONDITIONS = ["ref", "etoh60", "temp33"]
+KMERS      = ["19", "21", "25", "27"]
 
 rule all_max:
     input:
-        expand("assem/{condition}_k{kmer}_max_contig.txt", condition = conditions,
-                                                           kmer = kmers )
+        expand("assem/{condition}_k{kmer}_max_contig.txt", condition = CONDITIONS,
+                                                           kmer = KMERS )
 
 rule cutadapt:
   output:
@@ -21,7 +21,7 @@ rule cutadapt:
   shell:
     r"""cutadapt -a {params.adapter} -A {params.adapter} \
             -o {output.read1} -p {output.read2} \
-            {input.read1} {input.read2}
+               {input.read1}     {input.read2}
      """
 
 rule concatenate:
