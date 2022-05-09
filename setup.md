@@ -18,7 +18,7 @@ You **do not** need root/administrator level access.
 
 To prepare for the course:
 
-* Download and unpack [the sample dataset tarball](https://ndownloader.figshare.com/files/28531743)
+* Download and unpack [the sample dataset tarball](https://ndownloader.figshare.com/files/35058796)
 * Install software packages, including Snakemake and the bioinformatics tools, via Conda:
   * If you don't already have Conda, get [the Miniconda installer](https://docs.conda.io/en/latest/miniconda.html) and follow instructions
   * Get [the environment file](files/conda_env_all.yaml) and run `conda env update --file conda_env_all.yaml`
