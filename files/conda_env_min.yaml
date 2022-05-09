@@ -1,0 +1,16 @@
+name: snakemake_dash
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - fastqc=0.11.9
+  - fastx_toolkit=0.0.14
+  - gnuplot=4.6.0
+  - graphicsmagick
+  - graphviz=2.42.3
+  - kallisto=0.46.2
+  - multiqc=1.10.1
+  - salmon=1.4.0
+  - snakemake=5.32.2
+prefix: /home/zenmaster/miniconda3/envs/snakemake_dash
