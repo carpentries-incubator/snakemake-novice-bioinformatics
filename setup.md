@@ -21,7 +21,7 @@ To prepare for the course:
 * Download and unpack [the sample dataset tarball](https://ndownloader.figshare.com/files/35058796)
 * Install software packages, including Snakemake and the bioinformatics tools, via Conda:
   * If you don't already have Conda, get [the Miniconda installer](https://docs.conda.io/en/latest/miniconda.html) and follow instructions
-  * Get [the environment file](files/conda_env_all.yaml) and run `conda env update --file conda_env_all.yaml`
+  * Get [the environment file](files/conda_env.yaml) and run `conda env update --file conda_env.yaml`
   * Ensure the right environment is active - `conda activate snakemake_dash`
 * Set up the GEdit or Nano text editor (other text editors will work fine but we only provide specific setup instructions
   for GEdit and Nano).
@@ -44,7 +44,7 @@ The following settings are also recommended:
 * Set the Syntax to "Python3", rather than "Plain Text"
 * Set Tab width to 4
 * Enable automatic indentation
-* Hilight matching brackets
+* Highlight matching brackets
 * Display line numbers
 
 ### Nano

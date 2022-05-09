@@ -5,7 +5,7 @@
 #
 # If other VMs are running then you'll need to do something smarter.
 #
-- hosts: training_vm
+- hosts: tag_Role_training_snakemake
   become: yes
   become_user: training
   tasks:
@@ -13,17 +13,17 @@
     - name: Set alternative password for VNC
       vars:
         passwd: "ed-dash-vnc"
-      become_user: training
       shell:
         executable: /bin/bash
-        chdir: /home/training/.vnc
+        chdir: ~/.vnc
         cmd: |
              set -euo pipefail
+             cd ~
              mv passwd passwd.old
              echo '{{ passwd }}' | /opt/tigervnc/usr/bin/vncpasswd -f > passwd
              chmod 0600 passwd
       args:
-        creates: /home/training/.vnc/passwd.old
+        creates: ~/.vnc/passwd.old
       when: false # rule is disabled for now
 
     # This one runs as root. The conda-forge versions of these packages are problematic
@@ -47,63 +47,60 @@
     - name: Fetch Miniconda Installer
       get_url:
         url: https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh
-        dest: /home/training/Downloads/miniconda3_installer.sh
+        dest: "~/Downloads/miniconda3_installer.sh"
         mode: '0644'
         checksum: sha256:536817d1b14cb1ada88900f5be51ce0a5e042bae178b5550e62f61e223deae7c
 
     - name: Run Miniconda Installer
       shell:
         executable: /bin/bash
-        chdir: /home/training
         cmd: |
              set -euo pipefail
              rm -rf ~/.conda ~/miniconda3
-             bash ./Downloads/miniconda3_installer.sh -b
+             bash ~/Downloads/miniconda3_installer.sh -b
              source ~/miniconda3/bin/activate
              conda init
-        creates: /home/training/.conda/environments.txt
+        creates: ~/.conda/environments.txt
 
     # I could do a full checkout of the GitHub repo here?
     # No checksum - the file may change
     - name: Download conda env spec
       get_url:
-        url: https://raw.githubusercontent.com/carpentries-incubator/snakemake-novice-bioinformatics/gh-pages/files/conda_env_min.yaml
-        dest: /home/training/Downloads/snakemake_conda_env.yaml
+        url: https://raw.githubusercontent.com/carpentries-incubator/snakemake-novice-bioinformatics/gh-pages/files/conda_env.yaml
+        dest: "~/Downloads/snakemake_conda_env.yaml"
         mode: '0644'
         backup: yes
 
     - name: Bootstrap deps into base env
       shell:
         executable: /bin/bash
-        chdir: /home/training
         cmd: |
              set -euo pipefail
              source ~/miniconda3/bin/activate
-             conda env update -n base --file /home/training/Downloads/snakemake_conda_env.yaml
+             conda env update -n base --file ~/Downloads/snakemake_conda_env.yaml
              snakemake --version
-        creates: /home/training/miniconda3/bin/snakemake
+        creates: "~/miniconda3/bin/snakemake"
 
     - name: Download the data files
       get_url:
-        url: https://ndownloader.figshare.com/files/28531743
-        dest: /home/training/Downloads/snakemake_data.tar.gz
+        url: https://ndownloader.figshare.com/files/35058796
+        dest: "~/Downloads/snakemake_data.tar.gz"
         mode: '0644'
         backup: no
 
     - name: Unpack the data files
       unarchive:
-        src: /home/training/Downloads/snakemake_data.tar.gz
-        dest: /home/training
+        src: "~/Downloads/snakemake_data.tar.gz"
+        dest: "~"
         remote_src: yes
         extra_opts: [ --strip-components=1 ]
-        creates: /home/training/yeast
+        creates: "~/yeast"
 
-    # I didn't realise GG GZipped all the reads. I can probably work with this but for
-    # the initial run-through I'll stick with the unpacked version.
+    # I didn't realise GG GZipped all the reads. This re-unzips them.
+    # Redundant since I actually fixed the tarball.
     - name: Fix up the data files
       shell:
         executable: /bin/bash
-        chdir: /home/training
         cmd: |
              set -euo pipefail
              cd ~
@@ -111,5 +108,5 @@
              rm -rf yeast/bams
              rm -f yeast/samples.csv
              rm -f yeast/.*.txt
-        creates: /home/training/yeast/reads/ref1_1.fq
+        creates: "~/yeast/reads/ref1_1.fq"
 
