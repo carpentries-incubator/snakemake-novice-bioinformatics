@@ -11,7 +11,8 @@ You **do not** need root/administrator level access.
 
 > ## Note
 > There are other ways to install these tools, and it should also be possible to run the exercises on
-> non-Linux systems. However, this is not covered here.
+> non-Linux systems. However, this is not covered here. We would welcome
+> [contributions](https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/blob/gh-pages/CONTRIBUTING.md) in this regard.
 {: .callout}
 
 ## Software and data installation

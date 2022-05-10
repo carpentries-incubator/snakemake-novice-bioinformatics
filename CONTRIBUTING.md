@@ -7,6 +7,9 @@ fixes to existing material,
 bug reports,
 and reviews of proposed changes are all welcome.
 
+This particular lesson is currently being developed under the [Ed-DaSH](https://edcarp.github.io/Ed-DaSH) project, so please
+get in touch with the [Ed-DaSH team][email] for all matters related to the materials in this repository.
+
 ## Contributor Agreement
 
 By contributing,
@@ -17,9 +20,9 @@ and help you become a member of our community.
 Everyone involved in [The Carpentries][c-site]
 agrees to abide by our [code of conduct](CODE_OF_CONDUCT.md).
 
-## How to Contribute
+## How to contribute to this lesson
 
-The easiest way to get started is to file an issue
+The easiest way to get started is to [file an issue][issues]
 to tell us about a spelling mistake,
 some awkward wording,
 or a factual error.
@@ -33,36 +36,14 @@ and to meet some of our community members.
 
 2.  If you have a [GitHub][github] account,
     or are willing to [create one][github-join],
-    but do not know how to use Git,
     you can report problems or suggest improvements by [creating an issue][issues].
     This allows us to assign the item to someone
-    and to respond to it in a threaded discussion.
+    and to respond to it in a threaded discussion. You do not need to know anything about Git.
 
 3.  If you are comfortable with Git,
     and would like to add or change material,
     you can submit a pull request (PR).
     Instructions for doing this are [included below](#using-github).
-
-## Where to Contribute
-
-1.  If you wish to change this lesson,
-    please work in <https://github.com/swcarpentry/FIXME>,
-    which can be viewed at <https://swcarpentry.github.io/FIXME>.
-
-2.  If you wish to change the example lesson,
-    please work in <https://github.com/carpentries/lesson-example>,
-    which documents the format of our lessons
-    and can be viewed at <https://carpentries.github.io/lesson-example>.
-
-3.  If you wish to change the template used for workshop websites,
-    please work in <https://github.com/carpentries/workshop-template>.
-    The home page of that repository explains how to set up workshop websites,
-    while the extra pages in <https://carpentries.github.io/workshop-template>
-    provide more background on our design choices.
-
-4.  If you wish to change CSS style files, tools,
-    or HTML boilerplate for lessons or workshops stored in `_includes` or `_layouts`,
-    please work in <https://github.com/carpentries/styles>.
 
 ## What to Contribute
 
@@ -133,7 +114,7 @@ happens on the [discussion mailing list][discuss-list],
 which everyone is welcome to join.
 You can also [reach us by email][email].
 
-[email]: mailto:admin@software-carpentry.org
+[email]: mailto:ed-dash@ed.ac.uk
 [dc-issues]: https://github.com/issues?q=user%3Adatacarpentry
 [dc-lessons]: http://datacarpentry.org/lessons/
 [dc-site]: http://datacarpentry.org/
@@ -142,7 +123,7 @@ You can also [reach us by email][email].
 [github-flow]: https://guides.github.com/introduction/flow/
 [github-join]: https://github.com/join
 [how-contribute]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
-[issues]: https://guides.github.com/features/issues/
+[issues]: https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/issues
 [swc-issues]: https://github.com/issues?q=user%3Aswcarpentry
 [swc-lessons]: https://software-carpentry.org/lessons/
 [swc-site]: https://software-carpentry.org/
