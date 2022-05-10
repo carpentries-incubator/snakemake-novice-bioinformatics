@@ -11,8 +11,8 @@ objectives:
 - "See how Snakemake deals with missing outputs"
 keypoints:
 - "Snakemake links rules by iteratively looking for rules that make missing inputs"
-- "Rules may have several named inputs and/or outputs"
-- "If a shell command does not yield an expected output then Snakemake will regard that job as failed"
+- "Rules may have multiple named inputs and/or outputs"
+- "If a shell command does not yield an expected output then Snakemake will regard that as a failure"
 ---
 *For reference, [this is the Snakefile](../code/ep02.Snakefile) you should have to start the episode.*
 

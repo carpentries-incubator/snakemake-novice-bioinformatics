@@ -9,9 +9,9 @@ objectives:
 - "Use Snakemake to count the lines in a FASTQ file"
 keypoints:
 - "Before running Snakemake you need to write a Snakefile"
-- "A Snakefile defines a list of rules"
+- "A Snakefile is a text file which defines a list of rules"
 - "Rules have inputs, outputs, and shell commands to be run"
-- "You tell Snakemake what you want to make and it will run the shell command defined in the appropriate rule"
+- "You tell Snakemake what file to make and it will run the shell command defined in the appropriate rule"
 ---
 
 ## Looking at the sample data

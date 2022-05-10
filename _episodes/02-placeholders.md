@@ -11,8 +11,8 @@ objectives:
 - "See how Snakemake deals with some errors"
 keypoints:
 - "Snakemake rules are made generic with placeholders and wildcards"
-- "Snakemake chooses the appropriate rule by looking for output patterns that can match the target"
-- "Placeholders in the shell part of the rule are replaced with values based on the requested output"
+- "Snakemake chooses the appropriate rule by replacing wildcards such the the output matches the target"
+- "Placeholders in the shell part of the rule are replaced with values based on the chosen wildcards"
 - "Snakemake checks for various error conditions and will stop if it sees a problem"
 ---
 *For reference, [this is the Snakefile](../code/ep01.Snakefile) you should have to start the episode.*

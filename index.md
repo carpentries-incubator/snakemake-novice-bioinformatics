@@ -27,8 +27,9 @@ to expand on who we think will benefit from this lesson and why.
 > ## Prerequisites
 >
 > This is an intermediate lesson and assumes learners have some prior experience in bioinformatics:
-> * Familiarity with the Bash command shell, including concepts like pipes, variables and loops.
-> * Knowledge of bioinformatics fundamentals like the FASTQ file format and transcriptome sequencing,
+> * Familiarity with the [Bash command shell[(http://swcarpentry.github.io/shell-novice), including concepts
+    like pipes, variables and loops.
+> * Knowledge of bioinformatics fundamentals like the FASTQ file format and short read mapping,
 >   in order to understand the example workflow.
 >
 > No previous knowledge of Snakemake or workflow systems, or Python programming, is required.

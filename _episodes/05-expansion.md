@@ -15,7 +15,7 @@ keypoints:
 - "List the things you want to proces as global variables, or discover input files with `glob_wildcards()`"
 - "Use the `expand()` function to generate lists of filenames you want to combine"
 - "These functions can be tested in the Python interpreter"
-- "Any `{input}` to a rule can be a variable-length list, but lists of outputs are trickier and rarely needed"
+- "Any `{input}` to a rule can be a variable-length list, but variable lists of outputs are trickier and rarely needed"
 ---
 *For reference, [this is the Snakefile](../code/ep03.Snakefile) you should have to start the episode.
 We didn't modify it during the last episode.*
