@@ -35,7 +35,7 @@ GEdit is the text editor that comes with the GNOME desktop and is a great genera
 menus it is normally just called "Text Editor" but you can also start it from the shell by typing "gedit &".
 
 Snakemake uses Python file structure which is very fussy about editor settings, particularly the use of Tab characters.
-Before using GEdit, you need to go into the preferences and select the following settings:
+Before writing any code in GEdit, you need to go into the preferences and select the following settings:
 
 * Insert spaces instead of tabs (under the "Editor" tab)
 * Disable text wrapping (under the "View" tab)
