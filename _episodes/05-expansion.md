@@ -46,7 +46,8 @@ $ cd ..
 >
 > The **rename** command here is [the one provided by Bioconda](http://plasmasturm.org/code/rename/). Other Linux
 > systems may have a different rename command installed by default.
->
+> An alternative way of renaming the files is to use a for loop:
+> `for f in ref*.fq; do mv $f "$(echo $f | sed 's/ref/ref_/')"; done`
 {: .callout}
 
 Having harmonized the file names we'll tell Snakemake about our conditions
@@ -174,15 +175,12 @@ list really is the same as before.
 $ snakemake -j1 -p all_counts
 Conditions are:  ['etoh60', 'temp33', 'ref']
 Building DAG of jobs...
-Job counts:
-	count	jobs
-	1	all_counts
-	36	countreads
-	18	trimreads
-	55
-...
+Nothing to be done (all requested files are present and up to date).
 ~~~
 {: .language-bash}
+
+Note that Snakemake reports `Nothing to be done`
+if you successfully ran the entire pipeline on all files.
 
 Using `glob_wildcards()` gets a little more tricky when you need a more complex match. To refine the match we can quickly test
 out results by activating the Python interpreter.
@@ -195,6 +193,11 @@ $ python3
 >>> glob_wildcards("reads/{condition}_1_1.fq")
 Wildcards(condition=['etoh60', 'temp33', 'ref'])
 ~~~
+{: .language-python}
+
+Note that you shouldn't type the three greater than signs `>>>`
+when you run these Python commands,
+as these represent the Python interpreter prompt.
 
 This is the result we got before. So far, so good.
 
@@ -339,4 +342,3 @@ just a single file. Then, using the `{input.name}` placeholder in the shell comm
 *For reference, [this is a Snakefile](../code/ep05.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}
-
