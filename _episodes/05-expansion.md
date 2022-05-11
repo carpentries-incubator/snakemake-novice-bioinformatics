@@ -35,8 +35,10 @@ A good way to do this is by making symlinks, because that way you don't lose sig
 ~~~
 $ mv reads original_reads
 $ mkdir reads
-$ ln -sr -t reads original_reads/*
-$ rename -v -s ref ref_ reads/*
+$ cd reads
+$ ln -s ../original_reads/* .
+$ rename -v -s ref ref_ *
+$ cd ..
 ~~~
 {: .language-bash}
 
