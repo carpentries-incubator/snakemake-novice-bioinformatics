@@ -180,6 +180,18 @@ Snakemake can draw a picture of the DAG for you, if you run it like this:
 ~~~
 $ snakemake -f --dag kallisto.etoh60_1/abundance.h5 | gm display -
 ~~~
+{: .language-bash}
+
+> ## Note on *gm display*
+>
+> On systems where *gm* will not display an image directly, you may save it to a PNG file:
+>
+> ~~~
+> $ snakemake -f --dag kallisto.etoh60_1/abundance.h5 | dot -Tpng > dag.png
+> ~~~
+> {: .language-bash}
+>
+{: .callout}
 
 ![DAG for partial workflow][fig-dag2]
 
