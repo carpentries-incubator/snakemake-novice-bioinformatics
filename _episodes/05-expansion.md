@@ -35,8 +35,10 @@ A good way to do this is by making symlinks, because that way you don't lose sig
 ~~~
 $ mv reads original_reads
 $ mkdir reads
-$ ln -sr -t reads original_reads/*
-$ rename -v -s ref ref_ reads/*
+$ cd reads
+$ ln -s ../original_reads/* .
+$ rename -v -s ref ref_ *
+$ cd ..
 ~~~
 {: .language-bash}
 
@@ -174,11 +176,11 @@ looks much like the input and output parts of rules, with a wildcard in {curly b
 to search for matching files. We're only looking for read 1 of replicate 1 so this will return just three matches
 
 Rather than getting the full file names, the function yields the values of the wildcard which we can assign directly to a
-list. The `print()` statement will print out the value of `CONDITIONS` when the Snakefile is run, and reassures us that the
-list really is the same as before.
+list. The `print()` statement will print out the value of `CONDITIONS` when the Snakefile is run (including dry-run mode),
+and reassures us that the list really is the same as before.
 
 ~~~
-$ snakemake -j1 -p all_counts
+$ snakemake -j1 -F -n -p all_counts
 Conditions are:  ['etoh60', 'temp33', 'ref']
 Building DAG of jobs...
 Job counts:
@@ -192,9 +194,8 @@ Job counts:
 {: .language-bash}
 
 Using `glob_wildcards()` gets a little more tricky when you need a more complex match. To refine the match we can quickly test
-out results by activating the Python interpreter.
-This saves editing the Snakefile and running Snakemake just to see what `glob_wildcards()` will match. The Python interpreter is
-like a special shell for Python commands, and because Snakemake functions are actually Python functions we can test them here.
+out results by activating the Python interpreter. This saves editing the Snakefile and running Snakemake just to see what
+`glob_wildcards()` will match.
 
 ~~~
 $ python3
@@ -204,6 +205,17 @@ Wildcards(condition=['etoh60', 'temp33', 'ref'])
 ~~~
 
 This is the result we got before. So far, so good.
+
+> ## The Python interpreter
+>
+> The Python interpreter is like a special shell for Python commands, and is a familiar to anyone who has learned Python.
+> Because Snakemake functions are actually Python functions they can be run from the interpreter after being
+> imported.
+>
+> Note that `>>>` is the Python interpreter prompt, and not part of the command to be typed. You can exit back to the regular
+> shell prompt by typing `exit()`. If you do exit and then restart the interpreter, you will need to repeat the `import` line.
+>
+{: .callout}
 
 > ## Exercise
 >
@@ -325,6 +337,13 @@ just a single file. Then, using the `{input.name}` placeholder in the shell comm
 > >   shell:
 > >     "cat {input.untrimmed} > {output.untrimmed} ; cat {input.trimmed} > {output.trimmed}"
 > > ~~~
+> >
+> > To run either version of the rule:
+> >
+> > ~~~
+> > $ snakemake -j1 -p all_counts
+> > ~~~
+> > {: .language-bash}
 > >
 > {:.solution}
 {: .challenge}
