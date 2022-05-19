@@ -1,5 +1,9 @@
 ###
 # Snakefile you should have after completing episodes 01 to 06
+#
+# To run a full MultiQC report on all samples, use:
+#
+# $ snakemake -j1 -p multiqc
 ###
 
 # Input conditions and replicates to process

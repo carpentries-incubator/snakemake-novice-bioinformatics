@@ -23,7 +23,7 @@ We didn't modify it during the last episode.*
 ## Defining a list of samples to process
 
 So far, we've told Snakemake what output files to generate by giving the names of the desired files on
-the command line. Often you want Snakemake to process all available samples. How can we do this?
+the command line. Often you want Snakemake to process all the available samples. How can we do this?
 
 The `yeast/reads` directory contains results from three conditions: `ref`, `etoh60` and `temp33`. There
 are three replicates for each condition. There is minor inconsistency in the naming convention, as the `ref`
@@ -91,18 +91,27 @@ $ snakemake -j1 -p all_counts
 {: .language-bash}
 
 Here, Snakemake sees that *all_counts* is the name of a rule in the Snakefile, so rather than trying to make a file literally
-named "all_counts" it looks at the input files for the rule and
-tries to make them all. In this case, all of the inputs to *all_counts* can be made by the *countreads* rule, and all of the
+named `all_counts` it looks at all the input files for the rule and
+tries to make them. In this case, all of the inputs to *all_counts* can be made by the *countreads* rule, and all of the
 inputs for those jobs are made by *trimreads*. The resulting workflow is the same as if we had typed out all 9 of the filenames
 on the command line.
 
-If you don't specify a target rule name or any file names on the command line when running Snakemake, the default is to use the
-first rule in the Snakefile as the target. So if *all_counts* is defined before the other rules you can simply say:
+If you don't specify a target rule name or any file names on the command line when running Snakemake, the default is to use **the
+first rule** in the Snakefile as the target. So if *all_counts* is defined at the top, before the other rules, you can simply say:
 
 ~~~
 $ snakemake -j1 -p
 ~~~
 {: .language-bash}
+
+> ## Rules as targets
+>
+> Giving the name of a rule to Snakemake on the command line only works when that rule has *no wildcards* in the outputs, because
+> Snakemake has no way to know what the desired wildcards might be. You will see the error "Target rules may not contain wildcards."
+> This can also happen when you don't supply any explicit targets on the command line at all, and Snakemake tries to run the first
+> rule defined in the Snakefile.
+>
+{: .callout}
 
 > ## Exercise
 >

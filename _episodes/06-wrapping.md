@@ -116,6 +116,14 @@ We'll try all four, and see where this gets us.
 > >   shell:
 > >       "fastqc {input}"
 > > ~~~
+> >
+> > This rule contains wildcards, so in order to run it you must specify one or more target output files:
+> >
+> > ~~~
+> > $ snakemake -j1 -p reads/etoh60_1_1_fastqc.html reads/etoh60_1_2_fastqc.html
+> > ~~~
+> > {: .language-bash}
+> >
 > {: .solution}
 {: .challenge}
 
@@ -360,6 +368,18 @@ $ multiqc . -o multiqc_out
 > > shell:
 > >     "multiqc . -o multiqc_out"
 > > ~~~
+> >
+> > Since the rule has no wildcards, you can run it by giving either the rule name or the output directory name as a
+> > target.
+> >
+> > ~~~
+> > $ snakemake -j1 -p multiqc
+> >
+> > ...or equivalently...
+> >
+> > $ snakemake -j1 -p multiqc_out
+> > ~~~
+> > {: .language-bash}
 > >
 > {: .solution}
 {: .challenge}
