@@ -447,10 +447,20 @@ $ multiqc . -o multiqc_out
 To see the actual MultiQC report, open the file *multiqc_out/multiqc_report.html* in a web browser. You can do this from the
 command line:
 
+On Linux environments:
+
 ~~~
 $ xdg-open multiqc_out/multiqc_report.html
 ~~~
 {: .language-bash}
+
+For macOS:
+
+~~~
+$ open multiqc_out/multiqc_report.html
+~~~
+{: .language-bash}
+
 
 The report has a few issues, but we'll not get distracted by the details of how to configure MultiQC to resolve them.
 
@@ -460,4 +470,3 @@ The report has a few issues, but we'll not get distracted by the details of how 
 You may now proceed to any later episode using this workflow as a starting point.*
 
 {% include links.md %}
-
