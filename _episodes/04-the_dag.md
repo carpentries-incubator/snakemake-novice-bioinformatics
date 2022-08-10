@@ -211,7 +211,7 @@ newer than the input files.
 >
 >   3) By using the touch command
 >
->   4) By deleting input files
+>   4) By deleting some of the existing files
 >
 > Use the `--dag` option as shown above to check your answers.
 >
@@ -227,9 +227,9 @@ newer than the input files.
 > >
 > > 1) `$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -`
 > >
-> > 2) `$ snakemake -j1 -p --dag -f trimmed/etoh60_*.fq kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -`
+> > 2) `$ snakemake -j1 -p --dag -f trimmed/etoh60_{1,2,3}_{1,2}.fq kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -`
 > >
-> > 3) `$ touch reads/etoh60_*`
+> > 3) `$ touch reads/etoh60_*.fq`
 > >
 > > 4) `$ rm -r trimmed/etoh60_*.fq kallisto.etoh60_*`
 > >
