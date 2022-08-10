@@ -7,6 +7,8 @@ that you have:
 * access to the Bash shell on a fairly modern Linux system
 * sufficient disk space (~1GB) to store the software and data
 
+*TODO - Instructions for Mac. All software is known to work on Mac systems but the setup is slightly different.*
+
 You **do not** need root/administrator level access.
 
 > ## Note
