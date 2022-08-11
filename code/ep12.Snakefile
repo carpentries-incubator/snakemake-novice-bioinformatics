@@ -56,11 +56,14 @@ rule kallisto_index:
     shell:
         "kallisto index -i {output.idx} {input.fasta} >& {output.log}"
 
+# Having this rule run in shadow mode avoids potential filename conflicts when running
+# workflow jobs in parallel. In this case, "minimal" shadow is fine.
 rule fastqc:
     output:
         html = temporary("{indir}.{sample}_fastqc.html"),
         zip  = "{indir}.{sample}_fastqc.zip"
     input:  "{indir}/{sample}.fq"
+    shadow: "minimal"
     shell:
        r"""fastqc -o . {input}
            mv {wildcards.sample}_fastqc.html {output.html}

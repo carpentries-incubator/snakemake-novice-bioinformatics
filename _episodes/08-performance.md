@@ -103,8 +103,9 @@ $ /usr/bin/time -v snakemake -j1 -F -- kallisto.{ref,temp33,etoh60}_{1,2,3}
 There are **a few gotchas** to bear in mind when using parallel execution:
 
 1. Parallel jobs will use more RAM. If you run out then either your OS will swap data to disk, or a process will crash
-1. Parallel jobs may trip over each other if they try to write to the same filename at the same time (can happen with temporary files)
-1. The on-screen output from parallel jobs will be jumbled, so save output to log files instead
+1. Parallel jobs may trip over each other if they try to write to the same filename at the same time (this happen with temporary files,
+   and in fact is a problem with our current `fastqc` rule definition)
+1. The on-screen output from parallel jobs will be jumbled, so save any output to log files instead
 
 ## Multi-thread rules in Snakemake
 

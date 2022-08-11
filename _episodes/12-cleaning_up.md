@@ -7,11 +7,12 @@ questions:
 - "How do I protect important outputs from deletion?"
 objectives:
 - "Understand the function of *temporary* and *protected* outputs."
-- "Learn about running in *touch* mode"
+- "Learn about running in *--touch* mode"
+- "Learn about *shadow* mode rules"
 keypoints:
 - "Cleaning up working files is good practise"
 - "Make use of the `temporary()` function on outputs you don't need to keep"
-- "Shadow rules can solve some issues with commands that produce unwanted files, but are not normally needed"
+- "Shadow rules can solve issues with commands that produce unwanted files"
 ---
 *For reference, [this is the final Snakefile from episodes 1 to 6](../code/ep06.Snakefile) you may use to
 start this episode.*
@@ -137,7 +138,7 @@ them leaving only the gzipped versions.
 >
 {: .challenge}
 
-## Protected outputs and *touch* mode
+## Protected outputs and *--touch* mode
 
 One annoying thing about Snakemake is that, in moderately complex workflows, it may seem determined to re-run
 a job for reasons that are unclear to you. For example, after adding the *gzip_fastq* rule above we re-ran
@@ -210,17 +211,19 @@ by revoking write permissions on the files (as in `chmod -w {output}`).
 >
 {: .callout}
 
-## Shadow rules
+## Shadow mode rules
 
-We'll not cover these in any detail but mention them for completeness. The
-[Snakemake manual describes](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#shadow-rules)
-the *shadow* directive very nicely.
+Setting your rules to run in *shadow* mode helps clean up temporary files that are only used within the job.
+The [Snakemake manual describes](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#shadow-rules)
+the `shadow` directive very nicely, so refer to that for more details.
 
-In *shadow* mode, Snakemake links the input files into a temporary working directory, then runs the *shell*
+Briefly, in *shadow* mode, Snakemake links the input files into a temporary working directory, then runs the *shell*
 command and finally copies the outputs back. If you have ever used [NextFlow](https://nextflow.io) this idea
 will be familiar as NextFlow runs all workflow steps this way.
 
-This test rule serves to demonstrate the operation of rules using the *shadow* directive:
+This test rule serves to demonstrate the operation of rules using the *shadow* directive. The file `temp_file.txt`
+will not be there after the job has run, but the `shadow_out.txt` file will be there because Snakemake sees that
+it is an output file and copies it back.
 
 ~~~
 rule shallow_shadow_rule:
@@ -237,15 +240,18 @@ rule shallow_shadow_rule:
 
 Advantages of using shadow rules are:
 
-* Extra temporary files created by applications do not require explicit removal (see `temp_file.txt` in the above example)
-* When running jobs in parallel (`-j 2`) certain conflicts related to temporary file are resolved by not running multiple
-jobs in the same directory at once
+* Any temporary files created by applications do not require explicit removal (as with `temp_file.txt` in the above example)
+* When running jobs in parallel (eg. `-j2`) certain conflicts related to temporary files will be avoided by not ever running
+multiple jobs in the same directory at once - we've already seen a case back in [Episode 06](../06-wrapping/) where
+the final version of the *fastqc* rule has this problem
 
 Disadvantages are:
 
-* Can be confusing when error messages reference the shadow directory
+* It can be confusing when error messages reference the shadow directory
 * Symlinks to subdirectories do not always work the way you expect
 * Shadow directories are not always removed cleanly if Snakemake exits with an error
+
+You may want to test your rules in normal mode first, then add `shadow: ...` before you run the workflow for real.
 
 *For reference, [this is a Snakefile](../code/ep12.Snakefile) incorporating the changes made in this episode.*
 
