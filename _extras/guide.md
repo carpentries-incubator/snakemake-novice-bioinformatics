@@ -52,6 +52,11 @@ is available to download - see the link on [the setup page](../setup.html).
 
 # Notes on specific episodes
 
-## TODO
+## Episode 03 - Chaining rules
+
+There is a figure to illustrate the way Snakemake finds rules by wildcard matching and then tracks back until
+it runs out of rule matches and finds a file that it already has. You may find that showing an animated version
+of this is helpful, in which case
+[there are some slides here](https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/files/9299078/wildcard_demo.pptx).
 
 {% include links.md %}

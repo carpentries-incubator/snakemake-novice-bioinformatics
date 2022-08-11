@@ -317,7 +317,7 @@ $ snakemake -j1 -F -p kallisto.temp33_1/abundance.h5
 
 *For reference, [this is a Snakefile](../code/ep03.Snakefile) incorporating the changes made in this episode.*
 
-[fig-chaining]: ../fig/chaining_rules.svg
+[fig-chaining]: ../fig/chaining_rules.png
 
 {% include links.md %}
 
