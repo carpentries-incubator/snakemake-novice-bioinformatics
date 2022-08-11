@@ -80,14 +80,14 @@ $ /usr/bin/time -v snakemake -j1 -F -- kallisto.{ref,temp33,etoh60}_{1,2,3}
 > What is the *wallclock time* reported by the above command? We'll work out the average for the whole class, or
 > if you are working through the material on your own repeat the measurement three times to get your own average.
 >
-> Now change the Snakemake concurrency option to  `-j 2` and then `-j 4`.
+> Now change the Snakemake concurrency option to  `-j2` and then `-j4`.
 >  * How does the total execution time change?
 >  * What factors do you think limit the power of this setting to reduce the execution time?
 >
 > > ## Solution
 > >
 > > The time will vary depending on the system configuration but somewhere around 30 seconds is expected, and this
-> > should reduce to around 25 secs with `-j 2` but higher `-j` will produce diminishing returns.
+> > should reduce to around 25 secs with `-j2` but higher `-j` will produce diminishing returns.
 > >
 > > Things that may limit the effectiveness of parallel execution include:
 > >

@@ -8,7 +8,7 @@ questions:
 objectives:
 - "Understand some different choices available when defining a rule"
 - "Learn about the `directory()` function"
-- "Add multiple commands to the shell section of a rule"
+- "Add multiple command lines to the `shell` section of a rule"
 keypoints:
 - "Different bioinformatics tools will have different quirks"
 - "If programs limit your options for choosing input and output filenames, you have several ways to deal with this"
@@ -91,7 +91,7 @@ We'll try all four, and see where this gets us.
 
 > ## Exercise - adding a FastQC rule using the default output file names
 >
-> Fill in the **???** to make a working rule for FastQC where `indir` may be "reads" or "trimmed". Do not change the
+> Fill in the `???` to make a working rule for FastQC where `indir` may be "reads" or "trimmed". Do not change the
 > shell command or input pattern at all. Remember FastQC always makes two output files, so add two named outputs.
 >
 > ~~~
@@ -128,12 +128,12 @@ We'll try all four, and see where this gets us.
 {: .challenge}
 
 This rule is fine, but maybe we don't want to put the reports in with the sequences. As a general principle, when
-writing Snakemake rules, you want to be in charge of output file names. FastQC lets you specify the output
-directory, so we can use that.
+writing Snakemake rules, we want to be in charge of output file names. FastQC lets us specify the output
+directory, so we can use that...
 
 ### Option 2: Using the default output filenames in a new directory
 
-> ## Exercise - a FastQC rule where the output files go into a new directory
+> ## Bonus Exercise - a FastQC rule where the output files go into a new directory
 >
 > Modify the rule so that the output files go into a new directory. This will be very similar to the rule for
 > `kallisto quant`.
@@ -162,10 +162,10 @@ directory, so we can use that.
 > {: .solution}
 {: .challenge}
 
-### Option 3: Using the directory() function
+### Option 3: Using a `directory()` output
 
 Our next option is to tell Snakemake not to worry about the individual files at all, and just say that the
-output of the rule is a directory. This makes the rule definition simpler.
+output of the rule is a whole directory. This makes the rule definition simpler.
 
 We'll amend the *fastqc* rule like so:
 
@@ -179,8 +179,8 @@ rule fastqc:
 
 > ## Note
 >
-> You only use the `directory()` function for outputs. The input to a rule may be a directory without the need for any special
-> syntax.
+> You only use the `directory()` declaration for outputs. Any input to a rule may be a directory without
+> the need for any special syntax.
 {: .callout}
 
 
@@ -193,8 +193,9 @@ Specified output directory 'reads.fastqc2.ref_1_1' does not exist
 ...
 ~~~
 
-FastQC requires that the output directory must exist. (Other programs might insist that the output directory
-does *not* exist.) The error can be rectified by making the directory explicitly in the `shell` code.
+This error is being printed by FastQC. FastQC requires that the output directory must exist.
+(Other programs might insist that the output directory does *not* already exist.)
+The error can be rectified by making the directory explicitly in the `shell` code.
 
 ~~~
 rule fastqc:
@@ -205,7 +206,8 @@ rule fastqc:
 ~~~
 
 This works because the `shell` part of the rule can contain a whole script, with multiple commands to be run. Above
-we used a semicolon to split the commands. For putting multiple lines into a `shell` section there is a special quoting syntax.
+we used a semicolon to split the commands. For putting multiple lines into a `shell` section there is a special
+quoting syntax.
 
 ~~~
 rule fastqc:
@@ -246,9 +248,10 @@ powerful solution is to use shell commands to move and/or rename the files to ex
 >
 > > ## Solution
 > >
-> > This is one solution, using `-o .` to tell FastQC to output the files in the current directory.
-> > They are then renamed to match the declared outputs. Remember that, after Snakemake runs all the shell commands,
-> > it checks to see that all output file really were created.
+> > This is one solution, using `-o .` to tell FastQC to produce the files in the current directory,
+> > then explicitly renaming them to match the declared rule outputs. Remember that, after Snakemake runs
+> > all the commands in the `shell` block, it checks to see that all the expected `output` files are
+> > present, but within the block you can run any commands and make any files you like.
 > >
 > > ~~~
 > > rule fastqc:
@@ -262,8 +265,20 @@ powerful solution is to use shell commands to move and/or rename the files to ex
 > >            mv {wildcards.sample}_fastqc.zip  {output.zip}
 > >         """
 > > ~~~
+> >
 > {: .solution}
 {: .challenge}
+
+> ## Note
+>
+> There is actually a problem with the above solution which only starts to matter when we allow Snakemake
+> to run multiple jobs in parallel. Right now we are always using `-j1`, but if we used, eg. `-j2`,
+> then potentially Snakemake may try to make "reads.ref_1_1_fastqc.html" and
+> "trimmed.ref_1_1_fastqc.html" in parallel, and both instances would be trying to write to the same
+> temporary files at the same time. Snakemake has an elegant solution to this, in the form of `shadow`
+> rules, but we're getting ahead of ourselves. For now we're running one job at a time, and this will work.
+>
+{: .callout}
 
 ## Adding Salmon as an alternative to Kallisto
 
@@ -431,7 +446,7 @@ $ multiqc . -o multiqc_out
 > {: .solution}
 {: .challenge}
 
-> ## Bonus exercise - making the MultiQC rule more robust
+> ## Bonus Exercise - making the MultiQC rule more robust
 >
 > Because MultiQC scans for suitable input rather than taking an explicit list of files, there is a risk that it picks up
 > unwanted reports if you leave old files sitting in the directory. To make the rule fully explicit, one idea is to make a
