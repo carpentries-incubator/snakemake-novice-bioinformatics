@@ -78,6 +78,10 @@ Look at the logging messages that Snakemake prints in the terminal. What has hap
 <br/><br/>
 1. Now Snakemake has reached an available input file, it runs both steps to get the final output
 
+**Here's a visual representation of this process:**
+
+![Visual representation of rule chaining][fig-chaining]
+
 This, in a nutshell, is how we build workflows in Snakemake.
 
 1. Define rules for all the processing steps
@@ -312,6 +316,8 @@ $ snakemake -j1 -F -p kallisto.temp33_1/abundance.h5
 {: .language-bash}
 
 *For reference, [this is a Snakefile](../code/ep03.Snakefile) incorporating the changes made in this episode.*
+
+[fig-chaining]: ../fig/chaining_rules.svg
 
 {% include links.md %}
 
