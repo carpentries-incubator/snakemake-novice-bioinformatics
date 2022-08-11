@@ -8,12 +8,12 @@ questions:
 - "How do I control what steps will be run?"
 objectives:
 - "View the DAG for our pipeline"
-- "Understand the logic Snakemake uses when running and re-running rules"
+- "Understand the logic Snakemake uses when running and re-running jobs"
 keypoints:
-- "A 'job' in Snakemake is a rule plus wilcard values determined from the requested output"
-- "Snakemake plans its work by arranging jobs into a DAG (directed acyclic graph)"
-- "If outputs already exist, Snakemake can skip parts of the DAG"
-- "Snakemake checks file timestamps to determine if outputs need regenerating"
+- "A 'job' in Snakemake is a rule plus wildcard values (determined by working back from the requested output)"
+- "Snakemake plans its work by arranging all the jobs into a DAG (directed acyclic graph)"
+- "If output files already exist, Snakemake can skip parts of the DAG"
+- "Snakemake compares file timestamps to determine if outputs need regenerating"
 ---
 *For reference, [this is the Snakefile](../code/ep03.Snakefile) you should have to start the episode.*
 
@@ -36,12 +36,14 @@ quantify the *ref1* sample.
 > ## Note that:
 >
 > * A rule can appear more than once, with different wildcards (a **rule** plus **wildcard values** defines a **job**)
-> * The arrows show data flow, as well as dependency ordering between jobs
+> * The arrows show dependency ordering between jobs
 > * Snakemake can run the jobs in any order that doesn't break dependency - for example `kallisto quant` cannot run until
 >   both `kallisto index` and `trimreads` have completed, but it may run before or after `countreads`
-> * This is a work list, *not a flowchart*. There are no if/else decisions or loops - Snakemake runs every job in the DAG
+> * This is a work list, *not a flowchart*, so there are no if/else decisions or loops - Snakemake runs every job in the DAG
 >   exactly once
-> * The DAG depends not only on the Snakefile, but on the requested target outputs and the files already present
+> * The DAG depends both on the Snakefile *and* on the requested target outputs, and the files already present
+> * When building the DAG, Snakemake does not look at the *shell* part of the rules at all - only when running
+>   the DAG will Snakemake check that the shell commands are working and producing the expected output files
 {: .checklist}
 
 > ## Question

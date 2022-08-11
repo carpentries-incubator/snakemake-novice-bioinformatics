@@ -33,11 +33,12 @@ Snakemake for part of a task, and do the rest with regular scripting.
 
 ## Which is the best workflow system to use?
 
-Snakemake.
+Snakemake 🐍
 
 But, in seriousness, other workflow systems are available. Some are better suited to different tasks, and some users
 have a preference for one over another. For a large task, it is worth investigating multiple options before
-committing to an approach.
+committing to an approach. [This GIT repository and associated paper](https://github.com/GoekeLab/bioinformatics-workflows)
+comparing eight workflow systems is a good place to start.
 
 ## About the sample data files
 

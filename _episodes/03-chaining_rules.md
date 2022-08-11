@@ -272,14 +272,14 @@ Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834
 
 There's a lot to take in here. Some of the messages are very informative. Some less so.
 
-1. Snakemake did actually run kallisto, as evidenced by the output from kallisto that we see
-1. There is no obvious error message in the kallisto output
+1. Snakemake did actually run kallisto, as evidenced by the output from kallisto that we see in log
+1. There is no obvious error message in this kallisto output
 1. Snakemake complains some expected output files are missing: `kallisto.ref1/abundances.h5` and `kallisto.ref1/abundances.tsv`
-1. The third output file `kallisto.ref1/run_info.json` was found but has now been removed by Snakemake
+1. The third expected output file `kallisto.ref1/run_info.json` was found but has now been removed by Snakemake
 1. Snakemake suggest this might be due to "filesystem latency"
 
-This last point is a red herring. "Filesystem latency" is not an issue here. We can investigate further by looking at
-the `kallisto.ref1` subdirectory.
+This last point is a red herring. "Filesystem latency" is not an issue here, and never will be since we are not
+using a network filesystem. We can investigate further by looking at the `kallisto.ref1` subdirectory.
 
 ~~~
 $ ls kallisto.ref1/
@@ -287,8 +287,11 @@ abundance.h5  abundance.tsv
 ~~~
 {: .language-bash}
 
-So the file names created by kallisto are not quite the same as we saw in the manual (note - the manual may have been fixed at the
-point you are doing this course, but it was true back when the course was written!). Change the rule definition in the
+Remember that Snakemake itself does not create any output files. It just runs the commands you give it, then checks to
+see if all the expected output files have appeared.
+
+So the file names created by kallisto are not quite the same as we saw in the manual *(note - the manual may have been fixed at the
+point you are doing this course, but it was true back when the course was written!)*. Change the rule definition in the
 `Snakefile` to use the correct names, then you should have everything working.
 
 > ## Errors are normal
