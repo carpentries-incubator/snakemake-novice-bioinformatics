@@ -115,6 +115,8 @@ If we had wanted to include the value of the `sample` wildcard directly in the `
 >
 > > ## Solution
 > >
+> > In all cases, there is no need to change the `shell` part of the rule at all.
+> >
 > > 1)
 > > ~~~
 > > output: "counts/{sample}.txt"
@@ -137,9 +139,19 @@ If we had wanted to include the value of the `sample` wildcard directly in the `
 > > between the `input` and `output` parts. Once again, the output directory will be created for us by Snakemake,
 > > so the `shell` command does not need to change.
 > >
-> > 3) This one isn't possible, because Snakemake cannot determine which input file you want to count by matching wildcards
-> > on the file name "countreads_1.txt". In general, input and output filenames need to be carefully chosen so that Snakemake
-> > can match everything up and determine the input from the output.
+> > 3) This one **isn't possible**, because Snakemake cannot determine which input file you want to count by matching
+> > wildcards on the file name "countreads_1.txt". You could try a rule like this:
+> >
+> > ~~~
+> > output: "countreads_{readnum}.count"
+> > input:  "reads/ref1_{readnum}.fq"
+> > ~~~
+> > {: .language}
+> >
+> > ...but it only works because "ref1" is hard-coded into the `input` line, and the rule will only work on this
+> > specific sample, not the other eight in our sample dataset. In general, input and output
+> > filenames need to be carefully chosen so that Snakemake can match everything up and determine the right input
+> > from the output filename.
 > >
 > {: .solution}
 >
