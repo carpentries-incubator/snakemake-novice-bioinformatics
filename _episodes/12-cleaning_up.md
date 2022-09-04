@@ -158,7 +158,7 @@ Job counts:
 	10
 ~~~
 
-Snakemake wants to re-run all the *salmon_quant* jobs, which makes sense, but we know the results are good, and
+Snakemake wants to re-run all the *salmon_quant* jobs (and the *kallisto_quant* jobs, if you completed the exercise above), which makes sense. However, we know the results are good, and
 don't want to waste time re-making them, so we can fudge the timestamps using the `--touch` option. In the words
 of the Snakemake manual, "This is used to pretend that the rules were executed, in order to fool future
 invocations of snakemake."
