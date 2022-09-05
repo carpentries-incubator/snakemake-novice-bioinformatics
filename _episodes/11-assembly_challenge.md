@@ -53,6 +53,11 @@ stats.sh contigs.fa | grep 'Max contig length:' > max_contig.txt
 ~~~
 {: .language-bash}
 
+The following figure presents the steps involved in the above script, when run on the `ref` samples:
+
+![whole_new_workflow](https://user-images.githubusercontent.com/55948629/188318845-9c2b3e64-23d2-4449-8b03-6575f9930d87.png)
+
+
 > ## Challenge
 >
 > Run the script as-is. In order to make it work, you should make a new conda environment named "assembly-env" with
