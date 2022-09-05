@@ -175,9 +175,9 @@ Here, the list of conditions is captured from the files seen in the reads direct
 looks much like the input and output parts of rules, with a wildcard in {curly brackets}, but here the pattern is being used
 to search for matching files. We're only looking for read 1 of replicate 1 so this will return just three matches
 
-Rather than getting the full file names, the function yields the values of the wildcard which we can assign directly to a
-list. The `print()` statement will print out the value of `CONDITIONS` when the Snakefile is run (including dry-run mode),
-and reassures us that the list really is the same as before.
+Rather than getting the full file names, the function yields the values of the wildcard, which we can assign directly to a
+list. The `print()` statement will print out the value of `CONDITIONS` when the Snakefile is run (including dry-run mode,
+activated with the `-n` option as mentioned in Episode 2), and reassures us that the list really is the same as before.
 
 ~~~
 $ snakemake -j1 -F -n -p all_counts

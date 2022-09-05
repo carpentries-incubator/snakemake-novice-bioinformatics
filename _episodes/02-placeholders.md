@@ -161,7 +161,7 @@ If we had wanted to include the value of the `sample` wildcard directly in the `
 ## Snakemake order of operations
 
 We're only just getting started with some simple rules, but it's worth thinking about exactly what Snakemake is doing
-when you run it:
+when you run it. There are three distinct phases:
 
 1. Prepares to run:
     1. Reads in all the rule definitions from the Snakefile
@@ -176,7 +176,7 @@ when you run it:
     1. Only then, runs the shell command with the placeholders replaced
     1. Checks that the command ran without errors *and* made the new output file as expected
 
-For example, if we now ask Snakemake to generate `wibble_1.fq.count`:
+For example, if we now ask Snakemake to generate a file named `wibble_1.fq.count`:
 
 ~~~
 $ snakemake -j1 -F -p wibble_1.fq.count
@@ -189,6 +189,20 @@ reads/wibble_1.fq
 Snakemake sees that a file with a name like this could be produced by the *countreads* rule. However, when it performs
 the wildcard substitution it sees that the input file would need to be named `reads/wibble_1.fq`, and there is no such
 file available. Therefore Snakemake stops and gives an error before any commands are run.
+
+> ## Dry-run (-n) mode
+>
+> It's often useful to run just the first two phases, so that Snakemake will plan out the jobs to run, and print
+> them to the screen, but never actually run them. This is done with the `-n` flag, eg:
+>
+> ~~~
+> $ snakemake -n -F -p temp33_1_1.fq.count
+> ~~~
+> {: .language-bash}
+>
+> We'll make use of this later in the course.
+>
+{: .callout}
 
 The amount of checking may seem pedantic right now, but as the workflow gains more steps this will become very useful
 to us indeed.

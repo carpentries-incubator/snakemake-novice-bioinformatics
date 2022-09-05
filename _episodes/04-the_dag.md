@@ -184,9 +184,15 @@ $ snakemake -f --dag kallisto.etoh60_1/abundance.h5 | gm display -
 ~~~
 {: .language-bash}
 
-> ## Note on *gm display*
+Using the `--dag` option implicitly activates the `-n` (dry-run) option so that Snakemake will
+not actually run any jobs, it will just print the DAG and stop. Snakemake prints the DAG in a text
+format so we use the `gm` command to make this into a picture and show it on the screen.
+
+> ## Note on `gm display`
 >
-> On systems where *gm* will not display an image directly, you may save it to a PNG file:
+> The `gm` command is provided by the [GraphicsMagick toolkit](http://www.graphicsmagick.org/).
+> On systems where `gm` will not display an image directly, you may instead save it to a PNG file.
+> You will need the `dot` program from the [GraphViz package](https://graphviz.org/) installed.
 >
 > ~~~
 > $ snakemake -f --dag kallisto.etoh60_1/abundance.h5 | dot -Tpng > dag.png
