@@ -310,7 +310,7 @@ rule kallisto_quant:
 > Based upon the following command templates:
 >
 > ~~~
-> $ salmon index -t <transcriptome as fastq> -i <index name> -k 31
+> $ salmon index -t <transcriptome as fasta> -i <index name> -k 31
 > $ salmon quant -i <index name> -l A -1 <fastq1> -2 <fastq2> --validateMappings -o <output path>
 > ~~~
 >
