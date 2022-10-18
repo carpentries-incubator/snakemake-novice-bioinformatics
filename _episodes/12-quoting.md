@@ -194,7 +194,7 @@ then just ensure all your placeholders have `:q` and you should be fine.
 > {: .solution}
 {: .challenge}
 
-*For reference, [this is a Snakefile](../code/ep13.Snakefile) incorporating the changes made in this episode.*
+*For reference, [this is a Snakefile](../code/ep12.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}
 

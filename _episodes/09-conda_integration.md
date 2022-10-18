@@ -232,7 +232,7 @@ We'll do something useful with *cutadapt* in the next episode.
 > {: .solution}
 {: .challenge}
 
-*For reference, [this is a Snakefile](../code/ep10.Snakefile) incorporating the changes made in this episode.*
+*For reference, [this is a Snakefile](../code/ep09.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}
 

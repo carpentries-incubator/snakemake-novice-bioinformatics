@@ -253,6 +253,6 @@ Disadvantages are:
 
 You may want to test your rules in normal mode first, then add `shadow: ...` before you run the workflow for real.
 
-*For reference, [this is a Snakefile](../code/ep12.Snakefile) incorporating the changes made in this episode.*
+*For reference, [this is a Snakefile](../code/ep11.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}
