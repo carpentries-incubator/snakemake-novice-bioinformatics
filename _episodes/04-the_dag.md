@@ -134,7 +134,7 @@ The default timestamp-based logic is really useful when you want to:
 1. Change or add some inputs to an existing analysis without re-processing everything
 1. Continue running a workflow that failed part-way
 
-But it doesn't help us in the situation when rules in the Snakefile change, rather than input files, Snakemake
+But it doesn't help us in the situation when rules in the Snakefile change, rather than input files. Snakemake
 won't see that the results are out-of-date. For example, if we changed the quality cutoffs within the trimreads
 rule then Snakemake would not automatically re-run those rules, because it only checks that the output file is
 newer than the input file.
@@ -143,24 +143,37 @@ The `-R` flag allows you to explicitly tell Snakemake that a rule has changed an
 need to be re-evaluated.
 
 ~~~
-$ snakemake -j1 -Rtrimreads -p kallisto.temp33_1/abundance.h5
+$ snakemake -j1 -R trimreads -p kallisto.temp33_1/abundance.h5
 ~~~
 
 > ## Note on `-R`
 >
-> Due to a quirk of the way Snakemake parses command-line options, you either need to make sure there is no space
-> between `-R` and `trimreads`, or else that there are further options afterwards, before the list of target files.
-> If you don't do this, the behaviour of Snakemake will not be what you expect, as it will try to run a default
-> rule rather than your desired targets.
+> Due to a quirk of the way Snakemake parses command-line options, you need to make sure there are options
+> after the `-R ...`, before the list of target outputs. If you don't do this, Snakemake will think that the target
+> files are instead items to add to the `-R` list, and then when building the DAG it will just try to run the
+> default rule.
 >
-> If you are only re-running a single rule, then having no space is the simplest way to go. But if you have updated
-> multiple rules then you need to do it like so:
+> The easiest way is to put the `-p` flag before the target outputs. Then you can list multiple rules to
+> re-run, and also multiple targets, and Snakemake can tell which is which.
 >
 > ~~~
-> $ snakemake -j1 -R trimreads kallisto_index -p kallisto.temp33_1/abundance.h5
+> $ snakemake -j1 -R trimreads kallisto_index -p kallisto.temp33_1/abundance.h5 kallisto.temp33_2/abundance.h5
 > ~~~
 >
-> The `-p` flag is a good one to add before the targets, because you generally always want this option anyway.
+> The reason for using the `-p` flag here is because you generally always want this option.
+>
+{: .callout}
+
+> ## Another note on `-R`
+>
+> In Snakemake version 7.8 the behaviour is altered to automatically detect changes to rules, seemingly making
+> the `-R` flag redundant, but the exact behaviour may change again in future as there are
+> [problems with the logic in more complex cases](https://github.com/snakemake/snakemake/issues/1694). You should
+> check the manual for whatever version of Snakemake you are using, and particularly the `--rerun-triggers`
+> option, to see what behaviour is expected.
+>
+> Snakemake is under active development, so changes to behaviour and features are always liable to be introduced
+> in new versions.
 >
 {: .callout}
 
