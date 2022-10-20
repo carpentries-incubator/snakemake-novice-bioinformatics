@@ -122,8 +122,8 @@ in all our rules - to remind us that these are what Snakemake looks at first!
 ## Adding an alignment step to the pipeline
 
 Let's add another rule to our Snakefile. The reads we have are from a yeast RNA-seq experiment so we
-want to quantify transcript abundance using the **kallisto** aligner. The command to do so looks
-like this:
+might reasonably want to quantify transcript abundance using the **kallisto** aligner. The command to
+do so looks like this:
 
 ~~~
 $ kallisto quant -i index_file -o output_dir in_1.fastq in_2.fastq
@@ -143,8 +143,9 @@ have three output files in it:
 1. abundances.tsv
 1. run_info.json
 
-We'll not worry about what the contents of these files mean just now. We just know that we want to
-run the `kallisto quant` command and have it make the output files.
+We'll not worry about what the contents of these files mean just now, or how Kallisto generates them.
+We just know that we want to run the `kallisto quant` command and have it make the output files, and the
+output files are going to be useful once we add later steps in the analysis.
 
 Making a rule with multiple inputs and outputs like this works much like the previous rules.
 
@@ -168,7 +169,7 @@ There are many things to note here:
 1. The individual input and output files are given names using the `=` syntax
 1. Each of these lines must end with a `,` (optional for the last one)
 1. In the `shell` part, the input placeholders are now like `{input.name}`
-1. We've chosen to always quantify the trimmed version of the reads
+1. We've chosen to only quantify the *trimmed* version of the reads
 1. Because `kallisto quant` only takes the output directory name, we've used the placeholder
    `{wildcards.sample}` rather than `{output}` which would give the full file names
 1. We don't actually have the `{input.index}` file yet. This will need to be created using the `kallisto index`
