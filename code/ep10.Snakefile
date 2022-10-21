@@ -1,9 +1,5 @@
 ###
-# Snakefile you should have after completing episodes 01 to 07
-#
-# To run a full MultiQC report on all samples, use:
-#
-# $ snakemake -j1 -p multiqc
+# Snakefile you should have after completing episode 10, assuming you start with ep07.Snakefile
 ###
 
 # Input conditions and replicates to process
@@ -14,8 +10,6 @@ REPLICATES = ["1", "2", "3"]
 # we get the confusing error "display: no decode delegate for this image format"
 logger.info("Conditions are: " + str(CONDITIONS))
 logger.info("Replicates are: " + str(REPLICATES))
-
-# "rule all_counts" has been removed to reduce clutter
 
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
@@ -32,9 +26,8 @@ rule trimreads:
   shell:
     "fastq_quality_trimmer -t 22 -l 100 -o {output} <{input}"
 
-# Kallisto quantification of one sample
-# Modified to declare the whole directory as the output, and to capture all output to
-# a log file.
+# Kallisto quantification of one sample.
+# Modified to declare the whole directory as the output.
 rule kallisto_quant:
     output: directory("kallisto.{sample}")
     input:
@@ -72,6 +65,7 @@ rule salmon_quant:
         index = "Saccharomyces_cerevisiae.R64-1-1.salmon_index",
         fq1   = "trimmed/{sample}_1.fq",
         fq2   = "trimmed/{sample}_2.fq",
+    conda: "salmon-1.2.1.yaml"
     shell:
         "salmon quant -i {input.index} -l A -1 {input.fq1} -2 {input.fq2} --validateMappings -o {output}"
 
@@ -80,6 +74,7 @@ rule salmon_index:
         idx = directory("{strain}.salmon_index")
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
+    conda: "salmon-1.2.1.yaml"
     shell:
         "salmon index -t {input.fasta} -i {output.idx} -k 31"
 
@@ -100,3 +95,10 @@ rule multiqc:
           ln -snr -t {output.mqc_in} {input}
           multiqc {output.mqc_in} -o {output.mqc_out}
        """
+
+# Rule to demonstrate using a conda environment
+rule a_conda_rule:
+    conda:  "new-env.yaml"
+    shell:
+        "which cutadapt"
+

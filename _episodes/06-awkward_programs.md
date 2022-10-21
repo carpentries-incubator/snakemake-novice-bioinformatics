@@ -308,7 +308,6 @@ rules and finish the workflow.
 
 [fig-fastqc]: ../fig/fastqc.png
 
-*For reference, [this is a Snakefile](../code/ep06.Snakefile) incorporating the changes made in this episode.
-You may now proceed to any later episode using this workflow as a starting point.*
+*For reference, [this is a Snakefile](../code/ep06.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}

@@ -248,7 +248,7 @@ The report has a few issues, but we'll not get distracted by the details of how 
 
 [fig-workflow]: ../fig/overview.svg
 
-*For reference, [this is a Snakefile](../code/ep06.Snakefile) incorporating the changes made in this episode.
-You may now proceed to any later episode using this workflow as a starting point.*
+*For reference, [this is a Snakefile](../code/ep07.Snakefile) incorporating the changes made in this episode.
+You may now proceed to any later episode in the lesson using this workflow as a starting point.*
 
 {% include links.md %}

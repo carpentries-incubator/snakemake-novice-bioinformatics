@@ -17,7 +17,7 @@ keypoints:
 - "Profile your jobs to see what is taking most resources"
 - "Snakemake is great for running workflows on compute clusters"
 ---
-*For reference, [this is the final Snakefile from episodes 1 to 6](../code/ep06.Snakefile) you may use to
+*For reference, [this is the final Snakefile from episodes 1 to 7](../code/ep07.Snakefile) you may use to
 start this episode.*
 
 ## Processes, threads and processors
@@ -202,6 +202,6 @@ Sourced from Wikimedia Commons
 CC-BY-SA-4.0
 {% endcomment %}
 
-*For reference, [this is a Snakefile](../code/ep08.Snakefile) incorporating the changes made in this episode.*
+*For reference, [this is a Snakefile](../code/ep09.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}

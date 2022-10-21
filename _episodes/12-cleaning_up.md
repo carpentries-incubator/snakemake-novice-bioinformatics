@@ -14,7 +14,7 @@ keypoints:
 - "Make use of the `temporary()` function on outputs you don't need to keep"
 - "Shadow rules can solve issues with commands that produce unwanted files"
 ---
-*For reference, [this is the final Snakefile from episodes 1 to 6](../code/ep06.Snakefile) you may use to
+*For reference, [this is the final Snakefile from episodes 1 to 7](../code/ep07.Snakefile) you may use to
 start this episode.*
 
 ## Temporary files in Snakemake
@@ -253,6 +253,6 @@ Disadvantages are:
 
 You may want to test your rules in normal mode first, then add `shadow: ...` before you run the workflow for real.
 
-*For reference, [this is a Snakefile](../code/ep11.Snakefile) incorporating the changes made in this episode.*
+*For reference, [this is a Snakefile](../code/ep12.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}

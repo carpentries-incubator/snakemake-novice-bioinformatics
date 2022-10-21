@@ -16,7 +16,7 @@ keypoints:
 - "Watch out for commands that have {curly brackets}, and double them up"
 - "Use the built-in `:q` feature to protect arguments from *bash* interpretation"
 ---
-*For reference, [this is the final Snakefile from episodes 1 to 6](../code/ep06.Snakefile) you may use to
+*For reference, [this is the final Snakefile from episodes 1 to 7](../code/ep07.Snakefile) you may use to
 start this episode.*
 
 ## A review of quoting rules in the *bash* shell
@@ -194,7 +194,7 @@ then just ensure all your placeholders have `:q` and you should be fine.
 > {: .solution}
 {: .challenge}
 
-*For reference, [this is a Snakefile](../code/ep12.Snakefile) incorporating the changes made in this episode.*
+*For reference, [this is a Snakefile](../code/ep13.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}
 

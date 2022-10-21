@@ -14,7 +14,7 @@ keypoints:
 - "Reference the config file in your Snakefile or else on the command line with `--configfile`"
 - "Override or add config values using `--config name1=value1 name2=value2` and end the list with `--`"
 ---
-*For reference, [this is the final Snakefile from episodes 1 to 6](../code/ep06.Snakefile) you may use to
+*For reference, [this is the final Snakefile from episodes 1 to 7](../code/ep07.Snakefile) you may use to
 start this episode.*
 
 ## Adding parameters (params) to rules
@@ -227,6 +227,6 @@ This is all getting quite complex, so in summary:
 > {: .solution}
 {: .challenge}
 
-*For reference, [this is a Snakefile](../code/ep07.Snakefile) incorporating the changes made in this episode.*
+*For reference, [this is a Snakefile](../code/ep08.Snakefile) incorporating the changes made in this episode.*
 
 {% include links.md %}
