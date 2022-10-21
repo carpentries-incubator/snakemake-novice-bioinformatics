@@ -249,7 +249,8 @@ to us indeed.
 
 > ## About fastq_quality_trimmer
 >
-> `fastq_quality_trimmer` is part of the [FastX toolkit](http://hannonlab.cshl.edu/fastx_toolkit/) and performs basic trimming on single FASTQ files.
+> `fastq_quality_trimmer` is part of the [FastX toolkit](http://hannonlab.cshl.edu/fastx_toolkit/) and performs
+> basic trimming on single FASTQ files.
 > The options `-t 20 -l 100` happen to be reasonable quality cutoffs for this dataset. This program reads from
 > standard input so we're using `<` to specify the input file, and the `-o` flag specifies the output name.
 {: .callout}
