@@ -80,7 +80,7 @@ Look at the logging messages that Snakemake prints in the terminal. What has hap
 
 **Here's a visual representation of this process:**
 
-![Visual representation of rule chaining][fig-chaining]
+![visual representation of the above process with arrows showing the order wildcards and placeholders are substituted][fig-chaining]
 
 This, in a nutshell, is how we build workflows in Snakemake.
 

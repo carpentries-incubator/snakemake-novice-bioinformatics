@@ -23,7 +23,7 @@ FastQC is a popular tool for scanning FASTQ files and producing a selection of q
 that it runs quickly, and also in that you can normally use the default options so there is no configuration
 needed.
 
-![A typical FastQC report][fig-fastqc]
+![Screenshot of a typical FastQC report specifically showing the per-base quality box-and-whisker plot][fig-fastqc]
 
 The program can be run interactively or in batch mode, where it saves out results as an HTML file plus a ZIP file.
 We'll obviously need to use the batch mode to include it as part of our workflow, and we'll see shortly that

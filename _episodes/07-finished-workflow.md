@@ -33,7 +33,7 @@ and this will complete the pipeline.
   HTML report over all samples. This is by no means a full RNA-Seq analysis report but today it completes our
   Snakemake pipeline.
 
-![Our full QC workflow][fig-workflow]
+![Summary of our full QC workflow with icons representing the steps listed above][fig-workflow]
 
 At this point we have everything we need, in terms of Snakemake knowledge, to add the two remaining tools
 and complete the Snakefile. As with FastQC, some quirks in the way the new tools work will need to be

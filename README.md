@@ -1,6 +1,6 @@
 # Snakemake for Bioinformatics
 
-TODO - get this listed on the  [Community Developed Lessons page][community-lessons] once ready.
+[![The Carpentries Lab Review Status](http://badges.carpentries-lab.org/17_status.svg)](https://github.com/carpentries-lab/reviews/issues/17)
 
 ## Snakemake for Bioinformatics
 
@@ -22,37 +22,6 @@ tasks.
 Snakemake is a superset of the Python language and as such can draw on the full power of Python, but you
 do not need to be a Python programmer to use it. This lesson **assumes no prior knowledge of Python** and
 intruduces just a few concepts as needed to construct useful workflows.
-
-## Lesson development checklist
-
-Before you begin developing your new lesson,
-here are a few things we recommend you do:
-
-* [✓] Decide on a title for your new lesson!
-  Once you've chosen a new title, you can set the value for `lesson_title`
-  in [`_config.yml`](_config.yml)
-* [ ] Add the URL to your built lesson pages to the repository description\*
-* [ ] [Add relevant topic tags to your lesson repository][cdh-topic-tags].
-* [ ] Fill in the fields marked `FIXME` in:
-  * this README
-  * [`_config.yml`](_config.yml)
-* [✓] If you're going to be developing lesson material for the first time
-  according to our design principles,
-  consider reading the [Carpentries Curriculum Development Handbook][cdh]
-* [✓] Consult the [Lesson Example][lesson-example] website to find out more about
-  working with the lesson template
-* [✓] If you are planning to write your lesson in RMarkdown,
-  [create a `gh-pages` branch and set this as the default branch in your repository settings][change-default-branch]
-* [ ] Update this README with relevant information about your lesson
-  and delete this section
-
-
-\* To set the URL on GitHub, click the gear wheel button next to **About**
-on the right of the repository landing page.
-The lesson URL structure is **https://carpentries-incubator.github.io/<repository-slug\>**:
-a repository at https://github.com/carpentries-incubator/new-lesson/ will have pages at
-the lesson URL https://carpentries-incubator.github.io/new-lesson/.
-
 
 ## Contributing
 

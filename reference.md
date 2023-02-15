@@ -33,8 +33,8 @@ more input files.
 
 - **Job**
 
-A specific task in a workflow, also called a **Step** in the Snakemake logs. A job is defined by a rule plus specific
-wildcards, so each rule may yield many jobs.
+A concrete task in a workflow, also called a **Step** in the Snakemake logs. A job is defined by a rule plus specific
+wildcard values, so each rule may yield many jobs.
 
 - **Conda**
 
@@ -46,16 +46,16 @@ and backed by a large repository of [community maintained packages](https://anac
 
 A computer system comprised of multiple processing nodes, connected to a shared storage system and supporting the running
 of batch jobs via a cluster manager. When run with appropriate settings on a cluster, Snakemake can turn its own jobs
-into cluster batch jobs and submit them automatically.
+into cluster batch jobs and submit and monitor them automatically.
 
 - **YAML**
 
-A way to mark up structured data within a text file. Snakemake uses this format for configuration files, and Conda uses
+A way to express structured data within a text file. Snakemake uses this format for configuration files, and Conda uses
 it for exporting and importing environment definitions.
 
 - **Escaping**
 
-In regard to the text within a Snakefile, a way to indicate that certain characters should not be treated as having a
+With regard to the text within a Snakefile, a way to indicate that certain characters should not be treated as having a
 special meaning. A typical example would be `"\t"` versus `"\\t"`, where the first string represents a tab character,
 but the second represents a backslash character followed by a letter 't', and the extra backslash is referred to as
 an *escape character*.

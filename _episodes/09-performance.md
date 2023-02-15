@@ -36,7 +36,7 @@ These definitions are a little simplified, but fine for our needs. The operating
 If you tell Snakemake how many threads each rule will use, and how many cores you have available, it will start jobs
 in parallel to use all your cores. In the diagram below, five jobs are ready to run and there are four system cores.
 
-![Allocating cores to jobs in Snakemake][fig-threads]
+![Representation of a computer with 4 cores and 5 jobs wanting 1, 1, 1, 2 and 8 threads][fig-threads]
 
 
 ## Listing the resources your Linux machine
@@ -185,7 +185,7 @@ will little to no modification. Snakemake turns the individual jobs into cluster
  * [The Snakemake manual explains how to set this up](https://snakemake.readthedocs.io/en/stable/executing/cluster.html)
  * [We have some specific suggestions for Eddie, the University of Edinburgh cluster](../files/snakemake_on_eddie.pdf)
 
-![Some high performance compute][fig-cluster]
+![A photo of some high performance compute arranged in five racks in a server room][fig-cluster]
 
 
 > ## Cluster demo

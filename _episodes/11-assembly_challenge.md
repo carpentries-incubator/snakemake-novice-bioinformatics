@@ -53,9 +53,10 @@ stats.sh contigs.fa | grep 'Max contig length:' > max_contig.txt
 ~~~
 {: .language-bash}
 
-The following figure presents the steps involved in the above script, when run on the `ref` samples:
+The following figure presents the steps involved in the above script, when run on the `ref` samples.
+You will see it already looks a little like a Snakemake DAG.
 
-![whole_new_workflow](https://user-images.githubusercontent.com/55948629/188318845-9c2b3e64-23d2-4449-8b03-6575f9930d87.png)
+![box-and-arrow representation of the cutadapt, concatenation, assembly and summary steps to process the 3 ref sample](https://user-images.githubusercontent.com/55948629/188318845-9c2b3e64-23d2-4449-8b03-6575f9930d87.png)
 
 
 > ## Challenge
