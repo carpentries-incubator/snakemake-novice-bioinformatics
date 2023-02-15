@@ -18,9 +18,7 @@ keypoints:
 *For reference, [this is the final Snakefile from episodes 1 to 7](../code/ep07.Snakefile) you may use to
 start this episode.*
 
-## Conda and Snakemake
-
-### The basics of Conda
+## The basics of Conda
 
 You may already have some familiarity with the basics of [Conda](https://conda.io) and [Bioconda](https://bioconda.github.io/).
 
@@ -115,7 +113,7 @@ Some key conda commands:
 > {: .solution}
 {: .challenge}
 
-### Using Conda with Snakemake
+## Using Conda with Snakemake
 
 Up to now, the `shell` commands you have been running via Snakemake have called programs in your default *PATH*. The commands may
 have been installed with conda, or with the system package manager, or installed manually. If you move your Snakefile to another machine,
