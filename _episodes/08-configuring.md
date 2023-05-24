@@ -12,7 +12,7 @@ keypoints:
 - "Use a YAML config file to separate your configuration from your workflow logic"
 - "Decide if different config items should be mandatory or else have a default"
 - "Reference the config file in your Snakefile or else on the command line with `--configfile`"
-- "Override or add config values using `--config name1=value1 name2=value2` and end the list with `--`"
+- "Override or add config values using `--config name1=value1 name2=value2` and end the list with a new parameter, eg. `-p`"
 ---
 *For reference, [this is the final Snakefile from episodes 1 to 7](../code/ep07.Snakefile) you may use to
 start this episode.*
@@ -176,7 +176,7 @@ Finally, as well as the `--configfile` option to Snakemake there is the `--confi
 configuration parameters.
 
 ~~~
-$ snakemake -npf --configfile=config.yaml --config salmon_kmer_len=23 -- Saccharomyces_cerevisiae.R64-1-1.salmon_index/
+$ snakemake --configfile=config.yaml --config salmon_kmer_len=23 -p -nf Saccharomyces_cerevisiae.R64-1-1.salmon_index/
 ~~~
 
 This is all getting quite complex, so in summary:
@@ -184,7 +184,7 @@ This is all getting quite complex, so in summary:
 * Snakemake loads the `--configfile` supplied on the command line, or else defaults to the one named in the Snakefile, or else
   runs with no config file.
 * Individual `--config` items on the command line always take precedence over settings in the config file.
-* You can set multiple `--config` values on the command line and you always need to put `--` to end the list.
+* You can set multiple `--config` values on the command line and the list ends when there is another parameter, in this case `-p`.
 * Use the `config.get("item_name", "default_val")` syntax to supply a default value which takes lowest precedence.
 * Use `config["item_name"]` syntax to have a mandatory configuration option.
 
@@ -217,7 +217,7 @@ This is all getting quite complex, so in summary:
 > > And for the final part we can either edit the *config.yaml* or override on the command line:
 > >
 > > ~~~
-> > $ snakemake -j1 -pf --config replicates=["2","3"] -- multiqc_out
+> > $ snakemake -j1 -f --config replicates=["2","3"] -p multiqc_out
 > > ~~~
 > >
 > > Note that we need to re-run the final report, but only this, so only `-f` is necessary. If you find that
