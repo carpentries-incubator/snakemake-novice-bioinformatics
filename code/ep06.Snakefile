@@ -3,13 +3,8 @@
 ###
 
 # Input conditions and replicates to process
-CONDITIONS = glob_wildcards("reads/{condition}_1_1.fq").condition
+CONDITIONS = ["ref", "etoh60", "temp33"]
 REPLICATES = ["1", "2", "3"]
-
-# Changed print() statements to logger.info() because print() interferes with --dag and
-# we get the confusing error "display: no decode delegate for this image format"
-logger.info("Conditions are: " + str(CONDITIONS))
-logger.info("Replicates are: " + str(REPLICATES))
 
 # Rule to make all counts and compile the results in two files
 rule all_counts:

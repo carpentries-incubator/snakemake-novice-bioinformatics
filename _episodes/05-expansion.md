@@ -160,6 +160,80 @@ $ snakemake -j1 -p
 > {: .solution}
 {: .challenge}
 
+## Rules that combine multiple inputs
+
+Our *all_counts* rule is a rule which takes a list of input files. The length of that list is not fixed by the rule, but
+can change based on `CONDITIONS` and `REPLICATES`. If we want to perform some combining operation
+on the whole list of files, we can add `output` and `shell` sections to this rule.
+
+In typical bioinformatics workflows, the final steps will combine all the results together into some big report. For our final workflow
+we'll be doing this with *MultiQC*, but as a simple first example, let's just concatenate all the count files. In the shell this would be:
+
+~~~
+$ cat file1.count file2.count file3.count ... > all_counts.txt
+~~~
+
+In the Snakemake rule we just say:
+
+~~~
+shell:
+  "cat {input} > {output}"
+~~~
+
+Within a rule definition you can combine named inputs and list inputs - any named input can be list of files rather than
+just a single file. When you use the `{input.name}` placeholder in the shell command it will expand to the full list.
+
+
+> ## Exercises
+>
+> 1. Make it so that the *all_counts* rule concatenates all the count files into a single output file
+>    named `all_counts_concatenated.txt`.
+> 1. Adapt the rule further so that there are two outputs named `trimmed_counts_concatenated.txt` and
+>    `untrimmed_counts_concatenated.txt`, and the respective counts go into each.
+>
+> *Hint: you can put two commands into the `shell` part, separated by a semicolon `;`.*
+>
+> > ## Solution
+> >
+> > ~~~
+> > rule all_counts:
+> >   input:
+> >     expand( "{indir}.{cond}_{rep}_{end}.fq.count", indir = ["reads", "trimmed"],
+> >                                                    cond  = CONDITIONS,
+> >                                                    rep   = REPLICATES,
+> >                                                    end   = ["1", "2"] )
+> >   output:
+> >     "all_counts_concatenated.txt"
+> >   shell:
+> >     "cat {input} > {output}"
+> > ~~~
+> >
+> > ~~~
+> > rule all_counts:
+> >   input:
+> >     untrimmed = expand( "reads.{cond}_{rep}_{end}.fq.count",   cond  = CONDITIONS,
+> >                                                                rep   = REPLICATES,
+> >                                                                end   = ["1", "2"] ),
+> >     trimmed   = expand( "trimmed.{cond}_{rep}_{end}.fq.count", cond  = CONDITIONS,
+> >                                                                rep   = REPLICATES,
+> >                                                                end   = ["1", "2"] ),
+> >   output:
+> >     untrimmed = "untrimmed_counts_concatenated.txt",
+> >     trimmed   = "trimmed_counts_concatenated.txt",
+> >   shell:
+> >     "cat {input.untrimmed} > {output.untrimmed} ; cat {input.trimmed} > {output.trimmed}"
+> > ~~~
+> >
+> > To run either version of the rule:
+> >
+> > ~~~
+> > $ snakemake -j1 -p all_counts
+> > ~~~
+> > {: .language-bash}
+> >
+> {:.solution}
+{: .challenge}
+
 ## Dynamically determining the inputs
 
 In the shell we can match multiple filenames with **glob patterns** like `original_reads/*` or  `reads/ref?_?.fq`.
@@ -272,81 +346,6 @@ This is the result we got before. So far, so good.
 > ['etoh60_1', 'etoh60_2', 'etoh60_3', 'ref_1', 'ref_2', 'ref_3', 'temp33_1', 'temp33_2', 'temp33_3']
 > ~~~
 {: .callout}
-
-
-## Rules that combine multiple inputs
-
-Our *all_counts* rule is a rule which takes a list of input files. The length of that list is not fixed by the rule, and we've
-shown it can even be calculated based on the input files using `glob_wildcards()`. If we want to perform some combining operation
-on the list of files, we can add `output` and `shell` sections to this rule.
-
-In typical bioinformatics workflows, the final steps will combine all the results together into some big report. For our final workflow
-we'll be doing this with *MultiQC*, but as a simple first example, let's just concatenate all the count files. In the shell this would be:
-
-~~~
-$ cat file1.count file2.count file3.count ... > all_counts.txt
-~~~
-
-In the Snakemake rule we just say:
-
-~~~
-shell:
-  "cat {input} > {output}"
-~~~
-
-Within a rule definition you can combine named inputs and list inputs - any named input can be list of files rather than
-just a single file. Then, using the `{input.name}` placeholder in the shell command will expand to that full list.
-
-
-> ## Exercises
->
-> 1. Make it so that the *all_counts* rule concatenates all the count files into a single output file
->    named `all_counts_concatenated.txt`.
-> 1. Adapt the rule further so that there are two outputs named `trimmed_counts_concatenated.txt` and
->    `untrimmed_counts_concatenated.txt`, and the respective counts go into each.
->
-> *Hint: you can put two commands into the `shell` part, separated by a semicolon `;`.*
->
-> > ## Solution
-> >
-> > ~~~
-> > rule all_counts:
-> >   input:
-> >     expand( "{indir}.{cond}_{rep}_{end}.fq.count", indir = ["reads", "trimmed"],
-> >                                                    cond  = CONDITIONS,
-> >                                                    rep   = REPLICATES,
-> >                                                    end   = ["1", "2"] )
-> >   output:
-> >     "all_counts_concatenated.txt"
-> >   shell:
-> >     "cat {input} > {output}"
-> > ~~~
-> >
-> > ~~~
-> > rule all_counts:
-> >   input:
-> >     untrimmed = expand( "reads.{cond}_{rep}_{end}.fq.count",   cond  = CONDITIONS,
-> >                                                                rep   = REPLICATES,
-> >                                                                end   = ["1", "2"] ),
-> >     trimmed   = expand( "trimmed.{cond}_{rep}_{end}.fq.count", cond  = CONDITIONS,
-> >                                                                rep   = REPLICATES,
-> >                                                                end   = ["1", "2"] ),
-> >   output:
-> >     untrimmed = "untrimmed_counts_concatenated.txt",
-> >     trimmed   = "trimmed_counts_concatenated.txt",
-> >   shell:
-> >     "cat {input.untrimmed} > {output.untrimmed} ; cat {input.trimmed} > {output.trimmed}"
-> > ~~~
-> >
-> > To run either version of the rule:
-> >
-> > ~~~
-> > $ snakemake -j1 -p all_counts
-> > ~~~
-> > {: .language-bash}
-> >
-> {:.solution}
-{: .challenge}
 
 > ## Rules that make multiple outputs
 >

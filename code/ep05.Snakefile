@@ -2,10 +2,14 @@
 # Snakefile you should have after completing episode 05
 ###
 
-# Input conditions and replicates to process
-CONDITIONS = glob_wildcards("reads/{condition}_1_1.fq").condition
-print("Conditions are: ", CONDITIONS)
+# All conditions and replicates to process
+CONDITIONS = ["ref", "etoh60", "temp33"]
 REPLICATES = ["1", "2", "3"]
+
+# Alternative dynamic version using glob_wildcards, and with a print() to
+# show us the content of the list:
+#  CONDITIONS = glob_wildcards("reads/{condition}_1_1.fq").condition
+#  print("Conditions are: ", CONDITIONS)
 
 # Rule to make all counts and compile the results in two files
 rule all_counts:
