@@ -53,7 +53,7 @@ good practise put settings like these into parameters as it makes the whole rule
 >
 > Modify the existing salmon_index rule so that the `-k` setting (k-mer length) is a parameter.
 >
-> Change the length to 33 and re-build the index with the amended rule.
+> Change the length to 29 and re-build the index with the amended rule.
 >
 > > ## Solution
 > >
@@ -64,7 +64,7 @@ good practise put settings like these into parameters as it makes the whole rule
 > >     input:
 > >         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
 > >     params:
-> >         kmer_len = "33"
+> >         kmer_len = "29"
 > >     shell:
 > >         "salmon index -t {input.transcriptome} -i {output.index} -k {params.kmer_len}"
 > > ~~~
@@ -132,7 +132,7 @@ $ snakemake --configfile=config.yaml ...
 
 > ## Exercise
 >
-> Fix the `salmon_index` rule to use `salmon_kmer_len` as in the config file sample above. Use a default of "33" if
+> Fix the `salmon_index` rule to use `salmon_kmer_len` as in the config file sample above. Use a default of "29" if
 > no config setting is supplied.
 >
 > Run Snakemake in *dry run* mode (`-n`) to check that this is working as expected.
@@ -143,7 +143,7 @@ $ snakemake --configfile=config.yaml ...
 > >
 > > ~~~
 > > params:
-> >     kmer_len = config.get("salmon_kmer_len", "33")
+> >     kmer_len = config.get("salmon_kmer_len", "29")
 > > ~~~
 > >
 > > If you run Snakemake with the `-n` and `-p` flags and referencing the config file, you should see that the

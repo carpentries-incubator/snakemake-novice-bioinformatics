@@ -87,7 +87,7 @@ rule salmon_index:
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
     params:
-        kmer_len = config.get("salmon_kmer_len", "33")
+        kmer_len = config.get("salmon_kmer_len", "29")
     shell:
         "salmon index -t {input.fasta} -i {output.idx} -k {params.kmer_len}"
 
