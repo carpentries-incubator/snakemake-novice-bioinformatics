@@ -66,7 +66,7 @@ good practise put settings like these into parameters as it makes the whole rule
 > >     params:
 > >         kmer_len = "29"
 > >     shell:
-> >         "salmon index -t {input.transcriptome} -i {output.index} -k {params.kmer_len}"
+> >         "salmon index -t {input.fasta} -i {output.index} -k {params.kmer_len}"
 > > ~~~
 > >
 > > ~~~
