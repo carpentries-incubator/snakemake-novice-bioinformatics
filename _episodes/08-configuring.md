@@ -77,10 +77,14 @@ good practise put settings like these into parameters as it makes the whole rule
 > >
 > > * You can choose a different parameter name, but it must be a valid identifier - no spaces or hyphens.
 > > * Changing the parameters doesn't automatically trigger Snakemake to re-run the rule (remember it only looks
-> >   at file modification times) so you need to use `-f` (or `-R` or `-F`) to force the job to be re-run.
+> >   at file modification times) so you need to use `-f` (or `-R` or `-F`) to force the job to be re-run
+> >   (note: this behavior changed in [Snakemake 7.8.0][snakemake-7.8.0]; now rules are re-run if the
+> >   parameters, code, input file set, or software stack have changed).
 > >
 > {: .solution}
 {: .challenge}
+
+[snakemake-7.8.0]: https://github.com/snakemake/snakemake/blob/main/CHANGELOG.md#780-2022-05-24
 
 ## Making Snakefiles configurable
 
