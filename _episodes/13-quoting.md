@@ -104,8 +104,8 @@ mis-quoting complications.
 >
 > ~~~
 > rule lenreads:
->   output: "{indir}.{sample}.fq.len"
->   input:  "{indir}/{sample}.fq"
+>   output: "{indir}.{myfile}.fq.len"
+>   input:  "{indir}/{myfile}.fq"
 >   shell:
 >       "awk 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}' {input} > {output}"
 > ~~~

@@ -24,15 +24,15 @@ of the Snakefile should be:
 ~~~
 # New generic read counter
 rule countreads:
-  output: "{sample}.fq.count"
-  input:  "reads/{sample}.fq"
+  output: "{myfile}.fq.count"
+  input:  "reads/{myfile}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: "trimmed/{sample}.fq"
-  input:  "reads/{sample}.fq"
+  output: "trimmed/{myfile}.fq"
+  input:  "reads/{myfile}.fq"
   shell:
     "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 ~~~
@@ -49,8 +49,8 @@ of the *countreads* rule:
 ~~~
 # New even-more-generic read counter
 rule countreads:
-  output: "{indir}.{sample}.fq.count"
-  input:  "{indir}/{sample}.fq"
+  output: "{indir}.{myfile}.fq.count"
+  input:  "{indir}/{myfile}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
@@ -69,11 +69,11 @@ $ cat trimmed.ref1_1.fq.count
 Look at the logging messages that Snakemake prints in the terminal. What has happened here?
 
 1. Snakemake looks for a rule to make `trimmed.ref1_1.fq.count`
-1. It determines that "countreads" can make this if `indir=trimmed` and `sample=ref1_1`
+1. It determines that "countreads" can make this if `indir=trimmed` and `myfile=ref1_1`
 1. It sees that the input needed is therefore `trimmed/ref1_1.fq`
 <br/><br/>
 1. Snakemake looks for a rule to make `trimmed/ref1_1.fq`
-1. It determines that "trimreads" can make this if `sample=ref1_1`
+1. It determines that "trimreads" can make this if `myfile=ref1_1`
 1. It sees that the input needed is therefore `reads/ref1_1.fq`
 <br/><br/>
 1. Now Snakemake has reached an available input file, it runs both steps to get the final output
@@ -170,6 +170,9 @@ There are many things to note here:
 1. Each of these lines must end with a `,` (optional for the last one)
 1. In the `shell` part, the input placeholders are now like `{input.name}`
 1. We've chosen to only quantify the *trimmed* version of the reads
+1. We've used the wildcard name `{sample}` rather than `{myfile}` because this will match only the sample
+   name, eg `ref1`, not `ref1_1`. Snakemake doesn't care what name we use, but carefully chosen names
+   make for more readable rules.
 1. Because `kallisto quant` only takes the output directory name, we've used the placeholder
    `{wildcards.sample}` rather than `{output}` which would give the full file names
 1. We don't actually have the `{input.index}` file yet. This will need to be created using the `kallisto index`
@@ -183,8 +186,8 @@ happy with the rule definition.
 > ## Running Kallisto on all replicates
 >
 > If you know about the Kallisto software, you may be thinking about running Kallisto on all replicates of
-> the sample at once. We'll look at this later in the course, but for now assume that Kallisto is run once
-> for each pair of FASTQ files.
+> the condition at once. We'll look at this later in the course, but for now assume that Kallisto is run once
+> per sample, ie. once for each pair of FASTQ files.
 >
 {: .callout}
 

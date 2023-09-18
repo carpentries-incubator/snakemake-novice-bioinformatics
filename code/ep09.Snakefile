@@ -9,15 +9,15 @@ REPLICATES = ["1", "2", "3"]
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
 rule countreads:
-  output: "{indir}.{sample}.fq.count"
-  input:  "{indir}/{sample}.fq"
+  output: "{indir}.{myfile}.fq.count"
+  input:  "{indir}/{myfile}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: "trimmed/{sample}.fq"
-  input:  "reads/{sample}.fq"
+  output: "trimmed/{myfile}.fq"
+  input:  "reads/{myfile}.fq"
   shell:
     "fastq_quality_trimmer -t 22 -l 100 -o {output} <{input}"
 

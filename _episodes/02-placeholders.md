@@ -29,8 +29,8 @@ sequences in **any** of the `.fq` files.
 ~~~
 # New generic read counter
 rule countreads:
-  output: "{sample}.fq.count"
-  input:  "reads/{sample}.fq"
+  output: "{myfile}.fq.count"
+  input:  "reads/{myfile}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
@@ -56,16 +56,18 @@ rule countreads:
 ~~~
 {: .language}
 
-The new rule has replaced file names with things in `{curly brackets}`, specifically `{sample}`, `{input}` and `{output}`.
+The new rule has replaced explicit file names with things in `{curly brackets}`, specifically `{myfile}`,
+`{input}` and `{output}`.
 
-### `{sample}` is a **wildcard**
+### `{myfile}` is a **wildcard**
 
 Wildcards are used in the `input` and `output` lines of the rule to represent parts of filenames.
-Much like the `*` pattern in the shell, the wildcard can be replaced by any text in order to make up the desired filename.
-As with naming your rules, you may choose any name you like for your wildcards, so here we chose `sample`. Using the same
+Much like the `*` pattern in the shell, the wildcard can stand in for any text in order to make up the desired filename.
+As with naming your rules, you may choose any name you like for your wildcards, so here we used `myfile`. If `myfile` is
+set to `ref1_1` then the new generic rule will have the same inputs and outputs as the original rule. Using the same
 wildcards in the input and output is what tells Snakemake how to match input files to output files.
 
-If two rules use a wildcard with the same name then Snakemake will treat them as completely different - rules in Snakemake
+If two rules use a wildcard with the same name then Snakemake will treat them as different entities - rules in Snakemake
 are self-contained in this way.
 
 ### `{input}` and `{output}` are **placeholders**
@@ -74,8 +76,8 @@ Placeholders are used in the `shell` section of a rule, and Snakemake will
 replace them with appropriate values - `{input}` with the full name of the input file, and `{output}` with the full name of
 the output file -- before running the command.
 
-If we had wanted to include the value of the `sample` wildcard directly in the `shell` command we could have used the placeholder
-`{wildcards.sample}` but in most cases, as here, we just need the `{input}` and `{output}` placeholders.
+If we had wanted to include the value of the `myfile` wildcard directly in the `shell` command we could have used the placeholder
+`{wildcards.myfile}` but in most cases, as here, we just need the `{input}` and `{output}` placeholders.
 
 > ## Running the general-purpose rule
 >
@@ -119,8 +121,8 @@ If we had wanted to include the value of the `sample` wildcard directly in the `
 > >
 > > 1)
 > > ~~~
-> > output: "counts/{sample}.txt"
-> > input:  "reads/{sample}.fq"
+> > output: "counts/{myfile}.txt"
+> > input:  "reads/{myfile}.fq"
 > > ~~~
 > > {: .language}
 > >
@@ -135,8 +137,8 @@ If we had wanted to include the value of the `sample` wildcard directly in the `
 > > {: .language}
 > >
 > > In this case, it was necessary to introduce a second wildcard, because the elements in the output file name
-> > are split up. The name chosen here is `{readnum}` but you could choose any name as long as the names match
-> > between the `input` and `output` parts. Once again, the output directory will be created for us by Snakemake,
+> > are split up. The names chosen here are `{sample}` and `{readnum}` but you could choose any names as long as they
+> > match between the `input` and `output` parts. Once again, the output directory will be created for us by Snakemake,
 > > so the `shell` command does not need to change.
 > >
 > > 3) This one **isn't possible**, because Snakemake cannot determine which input file you want to count by matching
@@ -228,8 +230,8 @@ to us indeed.
 > > ~~~
 > > # Trim any FASTQ reads for base quality
 > > rule trimreads:
-> >   output: "trimmed/{sample}.fq"
-> >   input:  "reads/{sample}.fq"
+> >   output: "trimmed/{myfile}.fq"
+> >   input:  "reads/{myfile}.fq"
 > >   shell:
 > >     "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 > > ~~~

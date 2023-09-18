@@ -1,4 +1,4 @@
-#!/bin/bash
+# qq!/bin/bash
 
 # This script needs the following Bioconda packages:
 #   cutadapt
