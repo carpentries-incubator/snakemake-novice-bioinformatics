@@ -53,13 +53,13 @@ rule kallisto_index:
 
 rule fastqc:
     output:
-        html = "{indir}.{sample}_fastqc.html",
-        zip  = "{indir}.{sample}_fastqc.zip"
-    input:  "{indir}/{sample}.fq"
+        html = "{indir}.{myfile}_fastqc.html",
+        zip  = "{indir}.{myfile}_fastqc.zip"
+    input:  "{indir}/{myfile}.fq"
     shell:
        r"""fastqc -o . {input:q}
-           mv {wildcards.sample:q}_fastqc.html {output.html:q}
-           mv {wildcards.sample:q}_fastqc.zip  {output.zip:q}
+           mv {wildcards.myfile:q}_fastqc.html {output.html:q}
+           mv {wildcards.myfile:q}_fastqc.zip  {output.zip:q}
         """
 
 rule salmon_quant:

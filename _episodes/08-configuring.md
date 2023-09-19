@@ -26,8 +26,8 @@ Consider the "trimreads" rule we defined earlier in the course.
 
 ~~~
 rule trimreads:
-  output: "trimmed/{sample}.fq"
-  input:  "reads/{sample}.fq"
+  output: "trimmed/{myfile}.fq"
+  input:  "reads/{myfile}.fq"
   shell:
     "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 ~~~
@@ -37,8 +37,8 @@ Adding comments in the Snakefile would certainly help, but we can also make impo
 
 ~~~
 rule trimreads:
-  output: "trimmed/{sample}.fq"
-  input:  "reads/{sample}.fq"
+  output: "trimmed/{myfile}.fq"
+  input:  "reads/{myfile}.fq"
   params:
     qual_threshold = "20",
     min_length     = "100",
@@ -102,8 +102,8 @@ object.
 
 ~~~
 rule trimreads:
-  output: "trimmed/{sample}.fq"
-  input:  "reads/{sample}.fq"
+  output: "trimmed/{myfile}.fq"
+  input:  "reads/{myfile}.fq"
   params:
     qual_threshold = config["trimreads_qual_threshold"],
     min_length     = config.get("trimreads_min_length", "100"),

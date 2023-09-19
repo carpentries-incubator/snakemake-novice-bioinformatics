@@ -72,8 +72,8 @@ allow us to effectively link rules. This gives us a rule that can count both *tr
 ~~~
 # Our existing countreads rule, for reference...
 rule countreads:
-  output: "{indir}.{sample}.fq.count"
-  input:  "{indir}/{sample}.fq"
+  output: "{indir}.{myfile}.fq.count"
+  input:  "{indir}/{myfile}.fq"
   shell:
     "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
@@ -98,7 +98,7 @@ We'll try all four, and see where this gets us.
 > rule fastqc:
 >   output:
 >       ???
->   input:  "{indir}/{sample}.fq"
+>   input:  "{indir}/{myfile}.fq"
 >   shell:
 >       "fastqc {input}"
 > ~~~
@@ -111,9 +111,9 @@ We'll try all four, and see where this gets us.
 > > ~~~
 > > rule fastqc:
 > >   output:
-> >       html = "{indir}/{sample}_fastqc.html",
-> >       zip  = "{indir}/{sample}_fastqc.zip",
-> >   input:  "{indir}/{sample}.fq"
+> >       html = "{indir}/{myfile}_fastqc.html",
+> >       zip  = "{indir}/{myfile}_fastqc.zip",
+> >   input:  "{indir}/{myfile}.fq"
 > >   shell:
 > >       "fastqc {input}"
 > > ~~~
@@ -147,17 +147,17 @@ directory, so we can use that...
 >
 > > ## Solution
 > >
-> > This involves using the {sample} wildcard twice and then constructing the output directory name
+> > This involves using the {myfile} wildcard twice and then constructing the output directory name
 > > to place in the `-o` option to fastqc.
 > >
 > > ~~~
 > > rule fastqc:
 > >   output:
-> >     html = "{indir}.fastqc.{sample}/{sample}_fastqc.html",
-> >     zip  = "{indir}.fastqc.{sample}/{sample}_fastqc.zip",
-> >   input: "{indir}/{sample}.fq"
+> >     html = "{indir}.fastqc.{myfile}/{myfile}_fastqc.html",
+> >     zip  = "{indir}.fastqc.{myfile}/{myfile}_fastqc.zip",
+> >   input: "{indir}/{myfile}.fq"
 > >   shell:
-> >     "fastqc -o {wildcards.indir}.fastqc.{wildcards.sample} {input}"
+> >     "fastqc -o {wildcards.indir}.fastqc.{wildcards.myfile} {input}"
 > > ~~~
 > >
 > {: .solution}
@@ -172,8 +172,8 @@ We'll amend the *fastqc* rule like so:
 
 ~~~
 rule fastqc:
-  output: directory("{indir}.fastqc.{sample}")
-  input:  "{indir}/{sample}.fq"
+  output: directory("{indir}.fastqc.{myfile}")
+  input:  "{indir}/{myfile}.fq"
   shell:
      "fastqc -o {output} {input}"
 ~~~
@@ -200,8 +200,8 @@ The error can be rectified by making the directory explicitly in the `shell` cod
 
 ~~~
 rule fastqc:
-  output: directory("{indir}.fastqc.{sample}")
-  input:  "{indir}/{sample}.fq"
+  output: directory("{indir}.fastqc.{myfile}")
+  input:  "{indir}/{myfile}.fq"
   shell:
      "mkdir {output} ; fastqc -o {output} {input}"
 ~~~
@@ -212,8 +212,8 @@ quoting syntax.
 
 ~~~
 rule fastqc:
-  output: directory("{indir}.fastqc.{sample}")
-  input:  "{indir}/{sample}.fq"
+  output: directory("{indir}.fastqc.{myfile}")
+  input:  "{indir}/{myfile}.fq"
   shell:
      r"""mkdir {output}
          fastqc -o {output} {input}
@@ -239,9 +239,9 @@ powerful solution is to use shell commands to move and/or rename the files to ex
 > ~~~
 > rule fastqc:
 >     output:
->         html = "{indir}.{sample}_fastqc.html",
->         zip  = "{indir}.{sample}_fastqc.zip"
->     input:  "{indir}/{sample}.fq"
+>         html = "{indir}.{myfile}_fastqc.html",
+>         zip  = "{indir}.{myfile}_fastqc.zip"
+>     input:  "{indir}/{myfile}.fq"
 >     shell:
 >        r"""???
 >         """
@@ -257,13 +257,13 @@ powerful solution is to use shell commands to move and/or rename the files to ex
 > > ~~~
 > > rule fastqc:
 > >     output:
-> >         html = "{indir}.{sample}_fastqc.html",
-> >         zip  = "{indir}.{sample}_fastqc.zip"
-> >     input:  "{indir}/{sample}.fq"
+> >         html = "{indir}.{myfile}_fastqc.html",
+> >         zip  = "{indir}.{myfile}_fastqc.zip"
+> >     input:  "{indir}/{myfile}.fq"
 > >     shell:
 > >        r"""fastqc -o . {input}
-> >            mv {wildcards.sample}_fastqc.html {output.html}
-> >            mv {wildcards.sample}_fastqc.zip  {output.zip}
+> >            mv {wildcards.myfile}_fastqc.html {output.html}
+> >            mv {wildcards.myfile}_fastqc.zip  {output.zip}
 > >         """
 > > ~~~
 > >
