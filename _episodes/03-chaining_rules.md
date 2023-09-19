@@ -139,8 +139,8 @@ And it produces a directory of output files. According to
 [the Kallisto manual](https://pachterlab.github.io/kallisto/manual#quant) this directory will
 have three output files in it:
 
-1. abundances.h5
-1. abundances.tsv
+1. abundance.h5
+1. abundance.tsv
 1. run_info.json
 
 We'll not worry about what the contents of these files mean just now, or how Kallisto generates them.
@@ -152,8 +152,8 @@ Making a rule with multiple inputs and outputs like this works much like the pre
 ~~~
 rule kallisto_quant:
     output:
-        h5   = "kallisto.{sample}/abundances.h5",
-        tsv  = "kallisto.{sample}/abundances.tsv",
+        h5   = "kallisto.{sample}/abundance.h5",
+        tsv  = "kallisto.{sample}/abundance.tsv",
         json = "kallisto.{sample}/run_info.json",
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
@@ -201,8 +201,9 @@ happy with the rule definition.
 > > ## Solution
 > >
 > > ~~~
-> > $ snakemake -j1 -F -p kallisto.ref1/abundances.h5
+> > $ snakemake -j1 -F -p kallisto.ref1/abundance.h5
 > > ~~~
+> > {: .language-bash}
 > >
 > > Resulting error is "Missing input files". Note that Snakemake does not try to run kallisto at all. It stops
 > > while still making a work plan, because it sees that a required input file is missing.
@@ -219,16 +220,14 @@ happy with the rule definition.
 > ~~~
 > $ kallisto index -i index_file_to_make fasta_file_to_index
 > ~~~
+> {: .language-bash}
 >
 > The file to be indexed is `transcriptome/Saccharomyces_cerevisiae.R64-1-1.cdna.all.fa.gz`. As there is only
 > one input to the rule you don't have to give it a name, but you may do so if you like.
 >
 > Make it so that the output printed by the program is captured to a file, and therefore your rule will have
-> two separate outputs: the index file and the log file. Note that the program prints messages on *stderr*, so
+> two separate outputs: the *index file* and the *log file*. Note that the program prints messages on *stderr*, so
 > you will need to use `>&` rather than `>` to capture the output.
->
-> Also, once you get all this to run, you will still see an error after Snakemake runs the "kallisto_quant" step.
-> We'll look at this error and how to remedy it next.
 >
 > > ## Solution
 > >
@@ -248,13 +247,62 @@ happy with the rule definition.
 > > ~~~
 > >
 > {: .solution}
+>
+>
 {: .challenge}
 
-## Dealing with the "missing files" error
+> ## `log` outputs in Snakemake
+>
+> Snakemake has a dedicated rule field for outputs that are [log files](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files),
+> and these are mostly treated as regular outputs except that log files are not removed if the job produces an error.
+> This means you can look at the log to help diagnose the error. In a real workflow this can be very useful, but in terms of
+> learning the fundementals of Snakemake we'll stick with regular `input` and `output` fields here.
+>
+{: .callout}
 
-Once we get the new rules to run, you'll see something like this:
+## Dealing with a *missing files* error
+
+All being well, your new rules are now ready to run Kallisto.
 
 ~~~
+$ snakemake -j1 -F -p kallisto.ref1/abundance.h5
+...lots of output...
+4 of 4 steps (100%) done
+Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834.snakemake.log
+~~~
+{: .language-bash}
+
+We'll end the chapter by looking at a common problem that can arise if you mistype a file
+name in a rule. Remember that we wrote the rule based on the expected output filenames given in the Kallisto
+manual. In an older version of this manual there was a typo where the file names were incorrectly given as
+`abundances.h5` and `abundances.tsv`, with the extra `s` on each.
+
+It may seem silly to break the workflow when we just got it working, but it will be instructive,
+so edit the Snakefile and change these names to the incorrect versions.
+
+~~~
+rule kallisto_quant:
+    output:
+        h5   = "kallisto.{sample}/abundances.h5",
+        tsv  = "kallisto.{sample}/abundances.tsv",
+        json = "kallisto.{sample}/run_info.json",
+...
+~~~
+{: .language}
+
+To keep things tidy, this time we'll manually remove the output directory.
+
+~~~
+$ rm -rvf kallisto.ref1
+~~~
+{: .language-bash}
+
+And re-run. Note that the output file name you'll need to use on the command line must match the edited Snakefile,
+or you will get a `MissingRuleException`.
+
+~~~
+$ snakemake -j1 -F -p kallisto.ref1/abundances.h5
+
 ...
 kallisto quant -i Saccharomyces_cerevisiae.R64-1-1.kallisto_index -o kallisto.ref1 trimmed/ref1_2.fq trimmed/ref1_2.fq
 
@@ -280,14 +328,16 @@ Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834
 
 There's a lot to take in here. Some of the messages are very informative. Some less so.
 
-1. Snakemake did actually run kallisto, as evidenced by the output from kallisto that we see in log
-1. There is no obvious error message in this kallisto output
-1. Snakemake complains some expected output files are missing: `kallisto.ref1/abundances.h5` and `kallisto.ref1/abundances.tsv`
+1. Snakemake did actually run kallisto, as evidenced by the output from kallisto that we see on the screen
+1. There is no obvious error message being reported by kallisto
+1. Snakemake complains some expected output files are missing: `kallisto.ref1/abundances.h5` and
+   `kallisto.ref1/abundances.tsv`
 1. The third expected output file `kallisto.ref1/run_info.json` was found but has now been removed by Snakemake
 1. Snakemake suggest this might be due to "filesystem latency"
 
 This last point is a red herring. "Filesystem latency" is not an issue here, and never will be since we are not
-using a network filesystem. We can investigate further by looking at the `kallisto.ref1` subdirectory.
+using a network filesystem. We know what the problem is, as we deliberately caused it, but to diagnose
+an unexpected error like this we would investigate further by looking at the `kallisto.ref1` subdirectory.
 
 ~~~
 $ ls kallisto.ref1/
@@ -298,24 +348,26 @@ abundance.h5  abundance.tsv
 Remember that Snakemake itself does not create any output files. It just runs the commands you give it, then checks to
 see if all the expected output files have appeared.
 
-So the file names created by kallisto are not quite the same as we saw in the manual *(note - the manual may have been fixed at the
-point you are doing this course, but it was true back when the course was written!)*. Change the rule definition in the
-`Snakefile` to use the correct names, then you should have everything working.
+So if the file names created by kallisto are not exactly the same as in the Snakefile you will get this error, and you
+will, in this case, find that some output files are present but others (`run_info.json`, which was named correctly)
+have been cleaned up by Snakemake.
 
 > ## Errors are normal
 >
-> Don't be disheartened if you see errors like the one above when first testing your new Snakemake pipelines. There is a lot that
-> can go wrong when writing a new workflow, and you'll normally need several iterations to get things just right. One advantage of
-> the Snakemake approach compared to regular scripts is that Snakemake fails fast when there is a problem, rather than ploughing on
-> and potentially running junk calculations on partial or corrupted data. Another advantage is that when a step fails we can resume
-> from where we left off, as we'll see in the next episode.
+> Don't be disheartened if you see errors like the one above when first testing your new Snakemake pipelines. There
+> is a lot that can go wrong when writing a new workflow, and you'll normally need several iterations to get things
+> just right. One advantage of the Snakemake approach compared to regular scripts is that Snakemake fails fast when
+> there is a problem, rather than ploughing on and potentially running junk calculations on partial or corrupted
+> data. Another advantage is that when a step fails we can safely resume from where we left off, as we'll see in the
+> next episode.
 >
 {: .callout}
 
-Finally, check that the rules are still generic by processing the *temp33_1* sample:
+Finally, edit the names in the Snakefile back to the correct version and re-run to confirm that all is well.
+Assure yourself that that the rules are still generic by processing the *temp33_1* sample too:
 
 ~~~
-$ snakemake -j1 -F -p kallisto.temp33_1/abundance.h5
+$ snakemake -j1 -F -p kallisto.ref1/abundance.h5  kallisto.temp33_1/abundance.h5
 ~~~
 {: .language-bash}
 
