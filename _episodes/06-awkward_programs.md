@@ -188,9 +188,9 @@ rule fastqc:
 On running this, we get an error.
 
 ~~~
-$ snakemake -j1 -p reads.fastqc2.ref_1_1
+$ snakemake -j1 -p reads.fastqc.ref_1_1
 ...
-Specified output directory 'reads.fastqc2.ref_1_1' does not exist
+Specified output directory 'reads.fastqc.ref_1_1' does not exist
 ...
 ~~~
 
