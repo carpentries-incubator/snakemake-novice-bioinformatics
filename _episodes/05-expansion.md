@@ -48,8 +48,9 @@ $ cd ..
 
 > ## File renaming
 >
-> The **rename** command here is [the one provided by Bioconda](http://plasmasturm.org/code/rename/).
-> Other Linux systems may have a different rename command installed by default.
+> The **rename** command here is [the one provided by Bioconda
+> ](http://plasmasturm.org/code/rename/). Other Linux systems may have a different rename
+> command installed by default.
 >
 {: .callout}
 

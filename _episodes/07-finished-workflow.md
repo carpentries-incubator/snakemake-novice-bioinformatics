@@ -12,47 +12,51 @@ keypoints:
 - "Once a workflow is complete and working, there will still be room for refinement"
 - "This completes the introduction to the fundamentals of Snakemake"
 ---
-*For reference, [this is the Snakefile](../code/ep06.Snakefile) you should have to start the episode.*
+*For reference, [this is the Snakefile](../code/ep06.Snakefile) you should have to start
+the episode.*
 
-We've seen how to link rules in a pipeline and how to merge all the results at the final step. This is the
-basic pattern for many analysis workflows. For simplicity, in episode 5, we just used the `cat` command to
-combine all the `.count` files but now we'll use *MultiQC* to combine the results from Kallisto and FastQC
-into a single report for all samples. We'll also add in an alternative quantification tool called *Salmon*
-and this will complete the pipeline.
+We've seen how to link rules in a pipeline and how to merge all the results at the final step. This
+is the basic pattern for many analysis workflows. For simplicity, in episode 5, we just used the
+`cat` command to combine all the `.count` files but now we'll use *MultiQC* to combine the results
+from Kallisto and FastQC into a single report for all samples. We'll also add in an alternative
+quantification tool called *Salmon* and this will complete the pipeline.
 
 ## The full workflow we are constructing
 
-* **fastq\_quality\_trimmer** is part of the FastX toolkit and removes low-quality basecalls from the raw
-  reads. *We first used it in episode 2.*
-* **FastQC** calculates a variety of metrics on a FASTQ file and produces an HTML report and a ZIP file.
-  *We introduced this in episode 6.*
-* **Kallisto** aligns the reads to a reference transcriptome and produces a table of transcript abundance.
-  *We first used it in episode 3.*
-* **Salmon** is a alternative to Kallisto, using a different alignment algorithm. *We've not used it yet.*
-* **MultiQC** combines the reports from various tools, including FastQC, Kallisto, and Salmon, into a single
-  HTML report over all samples. This is by no means a full RNA-Seq analysis report but today it completes our
-  Snakemake pipeline.
+* **fastq\_quality\_trimmer** is part of the FastX toolkit and removes low-quality basecalls from
+  the raw reads.
+  *We first used it in [episode 2]({{ page.root }}{% link _episodes/02-paceholders.md %}).*
+* **FastQC** calculates a variety of metrics on a FASTQ file and produces an HTML report and a
+  ZIP file.
+  *We introduced this in [episode 6]({{ page.root }}{% link _episodes/06-awkward_programs.md %}).*
+* **Kallisto** aligns the reads to a reference transcriptome and produces a table of
+  transcript abundance.
+  *We first used it in [episode 3]({{ page.root }}{% link _episodes/03-chaining_rules.md %}).*
+* **Salmon** is a alternative to Kallisto, using a different alignment algorithm.
+  *We've not used it yet.*
+* **MultiQC** combines the reports from various tools, including FastQC, Kallisto, and Salmon,
+  into a single HTML report over all samples. This is by no means a full RNA-Seq analysis report
+  but today it completes our Snakemake pipeline.
 
 ![Summary of our full QC workflow with icons representing the steps listed above][fig-workflow]
 
-At this point we have everything we need, in terms of Snakemake knowledge, to add the two remaining tools
-and complete the Snakefile. As with FastQC, some quirks in the way the new tools work will need to be
-accounted for.
+At this point we have everything we need, in terms of Snakemake knowledge, to add the two remaining
+tools and complete the Snakefile. As with FastQC, some quirks in the way the new tools work will
+need to be accounted for.
 
 ## Adding Salmon as an alternative to Kallisto
 
-At the end of the previous episode we modified the *kallisto* rule by declaring that the output of the rule
-was a directory, rather than explicitly listing the three files that Kallisto writes in that directory. You
-should ensure that you are working with this new version of the *kallisto* rule as it will be a template for
-adding a *salmon* rule.
+At the end of the previous episode we modified the *kallisto* rule by declaring that the output of
+the rule was a directory, rather than explicitly listing the three files that Kallisto writes in
+that directory. You should ensure that you are working with this new version of the *kallisto* rule
+as it will be a template for adding a *salmon* rule.
 
 > ## Exercise - adding Salmon as an alternative to Kallisto
 >
-> An alternative application for transcript quantification is Salmon. The procedure is virtually identical,
-> to Kallisto,
-> having an indexing step and a quantification step. Note that in real usage you are advised to prepare and
-> add decoy sequences to the transcriptome index, but for the
-> purposes of this tutorial we'll just keep things as simple as possible.
+> An alternative application for transcript quantification is Salmon. The procedure is virtually
+> identical, to Kallisto, having an indexing step and a quantification step.
+> Note that in real usage you are advised to prepare and add decoy sequences to the transcriptome
+> index, but for the purposes of this tutorial we'll just keep things as simple as possible.
 >
 > Based upon the following command templates:
 >
@@ -63,10 +67,10 @@ adding a *salmon* rule.
 >
 > Add a pair of rules to index and align the reads with Salmon. Note that:
 >
-> 1. Unlike Kallisto, the index produced by Salmon is a directory of files, not a single file - so both
->    of these new rules will produce a directory as output.
-> 1. As noted in the last episode, you only need the `directory()` marker on the outputs of rules, not
->    the inputs
+> 1. Unlike Kallisto, the index produced by Salmon is a directory of files, not a single file - so
+>    both of these new rules will produce a directory as output.
+> 1. As noted in the last episode, you only need the `directory()` marker on the outputs of rules,
+>    not the inputs.
 >
 > > ## Solution
 > >
@@ -89,8 +93,9 @@ adding a *salmon* rule.
 > >         "salmon index -t {input.fasta} -i {output.idx} -k 31"
 > > ~~~
 > >
-> > If you copied the *kallisto_index* rule and logged the output of *salmon_index* to a file this is fine.
-> > Just make sure when copying and pasting that you change all the parts that need to change!
+> > If you copied the *kallisto_index* rule and logged the output of *salmon_index* to a file this
+> > is fine. Just make sure when copying and pasting that you change all the parts that need
+> > to change!
 > >
 > {: .solution}
 {: .challenge}
@@ -98,9 +103,9 @@ adding a *salmon* rule.
 
 ## Combining the outputs with MultiQC
 
-MultiQC scans for analysis report files in a given directory and all subdirectories, then makes a report of
-everything it finds. It knows about FastQC, Salmon and Kallisto outputs so we should be able to compile a report
-on all these. To try this out and scan the current directory, simply run:
+MultiQC scans for analysis report files in a given directory and all subdirectories, then makes a
+report of everything it finds. It knows about FastQC, Salmon and Kallisto outputs so we should be
+able to compile a report on all these. To try this out and scan the current directory, simply run:
 
 ~~~
 $ multiqc . -o multiqc_out
@@ -108,15 +113,19 @@ $ multiqc . -o multiqc_out
 
 > ## Exercise - adding a MultiQC rule
 >
-> Earlier, in episode 5, we made a basic summary-type rule called *all_counts*. Now make a *multiqc* rule that gathers up all
-> the FastQC, Salmon and Kallisto reports.
+> Earlier, in episode 5, we made a basic summary-type rule called *all_counts*. Now make a
+> *multiqc* rule that gathers up all the FastQC, Salmon and Kallisto reports.
 >
 > Considerations:
 >
-> 1. Your rule is going to have several named inputs, and these inputs will be lists of files generated with `expand()` functions.
-> 1. Ensure that both *kallisto_quant* and *salmon_quant* are run on all 9 samples, that is all three repeats of all three conditions.
-> 1. Run FastQC on the untrimmed reads only, and note that MultiQC specifically uses the `.zip` files for input, not the `.html`.
-> 1. Since multiqc scans for input files, the input names don't have to be explicitly mentioned in the `shell` part.
+> 1. Your rule is going to have several named inputs, and these inputs will be lists of files
+>    generated with `expand()` functions.
+> 1. Ensure that both *kallisto_quant* and *salmon_quant* are run on all 9 samples, that is all
+>    three repeats of all three conditions.
+> 1. Run FastQC on the untrimmed reads only, and note that MultiQC specifically uses the `.zip`
+>    files for input, not the `.html`.
+> 1. Since multiqc scans for input files, the input names don't have to be explicitly mentioned in
+>    the `shell` part.
 >
 > > ## Solution
 > >
@@ -131,8 +140,8 @@ $ multiqc . -o multiqc_out
 > >         "multiqc . -o multiqc_out"
 > > ~~~
 > >
-> > Since the rule has no wildcards, you can run it by giving either the rule name or the output directory name as a
-> > target.
+> > Since the rule has no wildcards, you can run it by giving either the rule name or the output
+> > directory name as a target.
 > >
 > > ~~~
 > > $ snakemake -j1 -p multiqc
@@ -148,17 +157,19 @@ $ multiqc . -o multiqc_out
 
 > ## Exercise - fixing Kallisto
 >
-> You may notice that MultiQC is not capturing any Kallisto output when making the reports. The reason for this is given in the
-> [MultiQC manual here](https://multiqc.info/docs/#kallisto):
+> You may notice that MultiQC is not capturing any Kallisto output when making the reports. The
+> reason for this is given in the [MultiQC manual here](https://multiqc.info/docs/#kallisto):
 >
-> > *Note - MultiQC parses the standard out from Kallisto, not any of its output files (abundance.h5, abundance.tsv, and run_info.json).
-> > As such, you must capture the Kallisto stdout to a file when running to use the MultiQC module.*
+> > *Note - MultiQC parses the standard out from Kallisto, not any of its output files
+> > (abundance.h5, abundance.tsv, and run_info.json). As such, you must capture the Kallisto
+> > output to a file when running it for use with MultiQC.*
 >
 >
-> Fix the Snakefile so that Kallisto terminal output is redirected to a file and can be collected by MultiQC.
+> Fix the Snakefile so that Kallisto terminal output is redirected to a file and can be collected
+> by MultiQC.
 >
->  * *Hint 1:* The manual above is not quite right - you need to capture both **stdout and stderr**, so use `>&` rather than `>`, as
->    we did with the indexing step.
+>  * *Hint 1:* The manual above is not quite right - you need to capture both
+>    **stdout and stderr**, so use `>&` rather than `>`, as we did with the indexing step.
 >  * *Hint 2:* MultiQC does not mind what you call the file, so choose your own sensible name.
 >
 > > ## Solution
@@ -177,31 +188,35 @@ $ multiqc . -o multiqc_out
 > >         """
 > > ~~~
 > >
-> > There are several perfectly good ways of structuring this, so don't worry if your answer is different.
+> > There are several perfectly good ways of structuring this, so don't worry if your answer is
+> > different.
 > >
-> > A gotcha with the above version is that the output directory needs to be created before *kallisto quant* is run,
-> > much like with FastQC.
-> > Remember that Snakemake deletes any existing outputs, including outputs that are directories, before the job is
-> > run, and while Kallisto will create the directory for you this is too late for the shell to make the log file
-> > and without the `mkdir` command it will report "No such file or directory".
+> > A gotcha with the above version is that the output directory needs to be created before
+> > *kallisto quant* is run, much like with FastQC.
+> > Remember that Snakemake deletes any existing outputs, including outputs that are directories,
+> > before the job is run, and while Kallisto will create the directory for you this is too late
+> > for the shell to make the log file and without the `mkdir` command it will report
+> > "No such file or directory".
 > >
-> > Another option is to make the log file outside of the directory, or stick with declaring the individual files as
-> > outputs, as when we first made the rule, in which case the directory will be made by Snakemake. It's possible to
-> > declare both a directory and a file within that directory as separate outputs, but this is probably not the best
-> > idea.
+> > Another option is to make the log file outside of the directory, or stick with declaring the
+> > individual files as outputs, as when we first made the rule, in which case the directory will
+> > be made by Snakemake. It's possible to declare both a directory and a file within that
+> > directory as separate outputs, but this is probably not the best idea.
 > >
 > {: .solution}
 {: .challenge}
 
 > ## Exercise - making the MultiQC rule more robust
 >
-> Because MultiQC scans for suitable input rather than taking an explicit list of files, there is a risk that it picks up
-> unwanted reports if you leave old files sitting in the directory. To make the rule fully explicit, one idea is to make a
-> temporary directory and symlink all the files into it, and then tell MultiQC to look in there. Amend the *multiqc* rule
-> so it does this.
+> Because MultiQC scans for suitable input rather than taking an explicit list of files, there is a
+> risk that it picks up unwanted reports if you leave old files sitting in the directory. To make
+> the rule fully explicit, one idea is to make a temporary directory and symlink all the files into
+> it, and then tell MultiQC to look in there. Amend the *multiqc* rule so it does this.
 >
->  * *Hint 1:* When making links, use `ln -snr -t <target_dir> <src>` to avoid link relativity issues.
->  * *Hint 2:* If you feel that tweaking some other rules would make this easier, feel free to do that.
+>  * *Hint 1:* When making links, use `ln -snr -t <target_dir> <src>` to avoid link
+>    relativity issues.
+>  * *Hint 2:* If you feel that tweaking some other rules would make this easier, feel free to
+>    do that.
 >
 > > ## Solution
 > >
@@ -226,8 +241,8 @@ $ multiqc . -o multiqc_out
 > {: .solution}
 {: .challenge}
 
-To see the actual MultiQC report, open the file *multiqc_out/multiqc_report.html* in a web browser. You can do this
-directly from the command line, assuming you have a default browser configured:
+To see the actual MultiQC report, open the file *multiqc_out/multiqc_report.html* in a web browser.
+You can do this directly from the command line, assuming you have a default browser configured.
 
 On Linux environments:
 
@@ -244,11 +259,13 @@ $ open multiqc_out/multiqc_report.html
 {: .language-bash}
 
 
-The report has a few issues, but we'll not get distracted by the details of how to configure MultiQC to resolve them.
+The report has a few issues, but we'll not get distracted by the details of how to configure
+MultiQC to resolve them.
 
 [fig-workflow]: ../fig/overview.svg
 
-*For reference, [this is a Snakefile](../code/ep07.Snakefile) incorporating the changes made in this episode.
-You may now proceed to any later episode in the lesson using this workflow as a starting point.*
+*For reference, [this is a Snakefile](../code/ep07.Snakefile) incorporating the changes made in
+this episode. You may now proceed to any later episode in the lesson using this workflow as a
+starting point.*
 
 {% include links.md %}
