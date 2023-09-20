@@ -216,9 +216,19 @@ rule fastqc:
         "mkdir {output} ; fastqc -o {output} {input}"
 ~~~
 
-This works because the `shell` part of the rule can contain a whole script, with multiple commands
-to be run. Above we used a semicolon to split the commands. For putting multiple lines into a
-`shell` section there is a special quoting syntax.
+> ## Note
+>
+> Remember that in most cases it is not necessary to manually create directories because Snakemake
+> will auto-create the directory for every output file listed by a rule. Even when using a
+> `directory()` output, Snakemake will not create the directory itself but most applications
+> will make the directory for you. FastQC is an exception. The best approach is generally to only
+> add a `mkdir ...` command if you test the rule without it and get an error.
+>
+{: .callout}
+
+The modified rule works because the `shell` part of the rule can contain a whole script, with
+multiple commands to be run. Above we used a semicolon to split the commands on one line.
+For putting multiple lines into a `shell` section there is a special quoting syntax.
 
 ~~~
 rule fastqc:

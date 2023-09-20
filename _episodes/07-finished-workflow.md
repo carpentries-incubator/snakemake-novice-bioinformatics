@@ -25,7 +25,7 @@ quantification tool called *Salmon* and this will complete the pipeline.
 
 * **fastq\_quality\_trimmer** is part of the FastX toolkit and removes low-quality basecalls from
   the raw reads.
-  *We first used it in [episode 2]({{ page.root }}{% link _episodes/02-paceholders.md %}).*
+  *We first used it in [episode 2]({{ page.root }}{% link _episodes/02-placeholders.md %}).*
 * **FastQC** calculates a variety of metrics on a FASTQ file and produces an HTML report and a
   ZIP file.
   *We introduced this in [episode 6]({{ page.root }}{% link _episodes/06-awkward_programs.md %}).*
