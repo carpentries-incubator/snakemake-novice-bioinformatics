@@ -6,17 +6,17 @@
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
 rule countreads:
-  output: "{indir}.{myfile}.fq.count"
-  input:  "{indir}/{myfile}.fq"
-  shell:
-    "echo $(( $(wc -l <{input}) / 4 )) > {output}"
+    output: "{indir}.{myfile}.fq.count"
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: "trimmed/{myfile}.fq"
-  input:  "reads/{myfile}.fq"
-  shell:
-    "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
+    output: "trimmed/{myfile}.fq"
+    input:  "reads/{myfile}.fq"
+    shell:
+        "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 
 # Kallisto quantification of one sample
 rule kallisto_quant:

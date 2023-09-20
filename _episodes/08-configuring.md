@@ -26,10 +26,10 @@ Consider the "trimreads" rule we defined earlier in the course.
 
 ~~~
 rule trimreads:
-  output: "trimmed/{myfile}.fq"
-  input:  "reads/{myfile}.fq"
-  shell:
-    "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
+    output: "trimmed/{myfile}.fq"
+    input:  "reads/{myfile}.fq"
+    shell:
+        "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 ~~~
 
 Can you remember what the `-t 20` and `-l 100` parameters do without referring back to the manual? Probably not!
@@ -37,13 +37,13 @@ Adding comments in the Snakefile would certainly help, but we can also make impo
 
 ~~~
 rule trimreads:
-  output: "trimmed/{myfile}.fq"
-  input:  "reads/{myfile}.fq"
-  params:
-    qual_threshold = "20",
-    min_length     = "100",
-  shell:
-    "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
+    output: "trimmed/{myfile}.fq"
+    input:  "reads/{myfile}.fq"
+    params:
+        qual_threshold = "20",
+        min_length     = "100",
+    shell:
+        "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
 ~~~
 
 Now it is a little clearer what these numbers mean. Use of parameters doesn't give you extra functionality but it is
@@ -102,13 +102,13 @@ object.
 
 ~~~
 rule trimreads:
-  output: "trimmed/{myfile}.fq"
-  input:  "reads/{myfile}.fq"
-  params:
-    qual_threshold = config["trimreads_qual_threshold"],
-    min_length     = config.get("trimreads_min_length", "100"),
-  shell:
-    "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
+    output: "trimmed/{myfile}.fq"
+    input:  "reads/{myfile}.fq"
+    params:
+        qual_threshold = config["trimreads_qual_threshold"],
+        min_length     = config.get("trimreads_min_length", "100"),
+    shell:
+        "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
 ~~~
 
 In the above example, the **trimreads_qual_threshold** value must be supplied in the config, but the

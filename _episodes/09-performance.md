@@ -24,9 +24,9 @@ start this episode.*
 
 Some definitions:
 
-* **Process** - 	A running program (in our case, each Snakemake job can be considered one process)
-* **Threads** - 	Each process has one or more threads which run in parallel
-* **Processor** -	Your computer has multiple *CPU cores* or processors, each of which can run one thread at a time
+* **Process** -     A running program (in our case, each Snakemake job can be considered one process)
+* **Threads** -     Each process has one or more threads which run in parallel
+* **Processor** -   Your computer has multiple *CPU cores* or processors, each of which can run one thread at a time
 
 These definitions are a little simplified, but fine for our needs. The operating system kernel shares out threads among processors:
 

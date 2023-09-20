@@ -72,10 +72,10 @@ allow us to effectively link rules. This gives us a rule that can count both *tr
 ~~~
 # Our existing countreads rule, for reference...
 rule countreads:
-  output: "{indir}.{myfile}.fq.count"
-  input:  "{indir}/{myfile}.fq"
-  shell:
-    "echo $(( $(wc -l <{input}) / 4 )) > {output}"
+    output: "{indir}.{myfile}.fq.count"
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
 
 To do the same with FastQC, to report on both the trimmed and untrimmed reads, we have various options:
@@ -96,11 +96,11 @@ We'll try all four, and see where this gets us.
 >
 > ~~~
 > rule fastqc:
->   output:
->       ???
->   input:  "{indir}/{myfile}.fq"
->   shell:
->       "fastqc {input}"
+>     output:
+>         ???
+>     input:  "{indir}/{myfile}.fq"
+>     shell:
+>         "fastqc {input}"
 > ~~~
 >
 > > ## Solution
@@ -110,12 +110,12 @@ We'll try all four, and see where this gets us.
 > >
 > > ~~~
 > > rule fastqc:
-> >   output:
-> >       html = "{indir}/{myfile}_fastqc.html",
-> >       zip  = "{indir}/{myfile}_fastqc.zip",
-> >   input:  "{indir}/{myfile}.fq"
-> >   shell:
-> >       "fastqc {input}"
+> >     output:
+> >         html = "{indir}/{myfile}_fastqc.html",
+> >         zip  = "{indir}/{myfile}_fastqc.zip",
+> >     input:  "{indir}/{myfile}.fq"
+> >     shell:
+> >         "fastqc {input}"
 > > ~~~
 > >
 > > This rule contains wildcards, so in order to run it you specify one or more target output files:
@@ -152,12 +152,12 @@ directory, so we can use that...
 > >
 > > ~~~
 > > rule fastqc:
-> >   output:
-> >     html = "{indir}.fastqc.{myfile}/{myfile}_fastqc.html",
-> >     zip  = "{indir}.fastqc.{myfile}/{myfile}_fastqc.zip",
-> >   input: "{indir}/{myfile}.fq"
-> >   shell:
-> >     "fastqc -o {wildcards.indir}.fastqc.{wildcards.myfile} {input}"
+> >     output:
+> >       html = "{indir}.fastqc.{myfile}/{myfile}_fastqc.html",
+> >       zip  = "{indir}.fastqc.{myfile}/{myfile}_fastqc.zip",
+> >     input: "{indir}/{myfile}.fq"
+> >     shell:
+> >         "fastqc -o {wildcards.indir}.fastqc.{wildcards.myfile} {input}"
 > > ~~~
 > >
 > {: .solution}
@@ -172,10 +172,10 @@ We'll amend the *fastqc* rule like so:
 
 ~~~
 rule fastqc:
-  output: directory("{indir}.fastqc.{myfile}")
-  input:  "{indir}/{myfile}.fq"
-  shell:
-     "fastqc -o {output} {input}"
+    output: directory("{indir}.fastqc.{myfile}")
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        "fastqc -o {output} {input}"
 ~~~
 
 > ## Note
@@ -200,10 +200,10 @@ The error can be rectified by making the directory explicitly in the `shell` cod
 
 ~~~
 rule fastqc:
-  output: directory("{indir}.fastqc.{myfile}")
-  input:  "{indir}/{myfile}.fq"
-  shell:
-     "mkdir {output} ; fastqc -o {output} {input}"
+    output: directory("{indir}.fastqc.{myfile}")
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        "mkdir {output} ; fastqc -o {output} {input}"
 ~~~
 
 This works because the `shell` part of the rule can contain a whole script, with multiple commands to be run. Above
@@ -212,12 +212,12 @@ quoting syntax.
 
 ~~~
 rule fastqc:
-  output: directory("{indir}.fastqc.{myfile}")
-  input:  "{indir}/{myfile}.fq"
-  shell:
-     r"""mkdir {output}
-         fastqc -o {output} {input}
-      """
+    output: directory("{indir}.fastqc.{myfile}")
+    input:  "{indir}/{myfile}.fq"
+    shell:
+       r"""mkdir {output}
+           fastqc -o {output} {input}
+        """
 ~~~
 
 The "triple quoting" syntax comes from Python. Not only does it allow multiple lines to be added within the quotes but it

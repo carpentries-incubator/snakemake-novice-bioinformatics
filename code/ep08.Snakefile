@@ -24,20 +24,20 @@ print("Replicates are: ", REPLICATES)
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
 rule countreads:
-  output: "{indir}.{myfile}.fq.count"
-  input:  "{indir}/{myfile}.fq"
-  shell:
-    "echo $(( $(wc -l <{input}) / 4 )) > {output}"
+    output: "{indir}.{myfile}.fq.count"
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: "trimmed/{myfile}.fq"
-  input:  "reads/{myfile}.fq"
-  params:
-    qual_threshold = config["trimreads_qual_threshold"],
-    min_length     = config.get("trimreads_min_length", "100"),
-  shell:
-    "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
+    output: "trimmed/{myfile}.fq"
+    input:  "reads/{myfile}.fq"
+    params:
+        qual_threshold = config["trimreads_qual_threshold"],
+        min_length     = config.get("trimreads_min_length", "100"),
+    shell:
+        "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
 
 # Kallisto quantification of one sample.
 # Modified to declare the whole directory as the output.

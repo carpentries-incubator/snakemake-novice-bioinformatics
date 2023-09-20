@@ -104,10 +104,10 @@ mis-quoting complications.
 >
 > ~~~
 > rule lenreads:
->   output: "{indir}.{myfile}.fq.len"
->   input:  "{indir}/{myfile}.fq"
->   shell:
->       "awk 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}' {input} > {output}"
+>     output: "{indir}.{myfile}.fq.len"
+>     input:  "{indir}/{myfile}.fq"
+>     shell:
+>         "awk 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}' {input} > {output}"
 > ~~~
 >
 > Will this work as shown? If not, why not? Try it and see.
@@ -120,7 +120,7 @@ mis-quoting complications.
 > >
 > > ~~~
 > >   shell:
-> >     "awk 'NR%4==2{{"{{"}}sum+=length($0)}}END{{"{{"}}print sum/(NR/4)}}' {input} > {output}"
+> >       "awk 'NR%4==2{{"{{"}}sum+=length($0)}}END{{"{{"}}print sum/(NR/4)}}' {input} > {output}"
 > > ~~~
 > {: .solution}
 {: .challenge}
@@ -143,16 +143,16 @@ than adding extra braces into the command you could define it as a variable.
 LEN_READS_CMD = r"""NR%4==2{sum+=length($0)}END{print sum/(NR/4)}"""
 
 rule lenreads:
-  shell:
-      "awk '{LEN_READS_CMD}' {input} > {output}"
+    shell:
+        "awk '{LEN_READS_CMD}' {input} > {output}"
 ~~~
 
 Or even better:
 
 ~~~
 rule lenreads:
-  shell:
-      "awk {LEN_READS_CMD:q} {input} > {output}"
+    shell:
+        "awk {LEN_READS_CMD:q} {input} > {output}"
 ~~~
 
 Using `{LEN_READS_CMD:q}` instead of `'{LEN_READS_CMD}'` is asking Snakemake to quote the awk command for you. In
@@ -163,8 +163,8 @@ The `:q` syntax works on any placeholder and you can safely add it to all the pl
 
 ~~~
 rule lenreads:
-  shell:
-      "awk {LEN_READS_CMD:q} {input:q} > {output:q}"
+    shell:
+        "awk {LEN_READS_CMD:q} {input:q} > {output:q}"
 ~~~
 
 Now the *lenreads* rule would be able to work on an input file that contains spaces or other unusual characters.

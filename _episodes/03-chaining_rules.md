@@ -24,17 +24,17 @@ of the Snakefile should be:
 ~~~
 # New generic read counter
 rule countreads:
-  output: "{myfile}.fq.count"
-  input:  "reads/{myfile}.fq"
-  shell:
-    "echo $(( $(wc -l <{input}) / 4 )) > {output}"
+    output: "{myfile}.fq.count"
+    input:  "reads/{myfile}.fq"
+    shell:
+        "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: "trimmed/{myfile}.fq"
-  input:  "reads/{myfile}.fq"
-  shell:
-    "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
+    output: "trimmed/{myfile}.fq"
+    input:  "reads/{myfile}.fq"
+    shell:
+        "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 ~~~
 {: .language}
 
@@ -49,10 +49,10 @@ of the *countreads* rule:
 ~~~
 # New even-more-generic read counter
 rule countreads:
-  output: "{indir}.{myfile}.fq.count"
-  input:  "{indir}/{myfile}.fq"
-  shell:
-    "echo $(( $(wc -l <{input}) / 4 )) > {output}"
+    output: "{indir}.{myfile}.fq.count"
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
 {: .language}
 

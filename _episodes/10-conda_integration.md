@@ -155,9 +155,9 @@ Using shell: /bin/bash
 Provided cores: 1 (use --cores to define parallelism)
 Rules claiming more threads will be scaled down.
 Job counts:
-	count	jobs
-	1	a_conda_rule
-	1
+    count   jobs
+    1       a_conda_rule
+    1
 Select jobs to execute...
 
 [Tue Sep 21 16:57:59 2021]

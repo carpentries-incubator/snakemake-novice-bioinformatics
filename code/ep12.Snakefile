@@ -9,17 +9,17 @@ REPLICATES = ["1", "2", "3"]
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
 rule countreads:
-  output: "{indir}.{myfile}.fq.count"
-  input:  "{indir}/{myfile}.fq"
-  shell:
-    "echo $(( $(wc -l <{input}) / 4 )) > {output}"
+    output: "{indir}.{myfile}.fq.count"
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: temporary("trimmed/{myfile}.fq")
-  input:  "reads/{myfile}.fq"
-  shell:
-    "fastq_quality_trimmer -t 22 -l 100 -o {output} <{input}"
+    output: temporary("trimmed/{myfile}.fq")
+    input:  "reads/{myfile}.fq"
+    shell:
+        "fastq_quality_trimmer -t 22 -l 100 -o {output} <{input}"
 
 # Rule to zip any FASTQ file
 rule gzip_fastq:

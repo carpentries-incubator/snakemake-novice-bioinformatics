@@ -67,7 +67,7 @@ Finally, declare the output of the *trimreads* rule to be *temporary*.
 
 ~~~
 rule trimreads:
-  output: temporary("trimmed/{sample}.fq")
+    output: temporary("trimmed/{sample}.fq")
 ~~~
 
 And now re-run the workflow. Since we modified the *trimreads* rule, we'll force that rule to be re-run with the
@@ -152,10 +152,10 @@ $ touch trimmed/*
 $ snakemake -n -p multiqc_out
 ...
 Job counts:
-	count	jobs
-	1	multiqc
-	9	salmon_quant
-	10
+    count   jobs
+    1       multiqc
+    9       salmon_quant
+    10
 ~~~
 
 Snakemake wants to re-run all the *salmon_quant* jobs (and the *kallisto_quant* jobs, if you completed the exercise above), which makes sense. However, we know the results are good, and

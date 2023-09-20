@@ -29,10 +29,10 @@ sequences in **any** of the `.fq` files.
 ~~~
 # New generic read counter
 rule countreads:
-  output: "{myfile}.fq.count"
-  input:  "reads/{myfile}.fq"
-  shell:
-    "echo $(( $(wc -l <{input}) / 4 )) > {output}"
+    output: "{myfile}.fq.count"
+    input:  "reads/{myfile}.fq"
+    shell:
+        "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
 {: .language}
 
@@ -49,10 +49,10 @@ As a reminder, here's the non-generic version from the last episode:
 ~~~
 # Original version
 rule countreads:
-  output: "ref1_1.fq.count"
-  input:  "reads/ref1_1.fq"
-  shell:
-    "echo $(( $(wc -l <reads/ref1_1.fq) / 4 )) > ref1_1.fq.count"
+    output: "ref1_1.fq.count"
+    input:  "reads/ref1_1.fq"
+    shell:
+        "echo $(( $(wc -l <reads/ref1_1.fq) / 4 )) > ref1_1.fq.count"
 ~~~
 {: .language}
 
@@ -230,10 +230,10 @@ to us indeed.
 > > ~~~
 > > # Trim any FASTQ reads for base quality
 > > rule trimreads:
-> >   output: "trimmed/{myfile}.fq"
-> >   input:  "reads/{myfile}.fq"
-> >   shell:
-> >     "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
+> >     output: "trimmed/{myfile}.fq"
+> >     input:  "reads/{myfile}.fq"
+> >     shell:
+> >         "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 > > ~~~
 > > {: .language}
 > >

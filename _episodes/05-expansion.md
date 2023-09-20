@@ -134,7 +134,7 @@ $ snakemake -j1 -p
 > >
 > > # Rule to make all counts at once
 > > rule all_counts:
-> >   input: expand("{indir}.{cond}_{rep}_{end}.fq.count", indir=COUNT_DIR, cond=CONDITIONS, rep=REPLICATES, end=READ_ENDS)
+> >     input: expand("{indir}.{cond}_{rep}_{end}.fq.count", indir=COUNT_DIR, cond=CONDITIONS, rep=REPLICATES, end=READ_ENDS)
 > > ~~~
 > > {: .language}
 > >
@@ -149,11 +149,11 @@ $ snakemake -j1 -p
 > >
 > > # Rule to make all counts at once
 > > rule all_counts:
-> >   input:
-> >     expand( "{indir}.{cond}_{rep}_{end}.fq.count", indir = ["reads", "trimmed"],
-> >                                                    cond  = CONDITIONS,
-> >                                                    rep   = REPLICATES,
-> >                                                    end   = ["1", "2"] )
+> >     input:
+> >         expand( "{indir}.{cond}_{rep}_{end}.fq.count", indir = ["reads", "trimmed"],
+> >                                                        cond  = CONDITIONS,
+> >                                                        rep   = REPLICATES,
+> >                                                        end   = ["1", "2"] )
 > > ~~~
 > > {: .language}
 > >
@@ -197,31 +197,31 @@ just a single file. When you use the `{input.name}` placeholder in the shell com
 > >
 > > ~~~
 > > rule all_counts:
-> >   input:
-> >     expand( "{indir}.{cond}_{rep}_{end}.fq.count", indir = ["reads", "trimmed"],
-> >                                                    cond  = CONDITIONS,
-> >                                                    rep   = REPLICATES,
-> >                                                    end   = ["1", "2"] )
-> >   output:
-> >     "all_counts_concatenated.txt"
-> >   shell:
-> >     "cat {input} > {output}"
+> >     input:
+> >         expand( "{indir}.{cond}_{rep}_{end}.fq.count", indir = ["reads", "trimmed"],
+> >                                                        cond  = CONDITIONS,
+> >                                                        rep   = REPLICATES,
+> >                                                        end   = ["1", "2"] )
+> >     output:
+> >         "all_counts_concatenated.txt"
+> >     shell:
+> >         "cat {input} > {output}"
 > > ~~~
 > >
 > > ~~~
 > > rule all_counts:
-> >   input:
-> >     untrimmed = expand( "reads.{cond}_{rep}_{end}.fq.count",   cond  = CONDITIONS,
-> >                                                                rep   = REPLICATES,
-> >                                                                end   = ["1", "2"] ),
-> >     trimmed   = expand( "trimmed.{cond}_{rep}_{end}.fq.count", cond  = CONDITIONS,
-> >                                                                rep   = REPLICATES,
-> >                                                                end   = ["1", "2"] ),
-> >   output:
-> >     untrimmed = "untrimmed_counts_concatenated.txt",
-> >     trimmed   = "trimmed_counts_concatenated.txt",
-> >   shell:
-> >     "cat {input.untrimmed} > {output.untrimmed} ; cat {input.trimmed} > {output.trimmed}"
+> >     input:
+> >         untrimmed = expand( "reads.{cond}_{rep}_{end}.fq.count",   cond  = CONDITIONS,
+> >                                                                    rep   = REPLICATES,
+> >                                                                    end   = ["1", "2"] ),
+> >         trimmed   = expand( "trimmed.{cond}_{rep}_{end}.fq.count", cond  = CONDITIONS,
+> >                                                                    rep   = REPLICATES,
+> >                                                                    end   = ["1", "2"] ),
+> >     output:
+> >         untrimmed = "untrimmed_counts_concatenated.txt",
+> >         trimmed   = "trimmed_counts_concatenated.txt",
+> >     shell:
+> >         "cat {input.untrimmed} > {output.untrimmed} ; cat {input.trimmed} > {output.trimmed}"
 > > ~~~
 > >
 > > To run either version of the rule:
@@ -258,11 +258,11 @@ $ snakemake -j1 -F -n -p all_counts
 Conditions are:  ['etoh60', 'temp33', 'ref']
 Building DAG of jobs...
 Job counts:
-	count	jobs
-	1	all_counts
-	36	countreads
-	18	trimreads
-	55
+    count  jobs
+    1      all_counts
+    36     countreads
+    18     trimreads
+    55
 ...
 ~~~
 {: .language-bash}

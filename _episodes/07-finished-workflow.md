@@ -122,13 +122,13 @@ $ multiqc . -o multiqc_out
 > >
 > > ~~~
 > > rule multiqc:
-> > output: directory('multiqc_out')
-> > input:
-> >     salmon =   expand("salmon.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
-> >     kallisto = expand("kallisto.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
-> >     fastqc =   expand("reads.{cond}_{rep}_{end}_fastqc.zip", cond=CONDITIONS, rep=REPLICATES, end=["1","2"]),
-> > shell:
-> >     "multiqc . -o multiqc_out"
+> >     output: directory('multiqc_out')
+> >     input:
+> >         salmon =   expand("salmon.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
+> >         kallisto = expand("kallisto.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
+> >         fastqc =   expand("reads.{cond}_{rep}_{end}_fastqc.zip", cond=CONDITIONS, rep=REPLICATES, end=["1","2"]),
+> >     shell:
+> >         "multiqc . -o multiqc_out"
 > > ~~~
 > >
 > > Since the rule has no wildcards, you can run it by giving either the rule name or the output directory name as a
@@ -172,9 +172,9 @@ $ multiqc . -o multiqc_out
 > >         fq1   = "trimmed/{sample}_1.fq",
 > >         fq2   = "trimmed/{sample}_2.fq",
 > >     shell:
-> >      r"""mkdir {output}
-> >          kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
-> >       """
+> >        r"""mkdir {output}
+> >            kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
+> >         """
 > > ~~~
 > >
 > > There are several perfectly good ways of structuring this, so don't worry if your answer is different.
@@ -217,10 +217,10 @@ $ multiqc . -o multiqc_out
 > >         kallisto = expand("kallisto.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
 > >         fastqc =   expand("reads.{cond}_{rep}_{end}_fastqc.zip", cond=CONDITIONS, rep=REPLICATES, end=["1","2"]),
 > >     shell:
-> >       r"""mkdir {output.mqc_in}
-> >           ln -snr -t {output.mqc_in} {input}
-> >           multiqc {output.mqc_in} -o {output.mqc_out}
-> >        """
+> >        r"""mkdir {output.mqc_in}
+> >            ln -snr -t {output.mqc_in} {input}
+> >            multiqc {output.mqc_in} -o {output.mqc_out}
+> >         """
 > > ~~~
 > >
 > {: .solution}

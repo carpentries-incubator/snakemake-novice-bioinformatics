@@ -9,25 +9,25 @@ REPLICATES = ["1", "2", "3"]
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
 rule countreads:
-  output: "{indir}.{myfile}.fq.count"
-  input:  "{indir}/{myfile}.fq"
-  shell:
-    "echo $(( $(wc -l <{input:q}) / 4 )) > {output:q}"
+    output: "{indir}.{myfile}.fq.count"
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        "echo $(( $(wc -l <{input:q}) / 4 )) > {output:q}"
 
 LEN_READS_CMD = "NR%4==2{sum+=length($0)}END{print sum/(NR/4)}"
 rule lenreads:
-  output: "{indir}.{myfile}.fq.len"
-  input:  "{indir}/{myfile}.fq"
-  shell:
-      "awk {LEN_READS_CMD:q} {input:q} > {output:q}"
+    output: "{indir}.{myfile}.fq.len"
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        "awk {LEN_READS_CMD:q} {input:q} > {output:q}"
 
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: "trimmed/{myfile}.fq"
-  input:  "reads/{myfile}.fq"
-  shell:
-    "fastq_quality_trimmer -t 22 -l 100 -o {output:q} <{input:q}"
+    output: "trimmed/{myfile}.fq"
+    input:  "reads/{myfile}.fq"
+    shell:
+        "fastq_quality_trimmer -t 22 -l 100 -o {output:q} <{input:q}"
 
 # Kallisto quantification of one sample.
 # Modified to declare the whole directory as the output.
