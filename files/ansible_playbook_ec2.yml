@@ -1,9 +1,7 @@
-# This playbook prepares images for the Snakemake Ed-DASH course. For EdGe EC2 images,
-# just start any number of regular training VMs, and check they exist with:
+# This playbook prepares images for the Snakemake courses run under Ed-DaSH.
 #
-#  $ ansible-inventory --graph --verbose
-#
-# If other VMs are running then you'll need to do something smarter.
+# It is not suitable for general use as-is, but is included here as it may be useful for
+# anyone setting up their own learning platform on Ubuntu/Debian Linux.
 #
 - hosts: tag_Role_training_snakemake
   become: yes

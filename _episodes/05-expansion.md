@@ -66,6 +66,8 @@ REPLICATES = ["1", "2", "3"]
 ~~~
 {: .language}
 
+* Unlike with variables in shell scripts, we can put spaces around the `=` sign, but they are
+  not mandatory.
 * The lists of quoted strings are enclosed in square brackets and comma-separated. If you know any
   Python you'll recognise this as Python list syntax.
 * A good convention is to use capitalized names for these variables, but this is not mandatory.

@@ -2,49 +2,75 @@
 title: Setup
 ---
 
-These instructions set out how to obtain and install the course pre-requisites for Linux. It is assumed
-that you have:
+These instructions set out how to obtain and install the course pre-requisites for Linux. It is
+assumed that you have:
 * access to the Bash shell on a fairly modern Linux system
 * sufficient disk space (~1GB) to store the software and data
-
-*TODO - Instructions for Mac. All software is known to work on Mac systems but the setup is slightly different.*
 
 You **do not** need root/administrator level access.
 
 > ## Note
-> There are other ways to install these tools, and it should also be possible to run the exercises on
-> non-Linux systems. However, this is not covered here. We would welcome
-> [contributions](https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/blob/gh-pages/CONTRIBUTING.md) in this regard.
+>
+> There are other ways to install these tools, and it should also be possible to run the exercises
+> on non-Linux systems. However, this is not covered here. We would welcome
+> [contributions](https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/blob/gh-pages/CONTRIBUTING.md)
+> in this regard.
+>
+> *TODO - Add instructions for Mac. All software is known to work on Mac systems but the setup is
+> slightly different.*
+>
 {: .callout}
 
-## Software and data installation
+## Software installation
 
-To prepare for the course:
+Install software packages, including Snakemake and the bioinformatics tools, via Conda. For more
+info on Conda, see the first part of [episode 10
+]({{ page.root }}{% link _episodes/10-conda_integration.md %}).
 
-* Download and unpack [the sample dataset tarball](https://ndownloader.figshare.com/files/35058796)
-  * [See this link](https://figshare.com/articles/dataset/data-for-snakemake-novice-bioinformatics_tar_xz/19733338/1) for details and license
-  * You may download in the terminal with the command `wget --content-disposition https://ndownloader.figshare.com/files/35058796`
-* Install software packages, including Snakemake and the bioinformatics tools, via Conda:
-  * If you don't already have Conda, get [the Miniconda installer](https://docs.conda.io/en/latest/miniconda.html) and follow instructions
-  * Get [the environment file](files/conda_env.yaml) and run `conda env update --file conda_env.yaml`
-  * Ensure the right environment is active - `conda activate snakemake_dash`
-* Set up the GEdit or Nano text editor (other text editors will work fine but we only provide specific setup instructions
-  for GEdit and Nano).
+* If you don't already have Conda, get [the Miniconda installer
+  ](https://docs.conda.io/en/latest/miniconda.html) and follow their instructions.
+* Get [the environment file](files/conda_env.yaml) and create the environment by running
+  `conda env update --file conda_env.yaml`
+* Ensure the right environment is active in your shell - `conda activate snakemake_carpentry`
+
+Ensure you have a text editor such as GEdit or Nano. These are standard on most Linux distros.
+Other text editors will work fine but we only provide specific setup instructions for GEdit
+and Nano here.
+
+## Obtaining the data
+
+Download and unpack the sample dataset tarball from
+[https://ndownloader.figshare.com/files/35058796](https://ndownloader.figshare.com/files/35058796)
+
+You may do this in the terminal with the command:
+
+~~~
+$ wget --content-disposition https://ndownloader.figshare.com/files/35058796
+~~~
+{: .language-bash}
+
+[See this link](https://figshare.com/articles/dataset/data-for-snakemake-novice-bioinformatics_tar_xz/19733338/1)
+for details about this dataset and the redistribution license.
 
 ## Preparing your editor
 
+There are some settings you should change in your editor to most effectively edit Snakemake
+workflows. These are also good for editing most other types of script and code.
+
 ### GEdit
 
-GEdit is the text editor that comes with the GNOME desktop and is a great general-purpose editor. Within the application
-menus it is normally just called "Text Editor" but you can also start it from the shell by typing "gedit &".
+GEdit is the text editor that comes with the GNOME desktop and is a simple to use general-purpose
+editor. Within the application menus it is normally just called "Text Editor" but you can also
+start it from your shell by typing "gedit &".
 
-Snakemake uses Python file structure which is very fussy about editor settings, particularly the use of Tab characters.
-Before writing any code in GEdit, you need to go into the preferences and select the following settings:
+Snakemake uses Python file structure which is very fussy about the use of tab characters and line
+breaks. Before writing any code in GEdit, you need to go into the preferences and select the
+following settings:
 
 * Insert spaces instead of tabs (under the "Editor" tab)
 * Disable text wrapping (under the "View" tab)
 
-The following settings are also recommended:
+The following settings are recommended but not required:
 
 * Set the Syntax to "Python3", rather than "Plain Text"
 * Set Tab width to 4
@@ -56,8 +82,8 @@ The following settings are also recommended:
 
 The Nano editor works directly in the terminal and is found on virtually every Linux system.
 
-The following command will start editing with the suggested settings, in particular regarding Tab handling as mentioned
-above.
+The following command will start editing with the suggested settings, in particular regarding Tab
+handling as mentioned above.
 
 ```
 $ nano -wiSOE -T 4 -Y python Snakefile

@@ -1,49 +1,48 @@
 # Contributing
 
-[The Carpentries][c-site] ([Software Carpentry][swc-site], [Data Carpentry][dc-site], and [Library Carpentry][lc-site]) are open source projects,
-and we welcome contributions of all kinds:
-new lessons,
-fixes to existing material,
-bug reports,
-and reviews of proposed changes are all welcome.
+[The Carpentries][c-site] ([Software Carpentry][swc-site], [Data Carpentry][dc-site], and
+[Library Carpentry][lc-site]) are open source projects, and we welcome contributions of all kinds:
 
-This particular lesson is currently being developed under the [Ed-DaSH](https://edcarp.github.io/Ed-DaSH) project, so please
-get in touch with the [Ed-DaSH team][email] for all matters related to the materials in this repository.
+* new lessons
+* fixes to existing material
+* bug reports
+* and reviews of proposed changes
+
+...are all welcome.
+
+This particular lesson was originally being developed under the [Ed-DaSH
+](https://edcarp.github.io/Ed-DaSH) project, and you may still want to get in touch with the
+[Ed-DaSH team][email] directly on matters related to the materials in this repository.
 
 ## Contributor Agreement
 
-By contributing,
-you agree that we may redistribute your work under [our license](LICENSE.md).
-In exchange,
-we will address your issues and/or assess your change proposal as promptly as we can,
+By contributing, you agree that we may redistribute your work under [our license](LICENSE.md).
+In exchange, we will address your issues and/or assess your change proposal as promptly as we can,
 and help you become a member of our community.
-Everyone involved in [The Carpentries][c-site]
-agrees to abide by our [code of conduct](CODE_OF_CONDUCT.md).
+Everyone involved in [The Carpentries][c-site] agrees to abide by our
+[code of conduct](CODE_OF_CONDUCT.md).
 
 ## How to contribute to this lesson
 
-The easiest way to get started is to [file an issue][issues]
-to tell us about a spelling mistake,
-some awkward wording,
-or a factual error.
-This is a good way to introduce yourself
-and to meet some of our community members.
+You may want to tell us about a spelling mistake, some awkward wording,
+a factual error, an idea for improvement, or simply to introduce yourself and give some
+general thoughts.
 
-1.  If you do not have a [GitHub][github] account,
-    you can [send us comments by email][email].
-    However,
-    we will be able to respond more quickly if you use one of the other methods described below.
-
-2.  If you have a [GitHub][github] account,
-    or are willing to [create one][github-join],
-    you can report problems or suggest improvements by [creating an issue][issues].
+1.  The easiest way to get started, if you have a [GitHub][github] account,
+    or are willing to [create one][github-join], is to [file an issue][issues].
     This allows us to assign the item to someone
-    and to respond to it in a threaded discussion. You do not need to know anything about Git.
+    and to respond to it in a threaded discussion. You do not need to know anything about Git
+    or the Carpentries lesson formats.
 
 3.  If you are comfortable with Git,
     and would like to add or change material,
     you can submit a pull request (PR).
     Instructions for doing this are [included below](#using-github).
+
+3.  If you do not have a [GitHub][github] account,
+    you can [send us comments by email][email].
+    However, we will be able to respond more quickly if you use one of the other methods
+    described above.
 
 ## What to Contribute
 
@@ -75,11 +74,6 @@ and (b) explain what you would take out to make room for it.
 The first encourages contributors to be honest about requirements;
 the second, to think hard about priorities.
 
-We are also not looking for exercises or other material that only run on one platform.
-Our workshops typically contain a mixture of Windows, macOS, and Linux users;
-in order to be usable,
-our lessons must run equally well on all three.
-
 ## Using GitHub
 
 If you choose to contribute via GitHub, you may want to look at
@@ -104,8 +98,8 @@ When starting work, please make sure your clone of the originating `gh-pages` br
 before creating your own revision-specific branch(es) from there.
 Additionally, please only work from your newly-created branch(es) and *not*
 your clone of the originating `gh-pages` branch.
-Lastly, published copies of all the lessons are available in the `gh-pages` branch of the originating
-repository for reference while revising.
+Lastly, published copies of all the lessons are available in the `gh-pages` branch of the
+originating repository for reference while revising.
 
 ## Other Resources
 
