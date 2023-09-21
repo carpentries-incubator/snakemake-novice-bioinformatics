@@ -38,9 +38,9 @@ rule kallisto_quant:
         fq1   = "trimmed/{sample}_1.fq",
         fq2   = "trimmed/{sample}_2.fq",
     shell:
-     r"""mkdir {output:q}
-         kallisto quant -i {input.index} -o {output:q} {input.fq1:q} {input.fq2:q} >& {output:q}/kallisto_quant.log
-      """
+       r"""mkdir {output:q}
+           kallisto quant -i {input.index} -o {output:q} {input.fq1:q} {input.fq2:q} >& {output:q}/kallisto_quant.log
+        """
 
 rule kallisto_index:
     output:
@@ -90,7 +90,7 @@ rule multiqc:
         kallisto = expand("kallisto.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
         fastqc =   expand("reads.{cond}_{rep}_{end}_fastqc.zip", cond=CONDITIONS, rep=REPLICATES, end=["1","2"]),
     shell:
-      r"""mkdir {output.mqc_in:q}
-          ln -snr -t {output.mqc_in:q} {input:q}
-          multiqc {output.mqc_in:q} -o {output.mqc_out:q}
-       """
+       r"""mkdir {output.mqc_in:q}
+           ln -snr -t {output.mqc_in:q} {input:q}
+           multiqc {output.mqc_in:q} -o {output.mqc_out:q}
+        """

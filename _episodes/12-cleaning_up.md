@@ -242,11 +242,11 @@ rule shallow_shadow_rule:
     output: "shadow_out.txt"
     shadow: "shallow"
     shell:
-      r"""exec >{output}
-          echo shallow shadow mode
-          echo Current directory is: `pwd`
-          touch temp_file.txt
-          tree
+        """exec >{output}
+           echo shallow shadow mode
+           echo Current directory is: `pwd`
+           touch temp_file.txt
+           tree
         """
 ~~~
 

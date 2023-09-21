@@ -33,9 +33,9 @@ Why is a mouse when it spins?
 The message is printed back, but not before the shell has interpreted the text as per various
 command-line parsing rules
 
- * The quotes around `"mouse"` have been removed
- * The extra spaces between `when` and `it` have been ignored
- * More subtly, `spins?` will be interpreted as a glob pattern if there is any possible match...
+ * The quotes around `"mouse"` have been removed.
+ * The extra spaces between `when` and `it` have been ignored.
+ * More subtly, `spins?` will be interpreted as a glob pattern if there is any matching file:
 
 ~~~
 $ touch spinsX spinsY
@@ -94,7 +94,7 @@ $ awk '{print "\"double\" '"'"'single'"'"'"}' <<<''
 
 Anyone who has done any amount of programming or shell scripting will have come across quoting
 issues in code. Bugs related to quoting can be very troublesome. In Snakemake these are
-particularly complex because the "shell" part of each rule undergoes three rounds of interpretation
+particularly complex because the `shell` part of each rule undergoes three rounds of interpretation
 before anything is actually run:
 
  1. The string is parsed according to Python quoting rules
@@ -134,15 +134,19 @@ avoid most mis-quoting complications.
 
 ## Best practise for writing robust workflows
 
-For complex commands in Snakemake rules, use the *triple-quoted r-strings* we saw earlier.
+For complex commands in Snakemake rules, the *triple-quoted strings* we saw earlier can be
+modified by adding a letter `r` just before the quotes, like this.
 
 ~~~
 r"""Strings like this"""
 ~~~
 
-The syntax allows embedded newlines, literal \n \t, and both types of '"quotes"'. In other words,
-the interpretation as a Python string does as little as possible, leaving most interpretation to
-the *bash* shell.
+This "raw string" or "r-string" syntax allows embedded newlines, literal `\n` `\t`, and both types
+of quotes (`"` `'`). In other words, the interpretation as a Python string does as little as
+possible, leaving most interpretation to the *Bash* shell. This means that if you copy and  paste
+the commands into a shell prompt or a shell script you should get the exact same result. The author
+of this course is in the habit of using r-string quotes for all shell commands, at the cost of a
+small loss of readability of the workflow code.
 
 The triple-quoting does not protect {curlies}, so if you are needing to use *awk* commands like the
 one above, rather than adding extra braces into the command you could define it as a variable.
@@ -168,8 +172,7 @@ command for you. In this case, Snakemake will just put it into single quotes, bu
 contains single quotes or embedded newlines or tabs or any other oddities then Snakemake will quote
 it robustly for you.
 
-The `:q` syntax works on any placeholder and you can safely add it to all the placeholders, so we
-could well say:
+The `:q` syntax works on any placeholder and you can safely add it to all these placeholders:
 
 ~~~
 rule lenreads:
@@ -183,7 +186,8 @@ whereas `'{input}'` will fail as it just combines all the filenames into one big
 the quotes.
 
 In general, choose file names that only contain shell-safe characters and no spaces, but if you
-can't do that then just ensure all your placeholders have `:q` and you should be fine.
+can't do that then in most cases ensuring all your placeholders have `:q` will be enough to keep
+things working.
 
 > ## Exercise
 >
@@ -206,6 +210,20 @@ can't do that then just ensure all your placeholders have `:q` and you should be
 > >
 > {: .solution}
 {: .challenge}
+
+> ## External scripts
+>
+> If rules in your Snakefile end up containing a large amount of shell code, or you are running
+> into multiple quoting issues, this is probably a sign you should move the code to a separate
+> Bash script. This will also make it easier to test the code directly.
+>
+> To make integration with these Bash scripts easier, Snakemake has a [script field
+> ](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#bash) which you can put as
+> an alternative to the `shell` field. When scripts are run like this, Snakemake passes the
+> parameters directly into the script as associative arrays. The Snakemake manual has a good
+> expalantion, with examples, of how this works.
+>
+{: .callout}
 
 *For reference, [this is a Snakefile](../code/ep13.Snakefile) incorporating the changes made in
 this episode.*

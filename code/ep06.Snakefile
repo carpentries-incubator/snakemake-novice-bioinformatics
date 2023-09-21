@@ -62,7 +62,7 @@ rule fastqc:
         zip  = "{indir}.{myfile}_fastqc.zip"
     input:  "{indir}/{myfile}.fq"
     shell:
-       r"""fastqc -o . {input}
+        """fastqc -o . {input}
            mv {wildcards.myfile}_fastqc.html {output.html}
            mv {wildcards.myfile}_fastqc.zip  {output.zip}
         """

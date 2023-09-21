@@ -222,7 +222,7 @@ rule fastqc:
 > will auto-create the directory for every output file listed by a rule. Even when using a
 > `directory()` output, Snakemake will not create the directory itself but most applications
 > will make the directory for you. FastQC is an exception. The best approach is generally to only
-> add a `mkdir ...` command if you test the rule without it and get an error.
+> add a `mkdir` command if you test the rule without it and get an error.
 >
 {: .callout}
 
@@ -235,17 +235,16 @@ rule fastqc:
     output: directory("{indir}.fastqc.{myfile}")
     input:  "{indir}/{myfile}.fq"
     shell:
-       r"""mkdir {output}
+        """mkdir {output}
            fastqc -o {output} {input}
         """
 ~~~
 
 The "triple quoting" syntax comes from Python. Not only does it allow multiple lines to be added
 within the quotes but it also allows you to embed both single and double quotes into the shell
-commands. The `r` character before the quotes disables interpretation of "backslash escapes"
-like "\n" and "\t". This is good, as you want the Bash shell, not Snakemake itself, to interpret
-these special characters. So when adding more complex shell sections, *always format them
-like this.*
+commands. For a further discussion of string quoting and a way to disable the interpretation of
+"backslash escapes" like `\n` and `\t` see [episode 13
+]({{ page.root }}{% link _episodes/13-quoting.md %})
 
 This rule is also fine, but because the individual files are not explicitly named as outputs we may
 have problems chaining later rules. Also consider that some applications won't give you any control
@@ -267,7 +266,7 @@ and/or rename the files to exactly the names you want.
 >         zip  = "{indir}.{myfile}_fastqc.zip"
 >     input:  "{indir}/{myfile}.fq"
 >     shell:
->        r"""???
+>         """???
 >         """
 > ~~~
 >
@@ -286,7 +285,7 @@ and/or rename the files to exactly the names you want.
 > >         zip  = "{indir}.{myfile}_fastqc.zip"
 > >     input:  "{indir}/{myfile}.fq"
 > >     shell:
-> >        r"""fastqc -o . {input}
+> >         """fastqc -o . {input}
 > >            mv {wildcards.myfile}_fastqc.html {output.html}
 > >            mv {wildcards.myfile}_fastqc.zip  {output.zip}
 > >         """
