@@ -189,11 +189,14 @@ Complete log: /home/zenmaster/carpentries/nextflow_rnaseq_training_dataset/.snak
 
 This takes some time, because Snakemake is (as the log says) creating the new environment and
 installing the packages. But if we run it a second time it's much quicker. This brings us to a
-second feature of Snakemake/Conda integration: as long as the YAML file is unchanged, Snakemake
+second feature of Snakemake+Conda integration: as long as the YAML file is unchanged, Snakemake
 will re-use the same environment, but if the file is edited or replaced Snakemake will detect the
 change and make a new environment. This happens because the environment that Snakemake made is
 stored under `./.snakemake/conda/d7df5e24`, and the last part of this name is a hash of the
 contents of the `new-env.yaml` file.
+
+Also, it may seem very inefficient to create the environment twice, but Conda employs file
+de-duplication so you don't actually end up with two copies of all the software.
 
 We'll do something useful with *cutadapt* in the next episode.
 
@@ -248,6 +251,36 @@ We'll do something useful with *cutadapt* in the next episode.
 > >
 > {: .solution}
 {: .challenge}
+
+> ## Note
+>
+> If you look into a YAML file created with `conda env export` you will see that Conda lists every
+> single package dependency and the list is quite large. You may prefer to write your own YAML
+> file where you can be as precise as you like about which packages are needed and which version or
+> versions are acceptable. Conda will fill in the blanks to ensure all dependencies are met.
+>
+> A file for an environment with cutadapt could be as simple as this.
+>
+> ~~~
+> name: cutadapt-env
+> channels:
+>   - conda-forge
+>   - bioconda
+>   - nodefaults
+> dependencies:
+>   - cutadapt=3.4
+> ~~~
+>
+> In this case, Conda will install version 3.4 of Cutadapt, but will meet the required
+> dependencies by installing the newest packages found in the channels, so the exact
+> environment will not be the same each time. This may make the workflow more compatible if,
+> for example, you try to switch from Linux to a Mac, but it may also cause problems if the newer
+> packages somehow don't work properly with Cutadapt 3.4, as happens with the `tbb` package above.
+> Sadly, while Conda is a great tool for installing and managing software it does have quirks and
+> shortcomings, and software setup continues to be a perennial headache for bioinformaticians.
+>
+{: .callout}
+
 
 *For reference, [this is a Snakefile](../code/ep10.Snakefile) incorporating the changes made in
 this episode.*
