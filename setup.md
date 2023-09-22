@@ -92,16 +92,30 @@ The following settings are recommended but not required:
 The Nano editor works directly in the terminal and is found on virtually every Linux system.
 
 The following command will start editing with the suggested settings, in particular regarding Tab
-handling as mentioned above.
+handling as mentioned above, and with Python syntax highlighting.
 
-```
+~~~
 $ nano -wiSOE -T 4 -Y python Snakefile
-```
+~~~
+{: .language-bash}
 
-You probably want to make an alias for this:
+To avoid typing all those options each time, you can add defaults to your `~/.nanorc` file:
 
-```
-$ alias sfedit="nano -wiSOE -T 4 -Y python"
-```
+~~~
+$ nano ~/.nanorc
+~~~
+{: .language-bash}
+
+~~~
+set nowrap
+set autoindent
+set tabstospaces
+set tabsize 4
+set smooth
+set morespace
+~~~
+
+Some of these are already defaults in later versions of Nano, but it doesn't hurt to have them
+here anyway. There isn't a way to set the default syntax highlighting within this file.
 
 {% include links.md %}
