@@ -42,10 +42,19 @@ and Nano here.
 Download and unpack the sample dataset tarball from
 [https://ndownloader.figshare.com/files/35058796](https://ndownloader.figshare.com/files/35058796)
 
-You may do this in the terminal with the command:
+You may do this in the shell with the command:
 
 ~~~
 $ wget --content-disposition https://ndownloader.figshare.com/files/35058796
+~~~
+{: .language-bash}
+
+The [tar file](https://www.gnu.org/software/tar/manual/html_node/Tutorial.html)
+needs to be unpacked to yield the directory of files used in the course. In the shell you may
+do this with:
+
+~~~
+$ tar -xvaf data-for-snakemake-novice-bioinformatics.tar.xz
 ~~~
 {: .language-bash}
 
