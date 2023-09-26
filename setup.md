@@ -40,12 +40,12 @@ and Nano here.
 ## Obtaining the data
 
 Download and unpack the sample dataset tarball from
-[https://ndownloader.figshare.com/files/35058796](https://ndownloader.figshare.com/files/35058796)
+[https://figshare.com/ndownloader/files/42467370](https://figshare.com/ndownloader/files/42467370)
 
 You may do this in the shell with the command:
 
 ~~~
-$ wget --content-disposition https://ndownloader.figshare.com/files/35058796
+$ wget --content-disposition https://figshare.com/ndownloader/files/42467370
 ~~~
 {: .language-bash}
 

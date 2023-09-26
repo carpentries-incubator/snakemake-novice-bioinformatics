@@ -81,7 +81,7 @@
 
     - name: Download the data files
       get_url:
-        url: https://ndownloader.figshare.com/files/35058796
+        url: https://figshare.com/ndownloader/files/42467370
         dest: "~/Downloads/snakemake_data.tar.gz"
         mode: '0644'
         backup: no
