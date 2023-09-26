@@ -40,7 +40,9 @@ Some key terms:
    in that environment, as well as the channels where those packages are available, in a
    YAML format.
 
-We'll not talk about installing Conda, since it is already set up on the systems we are using.
+Assuming you are running throught this course in the [recommended setup
+]({{ page.root }}{% link setup.md %}
+),Conda is already set up on the systems we are using.
 
 Some key conda commands:
 
