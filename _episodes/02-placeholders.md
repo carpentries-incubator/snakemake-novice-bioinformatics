@@ -11,36 +11,39 @@ objectives:
 - "See how Snakemake deals with some errors"
 keypoints:
 - "Snakemake rules are made generic with placeholders and wildcards"
-- "Snakemake chooses the appropriate rule by replacing wildcards such the the output matches the target"
-- "Placeholders in the shell part of the rule are replaced with values based on the chosen wildcards"
+- "Snakemake chooses the appropriate rule by replacing wildcards such the the output matches
+   the target"
+- "Placeholders in the shell part of the rule are replaced with values based on the chosen
+   wildcards"
 - "Snakemake checks for various error conditions and will stop if it sees a problem"
 ---
-*For reference, [this is the Snakefile](../code/ep01.Snakefile) you should have to start the episode.*
+*For reference, [this is the Snakefile](../code/ep01.Snakefile) you should have to start
+the episode.*
 
 ## Wildcards and placeholders
 
-In the previous episode you wrote two rules to count the sequences in two files. These work, but they are not
-a very efficient use of Snakemake. We have eighteen input files to process and we don't want to write eighteen
-near-identical rules!
+In the previous episode you wrote two rules to count the sequences in two files. These work, but
+they are not a very efficient use of Snakemake. We have eighteen input files to process and we
+don't want to write eighteen near-identical rules!
 
-To make a more general-purpose rule we need **placeholders** and **wildcards**. Here is a new rule that will count the
-sequences in **any** of the `.fq` files.
+To make a more general-purpose rule we need **placeholders** and **wildcards**. Here is a new rule
+that will count the sequences in **any** of the `.fq` files.
 
 ~~~
 # New generic read counter
 rule countreads:
-  output: "{sample}.fq.count"
-  input:  "reads/{sample}.fq"
-  shell:
-    "echo $(( $(wc -l <{input}) / 4 )) > {output}"
+    output: "{myfile}.fq.count"
+    input:  "reads/{myfile}.fq"
+    shell:
+        "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
 {: .language}
 
 > ## Comments in Snakefiles
 >
-> In the above code, the line beginning `#` is a comment line. Hopefully you are already in the habit of adding
-> comments to your own scripts. Good comments make any script more readable, and this is just as true with
-> Snakefiles.
+> In the above code, the line beginning `#` is a comment line. Hopefully you are already in the
+> habit of adding comments to your own scripts. Good comments make any script more readable, and
+> this is just as true with Snakefiles.
 >
 {: .callout}
 
@@ -49,41 +52,46 @@ As a reminder, here's the non-generic version from the last episode:
 ~~~
 # Original version
 rule countreads:
-  output: "ref1_1.fq.count"
-  input:  "reads/ref1_1.fq"
-  shell:
-    "echo $(( $(wc -l <reads/ref1_1.fq) / 4 )) > ref1_1.fq.count"
+    output: "ref1_1.fq.count"
+    input:  "reads/ref1_1.fq"
+    shell:
+        "echo $(( $(wc -l <reads/ref1_1.fq) / 4 )) > ref1_1.fq.count"
 ~~~
 {: .language}
 
-The new rule has replaced file names with things in `{curly brackets}`, specifically `{sample}`, `{input}` and `{output}`.
+The new rule has replaced explicit file names with things in `{curly brackets}`, specifically
+`{myfile}`, `{input}` and `{output}`.
 
-### `{sample}` is a **wildcard**
+### `{myfile}` is a **wildcard**
 
 Wildcards are used in the `input` and `output` lines of the rule to represent parts of filenames.
-Much like the `*` pattern in the shell, the wildcard can be replaced by any text in order to make up the desired filename.
-As with naming your rules, you may choose any name you like for your wildcards, so here we chose `sample`. Using the same
-wildcards in the input and output is what tells Snakemake how to match input files to output files.
+Much like the `*` pattern in the shell, the wildcard can stand in for any text in order to make up
+the desired filename. As with naming your rules, you may choose any name you like for your
+wildcards, so here we used `myfile`. If `myfile` is set to `ref1_1` then the new generic rule will
+have the same inputs and outputs as the original rule. Using the same wildcards in the input and
+output is what tells Snakemake how to match input files to output files.
 
-If two rules use a wildcard with the same name then Snakemake will treat them as completely different - rules in Snakemake
-are self-contained in this way.
+If two rules use a wildcard with the same name then Snakemake will treat them as different entities
+- rules in Snakemake are self-contained in this way.
 
 ### `{input}` and `{output}` are **placeholders**
 
 Placeholders are used in the `shell` section of a rule, and Snakemake will
-replace them with appropriate values - `{input}` with the full name of the input file, and `{output}` with the full name of
-the output file -- before running the command.
+replace them with appropriate values - `{input}` with the full name of the input file, and
+`{output}` with the full name of the output file -- before running the command.
 
-If we had wanted to include the value of the `sample` wildcard directly in the `shell` command we could have used the placeholder
-`{wildcards.sample}` but in most cases, as here, we just need the `{input}` and `{output}` placeholders.
+If we had wanted to include the value of the `myfile` wildcard directly in the `shell` command we
+could have used the placeholder `{wildcards.myfile}` but in most cases, as here, we just need the
+`{input}` and `{output}` placeholders.
 
 > ## Running the general-purpose rule
 >
-> Modify your Snakefile to incorporate the changes described above, using the wildcard and input/output placeholders.
-> You should resist the urge to copy-and-paste from this workbook, but rather edit the file by hand, as this will stick
-> better in your memory.
+> Modify your Snakefile to incorporate the changes described above, using the wildcard and
+> input/output placeholders. You should resist the urge to copy-and-paste from this workbook, but
+> rather edit the file by hand, as this will stick better in your memory.
 >
-> You should delete the now-redundant second rule, so your Snakefile should contain just one rule named *countreads*.
+> You should delete the now-redundant second rule, so your Snakefile should contain just one rule
+> named *countreads*.
 >
 > Using this new rule, determine: how many reads are in the `temp33_1_1.fq` file?
 >
@@ -104,12 +112,13 @@ If we had wanted to include the value of the `sample` wildcard directly in the `
 
 > ## Choosing the right wildcards
 >
-> Our rule puts the sequence counts into output files named like `ref1_1.fq.count`. How would you have to change the "countreads"
-> rule definition if you wanted:
+> Our rule puts the sequence counts into output files named like `ref1_1.fq.count`. How would you
+> have to change the "countreads" rule definition if you wanted:
 >
 >  1) the output file for `reads/ref1_1.fq` to be `counts/ref1_1.txt`?
 >
->  2) the output file for `reads/ref1_1.fq` to be `ref1_counts/fq.1.count` (for `reads/ref1_2.fq` to be `ref1_counts/fq.2.count`, etc.)?
+>  2) the output file for `reads/ref1_1.fq` to be `ref1_counts/fq.1.count` (for `reads/ref1_2.fq`
+>     to be `ref1_counts/fq.2.count`, etc.)?
 >
 >  3) the output file for `reads/ref1_1.fq` to be `countreads_1.txt`?
 >
@@ -119,13 +128,14 @@ If we had wanted to include the value of the `sample` wildcard directly in the `
 > >
 > > 1)
 > > ~~~
-> > output: "counts/{sample}.txt"
-> > input:  "reads/{sample}.fq"
+> > output: "counts/{myfile}.txt"
+> > input:  "reads/{myfile}.fq"
 > > ~~~
 > > {: .language}
 > >
-> > This can be done just by changing the `output:` line. You may also have considered the need to `mkdir counts` but
-> > in fact this is not necessary as Snakemake will create the output directory path for you before it runs the rule.
+> > This can be done just by changing the `output:` line. You may also have considered the need to
+> > `mkdir counts` but in fact this is not necessary as Snakemake will create the output directory
+> > path for you before it runs the rule.
 > >
 > > 2)
 > > ~~~
@@ -134,13 +144,15 @@ If we had wanted to include the value of the `sample` wildcard directly in the `
 > > ~~~
 > > {: .language}
 > >
-> > In this case, it was necessary to introduce a second wildcard, because the elements in the output file name
-> > are split up. The name chosen here is `{readnum}` but you could choose any name as long as the names match
-> > between the `input` and `output` parts. Once again, the output directory will be created for us by Snakemake,
-> > so the `shell` command does not need to change.
+> > In this case, it was necessary to introduce a second wildcard, because the elements in the
+> > output file name are split up. The names chosen here are `{sample}` and `{readnum}` but you
+> > could choose any names as long as they match between the `input` and `output` parts. Once
+> > again, the output directory will be created for us by Snakemake, so the `shell` command does
+> > not need to change.
 > >
-> > 3) This one **isn't possible**, because Snakemake cannot determine which input file you want to count by matching
-> > wildcards on the file name "countreads_1.txt". You could try a rule like this:
+> > 3) This one **isn't possible**, because Snakemake cannot determine which input file you want to
+> > count by matching wildcards on the file name "countreads_1.txt". You could try a rule
+> > like this:
 > >
 > > ~~~
 > > output: "countreads_{readnum}.count"
@@ -148,10 +160,10 @@ If we had wanted to include the value of the `sample` wildcard directly in the `
 > > ~~~
 > > {: .language}
 > >
-> > ...but it only works because "ref1" is hard-coded into the `input` line, and the rule will only work on this
-> > specific sample, not the other eight in our sample dataset. In general, input and output
-> > filenames need to be carefully chosen so that Snakemake can match everything up and determine the right input
-> > from the output filename.
+> > ...but it only works because "ref1" is hard-coded into the `input` line, and the rule will only
+> > work on this specific sample, not the other eight in our sample dataset. In general, input and
+> > output filenames need to be carefully chosen so that Snakemake can match everything up and
+> > determine the right input from the output filename.
 > >
 > {: .solution}
 >
@@ -160,8 +172,8 @@ If we had wanted to include the value of the `sample` wildcard directly in the `
 
 ## Snakemake order of operations
 
-We're only just getting started with some simple rules, but it's worth thinking about exactly what Snakemake is doing
-when you run it. There are three distinct phases:
+We're only just getting started with some simple rules, but it's worth thinking about exactly what
+Snakemake is doing when you run it. There are three distinct phases:
 
 1. Prepares to run:
     1. Reads in all the rule definitions from the Snakefile
@@ -186,14 +198,16 @@ Missing input files for rule countreads:
 reads/wibble_1.fq
 ~~~
 
-Snakemake sees that a file with a name like this could be produced by the *countreads* rule. However, when it performs
-the wildcard substitution it sees that the input file would need to be named `reads/wibble_1.fq`, and there is no such
-file available. Therefore Snakemake stops and gives an error before any commands are run.
+Snakemake sees that a file with a name like this could be produced by the *countreads* rule.
+However, when it performs the wildcard substitution it sees that the input file would need to be
+named `reads/wibble_1.fq`, and there is no such file available. Therefore Snakemake stops and gives
+an error before any shell commands are run.
 
 > ## Dry-run (-n) mode
 >
-> It's often useful to run just the first two phases, so that Snakemake will plan out the jobs to run, and print
-> them to the screen, but never actually run them. This is done with the `-n` flag, eg:
+> It's often useful to run just the first two phases, so that Snakemake will plan out the jobs to
+> run, and print them to the screen, but never actually run them. This is done with the `-n`
+> flag, eg:
 >
 > ~~~
 > $ snakemake -n -F -p temp33_1_1.fq.count
@@ -204,8 +218,8 @@ file available. Therefore Snakemake stops and gives an error before any commands
 >
 {: .callout}
 
-The amount of checking may seem pedantic right now, but as the workflow gains more steps this will become very useful
-to us indeed.
+The amount of checking may seem pedantic right now, but as the workflow gains more steps this will
+become very useful to us indeed.
 
 > ## Adding a second rule
 >
@@ -216,8 +230,8 @@ to us indeed.
 > ~~~
 > {: .language-bash}
 >
-> Add a second rule to your Snakefile to run this trimmer. You should make it so that valid outputs are files with
-> the same name as the input, but in a subdirectory named 'trimmed', for example:
+> Add a second rule to your Snakefile to run this trimmer. You should make it so that valid outputs
+> are files with the same name as the input, but in a subdirectory named 'trimmed', for example:
 >
 > * trimmed/ref1_1.fq
 > * trimmed/temp33_1_1.fq
@@ -228,16 +242,17 @@ to us indeed.
 > > ~~~
 > > # Trim any FASTQ reads for base quality
 > > rule trimreads:
-> >   output: "trimmed/{sample}.fq"
-> >   input:  "reads/{sample}.fq"
-> >   shell:
-> >     "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
+> >     output: "trimmed/{myfile}.fq"
+> >     input:  "reads/{myfile}.fq"
+> >     shell:
+> >         "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 > > ~~~
 > > {: .language}
 > >
 > > Bonus points if you added any comments to the code!
 > >
-> > And of course you can run your new rule as before, to make one or more files at once. For example:
+> > And of course you can run your new rule as before, to make one or more files at once. For
+> > example:
 > >
 > > ~~~
 > > $ snakemake -j1 -F -p trimmed/ref1_1.fq trimmed/ref1_2.fq
@@ -249,13 +264,16 @@ to us indeed.
 
 > ## About fastq_quality_trimmer
 >
-> `fastq_quality_trimmer` is part of the [FastX toolkit](http://hannonlab.cshl.edu/fastx_toolkit/) and performs
-> basic trimming on single FASTQ files.
-> The options `-t 20 -l 100` happen to be reasonable quality cutoffs for this dataset. This program reads from
-> standard input so we're using `<` to specify the input file, and the `-o` flag specifies the output name.
+> `fastq_quality_trimmer` is part of the [FastX toolkit](http://hannonlab.cshl.edu/fastx_toolkit/)
+> and performs basic trimming on single FASTQ files.
+> The options `-t 20 -l 100` happen to be reasonable quality cutoffs for this dataset. This program
+> reads from standard input so we're using `<` to specify the input file, and the `-o` flag
+> specifies the output name.
+>
 {: .callout}
 
-*For reference, [this is a Snakefile](../code/ep02.Snakefile) incorporating the changes made in this episode.*
+*For reference, [this is a Snakefile](../code/ep02.Snakefile) incorporating the changes made in
+this episode.*
 
 {% include links.md %}
 

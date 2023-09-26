@@ -24,20 +24,20 @@ print("Replicates are: ", REPLICATES)
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
 rule countreads:
-  output: "{indir}.{sample}.fq.count"
-  input:  "{indir}/{sample}.fq"
-  shell:
-    "echo $(( $(wc -l <{input}) / 4 )) > {output}"
+    output: "{indir}.{myfile}.fq.count"
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-  output: "trimmed/{sample}.fq"
-  input:  "reads/{sample}.fq"
-  params:
-    qual_threshold = config["trimreads_qual_threshold"],
-    min_length     = config.get("trimreads_min_length", "100"),
-  shell:
-    "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
+    output: "trimmed/{myfile}.fq"
+    input:  "reads/{myfile}.fq"
+    params:
+        qual_threshold = config["trimreads_qual_threshold"],
+        min_length     = config.get("trimreads_min_length", "100"),
+    shell:
+        "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
 
 # Kallisto quantification of one sample.
 # Modified to declare the whole directory as the output.
@@ -48,9 +48,9 @@ rule kallisto_quant:
         fq1   = "trimmed/{sample}_1.fq",
         fq2   = "trimmed/{sample}_2.fq",
     shell:
-     r"""mkdir {output}
-         kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
-      """
+        """mkdir {output}
+           kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
+        """
 
 rule kallisto_index:
     output:
@@ -63,13 +63,13 @@ rule kallisto_index:
 
 rule fastqc:
     output:
-        html = "{indir}.{sample}_fastqc.html",
-        zip  = "{indir}.{sample}_fastqc.zip"
-    input:  "{indir}/{sample}.fq"
+        html = "{indir}.{myfile}_fastqc.html",
+        zip  = "{indir}.{myfile}_fastqc.zip"
+    input:  "{indir}/{myfile}.fq"
     shell:
-       r"""fastqc -o . {input}
-           mv {wildcards.sample}_fastqc.html {output.html}
-           mv {wildcards.sample}_fastqc.zip  {output.zip}
+        """fastqc -o . {input}
+           mv {wildcards.myfile}_fastqc.html {output.html}
+           mv {wildcards.myfile}_fastqc.zip  {output.zip}
         """
 
 rule salmon_quant:
@@ -104,7 +104,7 @@ rule multiqc:
         kallisto = expand("kallisto.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
         fastqc =   expand("reads.{cond}_{rep}_{end}_fastqc.zip", cond=CONDITIONS, rep=REPLICATES, end=["1","2"]),
     shell:
-      r"""mkdir {output.mqc_in}
-          ln -snr -t {output.mqc_in} {input}
-          multiqc {output.mqc_in} -o {output.mqc_out}
-       """
+        """mkdir {output.mqc_in}
+           ln -snr -t {output.mqc_in} {input}
+           multiqc {output.mqc_in} -o {output.mqc_out}
+        """

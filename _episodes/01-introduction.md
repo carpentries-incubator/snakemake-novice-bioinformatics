@@ -11,14 +11,16 @@ keypoints:
 - "Before running Snakemake you need to write a Snakefile"
 - "A Snakefile is a text file which defines a list of rules"
 - "Rules have inputs, outputs, and shell commands to be run"
-- "You tell Snakemake what file to make and it will run the shell command defined in the appropriate rule"
+- "You tell Snakemake what file to make and it will run the shell command defined in the
+   appropriate rule"
 ---
 
 ## Looking at the sample data
 
-You should have the sample data files unpacked already (if not, refer back to the lesson setup). Under `yeast/reads` you'll
-see a number of FASTQ files (extension `.fq`). These represent short paired RNA-seq reads from an experiment on yeast cultured
-under three experimental conditions. For now we'll just look at one single file, `ref1_1.fq`.
+You should have the sample data files unpacked already (if not, refer back to the lesson setup).
+Under `yeast/reads` you'll see a number of FASTQ files (extension `.fq`). These represent short
+paired RNA-seq reads from an experiment on yeast cultured under three experimental conditions.
+For now we'll just look at one single file, `ref1_1.fq`.
 
 In the terminal:
 
@@ -57,24 +59,26 @@ $ head -v *.count
 
 > ## The sample dataset
 >
-> The sample dataset represents a transcriptomics experiment in brewer's yeast (Saccharomyces cerevisiae) under three
-> conditions:
+> The sample dataset represents a transcriptomics experiment in brewer's yeast
+> (Saccharomyces cerevisiae) under three conditions:
 >
 > * **etoh60** - Treated with 60% ethanol
 > * **temp33** - Treated at 33 degrees celsius
 > * **ref**    - Untreated
 >
-> For each condition there are 3 repeats, making 9 total samples. For each, total RNA (or rather, cDNA) was sequenced
-> on an Illumina HiSeq instrument.
-> For each repeat there is a pair of files as the sequencing is double-ended, so for example `reads/etoh60_3_2.fq` contains
-> the second of the read pairs from the third ethanol-treated sample.
+> For each condition there are 3 repeats, making 9 total samples. For each, total RNA
+> (or rather, cDNA) was sequenced on an Illumina HiSeq instrument.
+> For each repeat there is a pair of files as the sequencing is double-ended, so for example
+> `reads/etoh60_3_2.fq` contains the second of the read pairs from the third
+> ethanol-treated sample.
 >
-> Don't worry about the biological meaning of this set-up. In the course, we're only going to get as far as assessing
-> the quality of the data and a very preliminary analysis. The data has been subsampled to a fraction of the original size
-> to make filtering and alignment operations fast, so any deeper analysis is not going to yield meaningful results.
+> Don't worry about the biological meaning of this set-up. In the course, we're only going to get
+> as far as assessing the quality of the data and a very preliminary analysis. The data has been
+> subsampled to a fraction of the original size to make filtering and alignment operations fast,
+> so any deeper analysis is not going to yield meaningful results.
 >
-> As well as the reads, we have a transcriptome for the yeast. This comes in a single FASTA file (as opposed to the cDNA
-> reads which are in FASTQ format) which has been GZip compressed.
+> As well as the reads, we have a transcriptome for the yeast. This comes in a single FASTA file
+> (as opposed to the cDNA reads which are in FASTQ format) which has been GZip compressed.
 >
 {: .callout}
 
@@ -85,29 +89,30 @@ Within the `yeast` directory, edit a new text file named `Snakefile`.
 Contents of `Snakefile`:
 ~~~
 rule countlines:
-  output: "ref1_1.fq.count"
-  input:  "reads/ref1_1.fq"
-  shell:
-    "wc -l reads/ref1_1.fq > ref1_1.fq.count"
+    output: "ref1_1.fq.count"
+    input:  "reads/ref1_1.fq"
+    shell:
+        "wc -l reads/ref1_1.fq > ref1_1.fq.count"
 ~~~
 {: .language}
 
 > ## Key points about this file
 >
 > 1. The file is named `Snakefile` - with a capital `S` and no file extension.
-> 1. Some lines are indented. Indents must be with space characters, not tabs. See the [setup section]({{ page.root }}{% link setup.md %})
->    for how to make your text editor do this.
+> 1. Some lines are indented. Indents must be with space characters, not tabs. See the
+>    [setup section]({{ page.root }}{% link setup.md %}) for how to make your text editor do this.
 > 1. The rule definition starts with the keyword `rule` followed by the rule name, then a colon.
-> 1. We named the rule `countreads`. You may use letters, numbers or underscores, but the rule name must begin with a letter and
->    may not be a keyword.
+> 1. We named the rule `countreads`. You may use letters, numbers or underscores, but the rule name
+>    must begin with a letter and may not be a keyword.
 > 1. The keywords `input`, `output`, `shell` are all followed by a colon.
 > 1. The file names and the shell command are all in `"quotes"`.
-> 1. The output filename is given before the input filename. In fact, Snakemake doesn't care what order they appear in but we give the output
->    first throughout this course. We'll see why soon.
+> 1. The output filename is given before the input filename. In fact, Snakemake doesn't care what
+>    order they appear in but we give the output first throughout this course. We'll see why soon.
 >
 {: .checklist}
 
-Back in the shell we'll run our new rule. At this point, if there were any missing quotes, bad indents, etc. we may see an error.
+Back in the shell we'll run our new rule. At this point, if there were any missing quotes, bad
+indents, etc. we may see an error.
 
 ~~~
 $ snakemake -j1 -F -p ref1_1.fq.count
@@ -130,15 +135,19 @@ $ snakemake -j1 -F -p ref1_1.fq.count
 > >
 > > (2) Prints the shell commands that are being run to the terminal
 > >
-> > This is such a useful thing we don't know why it isn't the default! The `-j1` option is what tells Snakemake to only run one process at a time, and
-> > we'll stick with this for now as it makes things simpler. The `-F` option tells Snakemake to always overwrite output files, and we'll learn about
-> > protected outputs much later in the course. Answer 4 is a total red-herring, as Snakemake never prompts interactively for user input.
+> > This is such a useful thing we don't know why it isn't the default! The `-j1` option is what
+> > tells Snakemake to only run one process at a time, and we'll stick with this for now as it
+> > makes things simpler. The `-F` option tells Snakemake to always overwrite output files, and
+> > we'll learn about protected outputs much later in the course. Answer 4 is a total red-herring,
+> > as Snakemake never prompts interactively for user input.
+> >
 > {: .solution}
 {: .challenge}
 
 ## Counting sequences in a FASTQ file
 
-FASTQ files contain 4 lines per sequence, as noted above. We can get BASH to divide the output of `wc` by 4 to get the number of sequences:
+FASTQ files contain 4 lines per sequence, as noted above. We can get BASH to divide the output of
+`wc` by 4 to get the number of sequences:
 
 ~~~
 $ echo $(( $(wc -l <reads/ref1_1.fq) / 4 ))
@@ -146,13 +155,16 @@ $ echo $(( $(wc -l <reads/ref1_1.fq) / 4 ))
 ~~~
 {: .output}
 
-Note that the input filename is now preceeded by `<`. This is a little trick to get `wc` to print only the number of lines, and not the
-filename. The `$( ... )` syntax captures this output value and the `$(( ... ))` syntax encloses an arithmetic expression, which needs
-to be printed with `echo`. Don't worry if this is unfamiliar - you just need to know that this is a shell command you can copy and use.
+Note that the input filename is now preceeded by `<`. This is a little trick to get `wc` to print
+only the number of lines, and not the filename. The `$( ... )` syntax captures this output value
+and the `$(( ... ))` syntax encloses an arithmetic expression, which needs to be printed with
+`echo`. Don't worry if this is unfamiliar - you just need to know that this is a shell command you
+can copy and use.
 
 > ## Counting sequences in Snakemake
 >
-> Modify the Snakefile to count the number of **sequences** in `reads/ref1_1.fq`, rather than the number of **lines**.
+> Modify the Snakefile to count the number of **sequences** in `reads/ref1_1.fq`, rather than the
+> number of **lines**.
 >
 > * Rename the rule to "countreads"
 > * Keep the output file name the same
@@ -162,21 +174,23 @@ to be printed with `echo`. Don't worry if this is unfamiliar - you just need to 
 > >
 > > ~~~
 > > rule countreads:
-> >   output: "ref1_1.fq.count"
-> >   input:  "reads/ref_1.fq"
-> >   shell:
-> >     "echo $(( $(wc -l <reads/ref1_1.fq) / 4 )) > ref1_1.fq.count"
+> >     output: "ref1_1.fq.count"
+> >     input:  "reads/ref_1.fq"
+> >     shell:
+> >         "echo $(( $(wc -l <reads/ref1_1.fq) / 4 )) > ref1_1.fq.count"
 > > ~~~
 > > {: .language}
 > {: .solution}
 >
-> Add a second rule to count the sequences in `reads/etoh60_1_1.fq`. Add this to the same Snakefile you already made, under the "countreads" rule,
-> and run your rules in the terminal. When running the `snakemake` command you'll need to tell Snakemake to make both the output files.
+> Add a second rule to count the sequences in `reads/etoh60_1_1.fq`. Add this to the same Snakefile
+> you already made, under the "countreads" rule, and run your rules in the terminal. When running
+> the `snakemake` command you'll need to tell Snakemake to make both the output files.
 >
 > > ## Solution 2
 > >
-> > You can choose whatever name you like for this second rule, but it can't be "countreads" as rule names need to be unique within a
-> > Snakefile. So in this example answer we use "countreads2".
+> > You can choose whatever name you like for this second rule, but it can't be "countreads" as
+> > rule names need to be unique within a Snakefile. So in this example answer we
+> > use "countreads2".
 > >
 > > ~~~
 > > rule countreads2:
@@ -194,12 +208,14 @@ to be printed with `echo`. Don't worry if this is unfamiliar - you just need to 
 > > ~~~
 > > {: .language-bash}
 > >
-> > If you think writing a separate rule for each output file is silly, you are correct. We'll address this next!
+> > If you think writing a separate rule for each output file is silly, you are correct. We'll
+> > address this next!
 > >
 > {: .solution}
 {: .challenge}
 
-*For reference, [this is the full Snakefile](../code/ep01.Snakefile) we should have by the end of this episode.*
+*For reference, [this is the full Snakefile](../code/ep01.Snakefile) we should have by the end of
+this episode.*
 
 {% include links.md %}
 

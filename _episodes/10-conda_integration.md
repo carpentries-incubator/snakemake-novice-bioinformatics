@@ -12,27 +12,33 @@ keypoints:
 - "Conda is a system for managing software packages in self-contained environments"
 - "Snakemake rules may be associated with specific Conda environments"
 - "When run with the `--use-conda` option, Snakemake will set these up for you"
-- "Conda gives you fine control over software versions, without modifying globally-installed packages"
-- "Workflows made this way are super-portable, because Conda handles installing the correct versions of everything"
+- "Conda gives you fine control over software versions, without modifying
+  globally-installed packages"
+- "Workflows made this way are super-portable, because Conda handles installing the correct
+  versions of everything"
 ---
-*For reference, [this is the final Snakefile from episodes 1 to 7](../code/ep07.Snakefile) you may use to
-start this episode.*
+*For reference, [this is the final Snakefile from episodes 1 to 7](../code/ep07.Snakefile) you may
+use to start this episode.*
 
 ## The basics of Conda
 
-You may already have some familiarity with the basics of [Conda](https://conda.io) and [Bioconda](https://bioconda.github.io/).
+You may already have some familiarity with the basics of [Conda](https://conda.io) and
+[Bioconda](https://bioconda.github.io/).
 
 Some key terms:
 
- * **Conda** is a system for installing software **packages** into self-contained directories called **environments**
- * **Conda** finds new packages in on-line repositories which are known as **channels**
- * The **Bioconda project** maintains a channel with many open source bioinformatics packages available
- * Old versions of these packages are available, as well as the latest builds
- * Any environment may have multiple packages, but to install two versions of the same package, or two packages which
-   conflict, you need to put them in **separate environments**
- * You can switch between environments using the **conda activate** command
- * An environment may be **exported**, which simply means getting Conda to print all the packages in that environment, as well as the channels
-   where those packages are available, in a YAML format
+ * **Conda** is a system for installing software **packages** into self-contained directories
+   called **environments**.
+ * **Conda** finds new packages in on-line repositories which are known as **channels**.
+ * The **Bioconda project** maintains a channel with many open source bioinformatics
+   packages available.
+ * Old versions of these packages are available, as well as the latest builds.
+ * Any environment may have multiple packages, but to install two versions of the same package, or
+   two packages which conflict, you need to put them in **separate environments**.
+ * You can switch between environments using the **conda activate** command.
+ * An environment may be **exported**, which simply means getting Conda to print all the packages
+   in that environment, as well as the channels where those packages are available, in a
+   YAML format.
 
 We'll not talk about installing Conda, since it is already set up on the systems we are using.
 
@@ -51,16 +57,19 @@ Some key conda commands:
     * `$ conda install snakemake`
  * Install a specific version of a single package into the current environment
     * `$ conda install snakemake=5.14.0`
- * Save a list of all packages in one environment in YAML format, then recreate an identical environment from that information.
+ * Save a list of all packages in one environment in YAML format, then recreate an identical
+   environment from that information.
     * `$ conda env export -n my-environment > my-environment.yaml`
     * `$ conda env create -n cloned-environment -f my-environment.yaml`
 
 > ## Channel configuration and conda-forge
 >
-> For advanced usage, there are many ways you might want to configure your Conda channels. It's even possible
-> to have specific channel settings for each environment. For our purposes, we just want to have the *bioconda*
-> channel working, and as noted on [the Bioconda website](https://bioconda.github.io/user/install.html#set-up-channels)
-> this involves a dependency a second channel named *conda-forge*, which provides some supporting tools and libraries.
+> For advanced usage, there are many ways you might want to configure your Conda channels. It's
+> even possible to have specific channel settings for each environment. For our purposes, we just
+> want to have the *bioconda* channel working, and as noted on
+> [the Bioconda website](https://bioconda.github.io/user/install.html#set-up-channels) this
+> involves a dependency a second channel named *conda-forge*, which provides some supporting tools
+> and libraries.
 >
 > To be sure all is well, check your channel settings:
 >
@@ -72,9 +81,9 @@ Some key conda commands:
 >   - defaults
 > ~~~
 >
-> If you don't see these exact channels in this order, try the `conda config ...` commands shown above to fix the
-> situation. Once this configuration is right you won't need to do anything else regarding the channel configuration
-> in this course.
+> If you don't see these exact channels in this order, try the `conda config ...` commands shown
+> above to fix the situation. Once this configuration is right you won't need to do anything else
+> regarding the channel configuration in this course.
 >
 {: .callout}
 
@@ -82,7 +91,8 @@ Some key conda commands:
 >
 > 1. Find out what version of *fastx_toolkit* is installed in the current conda environment.
 >
-> 1. Create a new conda environment named *new-env* and install the *cutadapt* package from Bioconda into it.
+> 1. Create a new conda environment named *new-env* and install the *cutadapt* package from
+>    Bioconda into it.
 >
 > > ## Solution
 > >
@@ -93,7 +103,8 @@ Some key conda commands:
 > >  - fastx_toolkit=0.0.14=0
 > > ~~~
 > >
-> > 2. Conda should already be configured to install Bioconda packages (see the callout above) so we can do this:
+> > 2. Conda should already be configured to install Bioconda packages (see the callout above) so
+> >    we can do this:
 > >
 > > ~~~
 > > $ conda create -n new-env
@@ -101,8 +112,8 @@ Some key conda commands:
 > > $ conda install cutadapt
 > > ~~~
 > >
-> > It's also possible to install packages at the same time as creating the environment, though this wasn't shown in the examples
-> > above.
+> > It's also possible to install packages at the same time as creating the environment, though
+> > this wasn't shown in the examples above.
 > >
 > > ~~~
 > > $ conda create -n new-env cutadapt
@@ -115,22 +126,26 @@ Some key conda commands:
 
 ## Using Conda with Snakemake
 
-Up to now, the `shell` commands you have been running via Snakemake have called programs in your default *PATH*. The commands may
-have been installed with conda, or with the system package manager, or installed manually. If you move your Snakefile to another machine,
-or share it with a colleague, you will need to make sure all the dependencies are installed. If the versions of the packages are not the
-same on the two systems, you may discover that the workflow breaks, or produces different results.
+Up to now, the `shell` commands you have been running via Snakemake have called programs in your
+default *PATH*. The commands may have been installed with conda, or with the system package
+manager, or installed manually. If you move your Snakefile to another machine, or share it with
+a colleague, you will need to make sure all the dependencies are installed. If the versions of the
+packages are not the same on the two systems, you may discover that the workflow breaks, or
+produces different results.
 
-Once you are familiar with Conda, you may think to install the dependencies for your workflow into a Conda environment, then
-`conda env export` that into a YAML file, which you can use to quickly set up the same environment on any other machine.
+Once you are familiar with Conda, you may think to install the dependencies for your workflow into
+a Conda environment, then `conda env export` that into a YAML file, which you can use to quickly
+set up the same environment on any other machine.
 
 ~~~
 $ conda env export -n new-env > new-env.yaml
 ~~~
 
-Snakemake takes this one step further by integrating directly with Conda. This brings some nice features...
+Snakemake takes this one step further by integrating directly with Conda. This brings some
+nice features...
 
-Firstly it allows you to specify different environments to use for different rules. This is really useful if different rules need
-mutually incompatible packages.
+Firstly it allows you to specify different environments to use for different rules. This is really
+useful if different rules need mutually incompatible packages.
 
 To configure this, add a `conda` declaration to a rule:
 
@@ -141,9 +156,9 @@ rule a_conda_rule:
         "which cutadapt"
 ~~~
 
-Note that the declaration refers to the exported YAML file, not any existing environment. Snakemake will create the environment for you.
-We can actually run the above rule, even though it doens't produce any data. We need to add the `--use-conda` option when running
-Snakemake.
+Note that the declaration refers to the exported YAML file, not any existing environment. Snakemake
+will create the environment for you. We can now run the above rule, even though it doesn't
+produce any outputs. We need to add the `--use-conda` option when running Snakemake.
 
 ~~~
 $ snakemake -j1 --use-conda a_conda_rule
@@ -155,9 +170,9 @@ Using shell: /bin/bash
 Provided cores: 1 (use --cores to define parallelism)
 Rules claiming more threads will be scaled down.
 Job counts:
-	count	jobs
-	1	a_conda_rule
-	1
+    count   jobs
+    1       a_conda_rule
+    1
 Select jobs to execute...
 
 [Tue Sep 21 16:57:59 2021]
@@ -172,33 +187,39 @@ Finished job 0.
 Complete log: /home/zenmaster/carpentries/nextflow_rnaseq_training_dataset/.snakemake/log/2021-09-21T165713.679409.snakemake.log
 ~~~
 
-This takes some time, because Snakemake is (as the log says) creating the new environment and installing the packages. But if we
-run it a second time it's much quicker. This brings us to a second feature of Snakemake/Conda integration: as long as the YAML
-file is unchanged, Snakemake will re-use the same environment, but if the file is edited or replaced Snakemake will detect the
-change and make a new environment. This happens because the environment that Snakemake made is stored under
-`./.snakemake/conda/d7df5e24`, and the last part of this name is a hash of the contents of the `new-env.yaml` file.
+This takes some time, because Snakemake is (as the log says) creating the new environment and
+installing the packages. But if we run it a second time it's much quicker. This brings us to a
+second feature of Snakemake+Conda integration: as long as the YAML file is unchanged, Snakemake
+will re-use the same environment, but if the file is edited or replaced Snakemake will detect the
+change and make a new environment. This happens because the environment that Snakemake made is
+stored under `./.snakemake/conda/d7df5e24`, and the last part of this name is a hash of the
+contents of the `new-env.yaml` file.
+
+Also, it may seem very inefficient to create the environment twice, but Conda employs file
+de-duplication so you don't actually end up with two copies of all the software.
 
 We'll do something useful with *cutadapt* in the next episode.
 
 > ## Challenge
 >
-> Going back to our RNA-Seq workflow, imagine we want to try running the analysis with an older version of Salmon,
-> to see if the results are different. We'll use **Salmon 1.2.1** which is available in Bioconda.
+> Going back to our RNA-Seq workflow, imagine we want to try running the analysis with an older
+> version of Salmon, to see if the results are different. We'll use **Salmon 1.2.1** which is
+> available in Bioconda.
 >
 > This particular package happens to need a dependency, `tbb=2020.2`, which is not installed by
-> default but we can explicitly install it into the environment with Salmon. Without this Salmon 1.2.1 will crash
-> out with the message *error while loading shared libraries*.
+> default but we can explicitly install it into the environment with Salmon. Without this Salmon
+> 1.2.1 will crash out with the message *error while loading shared libraries*.
 >
-> We don't want to mess with the version of Salmon that's currently installed, or change any parts of the
-> workflow other than adding directives to *salmon_index* and *salmon_quant*. Define a new Conda environment
-> that includes the packages `salmon=1.2.1` and `tbb=2020.2` and then use this for the two rules by adding appropriate
-> `conda:` directives. Then run your amended workflow.
+> We don't want to mess with the version of Salmon that's currently installed, or change any parts
+> of the workflow other than adding directives to *salmon_index* and *salmon_quant*. Define a new
+> Conda environment that includes the packages `salmon=1.2.1` and `tbb=2020.2` and then use this
+> for the two rules by adding appropriate `conda:` directives. Then run your amended workflow.
 >
 > > ## Solution
 > >
-> > The first thing that we need is an appropriate YAML file. It's possible to write one from scratch in a text
-> > editor, but for this answer we'll follow the process shown above, that is to *conda create* an environment,
-> > install the required packages and then *export* it.
+> > The first thing that we need is an appropriate YAML file. It's possible to write one from
+> > scratch in a text editor, but for this answer we'll follow the process shown above, that is to
+> > *conda create* an environment, install the required packages and then *export* it.
 > >
 > > ~~~
 > > $ conda create -n salmon-1.2.1
@@ -207,7 +228,8 @@ We'll do something useful with *cutadapt* in the next episode.
 > > $ conda env export -n salmon-1.2.1 > salmon-1.2.1.yaml
 > > ~~~
 > >
-> > As an aside, having done this, we could delete the environment as we just need the exported YAML file.
+> > As an aside, having done this, we could delete the environment as we just need the exported
+> > YAML file.
 > >
 > > ~~~
 > > $ conda deactivate
@@ -220,8 +242,8 @@ We'll do something useful with *cutadapt* in the next episode.
 > > conda: "salmon-1.2.1.yaml"
 > > ~~~
 > >
-> > And when running the workflow, we need to give the `--use-conda` option as well as telling Snakemake that these two
-> > rules have changed and must be re-run.
+> > And when running the workflow, we need to give the `--use-conda` option as well as telling
+> > Snakemake that these two rules have changed and must be re-run.
 > >
 > > ~~~
 > > $ snakemake -j1 -Rsalmon_index -Rsalmon_quant --use-conda ...
@@ -230,7 +252,38 @@ We'll do something useful with *cutadapt* in the next episode.
 > {: .solution}
 {: .challenge}
 
-*For reference, [this is a Snakefile](../code/ep10.Snakefile) incorporating the changes made in this episode.*
+> ## Note
+>
+> If you look into a YAML file created with `conda env export` you will see that Conda lists every
+> single package dependency and the list is quite large. You may prefer to write your own YAML
+> file where you can be as precise as you like about which packages are needed and which version or
+> versions are acceptable. Conda will fill in the blanks to ensure all dependencies are met.
+>
+> A file for an environment with cutadapt could be as simple as this.
+>
+> ~~~
+> name: cutadapt-env
+> channels:
+>   - conda-forge
+>   - bioconda
+>   - nodefaults
+> dependencies:
+>   - cutadapt=3.4
+> ~~~
+>
+> In this case, Conda will install version 3.4 of Cutadapt, but will meet the required
+> dependencies by installing the newest packages found in the channels, so the exact
+> environment will not be the same each time. This may make the workflow more compatible if,
+> for example, you try to switch from Linux to a Mac, but it may also cause problems if the newer
+> packages somehow don't work properly with Cutadapt 3.4, as happens with the `tbb` package above.
+> Sadly, while Conda is a great tool for installing and managing software it does have quirks and
+> shortcomings, and software setup continues to be a perennial headache for bioinformaticians.
+>
+{: .callout}
+
+
+*For reference, [this is a Snakefile](../code/ep10.Snakefile) incorporating the changes made in
+this episode.*
 
 {% include links.md %}
 

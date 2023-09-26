@@ -1,4 +1,4 @@
-name: snakemake_dash
+name: snakemake_carpentry
 channels:
   - conda-forge
   - bioconda
