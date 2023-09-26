@@ -81,15 +81,13 @@ rule more readable.
 > >
 > > * You can choose a different parameter name, but it must be a valid identifier - no spaces or
 > >   hyphens.
-> > * Changing the parameters doesn't automatically trigger Snakemake to re-run the rule so you need to use
-> >   `-f` (or `-R` or `-F`) to force the job to be re-run (note: as mentioned in
-> >   [episode 4]({{ page.root }}{% link _episodes/04-the_dag.md %}#another-note-on--r)
+> > * Changing the parameters doesn't automatically trigger Snakemake to re-run the rule so you
+> >   need to use `-f` (or `-R` or `-F`) to force the job to be re-run (but, as mentioned in
+> >   [episode 4]({{ page.root }}{% link _episodes/04-the_dag.md %}#another-note-on--r),
 > >   this behaviour is changed in recent Snakemake versions).
 > >
 > {: .solution}
 {: .challenge}
-
-[snakemake-7.8.0]: https://github.com/snakemake/snakemake/blob/main/CHANGELOG.md#780-2022-05-24
 
 ## Making Snakefiles configurable
 

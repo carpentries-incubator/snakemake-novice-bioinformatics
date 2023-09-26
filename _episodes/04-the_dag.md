@@ -175,9 +175,11 @@ $ snakemake -j1 -R trimreads -p kallisto.temp33_1/abundance.h5
 
 > ## Another note on `-R`
 >
-> In Snakemake version 7.8 the behaviour is altered to automatically detect changes to rules,
-> seemingly making the `-R` flag redundant, but the exact behaviour may change again in future as
-> there are [problems with the logic in more complex cases
+> In [Snakemake version 7.8
+> ](https://github.com/snakemake/snakemake/blob/main/CHANGELOG.md#780-2022-05-24)
+> the behaviour is altered to automatically detect changes to rules, as well as parameters and
+> input file contents. This to some extent makes the `-R` flag redundant, but the exact behaviour
+> may change again in future as there are [problems with the logic in more complex cases
 > ](https://github.com/snakemake/snakemake/issues/1694).
 > You should check the manual for whatever version of Snakemake you are using, and particularly the
 > `--rerun-triggers` option, to see what behaviour is expected.
