@@ -29,11 +29,41 @@ info on Conda, see the first part of [episode 10
 
 * If you don't already have Conda, get [the Miniconda installer
   ](https://docs.conda.io/en/latest/miniconda.html) and follow their instructions.
-* Get [the environment file](files/conda_env.yaml) and create the environment by running
-  `conda env update --file conda_env.yaml`
-* Ensure the right environment is active in your shell - `conda activate snakemake_carpentry`
 
-Ensure you have a text editor such as GEdit or Nano. These are standard on most Linux distros.
+These are the current recommended commands, taken from the above page, to install and initialise
+Miniconda in a Linux Bash environment.
+
+~~~
+$ mkdir -p ~/miniconda3
+$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+$ bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+$ rm ~/miniconda3/miniconda.sh
+$ ~/miniconda3/bin/conda init bash
+$ exit
+...then open a new shell...
+~~~
+{: .language-bash}
+
+After this:
+
+* Set Conda to use *strict* channel priority when resolving dependencies. This setting is
+  recommended by both Snakemake and [by Conda itself](
+  https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html#strict).
+* Get [the *conda_env.yaml* environment file](files/conda_env.yaml) and create the environment by
+  running `conda env update --file conda_env.yaml`.
+* Ensure the new environment is active in your shell.
+
+Once you have the `conda` command available and the `conda_env.yaml` file saved in your current
+directory, these commands should work to complete the steps above:
+
+~~~
+$ conda config --set channel_priority strict
+$ conda env update --file conda_env.yaml
+$ conda activate snakemake_carpentry
+~~~
+{: .language-bash}
+
+You will also need a text editor such as GEdit or Nano. These are standard on most Linux distros.
 Other text editors will work fine but we only provide specific setup instructions for GEdit
 and Nano here.
 
