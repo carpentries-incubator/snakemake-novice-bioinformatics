@@ -2695,7 +2695,7 @@
            id="tspan925"
            x="14.432553"
            y="174.32329"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:1.25249207;stroke-miterlimit:4;stroke-dasharray:none">data/yeast/reads</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:1.25249207;stroke-miterlimit:4;stroke-dasharray:none">in yeast/reads</tspan><tspan
            x="14.432553"
            y="182.93547"
            style="stroke-width:1.25249207;stroke-miterlimit:4;stroke-dasharray:none"
@@ -2730,7 +2730,7 @@
            id="tspan929"
            x="106.64054"
            y="173.25421"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:1.25249207;stroke-miterlimit:4;stroke-dasharray:none">data/yeast/transcriptome</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-width:1.25249207;stroke-miterlimit:4;stroke-dasharray:none">in yeast/transcriptome</tspan><tspan
            x="106.64054"
            y="181.86639"
            style="stroke-width:1.25249207;stroke-miterlimit:4;stroke-dasharray:none"

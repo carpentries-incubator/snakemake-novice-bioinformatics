@@ -42,8 +42,10 @@ If you tell Snakemake how many threads each rule will use, and how many cores yo
 it will start jobs in parallel to use all your cores. In the diagram below, five jobs are ready to
 run and there are four system cores.
 
-![Representation of a computer with 4 cores and 5 jobs wanting 1, 1, 1, 2 and
-8 threads][fig-threads]
+![Representation of a computer with four chip icons indicating four available cores. To the right
+are five small green boxes representing Snakemake jobs and labelled as wanting 1, 1, 1, 2 and 8
+threads respecively.
+][fig-threads]
 
 
 ## Listing the resources your Linux machine
@@ -203,7 +205,10 @@ monitors them for you.
  * [We have some specific suggestions for Eddie, the University of Edinburgh cluster
    ](../files/snakemake_on_eddie.pdf)
 
-![A photo of some high performance compute arranged in five racks in a server room][fig-cluster]
+![A photo of some high performance computer hardware arranged in five racks in a server room.
+Each rack is about 2.2 metres high. The front doors of the enclosures are all open.
+Orange and yellow cabling is prominent connecting systems within the second and third racks.
+][fig-cluster]
 
 
 > ## Cluster demo

@@ -83,8 +83,13 @@ Look at the logging messages that Snakemake prints in the terminal. What has hap
 
 **Here's a visual representation of this process:**
 
-![visual representation of the above process with arrows showing the order wildcards and
-placeholders are substituted][fig-chaining]
+![A visual representation of the above process showing the rule definitions with arrows to indicate
+the order wildcards and then placeholders are substituted. The arrows start from the final target
+at the top - the file trimmed.ref1_1.fq.count, pointing down from this to output of the countreads
+rule. Then arrows from the input of this rule go down to the output of the trimreads rule.
+Arrows then track back up through the shell parts of both rules and finally back to the target
+output filename at the top.
+][fig-chaining]
 
 This, in a nutshell, is how we build workflows in Snakemake.
 
@@ -97,8 +102,16 @@ getting used to. Rather than listing steps in order of execution, you are always
 backwards** from the final desired result. The order of operations is determined by applying the
 pattern matching rules to the filenames, not by the order of the rules in the Snakefile.
 
-This logic of working backwards from the desired output is why we're putting the `output` lines
-first in all our rules - to remind us that these are what Snakemake looks at first!
+> ## Outputs first?
+>
+> The Snakemake approach of working backwards from the desired output to determine the workflow
+> is why we're putting the `output` lines first in all our rules - to remind us that these are what
+> Snakemake looks at first!
+>
+> Many users of Snakemake, and indeed the official documentation, prefer to have the `input` first,
+> so in practise you should use whatever order makes sense to you.
+>
+{: .callout}
 
 > ## Thinking about your own workflows
 >

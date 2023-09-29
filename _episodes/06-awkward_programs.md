@@ -26,7 +26,12 @@ FastQC is a popular tool for scanning FASTQ files and producing a selection of q
 is no configuration needed.
 
 ![Screenshot of a typical FastQC report specifically showing the per-base quality box-and-whisker
-plot][fig-fastqc]
+plot. This is one of eleven views that are shown as a selectable list in the application window.
+The plot itself shows vertical yellow bars that get increasingly taller and lower from left to
+right, indicating how the base quality in these short reads deteriorates as the run
+progresses. There is a red X icon next to this plot, while other views listed have green ticks or
+yellow exclamation point icons.
+][fig-fastqc]
 
 The program can be run interactively or in batch mode, where it saves out results as an HTML file
 plus a ZIP file. We'll obviously need to use the batch mode to include it as part of our workflow,

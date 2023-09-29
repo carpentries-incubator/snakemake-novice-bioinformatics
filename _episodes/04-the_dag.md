@@ -29,7 +29,12 @@ Building DAG of jobs...
 
 A DAG is a **Directed Acyclic Graph** and it can be pictured like so:
 
-![diagram showing jobs as coloured boxes joined by arrows representing data flow][fig-dag]
+![Diagram showing jobs as coloured boxes joined by arrows representing data flow.
+The box labelled as kallisto_index is in green at the top, with two blue boxes labelled trimreads
+and two yellow boxes labelled countreads. The blue trimreads boxes have arrows into the respective
+yellow countreads boxes. Finally there is a kallisto_quant job shown as a red box, with incoming
+arrows from both the trimreads box as well as the kallisto_index box.
+][fig-dag]
 
 
 The above DAG is based on our four existing rules, and shows all the jobs Snakemake would run to
@@ -227,8 +232,10 @@ format so we use the `gm` command to make this into a picture and show it on the
 >
 {: .callout}
 
-![DAG for partial workflow with four boxes. The boxes for kallisto_index and trimreads are dotted,
-and the kallisto_quant box is solid][fig-dag2]
+![A DAG for the partial workflow with four boxes, representing two trimreads jobs and a
+kallisto_index job, then a kallisto_quant job receiving input from the previous three, The boxes
+for the kallisto_index and trimreads jobs are dotted, but the kallisto_quant box is solid.
+][fig-dag2]
 
 The boxes drawn with dotted lines indicate steps that are not to be run, as the output files are
 already present and newer than the input files.
