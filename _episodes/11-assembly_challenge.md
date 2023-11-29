@@ -63,7 +63,7 @@ down from each pair of files into a corresponding cutadapt box, then under this 
 they go from the three cutadapt boxes to the two boxes labelled "concatenate". Under this is a
 single box labelled "assembly (velvet)" and a final box at the bottom labelled
 "find longest contig".
-](https://user-images.githubusercontent.com/55948629/188318845-9c2b3e64-23d2-4449-8b03-6575f9930d87.png)
+][fig-flow]
 
 
 > ## Challenge
@@ -174,6 +174,8 @@ Often just having a second pair of eyes on your code is all that is needed to sp
 > {: .solution}
 {: .challenge}
 
+
+[fig-flow]: ../fig/assembly_flow.svg
 
 {% include links.md %}
 
