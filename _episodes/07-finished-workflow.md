@@ -204,8 +204,8 @@ $ multiqc . -o multiqc_out
 > >
 > > Another option is to make the log file outside of the directory, or stick with declaring the
 > > individual files as outputs, as when we first made the rule, in which case the directory will
-> > be made by Snakemake. It's possible to declare both a directory and a file within that
-> > directory as separate outputs, but this is probably not the best idea.
+> > be made by Snakemake. It's also possible to declare both the directory and a file within that
+> > directory as separate outputs, which is unusual but may be a good approach here.
 > >
 > {: .solution}
 {: .challenge}

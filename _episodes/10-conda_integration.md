@@ -42,7 +42,7 @@ Some key terms:
 
 Assuming you are running throught this course in the [recommended setup
 ]({{ page.root }}{% link setup.md %}
-),Conda is already set up on the systems we are using.
+), Conda is already set up on the systems we are using.
 
 Some key conda commands:
 
