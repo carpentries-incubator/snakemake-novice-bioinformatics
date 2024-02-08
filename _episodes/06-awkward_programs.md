@@ -57,6 +57,7 @@ $ ls -ltr reads
 -rw-r--r-- 1 zenmaster  users   464852 Jun  9 14:31 ref_1_1_fastqc.zip
 -rw-r--r-- 1 zenmaster  users   654810 Jun  9 14:31 ref_1_1_fastqc.html
 ~~~
+{: .language-bash}
 
 It's possible to supply multiple input files, but the resulting output is exactly the same as if
 processing the files one at a time. Two files are produced for each FASTQ file, and these files
@@ -73,6 +74,7 @@ $ fastqc --help
                    directory as the sequence file which was processed.
 ...
 ~~~
+{: .language-bash}
 
 For the `countreads` rule we wrote earlier (see episode 3), we chose our preferred output file name
 pattern so as to allow us to effectively link rules. This gives us a rule that can count both
@@ -86,6 +88,7 @@ rule countreads:
     shell:
         "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
+{: .source}
 
 To do the same with FastQC, to report on both the trimmed and untrimmed reads, we have various
 options:
@@ -115,6 +118,7 @@ We'll try all four, and see where this gets us.
 >     shell:
 >         "fastqc {input}"
 > ~~~
+> {: .source}
 >
 > > ## Solution
 > >
@@ -130,6 +134,7 @@ We'll try all four, and see where this gets us.
 > >     shell:
 > >         "fastqc {input}"
 > > ~~~
+> > {: .source}
 > >
 > > This rule contains wildcards, so in order to run it you specify one or more target
 > > output files:
@@ -158,6 +163,7 @@ us specify the output directory, so we can use that...
 > trimmed.fastqc.ref_1_1/ref_1_1_fastqc.html
 > trimmed.fastqc.ref_1_1/ref_1_1_fastqc.zip
 > ~~~
+> {: .output}
 >
 > > ## Solution
 > >
@@ -173,7 +179,7 @@ us specify the output directory, so we can use that...
 > >     shell:
 > >         "fastqc -o {wildcards.indir}.fastqc.{wildcards.myfile} {input}"
 > > ~~~
-> >
+> > {: .source}
 > {: .solution}
 {: .challenge}
 
@@ -191,6 +197,7 @@ rule fastqc:
     shell:
         "fastqc -o {output} {input}"
 ~~~
+{: .source}
 
 > ## Note
 >
@@ -208,6 +215,7 @@ $ snakemake -j1 -p reads.fastqc.ref_1_1
 Specified output directory 'reads.fastqc.ref_1_1' does not exist
 ...
 ~~~
+{: .language-bash}
 
 This error is being printed by FastQC. FastQC requires that the output directory must exist.
 (Other programs might insist that the output directory does *not* already exist.)
@@ -220,6 +228,7 @@ rule fastqc:
     shell:
         "mkdir {output} ; fastqc -o {output} {input}"
 ~~~
+{: .source}
 
 > ## Note
 >
@@ -244,6 +253,7 @@ rule fastqc:
            fastqc -o {output} {input}
         """
 ~~~
+{: .source}
 
 The "triple quoting" syntax comes from Python. Not only does it allow multiple lines to be added
 within the quotes but it also allows you to embed both single and double quotes into the shell
@@ -274,6 +284,7 @@ and/or rename the files to exactly the names you want.
 >         """???
 >         """
 > ~~~
+> {: .source}
 >
 > > ## Solution
 > >
@@ -295,6 +306,7 @@ and/or rename the files to exactly the names you want.
 > >            mv {wildcards.myfile}_fastqc.zip  {output.zip}
 > >         """
 > > ~~~
+> > {: .source}
 > >
 > {: .solution}
 {: .challenge}
@@ -331,6 +343,7 @@ rule kallisto_quant:
     output:  directory("kallisto.{sample}")
     ...
 ~~~
+{: .source}
 
 Make the change in your Snakefile now. In other workflows this might not be the right approach but
 in this case it works fine and makes the Snakefile neater. It will also make sense in the next

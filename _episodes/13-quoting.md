@@ -116,6 +116,7 @@ avoid most mis-quoting complications.
 >     shell:
 >         "awk 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}' {input} > {output}"
 > ~~~
+> {: .source}
 >
 > Will this work as shown? If not, why not? Try it and see.
 >
@@ -129,6 +130,7 @@ avoid most mis-quoting complications.
 > >   shell:
 > >       "awk 'NR%4==2{{"{{"}}sum+=length($0)}}END{{"{{"}}print sum/(NR/4)}}' {input} > {output}"
 > > ~~~
+> > {: .source}
 > {: .solution}
 {: .challenge}
 
@@ -140,6 +142,7 @@ modified by adding a letter `r` just before the quotes, like this.
 ~~~
 r"""Strings like this"""
 ~~~
+{: .source}
 
 This "raw string" or "r-string" syntax allows embedded newlines, literal `\n` `\t`, and both types
 of quotes (`"` `'`). In other words, the interpretation as a Python string does as little as
@@ -158,6 +161,7 @@ rule lenreads:
     shell:
         "awk '{LEN_READS_CMD}' {input} > {output}"
 ~~~
+{: .source}
 
 Or even better:
 
@@ -166,6 +170,7 @@ rule lenreads:
     shell:
         "awk {LEN_READS_CMD:q} {input} > {output}"
 ~~~
+{: .source}
 
 Using `{LEN_READS_CMD:q}` instead of `'{LEN_READS_CMD}'` is asking Snakemake to quote the awk
 command for you. In this case, Snakemake will just put it into single quotes, but if your variable
@@ -179,6 +184,7 @@ rule lenreads:
     shell:
         "awk {LEN_READS_CMD:q} {input:q} > {output:q}"
 ~~~
+{: .source}
 
 Now the *lenreads* rule would be able to work on an input file that contains spaces or other
 unusual characters. Also, if the *input* is a list of files, this will still work just fine,

@@ -37,7 +37,7 @@ rule countreads:
     shell:
         "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
-{: .language}
+{: .source}
 
 > ## Comments in Snakefiles
 >
@@ -57,7 +57,7 @@ rule countreads:
     shell:
         "echo $(( $(wc -l <reads/ref1_1.fq) / 4 )) > ref1_1.fq.count"
 ~~~
-{: .language}
+{: .source}
 
 The new rule has replaced explicit file names with things in `{curly brackets}`, specifically
 `{myfile}`, `{input}` and `{output}`.
@@ -131,7 +131,7 @@ could have used the placeholder `{wildcards.myfile}` but in most cases, as here,
 > > output: "counts/{myfile}.txt"
 > > input:  "reads/{myfile}.fq"
 > > ~~~
-> > {: .language}
+> > {: .source}
 > >
 > > This can be done just by changing the `output:` line. You may also have considered the need to
 > > `mkdir counts` but in fact this is not necessary as Snakemake will create the output directory
@@ -142,7 +142,7 @@ could have used the placeholder `{wildcards.myfile}` but in most cases, as here,
 > > output: "{sample}_counts/fq.{readnum}.count"
 > > input:  "reads/{sample}_{readnum}.fq"
 > > ~~~
-> > {: .language}
+> > {: .source}
 > >
 > > In this case, it was necessary to introduce a second wildcard, because the elements in the
 > > output file name are split up. The names chosen here are `{sample}` and `{readnum}` but you
@@ -158,7 +158,7 @@ could have used the placeholder `{wildcards.myfile}` but in most cases, as here,
 > > output: "countreads_{readnum}.count"
 > > input:  "reads/ref1_{readnum}.fq"
 > > ~~~
-> > {: .language}
+> > {: .source}
 > >
 > > ...but it only works because "ref1" is hard-coded into the `input` line, and the rule will only
 > > work on this specific sample, not the other eight in our sample dataset. In general, input and
@@ -197,6 +197,7 @@ MissingInputException in line 1 of /home/zenmaster/data/yeast/Snakefile:
 Missing input files for rule countreads:
 reads/wibble_1.fq
 ~~~
+{: .output}
 
 Snakemake sees that a file with a name like this could be produced by the *countreads* rule.
 However, when it performs the wildcard substitution it sees that the input file would need to be
@@ -247,7 +248,7 @@ become very useful to us indeed.
 > >     shell:
 > >         "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 > > ~~~
-> > {: .language}
+> > {: .source}
 > >
 > > Bonus points if you added any comments to the code!
 > >

@@ -55,20 +55,23 @@ Find out how many CPU cores you have on your machine with the `lscpu` command.
 ~~~
 $ lscpu
 ~~~
+{: .language-bash}
 
 Likewise find out the amount of RAM available:
 
 ~~~
 $ free -h
 ~~~
+{: .language-bash}
 
 And finally disk space, on the current partition:
 
 ~~~
 $ df -h .
 ~~~
+{: .language-bash}
 
-(or `df -h` to show all partitions)
+(or `df -h` without the `.` to show all partitions)
 
 ## Parallel jobs in Snakemake
 
@@ -82,7 +85,7 @@ this because `time` is a built-in command in BASH which takes precedence, so eg:
 ~~~
 $ /usr/bin/time -v snakemake -j1 -F -- kallisto.{ref,temp33,etoh60}_{1,2,3}
 ~~~
-
+{: .language-bash}
 
 > ## Exercise
 >
@@ -137,6 +140,7 @@ rule kallisto_quant:
     shell:
         "kallisto quant -t {threads} -i {input.index} -o {output.outdir} {input.fq1} {input.fq2}"
 ~~~
+{: .source}
 
 You should explicitly use `threads: 4` rather than `params: threads = "4"` because Snakemake
 considers the number of threads when scheduling jobs. Also, if the number of threads requested for
@@ -184,6 +188,7 @@ bioinformatics tools.
 >         "benchmarks/kallisto_quant.{sample}.txt"
 >     ...
 > ~~~
+> {: .source}
 >
 > The dataset here is so small that the numbers are tiny, but for real data this can be very
 > useful as it shows time, memory usage and IO load for all jobs.

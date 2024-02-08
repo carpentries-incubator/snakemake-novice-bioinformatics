@@ -64,7 +64,7 @@ Global variables should be added before the rules in the Snakefile.
 CONDITIONS = ["ref", "etoh60", "temp33"]
 REPLICATES = ["1", "2", "3"]
 ~~~
-{: .language}
+{: .source}
 
 * Unlike with variables in shell scripts, we can put spaces around the `=` sign, but they are
   not mandatory.
@@ -83,7 +83,7 @@ no `output` or `shell` sections (yet).
 rule all_counts:
     input: expand("trimmed.{cond}_{rep}_1.fq.count", cond=CONDITIONS, rep=REPLICATES)
 ~~~
-{: .language}
+{: .source}
 
 The `expand(...)` function in this rule generates a list of filenames, by taking the first thing in
 the parentheses as a template and replacing `{cond}` with all the `CONDITIONS` and `{rep}` with all
@@ -148,7 +148,7 @@ $ snakemake -j1 -p
 > > rule all_counts:
 > >     input: expand("{indir}.{cond}_{rep}_{end}.fq.count", indir=COUNT_DIR, cond=CONDITIONS, rep=REPLICATES, end=READ_ENDS)
 > > ~~~
-> > {: .language}
+> > {: .source}
 > >
 > > Alternatively you can put the lists directly into the `expand()` function rather than declaring
 > > more variables. To aid readability of the code it's also possible to split the function over
@@ -168,7 +168,7 @@ $ snakemake -j1 -p
 > >                                                        rep   = REPLICATES,
 > >                                                        end   = ["1", "2"] )
 > > ~~~
-> > {: .language}
+> > {: .source}
 > >
 > {: .solution}
 {: .challenge}
@@ -187,6 +187,7 @@ example, let's just concatenate all the count files. In the shell this would be:
 ~~~
 $ cat file1.count file2.count file3.count ... > all_counts.txt
 ~~~
+{: .language-bash}
 
 In the Snakemake rule we just say:
 
@@ -194,6 +195,7 @@ In the Snakemake rule we just say:
 shell:
   "cat {input} > {output}"
 ~~~
+{: .language-bash}
 
 Within a rule definition you can combine named inputs and list inputs - any named input can be list
 of files rather than just a single file. When you use the `{input.name}` placeholder in the shell
@@ -223,6 +225,7 @@ command it will expand to the full list.
 > >     shell:
 > >         "cat {input} > {output}"
 > > ~~~
+> > {: .source}
 > >
 > > ~~~
 > > rule all_counts:
@@ -239,6 +242,7 @@ command it will expand to the full list.
 > >     shell:
 > >         "cat {input.untrimmed} > {output.untrimmed} ; cat {input.trimmed} > {output.trimmed}"
 > > ~~~
+> > {: .source}
 > >
 > > To run either version of the rule:
 > >
@@ -260,7 +264,7 @@ function, so we'll use this in our Snakefile.
 CONDITIONS = glob_wildcards("reads/{condition}_1_1.fq").condition
 print("Conditions are: ", CONDITIONS)
 ~~~
-{: .language}
+{: .source}
 
 Here, the list of conditions is captured from the files seen in the reads directory. The pattern
 used in `glob_wildcards()` looks much like the input and output parts of rules, with a wildcard in
@@ -296,6 +300,7 @@ $ python3
 >>> glob_wildcards("reads/{condition}_1_1.fq")
 Wildcards(condition=['etoh60', 'temp33', 'ref'])
 ~~~
+{: .language-python}
 
 This is the result we got before. So far, so good.
 
@@ -322,7 +327,7 @@ This is the result we got before. So far, so good.
 > > >>> glob_wildcards("reads/{sample}_1.fq")
 > > Wildcards(sample=['temp33_3', 'temp33_2', 'etoh60_1', 'etoh60_3', 'ref_2', 'temp33_1', 'etoh60_2', 'ref_1', 'ref_3'])
 > > ~~~
-> >
+> > {: .language-python}
 > {: .solution}
 >
 > Still in the Python interpreter, use the `expand()` function in combination with the
@@ -340,7 +345,7 @@ This is the result we got before. So far, so good.
 > > ...
 > > >>> expand("kallisto.{sample}/{outfile}", sample=SAMPLES, outfile=['abundance.h5', 'abundance.tsv', run_info.json'])
 > > ~~~
-> >
+> > {: .language-python}
 > {: .solution}
 {: .challenge}
 
@@ -369,6 +374,7 @@ This is the result we got before. So far, so good.
 > >>> sorted(SAMPLES)
 > ['etoh60_1', 'etoh60_2', 'etoh60_3', 'ref_1', 'ref_2', 'ref_3', 'temp33_1', 'temp33_2', 'temp33_3']
 > ~~~
+> {: .language-python}
 {: .callout}
 
 > ## Rules that make multiple outputs

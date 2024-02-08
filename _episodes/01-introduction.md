@@ -94,7 +94,7 @@ rule countlines:
     shell:
         "wc -l reads/ref1_1.fq > ref1_1.fq.count"
 ~~~
-{: .language}
+{: .source}
 
 > ## Key points about this file
 >
@@ -179,7 +179,7 @@ can copy and use.
 > >     shell:
 > >         "echo $(( $(wc -l <reads/ref1_1.fq) / 4 )) > ref1_1.fq.count"
 > > ~~~
-> > {: .language}
+> > {: .source}
 > {: .solution}
 >
 > Add a second rule to count the sequences in `reads/etoh60_1_1.fq`. Add this to the same Snakefile
@@ -199,7 +199,7 @@ can copy and use.
 > >   shell:
 > >     "echo $(( $(wc -l <reads/etoh60_1_1.fq) / 4 )) > etoh60_1_1.fq.count"
 > > ~~~
-> > {: .language}
+> > {: .source}
 > >
 > > Then in the shell...
 > >

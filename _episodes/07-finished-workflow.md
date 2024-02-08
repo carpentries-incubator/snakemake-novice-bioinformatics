@@ -68,6 +68,7 @@ as it will be a template for adding a *salmon* rule.
 > $ salmon index -t <transcriptome as fasta> -i <index name> -k 31
 > $ salmon quant -i <index name> -l A -1 <fastq1> -2 <fastq2> --validateMappings -o <output path>
 > ~~~
+> {: .language-bash}
 >
 > Add a pair of rules to index and align the reads with Salmon. Note that:
 >
@@ -96,6 +97,7 @@ as it will be a template for adding a *salmon* rule.
 > >     shell:
 > >         "salmon index -t {input.fasta} -i {output.idx} -k 31"
 > > ~~~
+> > {: .source}
 > >
 > > If you copied the *kallisto_index* rule and logged the output of *salmon_index* to a file this
 > > is fine. Just make sure when copying and pasting that you change all the parts that need
@@ -114,6 +116,7 @@ able to compile a report on all these. To try this out and scan the current dire
 ~~~
 $ multiqc . -o multiqc_out
 ~~~
+{: .language-bash}
 
 > ## Exercise - adding a MultiQC rule
 >
@@ -143,6 +146,7 @@ $ multiqc . -o multiqc_out
 > >     shell:
 > >         "multiqc . -o multiqc_out"
 > > ~~~
+> > {: .source}
 > >
 > > Since the rule has no wildcards, you can run it by giving either the rule name or the output
 > > directory name as a target.
@@ -167,6 +171,7 @@ $ multiqc . -o multiqc_out
 > > *Note - MultiQC parses the standard out from Kallisto, not any of its output files
 > > (abundance.h5, abundance.tsv, and run_info.json). As such, you must capture the Kallisto
 > > output to a file when running it for use with MultiQC.*
+> {: .callout}
 >
 >
 > Fix the Snakefile so that Kallisto terminal output is redirected to a file and can be collected
@@ -191,6 +196,7 @@ $ multiqc . -o multiqc_out
 > >            kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
 > >         """
 > > ~~~
+> > {: .source}
 > >
 > > There are several perfectly good ways of structuring this, so don't worry if your answer is
 > > different.
@@ -241,7 +247,7 @@ $ multiqc . -o multiqc_out
 > >            multiqc {output.mqc_in} -o {output.mqc_out}
 > >         """
 > > ~~~
-> >
+> > {: .source}
 > {: .solution}
 {: .challenge}
 

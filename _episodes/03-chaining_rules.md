@@ -38,7 +38,7 @@ rule trimreads:
     shell:
         "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 ~~~
-{: .language}
+{: .source}
 
 The problem is there is no good way to use these rules together, that is, to trim an input file and
 then count the reads in the trimmed file. The *countreads* rule only takes input reads from the
@@ -56,7 +56,7 @@ rule countreads:
     shell:
         "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 ~~~
-{: .language}
+{: .source}
 
 Now, the rule no longer requires the input files to be in the "reads" directory. The directory name
 has been replaced by the `{indir}` wildcard. We can request Snakemake to create a file following
@@ -145,6 +145,7 @@ command to do so looks like this:
 ~~~
 $ kallisto quant -i index_file -o output_dir in_1.fastq in_2.fastq
 ~~~
+{: .language-bash}
 
 This command has three input files:
 
@@ -179,7 +180,7 @@ rule kallisto_quant:
     shell:
         "kallisto quant -i {input.index} -o kallisto.{wildcards.sample} {input.fq1} {input.fq2}"
 ~~~
-{: .language}
+{: .source}
 
 There are many things to note here:
 
@@ -266,7 +267,7 @@ Snakemake is happy with the rule definition.
 > >     shell:
 > >         "kallisto index -i {output.idx} {input.fasta} >& {output.log}"
 > > ~~~
-> >
+> > {: .source}
 > {: .solution}
 >
 >
@@ -311,7 +312,7 @@ rule kallisto_quant:
         json = "kallisto.{sample}/run_info.json",
 ...
 ~~~
-{: .language}
+{: .source}
 
 To keep things tidy, this time we'll manually remove the output directory.
 
@@ -348,6 +349,7 @@ Shutting down, this might take some time.
 Exiting because a job execution failed. Look above for error message
 Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834.snakemake.log
 ~~~
+{: .output}
 
 There's a lot to take in here. Some of the messages are very informative. Some less so.
 

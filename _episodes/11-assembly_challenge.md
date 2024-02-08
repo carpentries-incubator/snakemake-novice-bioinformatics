@@ -82,6 +82,7 @@ single box labelled "assembly (velvet)" and a final box at the bottom labelled
 > > $ conda create -n assembly-env --channel bioconda --channel conda-forge cutadapt velvet bbmap
 > > $ conda activate assembly-env
 > > ~~~
+> > {: .language-bash}
 > >
 > > Now, after saving the script above into a text file, make it executable and run it.
 > >
@@ -91,6 +92,7 @@ single box labelled "assembly (velvet)" and a final box at the bottom labelled
 > > $ cat max_contig.txt 
 > > Max contig length:        655
 > > ~~~
+> > {: .language-bash}
 > >
 > > Don't worry if you get a slightly different number. We've not specified the exact version of
 > > the assembler so the final assembly may be slightly different if the software has been updated.

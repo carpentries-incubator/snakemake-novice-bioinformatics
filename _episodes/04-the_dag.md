@@ -26,6 +26,7 @@ You may have noticed that one of the messages Snakemake always prints is:
 ~~~
 Building DAG of jobs...
 ~~~
+{: .output}
 
 A DAG is a **Directed Acyclic Graph** and it can be pictured like so:
 
@@ -132,6 +133,7 @@ are telling it to make, so it doesn't worry.
 $ touch transcriptome/*.fa.gz
 $ snakemake -j1 -p kallisto.temp33_1/abundance.h5
 ~~~
+{: .language-bash}
 
 The `touch` command is a standard Linux command which sets the timestamp of the file, so now the
 transcriptome looks to Snakemake as if it was just modified.
@@ -159,6 +161,7 @@ from that rule need to be re-evaluated.
 ~~~
 $ snakemake -j1 -R trimreads -p kallisto.temp33_1/abundance.h5
 ~~~
+{: .language-bash}
 
 > ## Note on `-R`
 >
@@ -173,6 +176,7 @@ $ snakemake -j1 -R trimreads -p kallisto.temp33_1/abundance.h5
 > ~~~
 > $ snakemake -j1 -R trimreads kallisto_index -p kallisto.temp33_1/abundance.h5 kallisto.temp33_2/abundance.h5
 > ~~~
+> {: .language-bash}
 >
 > The reason for using the `-p` flag here is because you generally always want this option.
 >
@@ -200,6 +204,7 @@ regenerated, so you can use this to explicitly re-make specific files.
 ~~~
 $ snakemake -j1 -f -p kallisto.temp33_1/abundance.h5
 ~~~
+{: .language-bash}
 
 This always re-runs *kallisto_quant*, regardless of whether the output file is there already. For
 all intermediate outputs, Snakemake applies the default timestamp-based logic. Contrast with `-F`
@@ -262,8 +267,9 @@ already present and newer than the input files.
 > > To make all the Kallisto results in the first place:
 > >
 > > ~~~
-> > snakemake -j1 -p kallisto.etoh60_{1,2,3}/abundance.h5
+> > $ snakemake -j1 -p kallisto.etoh60_{1,2,3}/abundance.h5
 > > ~~~
+> > {: .language-bash}
 > >
 > > *The {1,2,3} syntax is expanded by the shell into the 3 file names. You could also type all
 > > three names in full.*

@@ -32,6 +32,7 @@ rule trimreads:
     shell:
         "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 ~~~
+{: .source}
 
 Can you remember what the `-t 20` and `-l 100` parameters do without referring back to the manual?
 Probably not!
@@ -48,6 +49,7 @@ rule trimreads:
     shell:
         "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
 ~~~
+{: .source}
 
 Now it is a little clearer what these numbers mean. Use of parameters doesn't give you extra
 functionality but it is good practise put settings like these into parameters as it makes the whole
@@ -72,10 +74,12 @@ rule more readable.
 > >     shell:
 > >         "salmon index -t {input.fasta} -i {output.idx} -k {params.kmer_len}"
 > > ~~~
+> > {: .source}
 > >
 > > ~~~
-> > snakemake -j1 -p -f Saccharomyces_cerevisiae.R64-1-1.salmon_index
+> > $ snakemake -j1 -p -f Saccharomyces_cerevisiae.R64-1-1.salmon_index
 > > ~~~
+> > {: .language-bash}
 > >
 > > Notes:
 > >
@@ -102,6 +106,7 @@ salmon_kmer_len: "31"
 trimreads_qual_threshold: "20"
 trimreads_min_length: "100"
 ~~~
+{: .source}
 
 This file is in YAML format. This format allows you to capture complex data structures but we'll
 just use it to store some name+value pairs. We can then reference these values within the
@@ -117,6 +122,7 @@ rule trimreads:
     shell:
         "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
 ~~~
+{: .source}
 
 In the above example, the **trimreads_qual_threshold** value must be supplied in the config, but
 the **trimreads_min_length** can be omitted, and then the default of "100" will be used.
@@ -137,6 +143,7 @@ The final step is to tell Snakemake about your config file, by referencing it on
 ~~~
 $ snakemake --configfile=config.yaml ...
 ~~~
+{: .language-bash}
 
 > ## Exercise
 >
@@ -153,6 +160,7 @@ $ snakemake --configfile=config.yaml ...
 > > params:
 > >     kmer_len = config.get("salmon_kmer_len", "29")
 > > ~~~
+> > {: .source}
 > >
 > > If you run Snakemake with the `-n` and `-p` flags and referencing the config file, you should
 > > see that the command being printed has the expected value of *31*.
@@ -160,6 +168,7 @@ $ snakemake --configfile=config.yaml ...
 > > ~~~
 > > $ snakemake -n -p -f --configfile=config.yaml Saccharomyces_cerevisiae.R64-1-1.salmon_index
 > > ~~~
+> > {: .language-bash}
 > >
 > > *Note that if you try to run Snakemake with no config
 > > file you will now get a **KeyError** regarding **trimreads_qual_threshold**. Even though you
@@ -179,6 +188,7 @@ Add the following lines right at the top of the Snakefile.
 configfile: "config.yaml"
 print("Config is: ", config)
 ~~~
+{: .source}
 
 Finally, as well as the `--configfile` option to Snakemake there is the `--config` option which
 sets individual configuration parameters.
@@ -186,6 +196,7 @@ sets individual configuration parameters.
 ~~~
 $ snakemake --configfile=config.yaml --config salmon_kmer_len=23 -p -nf Saccharomyces_cerevisiae.R64-1-1.salmon_index/
 ~~~
+{: .language-bash}
 
 This is all getting quite complex, so in summary:
 
@@ -217,6 +228,7 @@ This is all getting quite complex, so in summary:
 > > conditions: ["etoh60", "temp33", "ref"]
 > > replicates: ["1", "2", "3"]
 > > ~~~
+> > {: .source}
 > >
 > > In the *Snakefile* we can reference the *config* while setting the global variables. There are
 > > no *params* to add because these settings are altering the selection of jobs to be added to the
@@ -226,12 +238,14 @@ This is all getting quite complex, so in summary:
 > > CONDITIONS = config["conditions"]
 > > REPLICATES = config["replicates"]
 > > ~~~
+> > {: .source}
 > >
 > > And for the final part we can either edit the *config.yaml* or override on the command line:
 > >
 > > ~~~
 > > $ snakemake -j1 -f --config replicates=["2","3"] -p multiqc_out
 > > ~~~
+> > {: .language-bash}
 > >
 > > Note that we need to re-run the final report, but only this, so only `-f` is necessary. If you
 > > find that replicate 1 is still in you report, make sure you are using the final version of the

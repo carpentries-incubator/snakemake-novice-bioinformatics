@@ -144,6 +144,7 @@ set tabsize 4
 set smooth
 set morespace
 ~~~
+{: .source}
 
 Some of these are already defaults in later versions of Nano, but it doesn't hurt to have them
 here anyway. There isn't a way to set the default syntax highlighting within this file.

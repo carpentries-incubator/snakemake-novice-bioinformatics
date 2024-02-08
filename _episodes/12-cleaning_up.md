@@ -34,6 +34,7 @@ $ snakemake -j1 -p multiqc_out
 ...
 Nothing to be done.
 ~~~
+{: .output}
 
 To get Snakemake to clean up files for you, mark them with the `temporary()` function. Much like
 the `directory()` function, this is applied only on the outputs of rules. Any file marked as
@@ -50,6 +51,7 @@ rule gzip_fastq:
     shell:
         "gzip -nc {input} > {output}"
 ~~~
+{: .source}
 
 Note that this will compress any `.fq` file in any subdirectory, because Snakemake wildcards can
 match full paths. Now modify just the *salmon_quant* rule to work on the compressed files.
@@ -63,6 +65,7 @@ rule salmon_quant:
         fq2   = "trimmed/{sample}_2.fq.gz",
     ...
 ~~~
+{: .source}
 
 Finally, declare the output of the *trimreads* rule to be *temporary*.
 
@@ -70,6 +73,7 @@ Finally, declare the output of the *trimreads* rule to be *temporary*.
 rule trimreads:
     output: temporary("trimmed/{sample}.fq")
 ~~~
+{: .source}
 
 And now re-run the workflow. Since we modified the *trimreads* rule, we'll force that rule to be
 re-run with the `-R` flag:
@@ -85,6 +89,7 @@ etoh60_2_2.fq.gz  ref_2_2.fq.gz  temp33_2_2.fq.gz
 etoh60_3_1.fq.gz  ref_3_1.fq.gz  temp33_3_1.fq.gz
 etoh60_3_2.fq.gz  ref_3_2.fq.gz  temp33_3_2.fq.gz
 ~~~
+{: .output}
 
 Snakemake kept the uncompressed trimmed reads long enough to run *kallisto_quant* on all the
 samples, then removed them leaving only the gzipped versions.
@@ -105,12 +110,14 @@ samples, then removed them leaving only the gzipped versions.
 > >     fq1   = "trimmed/{sample}_1.fq.gz",
 > >     fq2   = "trimmed/{sample}_2.fq.gz",
 > > ~~~
+> > {: .source}
 > >
 > > One quick way to check the result is:
 > >
 > > ~~~
 > > $ snakemake -n -Rkallisto_quant multiqc
 > > ~~~
+> > {: .language-bash}
 > >
 > > You should see that Snakemake wants to run the *kallisto_quant* and *multiqc* steps but
 > > no others.
@@ -127,6 +134,7 @@ samples, then removed them leaving only the gzipped versions.
 > > ~~~
 > > html = temporary("{indir}.{sample}_fastqc.html"),
 > > ~~~
+> > {: .source}
 > >
 > > Since the files are already there, Snakemake will not normally remove them unless the jobs
 > > are re-run, so you could do that as was done for *trimreads* above.
@@ -164,6 +172,7 @@ Job counts:
     9       salmon_quant
     10
 ~~~
+{: .language-bash}
 
 Snakemake wants to re-run all the *salmon_quant* jobs (and the *kallisto_quant* jobs, if you
 completed the exercise above), which makes sense. However, we know the results are good, and don't
@@ -174,6 +183,7 @@ to fool future invocations of snakemake."
 ~~~
 $ snakemake -j 1 --touch -p multiqc_out
 ~~~
+{: .language-bash}
 
 Another feature is the `protected()` function. This is rather like the opposite of the
 `temporary()` function and says that once an output has been produced it must not be overwritten.
@@ -201,6 +211,7 @@ In practise, Snakemake does this by revoking write permissions on the files
 > >         log = "{strain}.kallisto_log",
 > >     ...
 > > ~~~
+> > {: .source}
 > >
 > > When Snakemake is re-run, it will start processing the workflow and only fail when it comes to
 > > a protected file. In the current version, Snakemake does not detect that the file is protected
@@ -249,6 +260,7 @@ rule shallow_shadow_rule:
            tree
         """
 ~~~
+{: .source}
 
 Advantages of using shadow rules are:
 

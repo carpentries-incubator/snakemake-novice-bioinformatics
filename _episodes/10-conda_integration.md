@@ -82,6 +82,7 @@ Some key conda commands:
 >   - bioconda
 >   - defaults
 > ~~~
+> {: .output}
 >
 > If you don't see these exact channels in this order, try the `conda config ...` commands shown
 > above to fix the situation. Once this configuration is right you won't need to do anything else
@@ -104,6 +105,7 @@ Some key conda commands:
 > > $ conda env export | grep fastx
 > >  - fastx_toolkit=0.0.14=0
 > > ~~~
+> > {: .language-bash}
 > >
 > > 2. Conda should already be configured to install Bioconda packages (see the callout above) so
 > >    we can do this:
@@ -113,6 +115,7 @@ Some key conda commands:
 > > $ conda activate new-env
 > > $ conda install cutadapt
 > > ~~~
+> > {: .language-bash}
 > >
 > > It's also possible to install packages at the same time as creating the environment, though
 > > this wasn't shown in the examples above.
@@ -120,6 +123,7 @@ Some key conda commands:
 > > ~~~
 > > $ conda create -n new-env cutadapt
 > > ~~~
+> > {: .language-bash}
 > >
 > > You'll still need to *activate* the new environment in order to run *cutadapt*.
 > >
@@ -142,6 +146,7 @@ set up the same environment on any other machine.
 ~~~
 $ conda env export -n new-env > new-env.yaml
 ~~~
+{: .language-bash}
 
 Snakemake takes this one step further by integrating directly with Conda. This brings some
 nice features...
@@ -157,6 +162,7 @@ rule a_conda_rule:
     shell:
         "which cutadapt"
 ~~~
+{: .source}
 
 Note that the declaration refers to the exported YAML file, not any existing environment. Snakemake
 will create the environment for you. We can now run the above rule, even though it doesn't
@@ -188,6 +194,7 @@ Finished job 0.
 1 of 1 steps (100%) done
 Complete log: /home/zenmaster/carpentries/nextflow_rnaseq_training_dataset/.snakemake/log/2021-09-21T165713.679409.snakemake.log
 ~~~
+{: .output}
 
 This takes some time, because Snakemake is (as the log says) creating the new environment and
 installing the packages. But if we run it a second time it's much quicker. This brings us to a
@@ -229,6 +236,7 @@ We'll do something useful with *cutadapt* in the next episode.
 > > $ conda install salmon=1.2.1 tbb=2020.2
 > > $ conda env export -n salmon-1.2.1 > salmon-1.2.1.yaml
 > > ~~~
+> > {: .language-bash}
 > >
 > > As an aside, having done this, we could delete the environment as we just need the exported
 > > YAML file.
@@ -237,12 +245,14 @@ We'll do something useful with *cutadapt* in the next episode.
 > > $ conda deactivate
 > > $ conda env remove -n salmon-1.2.1
 > > ~~~
+> > {: .language-bash}
 > >
 > > Next add the same *conda* declaration to both the *salmon_index* and *salmon_quant* rules.
 > >
 > > ~~~
 > > conda: "salmon-1.2.1.yaml"
 > > ~~~
+> > {: .source}
 > >
 > > And when running the workflow, we need to give the `--use-conda` option as well as telling
 > > Snakemake that these two rules have changed and must be re-run.
@@ -250,6 +260,7 @@ We'll do something useful with *cutadapt* in the next episode.
 > > ~~~
 > > $ snakemake -j1 -Rsalmon_index -Rsalmon_quant --use-conda ...
 > > ~~~
+> > {: .language-bash}
 > >
 > {: .solution}
 {: .challenge}
@@ -272,6 +283,7 @@ We'll do something useful with *cutadapt* in the next episode.
 > dependencies:
 >   - cutadapt=3.4
 > ~~~
+> {: .source}
 >
 > In this case, Conda will install version 3.4 of Cutadapt, but will meet the required
 > dependencies by installing the newest packages found in the channels, so the exact
