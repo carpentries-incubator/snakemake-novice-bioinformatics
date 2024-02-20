@@ -1,7 +1,6 @@
 ---
-layout: lesson
-root: .  # Is the only page that doesn't follow the pattern /:path/index.html
-permalink: index.html  # Is the only page that doesn't follow the pattern /:path/index.html
+permalink: index.html
+site: sandpaper::sandpaper_site
 ---
 
 A lesson introducing the [Snakemake workflow system](https://snakemake.github.io/) for
@@ -19,23 +18,30 @@ We also look at the Conda integration feature of Snakemake, with which you can a
 and shareable workflows with a fully-specified software environment.
 
 In the planning phase of writing this course material we outlined some [learner profiles
-](learner_profiles/), to expand on who we think will benefit from this lesson and why.
+](instructors/learner_profiles.md), to expand on who we think will benefit from this lesson and why.
 
 <!-- this is an html comment -->
 
 {% comment %} This is a comment in Liquid {% endcomment %}
 
-> ## Prerequisites
->
-> This is an intermediate lesson and assumes learners have some prior experience in bioinformatics:
-> * Familiarity with the [Bash command shell](http://swcarpentry.github.io/shell-novice), including
->   concepts like pipes, variables, loops and scripts.
-> * Knowing about bioinformatics fundamentals like the [FASTQ file format
->   ](https://en.wikipedia.org/wiki/FASTQ_format) and [read mapping
->   ](https://en.wikipedia.org/wiki/Read_(biology)#NGS_and_read_mapping),
->   in order to understand the example workflow.
->
-> No previous knowledge of Snakemake or workflow systems, or Python programming, is assumed.
-{: .prereq}
+::::::::::::::::::::::::::::::::::::::::::  prereq
 
-{% include links.md %}
+## Prerequisites
+
+This is an intermediate lesson and assumes learners have some prior experience in bioinformatics:
+
+- Familiarity with the [Bash command shell](https://swcarpentry.github.io/shell-novice), including
+  concepts like pipes, variables, loops and scripts.
+- Knowing about bioinformatics fundamentals like the [FASTQ file format
+  ](https://en.wikipedia.org/wiki/FASTQ_format) and [read mapping
+  ](https://en.wikipedia.org/wiki/Read_\(biology\)#NGS_and_read_mapping),
+  in order to understand the example workflow.
+
+No previous knowledge of Snakemake or workflow systems, or Python programming, is assumed.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+
