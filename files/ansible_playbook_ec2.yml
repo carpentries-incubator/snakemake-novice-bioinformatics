@@ -1,0 +1,110 @@
+# This playbook prepares images for the Snakemake courses run under Ed-DaSH.
+#
+# It is not suitable for general use as-is, but is included here as it may be useful for
+# anyone setting up their own learning platform on Ubuntu/Debian Linux.
+#
+- hosts: tag_Role_training_snakemake
+  become: yes
+  become_user: training
+  tasks:
+
+    - name: Set alternative password for VNC
+      vars:
+        passwd: "ed-dash-vnc"
+      shell:
+        executable: /bin/bash
+        chdir: ~/.vnc
+        cmd: |
+             set -euo pipefail
+             cd ~
+             mv passwd passwd.old
+             echo '{{ passwd }}' | /opt/tigervnc/usr/bin/vncpasswd -f > passwd
+             chmod 0600 passwd
+      args:
+        creates: ~/.vnc/passwd.old
+      when: false # rule is disabled for now
+
+    # This one runs as root. The conda-forge versions of these packages are problematic
+    - name: Install some packages we need via APT
+      become_user: root
+      apt:
+        update_cache: yes
+        name:
+          - graphicsmagick
+          - graphviz
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+
+    - name: Make the terminal black on white
+      copy:
+        src: "terminalrc"
+        dest: "~/.config/xfce4/terminal/"
+        mode: '0644'
+        backup: yes
+
+    - name: Fetch Miniconda Installer
+      get_url:
+        url: https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh
+        dest: "~/Downloads/miniconda3_installer.sh"
+        mode: '0644'
+        checksum: sha256:536817d1b14cb1ada88900f5be51ce0a5e042bae178b5550e62f61e223deae7c
+
+    - name: Run Miniconda Installer
+      shell:
+        executable: /bin/bash
+        cmd: |
+             set -euo pipefail
+             rm -rf ~/.conda ~/miniconda3
+             bash ~/Downloads/miniconda3_installer.sh -b
+             source ~/miniconda3/bin/activate
+             conda init
+        creates: ~/.conda/environments.txt
+
+    # I could do a full checkout of the GitHub repo here?
+    # No checksum - the file may change
+    - name: Download conda env spec
+      get_url:
+        url: https://raw.githubusercontent.com/carpentries-incubator/snakemake-novice-bioinformatics/gh-pages/files/conda_env.yaml
+        dest: "~/Downloads/snakemake_conda_env.yaml"
+        mode: '0644'
+        backup: yes
+
+    - name: Bootstrap deps into base env
+      shell:
+        executable: /bin/bash
+        cmd: |
+             set -euo pipefail
+             source ~/miniconda3/bin/activate
+             conda env update -n base --file ~/Downloads/snakemake_conda_env.yaml
+             snakemake --version
+        creates: "~/miniconda3/bin/snakemake"
+
+    - name: Download the data files
+      get_url:
+        url: https://figshare.com/ndownloader/files/42467370
+        dest: "~/Downloads/snakemake_data.tar.gz"
+        mode: '0644'
+        backup: no
+
+    - name: Unpack the data files
+      unarchive:
+        src: "~/Downloads/snakemake_data.tar.gz"
+        dest: "~"
+        remote_src: yes
+        extra_opts: [ --strip-components=1 ]
+        creates: "~/yeast"
+
+    # I didn't realise GG GZipped all the reads. This re-unzips them.
+    # Redundant since I actually fixed the tarball.
+    - name: Fix up the data files
+      shell:
+        executable: /bin/bash
+        cmd: |
+             set -euo pipefail
+             cd ~
+             gunzip yeast/reads/*.gz
+             rm -rf yeast/bams
+             rm -f yeast/samples.csv
+             rm -f yeast/.*.txt
+        creates: "~/yeast/reads/ref1_1.fq"
+
