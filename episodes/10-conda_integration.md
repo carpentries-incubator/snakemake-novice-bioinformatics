@@ -42,8 +42,7 @@ Some key terms:
   YAML format.
 
 Assuming you are running throught this course in the [recommended setup
-](\(setup.md)({{ page.root }}{% link setup.md %}
-), Conda is already set up on the systems we are using.
+](index.html#software-installation), Conda is already set up on the systems we are using.
 
 Some key conda commands:
 

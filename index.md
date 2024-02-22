@@ -18,11 +18,11 @@ We also look at the Conda integration feature of Snakemake, with which you can a
 and shareable workflows with a fully-specified software environment.
 
 In the planning phase of writing this course material we outlined some [learner profiles
-](instructors/learner_profiles.md), to expand on who we think will benefit from this lesson and why.
+](profiles.html), to expand on who we think will benefit from this lesson and why.
 
 <!-- this is an html comment -->
 
-{% comment %} This is a comment in Liquid {% endcomment %}
+[comment]: # (This is a markdown comment and will not be rendered into the HTML at all)
 
 ::::::::::::::::::::::::::::::::::::::::::  prereq
 
@@ -41,7 +41,5 @@ No previous knowledge of Snakemake or workflow systems, or Python programming, i
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
 
 

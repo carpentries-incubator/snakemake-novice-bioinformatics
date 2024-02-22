@@ -103,7 +103,7 @@ avoid most mis-quoting complications.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - adding a *lenreads* rule
+## Exercise - adding a &nbsp; &nbsp; &nbsp; *&nbsp; &nbsp; &nbsp; &nbsp;* *lenreads* \ rule
 
 Say we add a new rule named *lenreads*, looking very much like the existing *countreads* rule and
 using the *awk* expression we saw earlier.
@@ -120,7 +120,7 @@ Will this work as shown? If not, why not? Try it and see.
 
 :::::::::::::::  solution
 
-## Answer
+## Solution
 
 It won't work. Snakemake assumes that all parts of the string in {curlies} are placeholders.
 The error will say something like `NameError: The name 'sum+=length($0)' is unknown in this context`. To resolve this, we have to double up all the curly braces:

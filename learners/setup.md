@@ -2,6 +2,8 @@
 title: Setup
 ---
 
+## Software installation
+
 These instructions set out how to obtain and install the course pre-requisites for Linux. It is
 assumed that you have:
 
@@ -23,8 +25,6 @@ in this regard.
 slightly different.*
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Software installation
 
 Install software packages, including Snakemake and the bioinformatics tools, via Conda. For more
 info on Conda, see the first part of [episode 10

@@ -265,8 +265,8 @@ Advantages of using shadow rules are:
   (as with `temp_file.txt` in the above example).
 - When running jobs in parallel (eg. `-j2`) certain conflicts related to temporary files will be
   avoided by not ever running multiple jobs in the same directory at once - we've already seen
-  a case back in [Episode 06](06-wrapping) where the final version of the *fastqc* rule has
-  this problem.
+  a case back in [Episode 06](06-awkward_programs.html) where the final version of the *fastqc*
+  rule has this problem.
 
 Disadvantages are:
 

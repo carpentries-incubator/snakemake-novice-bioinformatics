@@ -131,6 +131,8 @@ have to change the "countreads" rule definition if you wanted:
 
 3) the output file for `reads/ref1_1.fq` to be `countreads_1.txt`?
 
+:::::::::::::::  solution
+
 > ## Solution
 > 
 > In all cases, there is no need to change the `shell` part of the rule at all.
@@ -171,6 +173,8 @@ have to change the "countreads" rule definition if you wanted:
 > output filenames need to be carefully chosen so that Snakemake can match everything up and
 > determine the right input from the output filename.
 
+:::::::::::::::::::::::::
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Snakemake order of operations
@@ -179,17 +183,17 @@ We're only just getting started with some simple rules, but it's worth thinking 
 Snakemake is doing when you run it. There are three distinct phases:
 
 1. Prepares to run:
-  1. Reads in all the rule definitions from the Snakefile
+    1. Reads in all the rule definitions from the Snakefile
 2. Plans what to do:
-  1. Sees what file(s) you are asking it to make
-  2. Looks for a matching rule by looking at the `output`s of all the rules it knows
-  3. Fills in the wildcards to work out the `input` for this rule
-  4. Checks that this input file is actually available
+    1. Sees what file(s) you are asking it to make
+    2. Looks for a matching rule by looking at the `output`s of all the rules it knows
+    3. Fills in the wildcards to work out the `input` for this rule
+    4. Checks that this input file is actually available
 3. Runs the steps:
-  1. Creates the directory for the output file, if needed
-  2. Removes the old output file if it is already there
-  3. Only then, runs the shell command with the placeholders replaced
-  4. Checks that the command ran without errors *and* made the new output file as expected
+    1. Creates the directory for the output file, if needed
+    2. Removes the old output file if it is already there
+    3. Only then, runs the shell command with the placeholders replaced
+    4. Checks that the command ran without errors *and* made the new output file as expected
 
 For example, if we now ask Snakemake to generate a file named `wibble_1.fq.count`:
 
