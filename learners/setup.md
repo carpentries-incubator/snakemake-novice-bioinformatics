@@ -63,9 +63,9 @@ $ conda env update --file conda_env.yaml
 $ conda activate snakemake_carpentry
 ```
 
-You will also need a text editor such as GEdit or Nano. These are standard on most Linux distros.
-Other text editors will work fine but we only provide specific setup instructions for GEdit
-and Nano here.
+You will also need a text editor such as [GEdit](https://help.gnome.org/users/gedit/stable/)
+or [Nano](https://www.nano-editor.org/). These are standard on most Linux distros. Other text
+editors will work fine but we only provide specific setup instructions for GEdit and Nano here.
 
 ## Obtaining the data
 

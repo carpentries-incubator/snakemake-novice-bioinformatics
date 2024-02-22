@@ -4,7 +4,7 @@ site: sandpaper::sandpaper_site
 ---
 
 A lesson introducing the [Snakemake workflow system](https://snakemake.github.io/) for
-bioinformatics analysis. The Snakemake system enables the writing of reliable, scalable and
+bioinformatics analysis. Snakemake enables the writing of reliable, scalable and
 reproducible scientific workflows as a series of chained rules. Simple workflows to replace shell
 scripts can be written in a few lines of code, while for more complex cases there is support for
 conda integration, software containers, cluster execution, cloud execution, etc. You can also add
