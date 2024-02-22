@@ -103,7 +103,7 @@ avoid most mis-quoting complications.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - adding a &nbsp; &nbsp; &nbsp; *&nbsp; &nbsp; &nbsp; &nbsp;* *lenreads* \ rule
+## Exercise - adding a &#x180E;&#x00A0;&#x180E; *lenreads* &#x180E;&#x00A0;&#x180E; rule
 
 Say we add a new rule named *lenreads*, looking very much like the existing *countreads* rule and
 using the *awk* expression we saw earlier.
