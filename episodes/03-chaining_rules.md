@@ -19,7 +19,7 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the Snakefile](code/ep02.Snakefile) you should have to start
+*For reference, [this is the Snakefile](files/ep02.Snakefile) you should have to start
 the episode.*
 
 ## A pipeline of multiple rules
@@ -407,7 +407,7 @@ sample too:
 $ snakemake -j1 -F -p kallisto.ref1/abundance.h5  kallisto.temp33_1/abundance.h5
 ```
 
-*For reference, [this is a Snakefile](code/ep03.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep03.Snakefile) incorporating the changes made in
 this episode.*
 
 

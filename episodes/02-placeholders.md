@@ -19,7 +19,7 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the Snakefile](code/ep01.Snakefile) you should have to start
+*For reference, [this is the Snakefile](files/ep01.Snakefile) you should have to start
 the episode.*
 
 ## Wildcards and placeholders
@@ -284,7 +284,7 @@ specifies the output name.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is a Snakefile](code/ep02.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep02.Snakefile) incorporating the changes made in
 this episode.*
 
 

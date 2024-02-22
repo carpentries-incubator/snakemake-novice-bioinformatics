@@ -19,7 +19,7 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the Snakefile](code/ep03.Snakefile) you should have to start the
+*For reference, [this is the Snakefile](files/ep03.Snakefile) you should have to start the
 episode.*
 
 ## The DAG

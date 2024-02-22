@@ -20,7 +20,7 @@ exercises: 40
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the Snakefile](code/ep05.Snakefile) you should have to start
+*For reference, [this is the Snakefile](files/ep05.Snakefile) you should have to start
 the episode.*
 
 ## Introducing FastQC
@@ -354,7 +354,7 @@ Make the change in your Snakefile now. In other workflows this might not be the 
 in this case it works fine and makes the Snakefile neater. It will also make sense in the next
 chapter where we add the remaining rules and finish the workflow.
 
-*For reference, [this is a Snakefile](code/ep06.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep06.Snakefile) incorporating the changes made in
 this episode.*
 
 

@@ -19,7 +19,7 @@ exercises: 15
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the final Snakefile from episodes 1 to 7](code/ep07.Snakefile) you may
+*For reference, [this is the final Snakefile from episodes 1 to 7](files/ep07.Snakefile) you may
 use to start this episode.*
 
 ## Temporary files in Snakemake
@@ -277,7 +277,7 @@ Disadvantages are:
 You may want to test your rules in normal mode first, then add `shadow: ...` before you run the
 workflow for real.
 
-*For reference, [this is a Snakefile](code/ep12.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep12.Snakefile) incorporating the changes made in
 this episode.*
 
 

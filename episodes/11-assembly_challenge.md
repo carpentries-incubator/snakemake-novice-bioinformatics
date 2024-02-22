@@ -25,7 +25,7 @@ concepts we've learned through the course.
 
 A de-novo assembly of the RNA sequences in the demo dataset does not produce a biologically
 meaningful assembly, but nevertheless attempting to assemble them yields a nice example workflow,
-so we will go ahead and try. Look at [the following shell script](code/assembly_script.bash):
+so we will go ahead and try. Look at [the following shell script](files/assembly_script.sh):
 
 ```bash
 #!/bin/bash
@@ -85,9 +85,9 @@ $ conda activate assembly-env
 Now, after saving the script above into a text file, make it executable and run it.
 
 ```bash
-$ chmod +x assembly_script.bash
-$ ./assembly_script.bash
-$ cat max_contig.txt 
+$ chmod +x assembly_script.sh
+$ ./assembly_script.sh
+$ cat max_contig.txt
 Max contig length:        655
 ```
 
@@ -170,8 +170,8 @@ the longest contig in each of the twelve assemblies.
 
 ## Solution
 
-A sample solution to this exercise [is available here](code/assembly_with_conda.Snakefile),
-along with a suitable [Conda environment spec](code/assembly_conda_env.yaml). However, there
+A sample solution to this exercise [is available here](files/assembly_with_conda.Snakefile),
+along with a suitable [Conda environment spec](files/assembly_conda_env.yaml). However, there
 is no single "correct" answer, so don't worry if your approach looks different. Hopefully we
 will have time in the course to look through and compare some different answers.
 

@@ -19,7 +19,7 @@ exercises: 20
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the final Snakefile from episodes 1 to 7](code/ep07.Snakefile) you may
+*For reference, [this is the final Snakefile from episodes 1 to 7](files/ep07.Snakefile) you may
 use to start this episode.*
 
 ## A review of quoting rules in the *bash* shell
@@ -233,7 +233,7 @@ expalantion, with examples, of how this works.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is a Snakefile](code/ep13.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep13.Snakefile) incorporating the changes made in
 this episode.*
 
 

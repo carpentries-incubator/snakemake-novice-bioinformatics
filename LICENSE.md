@@ -69,9 +69,9 @@ SOFTWARE.
 ## Sample Dataset
 
 This information specifically applies to the contents of the
-`data-for-snakemake-novice-bioinformatics.tar.xz` file which you will need to download as part of
-the standard setup for this course. This info is also included within the tar file
-itself.
+`data‑for‑snakemake‑novice‑bioinformatics.tar.xz` file which you will
+need to download as part of the standard setup for this course. This info is also included within
+the tar file itself.
 
 ### Short read data
 
@@ -87,7 +87,8 @@ academic courtesy to state the accession *E-MTAB-4044*, and cite the paper:
 
 > Lahtvee PJ, Kumar R, Hallström BM, Nielsen J.
 > Adaptation to different types of stress converge on mitochondrial metabolism.
-> Mol Biol Cell. 2016;27(15):2505-2514. doi:10.1091/mbc.E16-03-0187
+> Mol Biol Cell. 2016;27(15):2505-2514. doi: [10.1091/mbc.E16-03-0187](
+> https://doi.org/10.1091/mbc.E16-03-0187).
 
 The subset of the dataset included here was selected by the authors of the Snakemake lesson.
 
@@ -111,11 +112,13 @@ but the appropriate papers to cite regarding this reference sequence are:
 > Engel SR, Dietrich FS, Fisk DG, Binkley G, Balakrishnan R, Costanzo MC, Dwight SS, Hitz BC,
 > Karra K, Nash RS, Weng S, Wong ED, Lloyd P, Skrzypek MS, Miyasato SR, Simison M, Cherry JM. (2013)
 > The Reference Genome Sequence of Saccharomyces cerevisiae: Then and Now. G3 (Bethesda).
-> 2013 Dec 27. pii: g3.113.008995v1. doi: 10.1534/g3.113.008995. [PMID: 24374639]
+> 2013 Dec 27. pii: g3.113.008995v1. doi: [10.1534/g3.113.008995](
+> https://doi.org/10.1534/g3.113.008995). &lsqb;PMID: 24374639&rsqb;
 
 > Liachko I, Youngblood RA, Keich U, Dunham MJ.
 > High-resolution mapping, characterization, and optimization of autonomously replicating sequences
-> in yeast. Genome Res. 2013;23(4):698-704. doi:10.1101/gr.144659.112
+> in yeast. Genome Res. 2013;23(4):698-704. doi: [10.1101/gr.144659.112](
+> https://doi.org/10.1101/gr.144659.112).
 
 ## Trademark
 

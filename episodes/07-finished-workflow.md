@@ -18,7 +18,7 @@ exercises: 40
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the Snakefile](code/ep06.Snakefile) you should have to start
+*For reference, [this is the Snakefile](files/ep06.Snakefile) you should have to start
 the episode.*
 
 We've seen how to link rules in a pipeline and how to merge all the results at the final step. This
@@ -287,7 +287,7 @@ $ open multiqc_out/multiqc_report.html
 The report has a few issues, but we'll not get distracted by the details of how to configure
 MultiQC to resolve them.
 
-*For reference, [this is a Snakefile](code/ep07.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep07.Snakefile) incorporating the changes made in
 this episode. You may now proceed to any later episode in the lesson using this workflow as a
 starting point.*
 

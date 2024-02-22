@@ -21,7 +21,7 @@ exercises: 20
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the final Snakefile from episodes 1 to 7](code/ep07.Snakefile) you
+*For reference, [this is the final Snakefile from episodes 1 to 7](files/ep07.Snakefile) you
 may use to start this episode.*
 
 ## Processes, threads and processors
@@ -231,7 +231,7 @@ Sourced from Wikimedia Commons
 CC-BY-SA-4.0
 {% endcomment %}
 
-*For reference, [this is a Snakefile](code/ep09.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep09.Snakefile) incorporating the changes made in
 this episode.*
 
 

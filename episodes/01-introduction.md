@@ -225,7 +225,7 @@ address this next!
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the full Snakefile](code/ep01.Snakefile) we should have by the end of
+*For reference, [this is the full Snakefile](files/ep01.Snakefile) we should have by the end of
 this episode.*
 
 
@@ -235,7 +235,8 @@ this episode.*
 - Before running Snakemake you need to write a Snakefile
 - A Snakefile is a text file which defines a list of rules
 - Rules have inputs, outputs, and shell commands to be run
-- You tell Snakemake what file to make and it will run the shell command defined in the appropriate rule
+- You tell Snakemake what file to make and it will run the shell command defined in the
+  appropriate rule
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -17,7 +17,7 @@ exercises: 20
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the final Snakefile from episodes 1 to 7](code/ep07.Snakefile) you
+*For reference, [this is the final Snakefile from episodes 1 to 7](files/ep07.Snakefile) you
 may use to start this episode.*
 
 ## Adding parameters (params) to rules
@@ -260,7 +260,7 @@ find that replicate 1 is still in you report, make sure you are using the final 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is a Snakefile](code/ep08.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep08.Snakefile) incorporating the changes made in
 this episode.*
 
 
