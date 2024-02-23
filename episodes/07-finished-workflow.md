@@ -176,14 +176,9 @@ $ snakemake -j1 -p multiqc_out
 You may notice that MultiQC is not capturing any Kallisto output when making the reports. The
 reason for this is given in the [MultiQC manual here](https://multiqc.info/docs/#kallisto):
 
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-*Note - MultiQC parses the standard out from Kallisto, not any of its output files
-(abundance.h5, abundance.tsv, and run\_info.json). As such, you must capture the Kallisto
-output to a file when running it for use with MultiQC.*
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
+> *Note - MultiQC parses the standard out from Kallisto, not any of its output files
+> (abundance.h5, abundance.tsv, and run\_info.json). As such, you must capture the Kallisto
+> output to a file when running it for use with MultiQC.*
 
 Fix the Snakefile so that Kallisto terminal output is redirected to a file and can be collected
 by MultiQC.

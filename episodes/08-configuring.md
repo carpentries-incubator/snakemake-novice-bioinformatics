@@ -98,7 +98,7 @@ Notes:
 
 ## Making Snakefiles configurable
 
-In general, it's good practise to break out parameters that you intend to change into a separate
+It's good practise to break out parameters that you intend to change into a separate
 file. That way you can re-run the pipeline on new input data, or with alternative settings, but
 you don't need to edit the Snakefile itself.
 
@@ -134,10 +134,10 @@ the config entry name and the default value should be in quotes.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Note
+## Using config settings with params
 
-You don't have to always use *config* in conjunction with *params* like this, but it's often a
-good idea to do so.
+Strictly speaking, you don't have to use *config* in conjunction with *params* like this, but it's
+normally a good idea to do so.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

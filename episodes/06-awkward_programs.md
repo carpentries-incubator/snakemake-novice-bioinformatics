@@ -202,7 +202,7 @@ rule fastqc:
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Note
+## Only use `directory()` on outputs, not inputs
 
 You only use the `directory()` declaration for outputs. Any input to a rule may be a directory
 without the need for any special syntax.
@@ -232,13 +232,13 @@ rule fastqc:
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Note
+## The rationale for making output directories
 
 Remember that in most cases it is not necessary to manually create directories because Snakemake
-will auto-create the directory for every output file listed by a rule. Even when using a
+will auto-create the directory for every output file listed by a rule. When using a
 `directory()` output, Snakemake will not create the directory itself but most applications
-will make the directory for you. FastQC is an exception. The best approach is generally to only
-add a `mkdir` command if you test the rule without it and get an error.
+will make the directory for you. FastQC is an exception. The best approach is to only
+add a `mkdir` command if you first test the rule without it and see an error.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -317,7 +317,7 @@ rule fastqc:
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Note
+## One problem with making intermediate outputs
 
 There is actually a problem with the above solution which only starts to matter when we allow
 Snakemake to run multiple jobs in parallel. Right now we are always using `-j1`, but if we used,
