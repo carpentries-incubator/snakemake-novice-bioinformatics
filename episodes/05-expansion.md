@@ -129,7 +129,7 @@ the first rule defined in the Snakefile.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise
+## Counting all the reads
 
 Check that the *all\_counts* rule is working. Now adapt the Snakefile so that it makes all the
 counts for both of the pairs of reads (`_1.fq` and `_2.fq`), and also for both trimmed and
@@ -204,7 +204,7 @@ command it will expand to the full list.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercises
+## Combining the inputs of the *all\_counts* rule
 
 1. Make it so that the *all\_counts* rule concatenates all the count files into a single output
   file named `all_counts_concatenated.txt`.
@@ -319,14 +319,14 @@ interpreter, you will need to repeat the `import` line.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise
+## 'Globbing' the list of samples
 
 Staying in the Python interpreter, use `glob_wildcards()` to list the names of all nine samples,
-that is the three replicates of each condtion.
+that is the three replicates of each condition.
 
 :::::::::::::::  solution
 
-## Answer
+## Solution
 
 ```python
 >>> glob_wildcards("reads/{sample}_1.fq")
@@ -334,6 +334,8 @@ Wildcards(sample=['temp33_3', 'temp33_2', 'etoh60_1', 'etoh60_3', 'ref_2', 'temp
 ```
 
 :::::::::::::::::::::::::
+
+
 
 Still in the Python interpreter, use the `expand()` function in combination with the
 `glob_wildcards()` to make a list of all the count files, and then all the *kallisto\_quant*
@@ -344,7 +346,7 @@ the Python interpreter as it does in the Snakefile.
 
 :::::::::::::::  solution
 
-## Answer
+## Solution
 
 ```python
 >>> SAMPLES = glob_wildcards("reads/{sample}_1.fq").sample

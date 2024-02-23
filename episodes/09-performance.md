@@ -84,7 +84,7 @@ $ /usr/bin/time -v snakemake -j1 -F -- kallisto.{ref,temp33,etoh60}_{1,2,3}
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise
+## Measuring how concurrency affects execution time
 
 What is the *wallclock time* reported by the above command? We'll work out the average for the
 whole class, or if you are working through the material on your own repeat the measurement three
@@ -152,7 +152,7 @@ bioinformatics tools.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge
+## Getting other programs to run with multiple threads
 
 Find out how to set the number of threads for our *salmon\_quant* and *fastqc* jobs. Which of the
 options below would need to be added to the shell command in each case?

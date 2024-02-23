@@ -101,9 +101,14 @@ before anything is actually run:
 We'll now look at some best practises for making your Snakefiles robust, and some simple rules to
 avoid most mis-quoting complications.
 
-:::::::::::::::::::::::::::::::::::::::  challenge
+<!-- The funky HTML entities in the heading below are a workaround for
+     https://github.com/carpentries/sandpaper/issues/562
+     I shouldn't be doing this, but in the contect of this particular episode it seems almost
+     appropriate. -->
 
-## Exercise - adding a &#x180E;&#x00A0;&#x180E; *lenreads* &#x180E;&#x00A0;&#x180E; rule
+::::::::::::::::::::::::::::::::::::::: challenge
+
+## Adding a &#x180E;&#x00A0;&#x180E; *lenreads* &#x180E;&#x00A0;&#x180E; rule
 
 Say we add a new rule named *lenreads*, looking very much like the existing *countreads* rule and
 using the *awk* expression we saw earlier.
@@ -193,7 +198,7 @@ things working.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise
+## Handling filenames with spaces
 
 Use the following command to rename the *temp33* and *etoh60* samples so that the filenames
 contain spaces:

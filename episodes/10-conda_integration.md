@@ -93,12 +93,12 @@ regarding the channel configuration in this course.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercises
+## Queryting and installing Conda packages
 
 1. Find out what version of *fastx\_toolkit* is installed in the current conda environment.
 
 2. Create a new conda environment named *new-env* and install the *cutadapt* package from
-  Bioconda into it.
+   Bioconda into it.
 
 :::::::::::::::  solution
 
@@ -211,7 +211,7 @@ We'll do something useful with *cutadapt* in the next episode.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge
+## Using an older version of Salmon
 
 Going back to our RNA-Seq workflow, imagine we want to try running the analysis with an older
 version of Salmon, to see if the results are different. We'll use **Salmon 1.2.1** which is
@@ -268,7 +268,7 @@ $ snakemake -j1 -Rsalmon_index -Rsalmon_quant --use-conda ...
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Note
+## Note on the environment files
 
 If you look into a YAML file created with `conda env export` you will see that Conda lists every
 single package dependency and the list is quite large. You may prefer to write your own YAML

@@ -126,7 +126,7 @@ this out and use arrows to indicate the linkages between the steps.
 
 ## A sample answer based on brewing a mug of tea.
 
-TODO - draw this out too.
+*TODO - draw this out too.*
 
 ```
 "Boil Water" : input=cold water, output=hot water

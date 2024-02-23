@@ -101,7 +101,7 @@ We'll try all four, and see where this gets us.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - adding a FastQC rule using the default output file names
+## Adding a FastQC rule using the default output file names
 
 Fill in the `???` to make a working rule for FastQC where `indir` may be "reads" or "trimmed".
 Do not change the shell command or input pattern at all. Remember FastQC always makes two output
@@ -152,7 +152,7 @@ us specify the output directory, so we can use that...
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - a FastQC rule where the output files go into a new directory
+## A FastQC rule where the output files go into a new directory
 
 Modify the rule so that the output files go into a new directory. This will be very similar to
 the rule for `kallisto quant` added in episode 3.
@@ -271,7 +271,7 @@ and/or rename the files to exactly the names you want.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - fixing FastQC to use our own output file names
+## Fixing FastQC to use our own output file names
 
 Complete the rule below so that the output filenames are correctly produced. You will need to add
 extra commands to the `shell` part after running `fastqc`. Do not alter the `output` or `input`

@@ -133,45 +133,47 @@ have to change the "countreads" rule definition if you wanted:
 
 :::::::::::::::  solution
 
-> ## Solution
-> 
-> In all cases, there is no need to change the `shell` part of the rule at all.
-> 
-> 1) > 
-> ```source
-> output: "counts/{myfile}.txt"
-> input:  "reads/{myfile}.fq"
-> ```
-> 
-> This can be done just by changing the `output:` line. You may also have considered the need to
-> `mkdir counts` but in fact this is not necessary as Snakemake will create the output directory
-> path for you before it runs the rule.
-> 
-> 2) > 
-> ```source
-> output: "{sample}_counts/fq.{readnum}.count"
-> input:  "reads/{sample}_{readnum}.fq"
-> ```
-> 
-> In this case, it was necessary to introduce a second wildcard, because the elements in the
-> output file name are split up. The names chosen here are `{sample}` and `{readnum}` but you
-> could choose any names as long as they match between the `input` and `output` parts. Once
-> again, the output directory will be created for us by Snakemake, so the `shell` command does
-> not need to change.
-> 
-> 3) This one **isn't possible**, because Snakemake cannot determine which input file you want to
->   count by matching wildcards on the file name "countreads\_1.txt". You could try a rule
->   like this:
-> 
-> ```source
-> output: "countreads_{readnum}.count"
-> input:  "reads/ref1_{readnum}.fq"
-> ```
-> 
-> ...but it only works because "ref1" is hard-coded into the `input` line, and the rule will only
-> work on this specific sample, not the other eight in our sample dataset. In general, input and
-> output filenames need to be carefully chosen so that Snakemake can match everything up and
-> determine the right input from the output filename.
+## Solution
+
+In all cases, there is no need to change the `shell` part of the rule at all.
+
+1)
+```source
+output: "counts/{myfile}.txt"
+input:  "reads/{myfile}.fq"
+```
+
+This can be done just by changing the `output:` line. You may also have considered the need to
+`mkdir counts` but in fact this is not necessary as Snakemake will create the output directory
+path for you before it runs the rule.
+
+2)
+```source
+output: "{sample}_counts/fq.{readnum}.count"
+input:  "reads/{sample}_{readnum}.fq"
+```
+
+In this case, it was necessary to introduce a second wildcard, because the elements in the
+output file name are split up. The names chosen here are `{sample}` and `{readnum}` but you
+could choose any names as long as they match between the `input` and `output` parts. Once
+again, the output directory will be created for us by Snakemake, so the `shell` command does
+not need to change.
+
+3)
+
+This one **isn't possible**, because Snakemake cannot determine which input file you want to
+count by matching wildcards on the file name "countreads\_1.txt". You could try a rule
+like this:
+
+```source
+output: "countreads_{readnum}.count"
+input:  "reads/ref1_{readnum}.fq"
+```
+
+...but it only works because "ref1" is hard-coded into the `input` line, and the rule will only
+work on this specific sample, not the other eight in our sample dataset. In general, input and
+output filenames need to be carefully chosen so that Snakemake can match everything up and
+determine the right input from the output filename.
 
 :::::::::::::::::::::::::
 
