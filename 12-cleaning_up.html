@@ -332,7 +332,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Cleaning up</h1>
-        <p>Last updated on 2024-02-22 |
+        <p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/12-cleaning_up.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -441,20 +441,28 @@ etoh60_3_2.fq.gz  ref_3_2.fq.gz  temp33_3_2.fq.gz</code></pre>
 <p>Snakemake kept the uncompressed trimmed reads long enough to run
 <em>kallisto_quant</em> on all the samples, then removed them leaving
 only the gzipped versions.</p>
-<div id="exercise" class="callout discussion">
+<div id="working-with-gzipped-files" class="callout challenge">
 <div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+<i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
+<div id="working-with-gzipped-files" class="callout-inner">
+<h3 class="callout-title">Working with gzipped files<a class="anchor" aria-label="anchor" href="#working-with-gzipped-files"></a>
 </h3>
 <div class="callout-content">
 <p>Like Salmon, Kallisto can read compressed <code>.fq.gz</code> files
 directly. Amend the <em>kallisto_quant</em> rule to use gzipped input
 files. Show that the new rule can be re-run on all samples without
 triggering the <em>trimreads</em> or <em>gzip_fastq</em> rules.</p>
-<blockquote>
-<h2 id="answer">Answer</h2>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
 <p>In the first instance, this involves changing two input lines in the
 <em>kallisto_quant</em> rule definition.</p>
 <pre class="source"><code>    fq1   = "trimmed/{sample}_1.fq.gz",
@@ -467,11 +475,30 @@ triggering the <em>trimreads</em> or <em>gzip_fastq</em> rules.</p>
 </div>
 <p>You should see that Snakemake wants to run the
 <em>kallisto_quant</em> and <em>multiqc</em> steps but no others.</p>
-</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="working-with-gzipped-files" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="working-with-gzipped-files" class="callout-inner">
+<h3 class="callout-title">Working with gzipped files<em>(continued)</em><a class="anchor" aria-label="anchor" href="#working-with-gzipped-files"></a>
+</h3>
+<div class="callout-content">
 <p>We have no use for the HTML reports produced by FastQC. Modify the
 Snakefile to automatically remove them.</p>
-<blockquote>
-<h2 id="answer-1">Answer</h2>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
 <p>Amend the <em>html</em> output of the <em>fastqc</em> rule to mark it
 as <code>temporary()</code>:</p>
 <pre class="source"><code>html = temporary("{indir}.{sample}_fastqc.html"),</code></pre>
@@ -486,7 +513,7 @@ remove the files after modifying the Snakefile.</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-p</span> <span class="at">-j1</span> <span class="at">--delete-temp-output</span> multiqc</span></code></pre>
 </div>
-</blockquote>
+</div>
 </div>
 </div>
 </div>
@@ -531,12 +558,12 @@ rather like the opposite of the <code>temporary()</code> function and
 says that once an output has been produced it must not be overwritten.
 In practise, Snakemake does this by revoking write permissions on the
 files (as in <code>chmod -w {output}</code>).</p>
-<div id="exercise-1" class="callout challenge">
+<div id="protecting-some-outputs" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-1" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise-1"></a>
+<div id="protecting-some-outputs" class="callout-inner">
+<h3 class="callout-title">Protecting some outputs<a class="anchor" aria-label="anchor" href="#protecting-some-outputs"></a>
 </h3>
 <div class="callout-content">
 <p>The longest operations in our test workflow are the genome indexing
@@ -547,12 +574,12 @@ workflow with the <code>-F</code> option?</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">Answer</h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3">Answer</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <pre class="source"><code>rule salmon_index:
     output:
@@ -572,12 +599,12 @@ executing jobs. That may change in future versions.</p>
 </div>
 </div>
 </div>
-<div id="note" class="callout callout">
+<div id="note-on-protecting-files" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note"></a>
+<div id="note-on-protecting-files" class="callout-inner">
+<h3 class="callout-title">Note on protecting files<a class="anchor" aria-label="anchor" href="#note-on-protecting-files"></a>
 </h3>
 <div class="callout-content">
 <p>In practise, it can be annoying to have Snakemake trying to
@@ -709,8 +736,8 @@ files</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/12-cleaning_up.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/12-cleaning_up.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-22",
-  "datePublished": "2024-02-22"
+  "dateModified": "2024-02-23",
+  "datePublished": "2024-02-23"
 }
 
   </script><script>

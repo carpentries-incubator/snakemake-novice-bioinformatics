@@ -332,7 +332,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Finishing the basic workflow</h1>
-        <p>Last updated on 2024-02-22 |
+        <p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/07-finished-workflow.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -423,13 +423,13 @@ than explicitly listing the three files that Kallisto writes in that
 directory. You should ensure that you are working with this new version
 of the <em>kallisto</em> rule as it will be a template for adding a
 <em>salmon</em> rule.</p>
-<div id="exercise---adding-salmon-as-an-alternative-to-kallisto" class="callout challenge">
+<div id="adding-salmon-as-an-alternative-to-kallisto-1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---adding-salmon-as-an-alternative-to-kallisto" class="callout-inner">
-<h3 class="callout-title">Exercise - adding Salmon as an alternative to
-Kallisto<a class="anchor" aria-label="anchor" href="#exercise---adding-salmon-as-an-alternative-to-kallisto"></a>
+<div id="adding-salmon-as-an-alternative-to-kallisto-1" class="callout-inner">
+<h3 class="callout-title">Adding Salmon as an alternative to
+Kallisto<a class="anchor" aria-label="anchor" href="#adding-salmon-as-an-alternative-to-kallisto-1"></a>
 </h3>
 <div class="callout-content">
 <p>An alternative application for transcript quantification is Salmon.
@@ -499,12 +499,12 @@ directory, simply run:</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> multiqc . <span class="at">-o</span> multiqc_out</span></code></pre>
 </div>
-<div id="exercise---adding-a-multiqc-rule" class="callout challenge">
+<div id="adding-a-multiqc-rule" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---adding-a-multiqc-rule" class="callout-inner">
-<h3 class="callout-title">Exercise - adding a MultiQC rule<a class="anchor" aria-label="anchor" href="#exercise---adding-a-multiqc-rule"></a>
+<div id="adding-a-multiqc-rule" class="callout-inner">
+<h3 class="callout-title">Adding a MultiQC rule<a class="anchor" aria-label="anchor" href="#adding-a-multiqc-rule"></a>
 </h3>
 <div class="callout-content">
 <p>Earlier, in episode 5, we made a basic summary-type rule called
@@ -555,31 +555,22 @@ rule name or the output directory name as a target.</p>
 </div>
 </div>
 </div>
-<div id="exercise---fixing-kallisto" class="callout challenge">
+<div id="fixing-kallisto" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---fixing-kallisto" class="callout-inner">
-<h3 class="callout-title">Exercise - fixing Kallisto<a class="anchor" aria-label="anchor" href="#exercise---fixing-kallisto"></a>
+<div id="fixing-kallisto" class="callout-inner">
+<h3 class="callout-title">Fixing Kallisto<a class="anchor" aria-label="anchor" href="#fixing-kallisto"></a>
 </h3>
 <div class="callout-content">
 <p>You may notice that MultiQC is not capturing any Kallisto output when
 making the reports. The reason for this is given in the <a href="https://multiqc.info/docs/#kallisto" class="external-link">MultiQC manual here</a>:</p>
-<div id="callout1" class="callout callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
-<div class="callout-content">
+<blockquote>
 <p><em>Note - MultiQC parses the standard out from Kallisto, not any of
 its output files (abundance.h5, abundance.tsv, and run_info.json). As
 such, you must capture the Kallisto output to a file when running it for
 use with MultiQC.</em></p>
-</div>
-</div>
-</div>
+</blockquote>
 <p>Fix the Snakefile so that Kallisto terminal output is redirected to a
 file and can be collected by MultiQC.</p>
 <ul><li>
@@ -630,13 +621,12 @@ approach here.</p>
 </div>
 </div>
 </div>
-<div id="exercise---making-the-multiqc-rule-more-robust" class="callout challenge">
+<div id="making-the-multiqc-rule-more-robust" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---making-the-multiqc-rule-more-robust" class="callout-inner">
-<h3 class="callout-title">Exercise - making the MultiQC rule more
-robust<a class="anchor" aria-label="anchor" href="#exercise---making-the-multiqc-rule-more-robust"></a>
+<div id="making-the-multiqc-rule-more-robust" class="callout-inner">
+<h3 class="callout-title">Making the MultiQC rule more robust<a class="anchor" aria-label="anchor" href="#making-the-multiqc-rule-more-robust"></a>
 </h3>
 <div class="callout-content">
 <p>Because MultiQC scans for suitable input rather than taking an
@@ -776,8 +766,8 @@ Snakemake</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/07-finished-workflow.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/07-finished-workflow.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-22",
-  "datePublished": "2024-02-22"
+  "dateModified": "2024-02-23",
+  "datePublished": "2024-02-23"
 }
 
   </script><script>

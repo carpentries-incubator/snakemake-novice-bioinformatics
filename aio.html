@@ -714,7 +714,7 @@ command defined in the appropriate rule</li>
 </div>
 </section></section><section id="aio-02-placeholders"><p>Content from <a href="02-placeholders.html">Placeholders and wildcards</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/02-placeholders.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -900,26 +900,18 @@ be <code>ref1_counts/fq.2.count</code>, etc.)?</p></li>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<blockquote>
-<h2 id="solution-1">Solution</h2>
 <p>In all cases, there is no need to change the <code>shell</code> part
 of the rule at all.</p>
-<ol style="list-style-type: decimal">
-<li><blockquote>
-
-</blockquote></li>
-</ol>
+<ol style="list-style-type: decimal"><li>
+</li></ol>
 <pre class="source"><code><span><span class="va">output</span><span class="op">:</span> <span class="st">"counts/{myfile}.txt"</span></span>
 <span><span class="va">input</span><span class="op">:</span>  <span class="st">"reads/{myfile}.fq"</span></span></code></pre>
 <p>This can be done just by changing the <code>output:</code> line. You
 may also have considered the need to <code>mkdir counts</code> but in
 fact this is not necessary as Snakemake will create the output directory
 path for you before it runs the rule.</p>
-<ol start="2" style="list-style-type: decimal">
-<li><blockquote>
-
-</blockquote></li>
-</ol>
+<ol start="2" style="list-style-type: decimal"><li>
+</li></ol>
 <pre class="source"><code><span><span class="va">output</span><span class="op">:</span> <span class="st">"{sample}_counts/fq.{readnum}.count"</span></span>
 <span><span class="va">input</span><span class="op">:</span>  <span class="st">"reads/{sample}_{readnum}.fq"</span></span></code></pre>
 <p>In this case, it was necessary to introduce a second wildcard,
@@ -929,11 +921,11 @@ could choose any names as long as they match between the
 <code>input</code> and <code>output</code> parts. Once again, the output
 directory will be created for us by Snakemake, so the <code>shell</code>
 command does not need to change.</p>
-<ol start="3" style="list-style-type: decimal">
-<li>This one <strong>isn’t possible</strong>, because Snakemake cannot
+<ol start="3" style="list-style-type: decimal"><li>
+</li></ol>
+<p>This one <strong>isn’t possible</strong>, because Snakemake cannot
 determine which input file you want to count by matching wildcards on
-the file name “countreads_1.txt”. You could try a rule like this:</li>
-</ol>
+the file name “countreads_1.txt”. You could try a rule like this:</p>
 <pre class="source"><code><span><span class="va">output</span><span class="op">:</span> <span class="st">"countreads_{readnum}.count"</span></span>
 <span><span class="va">input</span><span class="op">:</span>  <span class="st">"reads/ref1_{readnum}.fq"</span></span></code></pre>
 <p>…but it only works because “ref1” is hard-coded into the
@@ -942,7 +934,6 @@ sample, not the other eight in our sample dataset. In general, input and
 output filenames need to be carefully chosen so that Snakemake can match
 everything up and determine the right input from the output
 filename.</p>
-</blockquote>
 </div>
 </div>
 </div>
@@ -1113,7 +1104,7 @@ sees a problem</li>
 </div>
 </section></section><section id="aio-03-chaining_rules"><p>Content from <a href="03-chaining_rules.html">Chaining rules</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/03-chaining_rules.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1281,9 +1272,9 @@ linkages between the steps.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">A sample answer based on brewing a mug of tea.</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<p>TODO - draw this out too.</p>
+<p><em>TODO - draw this out too.</em></p>
 <pre><code>"Boil Water" : input=cold water, output=hot water
 
 "Brew Tea" : input=[hot water, tea bag, mug], output=tea infusion
@@ -1401,7 +1392,7 @@ enough.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1448,7 +1439,7 @@ output.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>The rule you write could look something like this, but there are many
 variations that will work just as well. Since there is only one
@@ -1634,7 +1625,7 @@ will regard that as a failure</li>
 </div>
 </section></section><section id="aio-04-the_dag"><p>Content from <a href="04-the_dag.html">How Snakemake plans what jobs to run</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/04-the_dag.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1724,12 +1715,12 @@ output files</li>
 </div>
 </div>
 </div>
-<div id="question" class="callout challenge">
+<div id="how-many-jobs" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="question" class="callout-inner">
-<h3 class="callout-title">Question<a class="anchor" aria-label="anchor" href="#question"></a>
+<div id="how-many-jobs" class="callout-inner">
+<h3 class="callout-title">How many jobs?<a class="anchor" aria-label="anchor" href="#how-many-jobs"></a>
 </h3>
 <div class="callout-content">
 <p>If we asked Snakemake to run <em>kallisto_quant</em> on all three of
@@ -1741,7 +1732,7 @@ total?</p>
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">Answer</h4>
+  <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
@@ -1953,12 +1944,12 @@ kallisto_quant box is solid.’}</p>
 <p>The boxes drawn with dotted lines indicate steps that are not to be
 run, as the output files are already present and newer than the input
 files.</p>
-<div id="challenge" class="callout discussion">
+<div id="updating-a-parameter-and-re-running" class="callout challenge">
 <div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+<i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge"></a>
+<div id="updating-a-parameter-and-re-running" class="callout-inner">
+<h3 class="callout-title">Updating a parameter and re-running<a class="anchor" aria-label="anchor" href="#updating-a-parameter-and-re-running"></a>
 </h3>
 <div class="callout-content">
 <p>Run <code>kallisto_quant</code> on all three of the
@@ -1974,9 +1965,17 @@ than “20”.</p>
 </ol>
 <p>Use the <code>--dag</code> option as shown above to check your
 answers.</p>
-<blockquote>
-<h2 id="solution">Solution</h2>
-<p>To make all the Kallisto results in the first place:</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<p>This will make all the Kallisto results in the first place:</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1985,12 +1984,38 @@ answers.</p>
 <p><em>The {1,2,3} syntax is expanded by the shell into the 3 file
 names. You could also type all three names in full.</em></p>
 <ol style="list-style-type: decimal">
-<li><p><code>$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -</code></p></li>
-<li><p><code>$ snakemake -j1 -p --dag -f trimmed/etoh60_{1,2,3}_{1,2}.fq kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -</code></p></li>
-<li><p><code>$ touch reads/etoh60_*.fq</code></p></li>
-<li><p><code>$ rm -r trimmed/etoh60_*.fq kallisto.etoh60_*</code></p></li>
+<li>-R flag</li>
 </ol>
-</blockquote>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-Rtrimreads</span> <span class="at">--dag</span> kallisto.etoh60_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span>/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>-f flag</li>
+</ol>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> <span class="at">--dag</span> <span class="at">-f</span> trimmed/etoh60_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span>_<span class="dt">{1</span><span class="op">,</span><span class="dt">2}</span>.fq kallisto.etoh60_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span>/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>touch command</li>
+</ol>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch reads/etoh60_<span class="pp">*</span>.fq<span class="kw">`</span></span></code></pre>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>by deleting files</li>
+</ol>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-r</span> trimmed/etoh60_<span class="pp">*</span>.fq kallisto.etoh60_<span class="pp">*</span></span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2005,11 +2030,12 @@ names. You could also type all three names in full.</em></p>
 <p>In general, getting Snakemake to re-run things by removing files is a
 bad idea, because it’s easy to forget about intermediate files that
 actually contain stale results and need to be updated. Using the
-<code>-R</code> flag or <code>touch</code> is simpler and more reliable.
-If in doubt, and if it will not be too time consuming, keep it simple
-and just use <code>-F</code> to run the whole workflow from scratch.</p>
+<code>-R</code> flag or <code>touch</code> command is simpler and more
+reliable. If in doubt, and if it will not be too time consuming, keep it
+simple and just use <code>-F</code> to run the whole workflow from
+scratch.</p>
 <p>For the opposite case where you want to avoid re-running particular
-steps, see the <code>--touch</code> option mentioned <a href="12-cleaning_up.html">later in the course.</a></p>
+steps, see the <code>‑‑touch</code> option of Snakemake mentioned <a href="12-cleaning_up.html">later in the course.</a></p>
 </div>
 </div>
 </div>
@@ -2037,7 +2063,7 @@ regenerating</li>
 </div>
 </section></section><section id="aio-05-expansion"><p>Content from <a href="05-expansion.html">Processing lists of inputs</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/05-expansion.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2196,12 +2222,12 @@ Snakefile.</p>
 </div>
 </div>
 </div>
-<div id="exercise" class="callout challenge">
+<div id="counting-all-the-reads" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
+<div id="counting-all-the-reads" class="callout-inner">
+<h3 class="callout-title">Counting all the reads<a class="anchor" aria-label="anchor" href="#counting-all-the-reads"></a>
 </h3>
 <div class="callout-content">
 <p>Check that the <em>all_counts</em> rule is working. Now adapt the
@@ -2279,12 +2305,12 @@ be:</p>
 - any named input can be list of files rather than just a single file.
 When you use the <code>{input.name}</code> placeholder in the shell
 command it will expand to the full list.</p>
-<div id="exercises" class="callout challenge">
+<div id="combining-the-inputs-of-the-all_counts-rule" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercises" class="callout-inner">
-<h3 class="callout-title">Exercises<a class="anchor" aria-label="anchor" href="#exercises"></a>
+<div id="combining-the-inputs-of-the-all_counts-rule" class="callout-inner">
+<h3 class="callout-title">Combining the inputs of the<em>all_counts</em>rule<a class="anchor" aria-label="anchor" href="#combining-the-inputs-of-the-all_counts-rule"></a>
 </h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal">
@@ -2411,24 +2437,24 @@ then restart the interpreter, you will need to repeat the
 </div>
 </div>
 </div>
-<div id="exercise-1" class="callout challenge">
+<div id="globbing-the-list-of-samples" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-1" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise-1"></a>
+<div id="globbing-the-list-of-samples" class="callout-inner">
+<h3 class="callout-title">‘Globbing’ the list of samples<a class="anchor" aria-label="anchor" href="#globbing-the-list-of-samples"></a>
 </h3>
 <div class="callout-content">
 <p>Staying in the Python interpreter, use <code>glob_wildcards()</code>
 to list the names of all nine samples, that is the three replicates of
-each condtion.</p>
+each condition.</p>
 </div>
 </div>
 </div>
 <div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3">Answer</h4>
+  <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
 <div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
@@ -2442,12 +2468,12 @@ each condtion.</p>
 </div>
 </div>
 </div>
-<div id="exercise-1" class="callout challenge">
+<div id="globbing-the-list-of-samples" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-1" class="callout-inner">
-<h3 class="callout-title">Exercise<em>(continued)</em><a class="anchor" aria-label="anchor" href="#exercise-1"></a>
+<div id="globbing-the-list-of-samples" class="callout-inner">
+<h3 class="callout-title">‘Globbing’ the list of samples<em>(continued)</em><a class="anchor" aria-label="anchor" href="#globbing-the-list-of-samples"></a>
 </h3>
 <div class="callout-content">
 <p>Still in the Python interpreter, use the <code>expand()</code>
@@ -2463,7 +2489,7 @@ does in the Snakefile.</p>
 <div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
-  <h4 class="accordion-header" id="headingSolution4">Answer</h4>
+  <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
 </button>
 <div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
@@ -2565,7 +2591,7 @@ but variable lists of outputs are trickier and rarely needed</li>
 </div>
 </section></section><section id="aio-06-awkward_programs"><p>Content from <a href="06-awkward_programs.html">Handling awkward programs</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/06-awkward_programs.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2693,13 +2719,13 @@ files within the rule.</li>
 <div class="section level3">
 <h3 id="option-1-working-with-the-default-fastqc-output-files">Option 1: Working with the default FastQC output files<a class="anchor" aria-label="anchor" href="#option-1-working-with-the-default-fastqc-output-files"></a>
 </h3>
-<div id="exercise---adding-a-fastqc-rule-using-the-default-output-file-names" class="callout challenge">
+<div id="adding-a-fastqc-rule-using-the-default-output-file-names" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---adding-a-fastqc-rule-using-the-default-output-file-names" class="callout-inner">
-<h3 class="callout-title">Exercise - adding a FastQC rule using the
-default output file names<a class="anchor" aria-label="anchor" href="#exercise---adding-a-fastqc-rule-using-the-default-output-file-names"></a>
+<div id="adding-a-fastqc-rule-using-the-default-output-file-names" class="callout-inner">
+<h3 class="callout-title">Adding a FastQC rule using the default output
+file names<a class="anchor" aria-label="anchor" href="#adding-a-fastqc-rule-using-the-default-output-file-names"></a>
 </h3>
 <div class="callout-content">
 <p>Fill in the <code>???</code> to make a working rule for FastQC where
@@ -2720,7 +2746,7 @@ files, so add two named outputs.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Since the <code>shell</code> command is not to be changed, the output
 names will be dictated by FastQC as we saw when running the command
@@ -2751,13 +2777,13 @@ output directory, so we can use that…</p>
 <div class="section level3">
 <h3 id="option-2-using-the-default-output-filenames-in-a-new-directory">Option 2: Using the default output filenames in a new directory<a class="anchor" aria-label="anchor" href="#option-2-using-the-default-output-filenames-in-a-new-directory"></a>
 </h3>
-<div id="exercise---a-fastqc-rule-where-the-output-files-go-into-a-new-directory" class="callout challenge">
+<div id="a-fastqc-rule-where-the-output-files-go-into-a-new-directory" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---a-fastqc-rule-where-the-output-files-go-into-a-new-directory" class="callout-inner">
-<h3 class="callout-title">Exercise - a FastQC rule where the output
-files go into a new directory<a class="anchor" aria-label="anchor" href="#exercise---a-fastqc-rule-where-the-output-files-go-into-a-new-directory"></a>
+<div id="a-fastqc-rule-where-the-output-files-go-into-a-new-directory" class="callout-inner">
+<h3 class="callout-title">A FastQC rule where the output files go into a
+new directory<a class="anchor" aria-label="anchor" href="#a-fastqc-rule-where-the-output-files-go-into-a-new-directory"></a>
 </h3>
 <div class="callout-content">
 <p>Modify the rule so that the output files go into a new directory.
@@ -2779,7 +2805,7 @@ outputs should be</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>This involves using the {myfile} wildcard twice and then constructing
 the output directory name to place in the <code>-o</code> option to
@@ -2808,12 +2834,13 @@ whole directory. This makes the rule definition simpler.</p>
     input:  "{indir}/{myfile}.fq"
     shell:
         "fastqc -o {output} {input}"</code></pre>
-<div id="note" class="callout callout">
+<div id="only-use-directory-on-outputs-not-inputs" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note"></a>
+<div id="only-use-directory-on-outputs-not-inputs" class="callout-inner">
+<h3 class="callout-title">Only use<code>directory()</code>on outputs,
+not inputs<a class="anchor" aria-label="anchor" href="#only-use-directory-on-outputs-not-inputs"></a>
 </h3>
 <div class="callout-content">
 <p>You only use the <code>directory()</code> declaration for outputs.
@@ -2841,21 +2868,22 @@ code.</p>
     input:  "{indir}/{myfile}.fq"
     shell:
         "mkdir {output} ; fastqc -o {output} {input}"</code></pre>
-<div id="note-1" class="callout callout">
+<div id="the-rationale-for-making-output-directories" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note-1" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note-1"></a>
+<div id="the-rationale-for-making-output-directories" class="callout-inner">
+<h3 class="callout-title">The rationale for making output
+directories<a class="anchor" aria-label="anchor" href="#the-rationale-for-making-output-directories"></a>
 </h3>
 <div class="callout-content">
 <p>Remember that in most cases it is not necessary to manually create
 directories because Snakemake will auto-create the directory for every
-output file listed by a rule. Even when using a <code>directory()</code>
+output file listed by a rule. When using a <code>directory()</code>
 output, Snakemake will not create the directory itself but most
 applications will make the directory for you. FastQC is an exception.
-The best approach is generally to only add a <code>mkdir</code> command
-if you test the rule without it and get an error.</p>
+The best approach is to only add a <code>mkdir</code> command if you
+first test the rule without it and see an error.</p>
 </div>
 </div>
 </div>
@@ -2887,13 +2915,13 @@ want.</p>
 <div class="section level3">
 <h3 id="option-4-insisting-on-our-own-file-names">Option 4: Insisting on our own file names<a class="anchor" aria-label="anchor" href="#option-4-insisting-on-our-own-file-names"></a>
 </h3>
-<div id="exercise---fixing-fastqc-to-use-our-own-output-file-names" class="callout challenge">
+<div id="fixing-fastqc-to-use-our-own-output-file-names" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---fixing-fastqc-to-use-our-own-output-file-names" class="callout-inner">
-<h3 class="callout-title">Exercise - fixing FastQC to use our own output
-file names<a class="anchor" aria-label="anchor" href="#exercise---fixing-fastqc-to-use-our-own-output-file-names"></a>
+<div id="fixing-fastqc-to-use-our-own-output-file-names" class="callout-inner">
+<h3 class="callout-title">Fixing FastQC to use our own output file
+names<a class="anchor" aria-label="anchor" href="#fixing-fastqc-to-use-our-own-output-file-names"></a>
 </h3>
 <div class="callout-content">
 <p>Complete the rule below so that the output filenames are correctly
@@ -2916,7 +2944,7 @@ part after running <code>fastqc</code>. Do not alter the
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>This is one solution, using <code>-o .</code> to tell FastQC to
 produce the files in the current directory, then explicitly renaming
@@ -2938,12 +2966,13 @@ the block you can run any commands and make any files you like.</p>
 </div>
 </div>
 </div>
-<div id="note-2" class="callout callout">
+<div id="one-problem-with-making-intermediate-outputs" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note-2" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note-2"></a>
+<div id="one-problem-with-making-intermediate-outputs" class="callout-inner">
+<h3 class="callout-title">One problem with making intermediate
+outputs<a class="anchor" aria-label="anchor" href="#one-problem-with-making-intermediate-outputs"></a>
 </h3>
 <div class="callout-content">
 <p>There is actually a problem with the above solution which only starts
@@ -3007,7 +3036,7 @@ commands</li>
 </div>
 </section></section><section id="aio-07-finished-workflow"><p>Content from <a href="07-finished-workflow.html">Finishing the basic workflow</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/07-finished-workflow.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3098,13 +3127,13 @@ than explicitly listing the three files that Kallisto writes in that
 directory. You should ensure that you are working with this new version
 of the <em>kallisto</em> rule as it will be a template for adding a
 <em>salmon</em> rule.</p>
-<div id="exercise---adding-salmon-as-an-alternative-to-kallisto" class="callout challenge">
+<div id="adding-salmon-as-an-alternative-to-kallisto-1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---adding-salmon-as-an-alternative-to-kallisto" class="callout-inner">
-<h3 class="callout-title">Exercise - adding Salmon as an alternative to
-Kallisto<a class="anchor" aria-label="anchor" href="#exercise---adding-salmon-as-an-alternative-to-kallisto"></a>
+<div id="adding-salmon-as-an-alternative-to-kallisto-1" class="callout-inner">
+<h3 class="callout-title">Adding Salmon as an alternative to
+Kallisto<a class="anchor" aria-label="anchor" href="#adding-salmon-as-an-alternative-to-kallisto-1"></a>
 </h3>
 <div class="callout-content">
 <p>An alternative application for transcript quantification is Salmon.
@@ -3177,12 +3206,12 @@ directory, simply run:</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> multiqc . <span class="at">-o</span> multiqc_out</span></code></pre>
 </div>
-<div id="exercise---adding-a-multiqc-rule" class="callout challenge">
+<div id="adding-a-multiqc-rule" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---adding-a-multiqc-rule" class="callout-inner">
-<h3 class="callout-title">Exercise - adding a MultiQC rule<a class="anchor" aria-label="anchor" href="#exercise---adding-a-multiqc-rule"></a>
+<div id="adding-a-multiqc-rule" class="callout-inner">
+<h3 class="callout-title">Adding a MultiQC rule<a class="anchor" aria-label="anchor" href="#adding-a-multiqc-rule"></a>
 </h3>
 <div class="callout-content">
 <p>Earlier, in episode 5, we made a basic summary-type rule called
@@ -3235,31 +3264,22 @@ rule name or the output directory name as a target.</p>
 </div>
 </div>
 </div>
-<div id="exercise---fixing-kallisto" class="callout challenge">
+<div id="fixing-kallisto" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---fixing-kallisto" class="callout-inner">
-<h3 class="callout-title">Exercise - fixing Kallisto<a class="anchor" aria-label="anchor" href="#exercise---fixing-kallisto"></a>
+<div id="fixing-kallisto" class="callout-inner">
+<h3 class="callout-title">Fixing Kallisto<a class="anchor" aria-label="anchor" href="#fixing-kallisto"></a>
 </h3>
 <div class="callout-content">
 <p>You may notice that MultiQC is not capturing any Kallisto output when
 making the reports. The reason for this is given in the <a href="https://multiqc.info/docs/#kallisto" class="external-link">MultiQC manual here</a>:</p>
-<div id="callout1" class="callout callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
-<div class="callout-content">
+<blockquote>
 <p><em>Note - MultiQC parses the standard out from Kallisto, not any of
 its output files (abundance.h5, abundance.tsv, and run_info.json). As
 such, you must capture the Kallisto output to a file when running it for
 use with MultiQC.</em></p>
-</div>
-</div>
-</div>
+</blockquote>
 <p>Fix the Snakefile so that Kallisto terminal output is redirected to a
 file and can be collected by MultiQC.</p>
 <ul>
@@ -3312,13 +3332,12 @@ approach here.</p>
 </div>
 </div>
 </div>
-<div id="exercise---making-the-multiqc-rule-more-robust" class="callout challenge">
+<div id="making-the-multiqc-rule-more-robust" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---making-the-multiqc-rule-more-robust" class="callout-inner">
-<h3 class="callout-title">Exercise - making the MultiQC rule more
-robust<a class="anchor" aria-label="anchor" href="#exercise---making-the-multiqc-rule-more-robust"></a>
+<div id="making-the-multiqc-rule-more-robust" class="callout-inner">
+<h3 class="callout-title">Making the MultiQC rule more robust<a class="anchor" aria-label="anchor" href="#making-the-multiqc-rule-more-robust"></a>
 </h3>
 <div class="callout-content">
 <p>Because MultiQC scans for suitable input rather than taking an
@@ -3406,7 +3425,7 @@ Snakemake</li>
 </div>
 </section></section><section id="aio-08-configuring"><p>Content from <a href="08-configuring.html">Configuring workflows</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/08-configuring.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3470,12 +3489,12 @@ important settings into parameters.</p>
 doesn’t give you extra functionality but it is good practise put
 settings like these into parameters as it makes the whole rule more
 readable.</p>
-<div id="exercise" class="callout challenge">
+<div id="adding-a-parameter-to-the-salmon_index-rule" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
+<div id="adding-a-parameter-to-the-salmon_index-rule" class="callout-inner">
+<h3 class="callout-title">Adding a parameter to the<code>salmon\_index</code>rule<a class="anchor" aria-label="anchor" href="#adding-a-parameter-to-the-salmon_index-rule"></a>
 </h3>
 <div class="callout-content">
 <p>Modify the existing salmon_index rule so that the <code>-k</code>
@@ -3490,7 +3509,7 @@ rule.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <pre class="source"><code>rule salmon_index:
     output:
@@ -3523,10 +3542,10 @@ recent Snakemake versions).</li>
 </section><section id="making-snakefiles-configurable"><h2 class="section-heading">Making Snakefiles configurable<a class="anchor" aria-label="anchor" href="#making-snakefiles-configurable"></a>
 </h2>
 <hr class="half-width">
-<p>In general, it’s good practise to break out parameters that you
-intend to change into a separate file. That way you can re-run the
-pipeline on new input data, or with alternative settings, but you don’t
-need to edit the Snakefile itself.</p>
+<p>It’s good practise to break out parameters that you intend to change
+into a separate file. That way you can re-run the pipeline on new input
+data, or with alternative settings, but you don’t need to edit the
+Snakefile itself.</p>
 <p>We’ll save the following lines into a file named
 <em>config.yaml</em>.</p>
 <pre class="source"><code><span><span class="va">salmon_kmer_len</span><span class="op">:</span> <span class="st">"31"</span></span>
@@ -3553,16 +3572,17 @@ not, then just take note that the first form uses <em>square
 brackets</em> and the other uses <code>.get(...)</code> with <em>regular
 brackets</em>. Both the config entry name and the default value should
 be in quotes.</p>
-<div id="note" class="callout callout">
+<div id="using-config-settings-with-params" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note"></a>
+<div id="using-config-settings-with-params" class="callout-inner">
+<h3 class="callout-title">Using config settings with params<a class="anchor" aria-label="anchor" href="#using-config-settings-with-params"></a>
 </h3>
 <div class="callout-content">
-<p>You don’t have to always use <em>config</em> in conjunction with
-<em>params</em> like this, but it’s often a good idea to do so.</p>
+<p>Strictly speaking, you don’t have to use <em>config</em> in
+conjunction with <em>params</em> like this, but it’s normally a good
+idea to do so.</p>
 </div>
 </div>
 </div>
@@ -3573,12 +3593,13 @@ referencing it on the command line:</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--configfile</span><span class="op">=</span>config.yaml ...</span></code></pre>
 </div>
-<div id="exercise-1" class="callout challenge">
+<div id="making-the-parameter-of-a-rule-configurable" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-1" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise-1"></a>
+<div id="making-the-parameter-of-a-rule-configurable" class="callout-inner">
+<h3 class="callout-title">Making the parameter of a rule
+configurable<a class="anchor" aria-label="anchor" href="#making-the-parameter-of-a-rule-configurable"></a>
 </h3>
 <div class="callout-content">
 <p>Fix the <code>salmon_index</code> rule to use
@@ -3594,7 +3615,7 @@ that this is working as expected.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Rule is as before, aside from:</p>
 <pre class="source"><code><span><span class="va">params</span><span class="op">:</span></span>
@@ -3648,12 +3669,13 @@ to supply a default value which takes lowest precedence.</li>
 <li>Use <code>config["item_name"]</code> syntax to have a mandatory
 configuration option.</li>
 </ul>
-<div id="exercise-2" class="callout challenge">
+<div id="making-the-conditions-and-replicates-into-configurable-lists" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-2" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise-2"></a>
+<div id="making-the-conditions-and-replicates-into-configurable-lists" class="callout-inner">
+<h3 class="callout-title">Making the conditions and replicates into
+configurable lists<a class="anchor" aria-label="anchor" href="#making-the-conditions-and-replicates-into-configurable-lists"></a>
 </h3>
 <div class="callout-content">
 <p>Modify the <em>Snakefile</em> and <em>config.yaml</em> so that you
@@ -3672,7 +3694,7 @@ these replicates in there.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>In <em>config.yaml</em> add the lines:</p>
 <pre class="source"><code>conditions: ["etoh60", "temp33", "ref"]
@@ -3728,7 +3750,7 @@ new parameter, eg. <code>-p</code>
 </div>
 </section></section><section id="aio-09-performance"><p>Content from <a href="09-performance.html">Optimising workflow performance</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/09-performance.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3839,12 +3861,13 @@ precedence, so eg:</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> /usr/bin/time <span class="at">-v</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">--</span> kallisto.<span class="dt">{ref</span><span class="op">,</span><span class="dt">temp33</span><span class="op">,</span><span class="dt">etoh60}</span>_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span></span></code></pre>
 </div>
-<div id="exercise" class="callout challenge">
+<div id="measuring-how-concurrency-affects-execution-time" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
+<div id="measuring-how-concurrency-affects-execution-time" class="callout-inner">
+<h3 class="callout-title">Measuring how concurrency affects execution
+time<a class="anchor" aria-label="anchor" href="#measuring-how-concurrency-affects-execution-time"></a>
 </h3>
 <div class="callout-content">
 <p>What is the <em>wallclock time</em> reported by the above command?
@@ -3866,7 +3889,7 @@ the execution time?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>The time will vary depending on the system configuration but
 somewhere around 30 seconds is expected, and this should reduce to
@@ -3924,12 +3947,13 @@ then Snakemake will use the lower number.</p>
 only works for programs which allow you to specify the number of threads
 as a command-line option, but this applies to a lot of different
 bioinformatics tools.</p>
-<div id="challenge" class="callout challenge">
+<div id="getting-other-programs-to-run-with-multiple-threads" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge"></a>
+<div id="getting-other-programs-to-run-with-multiple-threads" class="callout-inner">
+<h3 class="callout-title">Getting other programs to run with multiple
+threads<a class="anchor" aria-label="anchor" href="#getting-other-programs-to-run-with-multiple-threads"></a>
 </h3>
 <div class="callout-content">
 <p>Find out how to set the number of threads for our
@@ -3952,7 +3976,7 @@ below would need to be added to the shell command in each case?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>For <em>salmon_quant</em>, <code>-p {threads}</code> or equivalently
 <code>--threads {threads}</code> will work.</p>
@@ -4045,7 +4069,7 @@ number of threads to the number of cores you have</li>
 </div>
 </section></section><section id="aio-10-conda_integration"><p>Content from <a href="10-conda_integration.html">Conda integration</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/10-conda_integration.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4185,12 +4209,12 @@ regarding the channel configuration in this course.</p>
 </div>
 </div>
 </div>
-<div id="exercises" class="callout challenge">
+<div id="queryting-and-installing-conda-packages" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercises" class="callout-inner">
-<h3 class="callout-title">Exercises<a class="anchor" aria-label="anchor" href="#exercises"></a>
+<div id="queryting-and-installing-conda-packages" class="callout-inner">
+<h3 class="callout-title">Queryting and installing Conda packages<a class="anchor" aria-label="anchor" href="#queryting-and-installing-conda-packages"></a>
 </h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal">
@@ -4207,7 +4231,7 @@ the <em>cutadapt</em> package from Bioconda into it.</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>There are several ways of doing this, but one using the commands
@@ -4321,12 +4345,12 @@ but Conda employs file de-duplication so you don’t actually end up with
 two copies of all the software.</p>
 <p>We’ll do something useful with <em>cutadapt</em> in the next
 episode.</p>
-<div id="challenge" class="callout challenge">
+<div id="using-an-older-version-of-salmon" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge"></a>
+<div id="using-an-older-version-of-salmon" class="callout-inner">
+<h3 class="callout-title">Using an older version of Salmon<a class="anchor" aria-label="anchor" href="#using-an-older-version-of-salmon"></a>
 </h3>
 <div class="callout-content">
 <p>Going back to our RNA-Seq workflow, imagine we want to try running
@@ -4353,7 +4377,7 @@ Then run your amended workflow.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>The first thing that we need is an appropriate YAML file. It’s
 possible to write one from scratch in a text editor, but for this answer
@@ -4391,12 +4415,12 @@ two rules have changed and must be re-run.</p>
 </div>
 </div>
 </div>
-<div id="note" class="callout callout">
+<div id="note-on-the-environment-files" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note"></a>
+<div id="note-on-the-environment-files" class="callout-inner">
+<h3 class="callout-title">Note on the environment files<a class="anchor" aria-label="anchor" href="#note-on-the-environment-files"></a>
 </h3>
 <div class="callout-content">
 <p>If you look into a YAML file created with
@@ -4454,7 +4478,7 @@ installing the correct versions of everything</li>
 </div>
 </section></section><section id="aio-11-assembly_challenge"><p>Content from <a href="11-assembly_challenge.html">Constructing a whole new workflow</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/11-assembly_challenge.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4539,12 +4563,12 @@ corresponding cutadapt box, then under this the arrows cross asthey go
 from the three cutadapt boxes to the two boxes labelled “concatenate”.
 Under this is asingle box labelled “assembly (velvet)” and a final box
 at the bottom labelled”find longest contig”.’}</p>
-<div id="challenge" class="callout challenge">
+<div id="running-the-bash-script" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge"></a>
+<div id="running-the-bash-script" class="callout-inner">
+<h3 class="callout-title">Running the Bash script<a class="anchor" aria-label="anchor" href="#running-the-bash-script"></a>
 </h3>
 <div class="callout-content">
 <p>Run the script as-is. In order to make it work, you should make a new
@@ -4693,12 +4717,13 @@ are very common: brackets, quotes, colons, line indentation and commas
 all need to be just right. If you can’t see the problem, ask a
 demonstrator for help. Often just having a second pair of eyes on your
 code is all that is needed to spot a problem.</p>
-<div id="challenge-1" class="callout challenge">
+<div id="challenge---building-a-full-snakemake-workflow" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-1" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge-1"></a>
+<div id="challenge---building-a-full-snakemake-workflow" class="callout-inner">
+<h3 class="callout-title">Challenge - building a full Snakemake
+workflow<a class="anchor" aria-label="anchor" href="#challenge---building-a-full-snakemake-workflow"></a>
 </h3>
 <div class="callout-content">
 <p>Design a Snakemake workflow based upon the above script which will
@@ -4739,7 +4764,7 @@ answers.</p>
 tasks</li>
 <li>You may wish to replace an existing script with a Snakemake
 workflow</li>
-<li>Don’t be disheartened by errors, which are normal. Use a systematic
+<li>Don’t be disheartened by errors, which are normal; use a systematic
 approach to diagnose the problem</li>
 </ul>
 </div>
@@ -4748,7 +4773,7 @@ approach to diagnose the problem</li>
 </div>
 </section></section><section id="aio-12-cleaning_up"><p>Content from <a href="12-cleaning_up.html">Cleaning up</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/12-cleaning_up.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4856,20 +4881,28 @@ etoh60_3_2.fq.gz  ref_3_2.fq.gz  temp33_3_2.fq.gz</code></pre>
 <p>Snakemake kept the uncompressed trimmed reads long enough to run
 <em>kallisto_quant</em> on all the samples, then removed them leaving
 only the gzipped versions.</p>
-<div id="exercise" class="callout discussion">
+<div id="working-with-gzipped-files" class="callout challenge">
 <div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+<i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
+<div id="working-with-gzipped-files" class="callout-inner">
+<h3 class="callout-title">Working with gzipped files<a class="anchor" aria-label="anchor" href="#working-with-gzipped-files"></a>
 </h3>
 <div class="callout-content">
 <p>Like Salmon, Kallisto can read compressed <code>.fq.gz</code> files
 directly. Amend the <em>kallisto_quant</em> rule to use gzipped input
 files. Show that the new rule can be re-run on all samples without
 triggering the <em>trimreads</em> or <em>gzip_fastq</em> rules.</p>
-<blockquote>
-<h2 id="answer">Answer</h2>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
 <p>In the first instance, this involves changing two input lines in the
 <em>kallisto_quant</em> rule definition.</p>
 <pre class="source"><code>    fq1   = "trimmed/{sample}_1.fq.gz",
@@ -4882,11 +4915,30 @@ triggering the <em>trimreads</em> or <em>gzip_fastq</em> rules.</p>
 </div>
 <p>You should see that Snakemake wants to run the
 <em>kallisto_quant</em> and <em>multiqc</em> steps but no others.</p>
-</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="working-with-gzipped-files" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="working-with-gzipped-files" class="callout-inner">
+<h3 class="callout-title">Working with gzipped files<em>(continued)</em><a class="anchor" aria-label="anchor" href="#working-with-gzipped-files"></a>
+</h3>
+<div class="callout-content">
 <p>We have no use for the HTML reports produced by FastQC. Modify the
 Snakefile to automatically remove them.</p>
-<blockquote>
-<h2 id="answer-1">Answer</h2>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
 <p>Amend the <em>html</em> output of the <em>fastqc</em> rule to mark it
 as <code>temporary()</code>:</p>
 <pre class="source"><code>html = temporary("{indir}.{sample}_fastqc.html"),</code></pre>
@@ -4901,7 +4953,7 @@ remove the files after modifying the Snakefile.</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-p</span> <span class="at">-j1</span> <span class="at">--delete-temp-output</span> multiqc</span></code></pre>
 </div>
-</blockquote>
+</div>
 </div>
 </div>
 </div>
@@ -4947,12 +4999,12 @@ rather like the opposite of the <code>temporary()</code> function and
 says that once an output has been produced it must not be overwritten.
 In practise, Snakemake does this by revoking write permissions on the
 files (as in <code>chmod -w {output}</code>).</p>
-<div id="exercise-1" class="callout challenge">
+<div id="protecting-some-outputs" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-1" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise-1"></a>
+<div id="protecting-some-outputs" class="callout-inner">
+<h3 class="callout-title">Protecting some outputs<a class="anchor" aria-label="anchor" href="#protecting-some-outputs"></a>
 </h3>
 <div class="callout-content">
 <p>The longest operations in our test workflow are the genome indexing
@@ -4963,12 +5015,12 @@ workflow with the <code>-F</code> option?</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">Answer</h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3">Answer</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <pre class="source"><code>rule salmon_index:
     output:
@@ -4988,12 +5040,12 @@ executing jobs. That may change in future versions.</p>
 </div>
 </div>
 </div>
-<div id="note" class="callout callout">
+<div id="note-on-protecting-files" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note"></a>
+<div id="note-on-protecting-files" class="callout-inner">
+<h3 class="callout-title">Note on protecting files<a class="anchor" aria-label="anchor" href="#note-on-protecting-files"></a>
 </h3>
 <div class="callout-content">
 <p>In practise, it can be annoying to have Snakemake trying to
@@ -5076,7 +5128,7 @@ files</li>
 </div>
 </section></section><section id="aio-13-quoting"><p>Content from <a href="13-quoting.html">Robust quoting in Snakefiles</a></p>
 <hr>
-<p>Last updated on 2024-02-22 |
+<p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/13-quoting.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -5205,13 +5257,16 @@ to all <em>bash</em> parsing rules</li>
 <p>We’ll now look at some best practises for making your Snakefiles
 robust, and some simple rules to avoid most mis-quoting
 complications.</p>
-<div id="exercise---adding-a-lenreads-rule" class="callout challenge">
+<!-- The funky HTML entities in the heading below are a workaround for
+     https://github.com/carpentries/sandpaper/issues/562
+     I shouldn't be doing this, but in the contect of this particular episode it seems almost
+     appropriate. -->
+<div id="adding-a-lenreads-rule" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---adding-a-lenreads-rule" class="callout-inner">
-<h3 class="callout-title">Exercise - adding a ᠎ ᠎<em>lenreads</em>᠎ ᠎
-rule<a class="anchor" aria-label="anchor" href="#exercise---adding-a-lenreads-rule"></a>
+<div id="adding-a-lenreads-rule" class="callout-inner">
+<h3 class="callout-title">Adding a ᠎ ᠎<em>lenreads</em>᠎ ᠎ rule<a class="anchor" aria-label="anchor" href="#adding-a-lenreads-rule"></a>
 </h3>
 <div class="callout-content">
 <p>Say we add a new rule named <em>lenreads</em>, looking very much like
@@ -5291,12 +5346,12 @@ filenames into one big string within the quotes.</p>
 and no spaces, but if you can’t do that then in most cases ensuring all
 your placeholders have <code>:q</code> will be enough to keep things
 working.</p>
-<div id="exercise" class="callout challenge">
+<div id="handling-filenames-with-spaces" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
+<div id="handling-filenames-with-spaces" class="callout-inner">
+<h3 class="callout-title">Handling filenames with spaces<a class="anchor" aria-label="anchor" href="#handling-filenames-with-spaces"></a>
 </h3>
 <div class="callout-content">
 <p>Use the following command to rename the <em>temp33</em> and
@@ -5419,8 +5474,8 @@ up</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/aio.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/aio.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-22",
-  "datePublished": "2024-02-22"
+  "dateModified": "2024-02-23",
+  "datePublished": "2024-02-23"
 }
 
   </script><script>

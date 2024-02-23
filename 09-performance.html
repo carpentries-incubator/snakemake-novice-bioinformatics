@@ -334,7 +334,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Optimising workflow performance</h1>
-        <p>Last updated on 2024-02-22 |
+        <p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/09-performance.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -440,12 +440,13 @@ precedence, so eg:</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> /usr/bin/time <span class="at">-v</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">--</span> kallisto.<span class="dt">{ref</span><span class="op">,</span><span class="dt">temp33</span><span class="op">,</span><span class="dt">etoh60}</span>_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span></span></code></pre>
 </div>
-<div id="exercise" class="callout challenge">
+<div id="measuring-how-concurrency-affects-execution-time" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
+<div id="measuring-how-concurrency-affects-execution-time" class="callout-inner">
+<h3 class="callout-title">Measuring how concurrency affects execution
+time<a class="anchor" aria-label="anchor" href="#measuring-how-concurrency-affects-execution-time"></a>
 </h3>
 <div class="callout-content">
 <p>What is the <em>wallclock time</em> reported by the above command?
@@ -465,7 +466,7 @@ the execution time?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>The time will vary depending on the system configuration but
 somewhere around 30 seconds is expected, and this should reduce to
@@ -519,12 +520,13 @@ then Snakemake will use the lower number.</p>
 only works for programs which allow you to specify the number of threads
 as a command-line option, but this applies to a lot of different
 bioinformatics tools.</p>
-<div id="challenge" class="callout challenge">
+<div id="getting-other-programs-to-run-with-multiple-threads" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge"></a>
+<div id="getting-other-programs-to-run-with-multiple-threads" class="callout-inner">
+<h3 class="callout-title">Getting other programs to run with multiple
+threads<a class="anchor" aria-label="anchor" href="#getting-other-programs-to-run-with-multiple-threads"></a>
 </h3>
 <div class="callout-content">
 <p>Find out how to set the number of threads for our
@@ -545,7 +547,7 @@ below would need to be added to the shell command in each case?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>For <em>salmon_quant</em>, <code>-p {threads}</code> or equivalently
 <code>--threads {threads}</code> will work.</p>
@@ -689,8 +691,8 @@ number of threads to the number of cores you have</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/09-performance.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/09-performance.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-22",
-  "datePublished": "2024-02-22"
+  "dateModified": "2024-02-23",
+  "datePublished": "2024-02-23"
 }
 
   </script><script>

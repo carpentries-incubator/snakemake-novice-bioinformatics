@@ -333,7 +333,7 @@ output</a></li>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Handling awkward programs</h1>
-        <p>Last updated on 2024-02-22 |
+        <p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/06-awkward_programs.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -456,13 +456,13 @@ files within the rule.</li>
 </ol><p>We’ll try all four, and see where this gets us.</p>
 <div class="section level3">
 <h3 id="option-1-working-with-the-default-fastqc-output-files">Option 1: Working with the default FastQC output files<a class="anchor" aria-label="anchor" href="#option-1-working-with-the-default-fastqc-output-files"></a></h3>
-<div id="exercise---adding-a-fastqc-rule-using-the-default-output-file-names" class="callout challenge">
+<div id="adding-a-fastqc-rule-using-the-default-output-file-names" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---adding-a-fastqc-rule-using-the-default-output-file-names" class="callout-inner">
-<h3 class="callout-title">Exercise - adding a FastQC rule using the
-default output file names<a class="anchor" aria-label="anchor" href="#exercise---adding-a-fastqc-rule-using-the-default-output-file-names"></a>
+<div id="adding-a-fastqc-rule-using-the-default-output-file-names" class="callout-inner">
+<h3 class="callout-title">Adding a FastQC rule using the default output
+file names<a class="anchor" aria-label="anchor" href="#adding-a-fastqc-rule-using-the-default-output-file-names"></a>
 </h3>
 <div class="callout-content">
 <p>Fill in the <code>???</code> to make a working rule for FastQC where
@@ -483,7 +483,7 @@ files, so add two named outputs.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Since the <code>shell</code> command is not to be changed, the output
 names will be dictated by FastQC as we saw when running the command
@@ -513,13 +513,13 @@ output directory, so we can use that…</p>
 </div>
 <div class="section level3">
 <h3 id="option-2-using-the-default-output-filenames-in-a-new-directory">Option 2: Using the default output filenames in a new directory<a class="anchor" aria-label="anchor" href="#option-2-using-the-default-output-filenames-in-a-new-directory"></a></h3>
-<div id="exercise---a-fastqc-rule-where-the-output-files-go-into-a-new-directory" class="callout challenge">
+<div id="a-fastqc-rule-where-the-output-files-go-into-a-new-directory" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---a-fastqc-rule-where-the-output-files-go-into-a-new-directory" class="callout-inner">
-<h3 class="callout-title">Exercise - a FastQC rule where the output
-files go into a new directory<a class="anchor" aria-label="anchor" href="#exercise---a-fastqc-rule-where-the-output-files-go-into-a-new-directory"></a>
+<div id="a-fastqc-rule-where-the-output-files-go-into-a-new-directory" class="callout-inner">
+<h3 class="callout-title">A FastQC rule where the output files go into a
+new directory<a class="anchor" aria-label="anchor" href="#a-fastqc-rule-where-the-output-files-go-into-a-new-directory"></a>
 </h3>
 <div class="callout-content">
 <p>Modify the rule so that the output files go into a new directory.
@@ -541,7 +541,7 @@ outputs should be</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>This involves using the {myfile} wildcard twice and then constructing
 the output directory name to place in the <code>-o</code> option to
@@ -569,12 +569,13 @@ whole directory. This makes the rule definition simpler.</p>
     input:  "{indir}/{myfile}.fq"
     shell:
         "fastqc -o {output} {input}"</code></pre>
-<div id="note" class="callout callout">
+<div id="only-use-directory-on-outputs-not-inputs" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note"></a>
+<div id="only-use-directory-on-outputs-not-inputs" class="callout-inner">
+<h3 class="callout-title">Only use<code>directory()</code>on outputs,
+not inputs<a class="anchor" aria-label="anchor" href="#only-use-directory-on-outputs-not-inputs"></a>
 </h3>
 <div class="callout-content">
 <p>You only use the <code>directory()</code> declaration for outputs.
@@ -602,21 +603,22 @@ code.</p>
     input:  "{indir}/{myfile}.fq"
     shell:
         "mkdir {output} ; fastqc -o {output} {input}"</code></pre>
-<div id="note-1" class="callout callout">
+<div id="the-rationale-for-making-output-directories" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note-1" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note-1"></a>
+<div id="the-rationale-for-making-output-directories" class="callout-inner">
+<h3 class="callout-title">The rationale for making output
+directories<a class="anchor" aria-label="anchor" href="#the-rationale-for-making-output-directories"></a>
 </h3>
 <div class="callout-content">
 <p>Remember that in most cases it is not necessary to manually create
 directories because Snakemake will auto-create the directory for every
-output file listed by a rule. Even when using a <code>directory()</code>
+output file listed by a rule. When using a <code>directory()</code>
 output, Snakemake will not create the directory itself but most
 applications will make the directory for you. FastQC is an exception.
-The best approach is generally to only add a <code>mkdir</code> command
-if you test the rule without it and get an error.</p>
+The best approach is to only add a <code>mkdir</code> command if you
+first test the rule without it and see an error.</p>
 </div>
 </div>
 </div>
@@ -647,13 +649,13 @@ want.</p>
 </div>
 <div class="section level3">
 <h3 id="option-4-insisting-on-our-own-file-names">Option 4: Insisting on our own file names<a class="anchor" aria-label="anchor" href="#option-4-insisting-on-our-own-file-names"></a></h3>
-<div id="exercise---fixing-fastqc-to-use-our-own-output-file-names" class="callout challenge">
+<div id="fixing-fastqc-to-use-our-own-output-file-names" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---fixing-fastqc-to-use-our-own-output-file-names" class="callout-inner">
-<h3 class="callout-title">Exercise - fixing FastQC to use our own output
-file names<a class="anchor" aria-label="anchor" href="#exercise---fixing-fastqc-to-use-our-own-output-file-names"></a>
+<div id="fixing-fastqc-to-use-our-own-output-file-names" class="callout-inner">
+<h3 class="callout-title">Fixing FastQC to use our own output file
+names<a class="anchor" aria-label="anchor" href="#fixing-fastqc-to-use-our-own-output-file-names"></a>
 </h3>
 <div class="callout-content">
 <p>Complete the rule below so that the output filenames are correctly
@@ -676,7 +678,7 @@ part after running <code>fastqc</code>. Do not alter the
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>This is one solution, using <code>-o .</code> to tell FastQC to
 produce the files in the current directory, then explicitly renaming
@@ -698,12 +700,13 @@ the block you can run any commands and make any files you like.</p>
 </div>
 </div>
 </div>
-<div id="note-2" class="callout callout">
+<div id="one-problem-with-making-intermediate-outputs" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note-2" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note-2"></a>
+<div id="one-problem-with-making-intermediate-outputs" class="callout-inner">
+<h3 class="callout-title">One problem with making intermediate
+outputs<a class="anchor" aria-label="anchor" href="#one-problem-with-making-intermediate-outputs"></a>
 </h3>
 <div class="callout-content">
 <p>There is actually a problem with the above solution which only starts
@@ -820,8 +823,8 @@ commands</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/06-awkward_programs.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/06-awkward_programs.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-22",
-  "datePublished": "2024-02-22"
+  "dateModified": "2024-02-23",
+  "datePublished": "2024-02-23"
 }
 
   </script><script>

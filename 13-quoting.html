@@ -332,7 +332,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Robust quoting in Snakefiles</h1>
-        <p>Last updated on 2024-02-22 |
+        <p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/13-quoting.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -455,13 +455,16 @@ to all <em>bash</em> parsing rules</li>
 </ol><p>We’ll now look at some best practises for making your Snakefiles
 robust, and some simple rules to avoid most mis-quoting
 complications.</p>
-<div id="exercise---adding-a-lenreads-rule" class="callout challenge">
+<!-- The funky HTML entities in the heading below are a workaround for
+     https://github.com/carpentries/sandpaper/issues/562
+     I shouldn't be doing this, but in the contect of this particular episode it seems almost
+     appropriate. -->
+<div id="adding-a-lenreads-rule" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise---adding-a-lenreads-rule" class="callout-inner">
-<h3 class="callout-title">Exercise - adding a ᠎ ᠎<em>lenreads</em>᠎ ᠎
-rule<a class="anchor" aria-label="anchor" href="#exercise---adding-a-lenreads-rule"></a>
+<div id="adding-a-lenreads-rule" class="callout-inner">
+<h3 class="callout-title">Adding a ᠎ ᠎<em>lenreads</em>᠎ ᠎ rule<a class="anchor" aria-label="anchor" href="#adding-a-lenreads-rule"></a>
 </h3>
 <div class="callout-content">
 <p>Say we add a new rule named <em>lenreads</em>, looking very much like
@@ -540,12 +543,12 @@ filenames into one big string within the quotes.</p>
 and no spaces, but if you can’t do that then in most cases ensuring all
 your placeholders have <code>:q</code> will be enough to keep things
 working.</p>
-<div id="exercise" class="callout challenge">
+<div id="handling-filenames-with-spaces" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
+<div id="handling-filenames-with-spaces" class="callout-inner">
+<h3 class="callout-title">Handling filenames with spaces<a class="anchor" aria-label="anchor" href="#handling-filenames-with-spaces"></a>
 </h3>
 <div class="callout-content">
 <p>Use the following command to rename the <em>temp33</em> and
@@ -676,8 +679,8 @@ up</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/13-quoting.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/13-quoting.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-22",
-  "datePublished": "2024-02-22"
+  "dateModified": "2024-02-23",
+  "datePublished": "2024-02-23"
 }
 
   </script><script>

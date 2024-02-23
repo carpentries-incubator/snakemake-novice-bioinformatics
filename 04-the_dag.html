@@ -333,7 +333,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>How Snakemake plans what jobs to run</h1>
-        <p>Last updated on 2024-02-22 |
+        <p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/04-the_dag.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -422,12 +422,12 @@ output files</li>
 </ul></div>
 </div>
 </div>
-<div id="question" class="callout challenge">
+<div id="how-many-jobs" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="question" class="callout-inner">
-<h3 class="callout-title">Question<a class="anchor" aria-label="anchor" href="#question"></a>
+<div id="how-many-jobs" class="callout-inner">
+<h3 class="callout-title">How many jobs?<a class="anchor" aria-label="anchor" href="#how-many-jobs"></a>
 </h3>
 <div class="callout-content">
 <p>If we asked Snakemake to run <em>kallisto_quant</em> on all three of
@@ -439,7 +439,7 @@ total?</p>
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">Answer</h4>
+  <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
@@ -644,12 +644,12 @@ kallisto_quant box is solid.’}</p>
 <p>The boxes drawn with dotted lines indicate steps that are not to be
 run, as the output files are already present and newer than the input
 files.</p>
-<div id="challenge" class="callout discussion">
+<div id="updating-a-parameter-and-re-running" class="callout challenge">
 <div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+<i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge" class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#challenge"></a>
+<div id="updating-a-parameter-and-re-running" class="callout-inner">
+<h3 class="callout-title">Updating a parameter and re-running<a class="anchor" aria-label="anchor" href="#updating-a-parameter-and-re-running"></a>
 </h3>
 <div class="callout-content">
 <p>Run <code>kallisto_quant</code> on all three of the
@@ -663,9 +663,17 @@ than “20”.</p>
 <li><p>By deleting some of the existing files</p></li>
 </ol><p>Use the <code>--dag</code> option as shown above to check your
 answers.</p>
-<blockquote>
-<h2 id="solution">Solution</h2>
-<p>To make all the Kallisto results in the first place:</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<p>This will make all the Kallisto results in the first place:</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -673,11 +681,31 @@ answers.</p>
 </div>
 <p><em>The {1,2,3} syntax is expanded by the shell into the 3 file
 names. You could also type all three names in full.</em></p>
-<ol style="list-style-type: decimal"><li><p><code>$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -</code></p></li>
-<li><p><code>$ snakemake -j1 -p --dag -f trimmed/etoh60_{1,2,3}_{1,2}.fq kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -</code></p></li>
-<li><p><code>$ touch reads/etoh60_*.fq</code></p></li>
-<li><p><code>$ rm -r trimmed/etoh60_*.fq kallisto.etoh60_*</code></p></li>
-</ol></blockquote>
+<ol style="list-style-type: decimal"><li>-R flag</li>
+</ol><div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-Rtrimreads</span> <span class="at">--dag</span> kallisto.etoh60_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span>/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
+</div>
+<ol start="2" style="list-style-type: decimal"><li>-f flag</li>
+</ol><div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> <span class="at">--dag</span> <span class="at">-f</span> trimmed/etoh60_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span>_<span class="dt">{1</span><span class="op">,</span><span class="dt">2}</span>.fq kallisto.etoh60_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span>/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
+</div>
+<ol start="3" style="list-style-type: decimal"><li>touch command</li>
+</ol><div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch reads/etoh60_<span class="pp">*</span>.fq<span class="kw">`</span></span></code></pre>
+</div>
+<ol start="4" style="list-style-type: decimal"><li>by deleting files</li>
+</ol><div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-r</span> trimmed/etoh60_<span class="pp">*</span>.fq kallisto.etoh60_<span class="pp">*</span></span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -692,11 +720,12 @@ names. You could also type all three names in full.</em></p>
 <p>In general, getting Snakemake to re-run things by removing files is a
 bad idea, because it’s easy to forget about intermediate files that
 actually contain stale results and need to be updated. Using the
-<code>-R</code> flag or <code>touch</code> is simpler and more reliable.
-If in doubt, and if it will not be too time consuming, keep it simple
-and just use <code>-F</code> to run the whole workflow from scratch.</p>
+<code>-R</code> flag or <code>touch</code> command is simpler and more
+reliable. If in doubt, and if it will not be too time consuming, keep it
+simple and just use <code>-F</code> to run the whole workflow from
+scratch.</p>
 <p>For the opposite case where you want to avoid re-running particular
-steps, see the <code>--touch</code> option mentioned <a href="12-cleaning_up.html">later in the course.</a></p>
+steps, see the <code>‑‑touch</code> option of Snakemake mentioned <a href="12-cleaning_up.html">later in the course.</a></p>
 </div>
 </div>
 </div>
@@ -778,8 +807,8 @@ regenerating</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/04-the_dag.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/04-the_dag.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-22",
-  "datePublished": "2024-02-22"
+  "dateModified": "2024-02-23",
+  "datePublished": "2024-02-23"
 }
 
   </script><script>

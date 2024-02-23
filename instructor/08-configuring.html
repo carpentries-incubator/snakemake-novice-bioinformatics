@@ -331,7 +331,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Configuring workflows</h1>
-        <p>Last updated on 2024-02-22 |
+        <p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/08-configuring.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -398,12 +398,12 @@ important settings into parameters.</p>
 doesn’t give you extra functionality but it is good practise put
 settings like these into parameters as it makes the whole rule more
 readable.</p>
-<div id="exercise" class="callout challenge">
+<div id="adding-a-parameter-to-the-salmon_index-rule" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
+<div id="adding-a-parameter-to-the-salmon_index-rule" class="callout-inner">
+<h3 class="callout-title">Adding a parameter to the<code>salmon\_index</code>rule<a class="anchor" aria-label="anchor" href="#adding-a-parameter-to-the-salmon_index-rule"></a>
 </h3>
 <div class="callout-content">
 <p>Modify the existing salmon_index rule so that the <code>-k</code>
@@ -418,7 +418,7 @@ rule.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <pre class="source"><code>rule salmon_index:
     output:
@@ -448,10 +448,10 @@ recent Snakemake versions).</li>
 </div>
 </section><section id="making-snakefiles-configurable"><h2 class="section-heading">Making Snakefiles configurable<a class="anchor" aria-label="anchor" href="#making-snakefiles-configurable"></a>
 </h2>
-<hr class="half-width"><p>In general, it’s good practise to break out parameters that you
-intend to change into a separate file. That way you can re-run the
-pipeline on new input data, or with alternative settings, but you don’t
-need to edit the Snakefile itself.</p>
+<hr class="half-width"><p>It’s good practise to break out parameters that you intend to change
+into a separate file. That way you can re-run the pipeline on new input
+data, or with alternative settings, but you don’t need to edit the
+Snakefile itself.</p>
 <p>We’ll save the following lines into a file named
 <em>config.yaml</em>.</p>
 <pre class="source"><code><span><span class="va">salmon_kmer_len</span><span class="op">:</span> <span class="st">"31"</span></span>
@@ -478,16 +478,17 @@ not, then just take note that the first form uses <em>square
 brackets</em> and the other uses <code>.get(...)</code> with <em>regular
 brackets</em>. Both the config entry name and the default value should
 be in quotes.</p>
-<div id="note" class="callout callout">
+<div id="using-config-settings-with-params" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note"></a>
+<div id="using-config-settings-with-params" class="callout-inner">
+<h3 class="callout-title">Using config settings with params<a class="anchor" aria-label="anchor" href="#using-config-settings-with-params"></a>
 </h3>
 <div class="callout-content">
-<p>You don’t have to always use <em>config</em> in conjunction with
-<em>params</em> like this, but it’s often a good idea to do so.</p>
+<p>Strictly speaking, you don’t have to use <em>config</em> in
+conjunction with <em>params</em> like this, but it’s normally a good
+idea to do so.</p>
 </div>
 </div>
 </div>
@@ -498,12 +499,13 @@ referencing it on the command line:</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--configfile</span><span class="op">=</span>config.yaml ...</span></code></pre>
 </div>
-<div id="exercise-1" class="callout challenge">
+<div id="making-the-parameter-of-a-rule-configurable" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-1" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise-1"></a>
+<div id="making-the-parameter-of-a-rule-configurable" class="callout-inner">
+<h3 class="callout-title">Making the parameter of a rule
+configurable<a class="anchor" aria-label="anchor" href="#making-the-parameter-of-a-rule-configurable"></a>
 </h3>
 <div class="callout-content">
 <p>Fix the <code>salmon_index</code> rule to use
@@ -519,7 +521,7 @@ that this is working as expected.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Rule is as before, aside from:</p>
 <pre class="source"><code><span><span class="va">params</span><span class="op">:</span></span>
@@ -569,12 +571,13 @@ line and the list ends when there is another parameter, in this case
 to supply a default value which takes lowest precedence.</li>
 <li>Use <code>config["item_name"]</code> syntax to have a mandatory
 configuration option.</li>
-</ul><div id="exercise-2" class="callout challenge">
+</ul><div id="making-the-conditions-and-replicates-into-configurable-lists" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="exercise-2" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise-2"></a>
+<div id="making-the-conditions-and-replicates-into-configurable-lists" class="callout-inner">
+<h3 class="callout-title">Making the conditions and replicates into
+configurable lists<a class="anchor" aria-label="anchor" href="#making-the-conditions-and-replicates-into-configurable-lists"></a>
 </h3>
 <div class="callout-content">
 <p>Modify the <em>Snakefile</em> and <em>config.yaml</em> so that you
@@ -593,7 +596,7 @@ these replicates in there.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>In <em>config.yaml</em> add the lines:</p>
 <pre class="source"><code>conditions: ["etoh60", "temp33", "ref"]
@@ -703,8 +706,8 @@ new parameter, eg. <code>-p</code>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/08-configuring.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/08-configuring.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-22",
-  "datePublished": "2024-02-22"
+  "dateModified": "2024-02-23",
+  "datePublished": "2024-02-23"
 }
 
   </script><script>

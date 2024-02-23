@@ -331,7 +331,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Placeholders and wildcards</h1>
-        <p>Last updated on 2024-02-22 |
+        <p>Last updated on 2024-02-23 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/02-placeholders.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -514,23 +514,17 @@ be <code>ref1_counts/fq.2.count</code>, etc.)?</p></li>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<blockquote>
-<h2 id="solution-1">Solution</h2>
 <p>In all cases, there is no need to change the <code>shell</code> part
 of the rule at all.</p>
-<ol style="list-style-type: decimal"><li><blockquote>
-
-</blockquote></li>
-</ol><pre class="source"><code><span><span class="va">output</span><span class="op">:</span> <span class="st">"counts/{myfile}.txt"</span></span>
+<ol style="list-style-type: decimal"><li>
+</li></ol><pre class="source"><code><span><span class="va">output</span><span class="op">:</span> <span class="st">"counts/{myfile}.txt"</span></span>
 <span><span class="va">input</span><span class="op">:</span>  <span class="st">"reads/{myfile}.fq"</span></span></code></pre>
 <p>This can be done just by changing the <code>output:</code> line. You
 may also have considered the need to <code>mkdir counts</code> but in
 fact this is not necessary as Snakemake will create the output directory
 path for you before it runs the rule.</p>
-<ol start="2" style="list-style-type: decimal"><li><blockquote>
-
-</blockquote></li>
-</ol><pre class="source"><code><span><span class="va">output</span><span class="op">:</span> <span class="st">"{sample}_counts/fq.{readnum}.count"</span></span>
+<ol start="2" style="list-style-type: decimal"><li>
+</li></ol><pre class="source"><code><span><span class="va">output</span><span class="op">:</span> <span class="st">"{sample}_counts/fq.{readnum}.count"</span></span>
 <span><span class="va">input</span><span class="op">:</span>  <span class="st">"reads/{sample}_{readnum}.fq"</span></span></code></pre>
 <p>In this case, it was necessary to introduce a second wildcard,
 because the elements in the output file name are split up. The names
@@ -539,10 +533,11 @@ could choose any names as long as they match between the
 <code>input</code> and <code>output</code> parts. Once again, the output
 directory will be created for us by Snakemake, so the <code>shell</code>
 command does not need to change.</p>
-<ol start="3" style="list-style-type: decimal"><li>This one <strong>isn’t possible</strong>, because Snakemake cannot
+<ol start="3" style="list-style-type: decimal"><li>
+</li></ol><p>This one <strong>isn’t possible</strong>, because Snakemake cannot
 determine which input file you want to count by matching wildcards on
-the file name “countreads_1.txt”. You could try a rule like this:</li>
-</ol><pre class="source"><code><span><span class="va">output</span><span class="op">:</span> <span class="st">"countreads_{readnum}.count"</span></span>
+the file name “countreads_1.txt”. You could try a rule like this:</p>
+<pre class="source"><code><span><span class="va">output</span><span class="op">:</span> <span class="st">"countreads_{readnum}.count"</span></span>
 <span><span class="va">input</span><span class="op">:</span>  <span class="st">"reads/ref1_{readnum}.fq"</span></span></code></pre>
 <p>…but it only works because “ref1” is hard-coded into the
 <code>input</code> line, and the rule will only work on this specific
@@ -550,7 +545,6 @@ sample, not the other eight in our sample dataset. In general, input and
 output filenames need to be carefully chosen so that Snakemake can match
 everything up and determine the right input from the output
 filename.</p>
-</blockquote>
 </div>
 </div>
 </div>
@@ -764,8 +758,8 @@ sees a problem</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/02-placeholders.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/02-placeholders.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-22",
-  "datePublished": "2024-02-22"
+  "dateModified": "2024-02-23",
+  "datePublished": "2024-02-23"
 }
 
   </script><script>
