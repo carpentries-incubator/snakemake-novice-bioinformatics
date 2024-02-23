@@ -55,20 +55,19 @@ trim, count and quantify the *ref1* sample.
 - When building the DAG, Snakemake does not look at the *shell* part of the rules at all - only
   when running the DAG will Snakemake check that the shell commands are working and producing the
   expected output files
-  
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Question
+## How many jobs?
 
 If we asked Snakemake to run *kallisto\_quant* on all three of the reference samples
 (ref1, ref2, ref3), how many jobs would that be in total?
 
 :::::::::::::::  solution
 
-## Answer
+## Solution
 
 10 in total: 3 \* kallisto\_quant // 6 \* trim // 1 \* kallisto\_index // 0 \* countreads
 
@@ -243,7 +242,7 @@ already present and newer than the input files.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge
+## Updating a parameter and re-running
 
 Run `kallisto_quant` on all three of the **etoh60** samples. Now edit the Snakefile so that the
 `qual_threshold` for `trimreads` is "22", rather than "20".
@@ -260,24 +259,40 @@ How would you get Snakemake to update all three Kallisto results:
 
 Use the `--dag` option as shown above to check your answers.
 
-> ## Solution
-> 
-> To make all the Kallisto results in the first place:
-> 
-> ```bash
-> $ snakemake -j1 -p kallisto.etoh60_{1,2,3}/abundance.h5
-> ```
-> 
-> *The {1,2,3} syntax is expanded by the shell into the 3 file names. You could also type all
-> three names in full.*
-> 
-> 1) `$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -`
-> 
-> 2) `$ snakemake -j1 -p --dag -f trimmed/etoh60_{1,2,3}_{1,2}.fq kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -`
-> 
-> 3) `$ touch reads/etoh60_*.fq`
-> 
-> 4) `$ rm -r trimmed/etoh60_*.fq kallisto.etoh60_*`
+:::::::::::::::::::: solution
+
+## Solution
+
+This will make all the Kallisto results in the first place:
+
+```bash
+$ snakemake -j1 -p kallisto.etoh60_{1,2,3}/abundance.h5
+```
+
+*The {1,2,3} syntax is expanded by the shell into the 3 file names. You could also type all
+three names in full.*
+
+1) -R flag
+```bash
+$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -
+```
+
+2) -f flag
+```bash
+$ snakemake -j1 -p --dag -f trimmed/etoh60_{1,2,3}_{1,2}.fq kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -
+```
+
+3) touch command
+```bash
+$ touch reads/etoh60_*.fq`
+```
+
+4) by deleting files
+```bash
+$ rm -r trimmed/etoh60_*.fq kallisto.etoh60_*
+```
+
+:::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -287,11 +302,11 @@ Use the `--dag` option as shown above to check your answers.
 
 In general, getting Snakemake to re-run things by removing files is a bad idea, because it's easy
 to forget about intermediate files that actually contain stale results and need to be updated.
-Using the `-R` flag or `touch` is simpler and more reliable. If in doubt, and if it will not be
-too time consuming, keep it simple and just use `-F` to run the whole workflow from scratch.
+Using the `-R` flag or `touch` command is simpler and more reliable. If in doubt, and if it will
+not be too time consuming, keep it simple and just use `-F` to run the whole workflow from scratch.
 
-For the opposite case where you want to avoid re-running particular steps, see the `--touch`
-option mentioned [later in the course.
+For the opposite case where you want to avoid re-running particular steps, see the `‑‑touch`
+option of Snakemake mentioned [later in the course.
 ](12-cleaning_up.md)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::

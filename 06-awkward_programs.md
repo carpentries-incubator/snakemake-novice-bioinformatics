@@ -101,7 +101,7 @@ We'll try all four, and see where this gets us.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - adding a FastQC rule using the default output file names
+## Adding a FastQC rule using the default output file names
 
 Fill in the `???` to make a working rule for FastQC where `indir` may be "reads" or "trimmed".
 Do not change the shell command or input pattern at all. Remember FastQC always makes two output
@@ -152,7 +152,7 @@ us specify the output directory, so we can use that...
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - a FastQC rule where the output files go into a new directory
+## A FastQC rule where the output files go into a new directory
 
 Modify the rule so that the output files go into a new directory. This will be very similar to
 the rule for `kallisto quant` added in episode 3.
@@ -202,7 +202,7 @@ rule fastqc:
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Note
+## Only use `directory()` on outputs, not inputs
 
 You only use the `directory()` declaration for outputs. Any input to a rule may be a directory
 without the need for any special syntax.
@@ -232,13 +232,13 @@ rule fastqc:
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Note
+## The rationale for making output directories
 
 Remember that in most cases it is not necessary to manually create directories because Snakemake
-will auto-create the directory for every output file listed by a rule. Even when using a
+will auto-create the directory for every output file listed by a rule. When using a
 `directory()` output, Snakemake will not create the directory itself but most applications
-will make the directory for you. FastQC is an exception. The best approach is generally to only
-add a `mkdir` command if you test the rule without it and get an error.
+will make the directory for you. FastQC is an exception. The best approach is to only
+add a `mkdir` command if you first test the rule without it and see an error.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -271,7 +271,7 @@ and/or rename the files to exactly the names you want.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - fixing FastQC to use our own output file names
+## Fixing FastQC to use our own output file names
 
 Complete the rule below so that the output filenames are correctly produced. You will need to add
 extra commands to the `shell` part after running `fastqc`. Do not alter the `output` or `input`
@@ -317,7 +317,7 @@ rule fastqc:
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Note
+## One problem with making intermediate outputs
 
 There is actually a problem with the above solution which only starts to matter when we allow
 Snakemake to run multiple jobs in parallel. Right now we are always using `-j1`, but if we used,

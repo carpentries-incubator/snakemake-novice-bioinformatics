@@ -96,52 +96,60 @@ samples, then removed them leaving only the gzipped versions.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise
+## Working with gzipped files
 
 Like Salmon, Kallisto can read compressed `.fq.gz` files directly. Amend the *kallisto\_quant*
 rule to use gzipped input files.
 Show that the new rule can be re-run on all samples without triggering the *trimreads* or
 *gzip\_fastq* rules.
 
-> ## Answer
-> 
-> In the first instance, this involves changing two input lines in the *kallisto\_quant*
-> rule definition.
-> 
-> ```source
->     fq1   = "trimmed/{sample}_1.fq.gz",
->     fq2   = "trimmed/{sample}_2.fq.gz",
-> ```
-> 
-> One quick way to check the result is:
-> 
-> ```bash
-> $ snakemake -n -Rkallisto_quant multiqc
-> ```
-> 
-> You should see that Snakemake wants to run the *kallisto\_quant* and *multiqc* steps but
-> no others.
+:::::::::::::::  solution
+
+## Solution
+
+In the first instance, this involves changing two input lines in the *kallisto\_quant*
+rule definition.
+
+```source
+    fq1   = "trimmed/{sample}_1.fq.gz",
+    fq2   = "trimmed/{sample}_2.fq.gz",
+```
+
+One quick way to check the result is:
+
+```bash
+$ snakemake -n -Rkallisto_quant multiqc
+```
+
+You should see that Snakemake wants to run the *kallisto\_quant* and *multiqc* steps but
+no others.
+
+::::::::::::::::::::::
 
 We have no use for the HTML reports produced by FastQC. Modify the Snakefile to automatically
 remove them.
 
-> ## Answer
-> 
-> Amend the *html* output of the *fastqc* rule to mark it as `temporary()`:
-> 
-> ```source
-> html = temporary("{indir}.{sample}_fastqc.html"),
-> ```
-> 
-> Since the files are already there, Snakemake will not normally remove them unless the jobs
-> are re-run, so you could do that as was done for *trimreads* above.
-> However, there is also a `--delete-temp-output` option which forces all temporary files in
-> the DAG to be removed, and this provides the cleanest way to remove the files after modifying
-> the Snakefile.
-> 
-> ```bash
-> $ snakemake -p -j1 --delete-temp-output multiqc
-> ```
+:::::::::::::::  solution
+
+## Solution
+
+Amend the *html* output of the *fastqc* rule to mark it as `temporary()`:
+
+```source
+html = temporary("{indir}.{sample}_fastqc.html"),
+```
+
+Since the files are already there, Snakemake will not normally remove them unless the jobs
+are re-run, so you could do that as was done for *trimreads* above.
+However, there is also a `--delete-temp-output` option which forces all temporary files in
+the DAG to be removed, and this provides the cleanest way to remove the files after modifying
+the Snakefile.
+
+```bash
+$ snakemake -p -j1 --delete-temp-output multiqc
+```
+
+::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -184,7 +192,7 @@ In practise, Snakemake does this by revoking write permissions on the files
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise
+## Protecting some outputs
 
 The longest operations in our test workflow are the genome indexing steps.
 
@@ -218,7 +226,7 @@ prior to starting executing jobs. That may change in future versions.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Note
+## Note on protecting files
 
 In practise, it can be annoying to have Snakemake trying to regenerate files that have been
 protected so if you don't expect to be rebuilding indexes you could just remove or comment out
@@ -289,5 +297,4 @@ this episode.*
 - Shadow rules can solve issues with commands that produce unwanted files
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
-
 

@@ -59,7 +59,7 @@ as it will be a template for adding a *salmon* rule.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - adding Salmon as an alternative to Kallisto
+## Adding Salmon as an alternative to Kallisto
 
 An alternative application for transcript quantification is Salmon. The procedure is virtually
 identical, to Kallisto, having an indexing step and a quantification step.
@@ -123,7 +123,7 @@ $ multiqc . -o multiqc_out
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - adding a MultiQC rule
+## Adding a MultiQC rule
 
 Earlier, in episode 5, we made a basic summary-type rule called *all\_counts*. Now make a
 *multiqc* rule that gathers up all the FastQC, Salmon and Kallisto reports.
@@ -171,19 +171,14 @@ $ snakemake -j1 -p multiqc_out
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - fixing Kallisto
+## Fixing Kallisto
 
 You may notice that MultiQC is not capturing any Kallisto output when making the reports. The
 reason for this is given in the [MultiQC manual here](https://multiqc.info/docs/#kallisto):
 
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-*Note - MultiQC parses the standard out from Kallisto, not any of its output files
-(abundance.h5, abundance.tsv, and run\_info.json). As such, you must capture the Kallisto
-output to a file when running it for use with MultiQC.*
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
+> *Note - MultiQC parses the standard out from Kallisto, not any of its output files
+> (abundance.h5, abundance.tsv, and run\_info.json). As such, you must capture the Kallisto
+> output to a file when running it for use with MultiQC.*
 
 Fix the Snakefile so that Kallisto terminal output is redirected to a file and can be collected
 by MultiQC.
@@ -231,7 +226,7 @@ directory as separate outputs, which is unusual but may be a good approach here.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise - making the MultiQC rule more robust
+## Making the MultiQC rule more robust
 
 Because MultiQC scans for suitable input rather than taking an explicit list of files, there is a
 risk that it picks up unwanted reports if you leave old files sitting in the directory. To make

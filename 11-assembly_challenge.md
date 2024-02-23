@@ -63,7 +63,7 @@ You will see it already looks a little like a Snakemake DAG.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge
+## Running the Bash script
 
 Run the script as-is. In order to make it work, you should make a new conda environment named
 "assembly-env" with the three packages installed.
@@ -159,7 +159,7 @@ Often just having a second pair of eyes on your code is all that is needed to sp
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge
+## Challenge - building a full Snakemake workflow
 
 Design a Snakemake workflow based upon the above script which will assemble all reads from each
 of the three conditions (ref, etoh60 and temp33) and will do so at four different kmer lengths
@@ -188,7 +188,8 @@ will have time in the course to look through and compare some different answers.
 
 - By now, you are ready to start using Snakemake for your own workflow tasks
 - You may wish to replace an existing script with a Snakemake workflow
-- Don't be disheartened by errors, which are normal. Use a systematic approach to diagnose the problem
+- Don't be disheartened by errors, which are normal; use a systematic approach to diagnose
+  the problem
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

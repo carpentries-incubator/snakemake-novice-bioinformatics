@@ -57,7 +57,7 @@ rule more readable.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise
+## Adding a parameter to the `salmon\_index` rule
 
 Modify the existing salmon\_index rule so that the `-k` setting (k-mer length) is a parameter.
 
@@ -98,7 +98,7 @@ Notes:
 
 ## Making Snakefiles configurable
 
-In general, it's good practise to break out parameters that you intend to change into a separate
+It's good practise to break out parameters that you intend to change into a separate
 file. That way you can re-run the pipeline on new input data, or with alternative settings, but
 you don't need to edit the Snakefile itself.
 
@@ -134,10 +134,10 @@ the config entry name and the default value should be in quotes.
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
-## Note
+## Using config settings with params
 
-You don't have to always use *config* in conjunction with *params* like this, but it's often a
-good idea to do so.
+Strictly speaking, you don't have to use *config* in conjunction with *params* like this, but it's
+normally a good idea to do so.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -149,7 +149,7 @@ $ snakemake --configfile=config.yaml ...
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise
+## Making the parameter of a rule configurable
 
 Fix the `salmon_index` rule to use `salmon_kmer_len` as in the config file sample above.
 Use a default of "29" if no config setting is supplied.
@@ -215,7 +215,7 @@ This is all getting quite complex, so in summary:
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Exercise
+## Making the conditions and replicates into configurable lists
 
 Modify the *Snakefile* and *config.yaml* so that you are setting the *CONDITIONS* and
 *REPLICATES* in the config file.
