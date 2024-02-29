@@ -44,7 +44,7 @@ quantification tool called *Salmon* and this will complete the pipeline.
   into a single HTML report over all samples. This is by no means a full RNA-Seq analysis report
   but today it completes our Snakemake pipeline.
 
-![][fig-workflow]{alt='Summary of our full QC workflow with icons representing the steps listed above.The input data is also summarized, with 18 paired FASTQ files under yeast/reads, forthe three repeats of all three conditions, as well as the transcriptome in gzippedFASTA format.'}
+![][fig-workflow]
 
 At this point we have everything we need, in terms of Snakemake knowledge, to add the two remaining
 tools and complete the Snakefile. As with FastQC, some quirks in the way the new tools work will
@@ -287,9 +287,10 @@ this episode. You may now proceed to any later episode in the lesson using this 
 starting point.*
 
 
-
-[fig-workflow]: fig/overview.svg
-
+[fig-workflow]: fig/overview.svg {alt='Summary of our full QC workflow with icons representing the
+steps listed above. The input data is also summarized, with 18 paired FASTQ files under
+yeast/reads, for the three repeats of all three conditions, as well as the transcriptome in gzipped
+FASTA format.'}
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 

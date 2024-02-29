@@ -84,7 +84,7 @@ Look at the logging messages that Snakemake prints in the terminal. What has hap
 
 **Here's a visual representation of this process:**
 
-![][fig-chaining]{alt='A visual representation of the above process showing the rule definitions with arrows to indicatethe order wildcards and then placeholders are substituted. The arrows start from the final targetat the top - the file trimmed.ref1\_1.fq.count, pointing down from this to output of the countreadsrule. Then arrows from the input of this rule go down to the output of the trimreads rule.Arrows then track back up through the shell parts of both rules and finally back to the targetoutput filename at the top.'}
+![][fig-chaining]
 
 This, in a nutshell, is how we build workflows in Snakemake.
 
@@ -412,7 +412,13 @@ this episode.*
 
 
 
-[fig-chaining]: fig/chaining_rules.png
+[fig-chaining]: fig/chaining_rules.png {alt='A visual representation of the above process showing
+the rule definitions, with arrows added to indicate the order wildcards and placeholders are
+substituted. Blue arrows start from the final target at the top, which is the file
+trimmed.ref1\_1.fq.count, then point down from components of the filename to wildcards in the
+output of the countreads rule. Arrows from the input of this rule go down to the output of the
+trimreads rule. Orange arrows then track back up through the shell parts of both rules, where the
+placeholders are, and finally back to the target output filename at the top.'}
 
 
 :::::::::::::::::::::::::::::::::::::::: keypoints

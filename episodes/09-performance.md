@@ -45,7 +45,7 @@ If you tell Snakemake how many threads each rule will use, and how many cores yo
 it will start jobs in parallel to use all your cores. In the diagram below, five jobs are ready to
 run and there are four system cores.
 
-![][fig-threads]{alt='Representation of a computer with four chip icons indicating four available cores. To the rightare five small green boxes representing Snakemake jobs and labelled as wanting 1, 1, 1, 2 and 8threads respecively.'}
+![][fig-threads]
 
 ## Listing the resources your Linux machine
 
@@ -210,12 +210,12 @@ cluster-aware. But if your workflow is written in Snakemake, it will run on a cl
 to no modification. Snakemake turns the individual jobs into cluster jobs, then submits and
 monitors them for you.
 
-- [The Snakemake manual explains how to set thisup
+- [The Snakemake manual explains how to set this up
   ](https://snakemake.readthedocs.io/en/stable/executing/cluster.html)
 - [We have some specific suggestions for Eddie, the University of Edinburgh cluster
   ](files/snakemake_on_eddie.pdf)
 
-![][fig-cluster]{alt='A photo of some high performance computer hardware arranged in five racks in a server room.Each rack is about 2.2 metres high. The front doors of the enclosures are all open.Orange and yellow cabling is prominent connecting systems within the second and third racks.'}
+![][fig-cluster]
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -236,8 +236,13 @@ this episode.*
 
 
 
-[fig-threads]: fig/snake_threads.svg
-[fig-cluster]: fig/Multiple_Server_.jpg
+[fig-threads]: fig/snake_threads.svg {alt='Representation of a computer with four microchip icons
+indicating four available cores. To the right are five small green boxes representing Snakemake
+jobs and labelled as wanting 1, 1, 1, 2 and 8 threads respecively.'}
+[fig-cluster]: fig/Multiple_Server_.jpg {alt='A photo of some high performance computer hardware
+racked in five cabinets in a server room. Each cabinet is about 2.2 metres high and 0.8m wide. The
+doors of the cabinets are open to show the systems inside. Orange and yellow cabling is
+prominent, connecting ports within the second and third racks.'}
 
 
 :::::::::::::::::::::::::::::::::::::::: keypoints

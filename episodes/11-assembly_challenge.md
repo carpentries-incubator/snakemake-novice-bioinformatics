@@ -59,7 +59,7 @@ stats.sh contigs.fa | grep 'Max contig length:' > max_contig.txt
 The following figure presents the steps involved in the above script, when run on the `ref` samples.
 You will see it already looks a little like a Snakemake DAG.
 
-![][fig-flow]{alt='A box-and-arrow representation of the cutadapt, concatenation, and assembly steps in the abovescript, with the names of the six files from the three ref samples in pairs at the top. Arrows comedown from each pair of files into a corresponding cutadapt box, then under this the arrows cross asthey go from the three cutadapt boxes to the two boxes labelled "concatenate". Under this is asingle box labelled "assembly (velvet)" and a final box at the bottom labelled"find longest contig".'}
+![][fig-flow]
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -180,8 +180,12 @@ will have time in the course to look through and compare some different answers.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-
-[fig-flow]: fig/assembly_flow.svg
+[fig-flow]: fig/assembly_flow.svg {alt='A box-and-arrow representation of the cutadapt,
+concatenation, and assembly steps in the above script, with the names of the six files from the
+three ref samples in pairs at the top. Arrows come down from each pair of files into a
+corresponding cutadapt box, then under this the arrows cross as they go from the three cutadapt
+boxes to the two boxes labelled "concatenate". Under this is a single box labelled
+"assembly (velvet)" and a final box at the bottom labelled "find longest contig".'}
 
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
