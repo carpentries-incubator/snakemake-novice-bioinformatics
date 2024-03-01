@@ -151,9 +151,9 @@ r"""Strings like this"""
 This "raw string" or "r-string" syntax allows embedded newlines, literal `\n` `\t`, and both types
 of quotes (`"` `'`). In other words, the interpretation as a Python string does as little as
 possible, leaving most interpretation to the *Bash* shell. This means that if you copy and  paste
-the commands into a shell prompt or a shell script you should get the exact same result. The author
-of this course is in the habit of using r-string quotes for all shell commands, at the cost of a
-small loss of readability of the workflow code.
+the commands into a shell prompt or a shell script you should get the exact same result. You could
+consider using r-string quotes for all shell commands, at the cost of a small loss of readability
+of the workflow code.
 
 The triple-quoting does not protect {curlies}, so if you are needing to use *awk* commands like the
 one above, rather than adding extra braces into the command you could define it as a variable.
@@ -247,7 +247,7 @@ this episode.*
 
 - Having a grasp of string quoting rules is boring but important
 - Understand the three processing steps each *shell* command goes through before it is actually run
-- Make use of triple-quotes
+- Put complex shell commands into raw triple-quotes (`r"""`)
 - Watch out for commands that have {curly brackets}, and double them up
 - Use the built-in `:q` feature to protect arguments from *bash* interpretation
 

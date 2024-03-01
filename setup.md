@@ -30,35 +30,43 @@ Install software packages, including Snakemake and the bioinformatics tools, via
 info on Conda, see the first part of [episode 10
 ](episodes/10-conda_integration.md).
 
-- If you don't already have Conda, get [the Miniconda installer
-  ](https://docs.conda.io/en/latest/miniconda.html) and follow their instructions.
+- If you don't already have Conda, start with [the Miniforge installer
+  ](https://github.com/conda-forge/miniforge).
 
-These are the current recommended commands, taken from the above page, to install and initialise
-Miniconda in a Linux Bash environment.
+These are suggested commands to install and initialise Miniforge in a Linux Bash environment.
 
 ```bash
-$ mkdir -p ~/miniconda3
-$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
-$ bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
-$ rm ~/miniconda3/miniconda.sh
-$ ~/miniconda3/bin/conda init bash
+$ mkdir -p ~/miniforge3
+$ wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O ~/miniforge3/installer.sh
+$ bash ~/miniforge3/installer.sh -b -u -p ~/miniforge3
+$ rm ~/miniforge3/installer.sh
+$ ~/miniforge3/bin/conda init bash
 $ exit
-...then open a new shell...
 ```
 
-After this:
+Then open a new shell. Your shell prompt should now start with `(base)`.
 
-- Set Conda to use *strict* channel priority when resolving dependencies. This setting is
-  recommended by both Snakemake and [by Conda itself](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html#strict).
-- Get [the *conda\_env.yaml* environment file](files/conda_env.yaml) and create the environment by
-  running `conda env update --file conda_env.yaml`.
-- Ensure the new environment is active in your shell.
+Now save the following into a file named `~/.condarc`:
 
-Once you have the `conda` command available and the `conda_env.yaml` file saved in your current
-directory, these commands should work to complete the steps above:
+```source
+channels:
+  - conda-forge
+  - bioconda
+solver: libmamba
+channel_priority: strict
+```
+
+- You may want to enable additional channels but all the packages needed in the course are in
+  the two listed above.
+- The use of *strict* channel priority when resolving dependencies is
+  recommended by both Snakemake and [by Conda itself](
+  https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html#strict).
+- Setting `solver: libmamba` is nowadays preferred to explicitly running the `mamba` command.
+
+Once this is set up, get [the *conda\_env.yaml* environment file](files/conda_env.yaml) and
+create then activate the environment by running:
 
 ```bash
-$ conda config --set channel_priority strict
 $ conda env update --file conda_env.yaml
 $ conda activate snakemake_carpentry
 ```
@@ -143,7 +151,4 @@ set morespace
 
 Some of these are already defaults in later versions of Nano, but it doesn't hurt to have them
 here anyway. There isn't a way to set the default syntax highlighting within this file.
-
-
-
 

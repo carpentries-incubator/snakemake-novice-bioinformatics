@@ -1,5 +1,5 @@
 ---
-title: How Snakemake plans what jobs to run
+title: How Snakemake plans its jobs
 teaching: 40
 exercises: 30
 ---
@@ -32,7 +32,7 @@ Building DAG of jobs...
 
 A DAG is a **Directed Acyclic Graph** and it can be pictured like so:
 
-![][fig-dag]{alt='Diagram showing jobs as coloured boxes joined by arrows representing data flow.The box labelled as kallisto\_index is in green at the top, with two blue boxes labelled trimreadsand two yellow boxes labelled countreads. The blue trimreads boxes have arrows into the respectiveyellow countreads boxes. Finally there is a kallisto\_quant job shown as a red box, with incomingarrows from both the trimreads box as well as the kallisto\_index box.'}
+![][fig-dag]
 
 The above DAG is based on our four existing rules, and shows all the jobs Snakemake would run to
 trim, count and quantify the *ref1* sample.
@@ -235,7 +235,7 @@ $ snakemake -f --dag kallisto.etoh60_1/abundance.h5 | dot -Tpng > dag.png
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-![][fig-dag2]{alt='A DAG for the partial workflow with four boxes, representing two trimreads jobs and akallisto\_index job, then a kallisto\_quant job receiving input from the previous three, The boxesfor the kallisto\_index and trimreads jobs are dotted, but the kallisto\_quant box is solid.'}
+![][fig-dag2]
 
 The boxes drawn with dotted lines indicate steps that are not to be run, as the output files are
 already present and newer than the input files.
@@ -313,8 +313,15 @@ option of Snakemake mentioned [later in the course.
 
 
 
-[fig-dag]: fig/dag_1.svg
-[fig-dag2]: fig/dag_2.png
+[fig-dag]: fig/dag_1.svg {alt='Diagram showing jobs as coloured boxes joined by arrows representing
+data flow. The box labelled as kallisto\_index is in green at the top, with two blue boxes labelled
+trimreads and two yellow boxes labelled countreads. The blue trimreads boxes have arrows into the
+respective yellow countreads boxes. Finally there is a kallisto\_quant job shown as a red box, with
+incoming arrows from both the trimreads box as well as the kallisto\_index box.'}
+[fig-dag2]: fig/dag_2.png {alt='A DAG for the partial workflow with four boxes, representing two
+trimreads jobs and a kallisto\_index job, then a kallisto\_quant job receiving input from the
+previous three, The boxes for the kallisto\_index and trimreads jobs are dotted, but the
+kallisto\_quant box is solid.'}
 
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
