@@ -3,14 +3,14 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - fastqc=0.11.9
-  - fastx_toolkit=0.0.14
+  - fastqc
+  - fastx_toolkit
   - gnuplot
   - graphicsmagick
-  - graphviz=2.42.3
-  - kallisto=0.46.2
-  - multiqc=1.10.1
-  - rename=1.601
-  - salmon=1.4.0
-  - snakemake=5.32.2
-prefix: /home/zenmaster/miniconda3/envs/snakemake_dash
+  - graphviz
+  - kallisto
+  - multiqc
+  - rename
+  - salmon
+  - snakemake>8.5.0
+prefix: /home/zenmaster/miniforge3/envs/snakemake_carpentry

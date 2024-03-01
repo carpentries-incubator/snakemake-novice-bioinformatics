@@ -187,7 +187,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-the_dag.html">4. How Snakemake plans what jobs to run</a>
+        <a href="04-the_dag.html">4. How Snakemake plans its jobs</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -332,7 +332,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Chaining rules</h1>
-        <p>Last updated on 2024-02-23 |
+        <p>Last updated on 2024-03-01 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/03-chaining_rules.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -412,9 +412,9 @@ following this output pattern:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed.ref1_1.fq.count</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat trimmed.ref1_1.fq.count</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">14278</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed.ref1_1.fq.count</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> cat trimmed.ref1_1.fq.count</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">14278</span></span></code></pre>
 </div>
 <p>Look at the logging messages that Snakemake prints in the terminal.
 What has happened here?</p>
@@ -437,16 +437,7 @@ What has happened here?</p>
 <li>Now Snakemake has reached an available input file, it runs both
 steps to get the final output</li>
 </ol><p><strong>Here’s a visual representation of this process:</strong></p>
-<p><img src="../fig/chaining_rules.png" class="figure">{alt=‘A visual representation of
-the above process showing the rule definitions with arrows to
-indicatethe order wildcards and then placeholders are substituted. The
-arrows start from the final targetat the top - the file
-trimmed.ref1_1.fq.count, pointing down from this to output of the
-countreadsrule. Then arrows from the input of this rule go down to the
-output of the trimreads rule.Arrows then track back up through the shell
-parts of both rules and finally back to the targetoutput filename at the
-top.’}</p>
-<p>This, in a nutshell, is how we build workflows in Snakemake.</p>
+<figure><img src="../fig/chaining_rules.png" alt="A visual representation of the above process showing the rule definitions, with arrows added to indicate the order wildcards and placeholders are substituted. Blue arrows start from the final target at the top, which is the file trimmed.ref1_1.fq.count, then point down from components of the filename to wildcards in the output of the countreads rule. Arrows from the input of this rule go down to the output of the trimreads rule. Orange arrows then track back up through the shell parts of both rules, where the placeholders are, and finally back to the target output filename at the top." class="figure mx-auto d-block"></figure><p>This, in a nutshell, is how we build workflows in Snakemake.</p>
 <ol style="list-style-type: decimal"><li>Define rules for all the processing steps</li>
 <li>Choose <code>input</code> and <code>output</code> naming patterns
 that allow Snakemake to link the rules</li>
@@ -457,13 +448,12 @@ are always <strong>working backwards</strong> from the final desired
 result. The order of operations is determined by applying the pattern
 matching rules to the filenames, not by the order of the rules in the
 Snakefile.</p>
-<div id="outputs-first" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="outputs-first" class="callout-inner">
-<h3 class="callout-title">Outputs first?<a class="anchor" aria-label="anchor" href="#outputs-first"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="outputs-first">Outputs first?<a class="anchor" aria-label="anchor" href="#outputs-first"></a></h3>
 <div class="callout-content">
 <p>The Snakemake approach of working backwards from the desired output
 to determine the workflow is why we’re putting the <code>output</code>
@@ -497,7 +487,7 @@ linkages between the steps.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">A sample answer based on brewing a mug of tea.</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p><em>TODO - draw this out too.</em></p>
 <pre><code>"Boil Water" : input=cold water, output=hot water
@@ -518,7 +508,7 @@ command to do so looks like this:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> kallisto quant <span class="at">-i</span> index_file <span class="at">-o</span> output_dir in_1.fastq in_2.fastq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> kallisto quant <span class="at">-i</span> index_file <span class="at">-o</span> output_dir in_1.fastq in_2.fastq</span></code></pre>
 </div>
 <p>This command has three input files:</p>
 <ol style="list-style-type: decimal"><li>The transcriptome index</li>
@@ -573,13 +563,12 @@ episode.</li>
 </ol><p>Even though the rule is not going to work without the index, we can
 still run it to check that Snakemake is happy with the rule
 definition.</p>
-<div id="running-kallisto-on-all-replicates" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="running-kallisto-on-all-replicates" class="callout-inner">
-<h3 class="callout-title">Running Kallisto on all replicates<a class="anchor" aria-label="anchor" href="#running-kallisto-on-all-replicates"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="running-kallisto-on-all-replicates">Running Kallisto on all replicates<a class="anchor" aria-label="anchor" href="#running-kallisto-on-all-replicates"></a></h3>
 <div class="callout-content">
 <p>If you know about the Kallisto software, you may be thinking about
 running Kallisto on all replicates of the condition at once. We’ll look
@@ -610,12 +599,12 @@ enough.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5</span></code></pre>
 </div>
 <p>Resulting error is “Missing input files”. Note that Snakemake does
 not try to run kallisto at all. It stops while still making a work plan,
@@ -637,7 +626,7 @@ pipeline by adding another rule. The command we need to run is:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> kallisto index <span class="at">-i</span> index_file_to_make fasta_file_to_index</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> kallisto index <span class="at">-i</span> index_file_to_make fasta_file_to_index</span></code></pre>
 </div>
 <p>The file to be indexed is
 <code>transcriptome/Saccharomyces_cerevisiae.R64-1-1.cdna.all.fa.gz</code>.
@@ -657,7 +646,7 @@ output.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>The rule you write could look something like this, but there are many
 variations that will work just as well. Since there is only one
@@ -676,14 +665,13 @@ not want to use another in future?</p>
 </div>
 </div>
 </div>
-<div id="log-outputs-in-snakemake" class="callout callout">
+<div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="log-outputs-in-snakemake" class="callout-inner">
-<h3 class="callout-title">
-<code>log</code>outputs in Snakemake<a class="anchor" aria-label="anchor" href="#log-outputs-in-snakemake"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="log-outputs-in-snakemake">
+<code>log</code> outputs in Snakemake<a class="anchor" aria-label="anchor" href="#log-outputs-in-snakemake"></a></h3>
 <div class="callout-content">
 <p>Snakemake has a dedicated rule field for outputs that are <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files" class="external-link">log
 files</a>, and these are mostly treated as regular outputs except that
@@ -701,10 +689,10 @@ Snakemake we’ll stick with regular <code>input</code> and
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...lots</span> of output...</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">4</span> of 4 steps <span class="er">(</span><span class="ex">100%</span><span class="kw">)</span> <span class="cf">done</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Complete</span> log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834.snakemake.log</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="ex">...lots</span> of output...</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="ex">4</span> of 4 steps <span class="er">(</span><span class="ex">100%</span><span class="kw">)</span> <span class="cf">done</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="ex">Complete</span> log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834.snakemake.log</span></code></pre>
 </div>
 <p>We’ll end the chapter by looking at a common problem that can arise
 if you mistype a file name in a rule. Remember that we wrote the rule
@@ -726,7 +714,7 @@ directory.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-rvf</span> kallisto.ref1</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-rvf</span> kallisto.ref1</span></code></pre>
 </div>
 <p>And re-run. Note that the output file name you’ll need to use on the
 command line must match the edited Snakefile, or you will get a
@@ -778,8 +766,8 @@ further by looking at the <code>kallisto.ref1</code> subdirectory.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls kallisto.ref1/</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">abundance.h5</span>  abundance.tsv</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">$</span> ls kallisto.ref1/</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="ex">abundance.h5</span>  abundance.tsv</span></code></pre>
 </div>
 <p>Remember that Snakemake itself does not create any output files. It
 just runs the commands you put in the <code>shell</code> sections, then
@@ -789,13 +777,12 @@ in the Snakefile you will get this error, and you will, in this case,
 find that some output files are present but others
 (<code>run_info.json</code>, which was named correctly) have been
 cleaned up by Snakemake.</p>
-<div id="errors-are-normal" class="callout callout">
+<div id="callout4" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="errors-are-normal" class="callout-inner">
-<h3 class="callout-title">Errors are normal<a class="anchor" aria-label="anchor" href="#errors-are-normal"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="errors-are-normal">Errors are normal<a class="anchor" aria-label="anchor" href="#errors-are-normal"></a></h3>
 <div class="callout-content">
 <p>Don’t be disheartened if you see errors like the one above when first
 testing your new Snakemake pipelines. There is a lot that can go wrong
@@ -816,7 +803,7 @@ too:</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5  kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5  kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p><em>For reference, <a href="../files/ep03.Snakefile">this is a
 Snakefile</a> incorporating the changes made in this episode.</em></p>
@@ -894,8 +881,8 @@ will regard that as a failure</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/03-chaining_rules.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/03-chaining_rules.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-23",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-01",
+  "datePublished": "2024-03-01"
 }
 
   </script><script>

@@ -174,7 +174,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-the_dag.html">4. How Snakemake plans what jobs to run</a>
+        <a href="04-the_dag.html">4. How Snakemake plans its jobs</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -334,7 +334,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Optimising workflow performance</h1>
-        <p>Last updated on 2024-02-23 |
+        <p>Last updated on 2024-03-01 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/09-performance.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -401,30 +401,26 @@ have to “timeslice” on a core which is generally suboptimal</li>
 many cores you have available, it will start jobs in parallel to use all
 your cores. In the diagram below, five jobs are ready to run and there
 are four system cores.</p>
-<p><img src="../fig/snake_threads.svg" class="figure">{alt=‘Representation of a computer
-with four chip icons indicating four available cores. To the rightare
-five small green boxes representing Snakemake jobs and labelled as
-wanting 1, 1, 1, 2 and 8threads respecively.’}</p>
-</section><section id="listing-the-resources-your-linux-machine"><h2 class="section-heading">Listing the resources your Linux machine<a class="anchor" aria-label="anchor" href="#listing-the-resources-your-linux-machine"></a>
+<figure><img src="../fig/snake_threads.svg" alt="Representation of a computer with four microchip icons indicating four available cores. To the right are five small green boxes representing Snakemake jobs and labelled as wanting 1, 1, 1, 2 and 8 threads respecively." class="figure mx-auto d-block"></figure></section><section id="listing-the-resources-your-linux-machine"><h2 class="section-heading">Listing the resources your Linux machine<a class="anchor" aria-label="anchor" href="#listing-the-resources-your-linux-machine"></a>
 </h2>
 <hr class="half-width"><p>Find out how many CPU cores you have on your machine with the
 <code>lscpu</code> command.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> lscpu</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> lscpu</span></code></pre>
 </div>
 <p>Likewise find out the amount of RAM available:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> free <span class="at">-h</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> free <span class="at">-h</span></span></code></pre>
 </div>
 <p>And finally disk space, on the current partition:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> df <span class="at">-h</span> .</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> df <span class="at">-h</span> .</span></code></pre>
 </div>
 <p>(or <code>df -h</code> without the <code>.</code> to show all
 partitions)</p>
@@ -440,7 +436,7 @@ precedence, so eg:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> /usr/bin/time <span class="at">-v</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">--</span> kallisto.<span class="dt">{ref</span><span class="op">,</span><span class="dt">temp33</span><span class="op">,</span><span class="dt">etoh60}</span>_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> /usr/bin/time <span class="at">-v</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">--</span> kallisto.<span class="dt">{ref</span><span class="op">,</span><span class="dt">temp33</span><span class="op">,</span><span class="dt">etoh60}</span>_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span></span></code></pre>
 </div>
 <div id="measuring-how-concurrency-affects-execution-time" class="callout challenge">
 <div class="callout-square">
@@ -562,13 +558,12 @@ unsupported.</p>
 </div>
 </div>
 </div>
-<div id="fine-grained-profiling" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="fine-grained-profiling" class="callout-inner">
-<h3 class="callout-title">Fine-grained profiling<a class="anchor" aria-label="anchor" href="#fine-grained-profiling"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="fine-grained-profiling">Fine-grained profiling<a class="anchor" aria-label="anchor" href="#fine-grained-profiling"></a></h3>
 <div class="callout-content">
 <p>Rather than timing the entire workflow, we can ask Snakemake to
 benchmark an individual rule.</p>
@@ -595,21 +590,15 @@ it will run on a cluster will little to no modification. Snakemake turns
 the individual jobs into cluster jobs, then submits and monitors them
 for you.</p>
 <ul><li><a href="https://snakemake.readthedocs.io/en/stable/executing/cluster.html" class="external-link">The
-Snakemake manual explains how to set thisup</a></li>
+Snakemake manual explains how to set this up</a></li>
 <li><a href="../files/snakemake_on_eddie.pdf">We have some specific
 suggestions for Eddie, the University of Edinburgh cluster</a></li>
-</ul><p><img src="../fig/Multiple_Server_.jpg" class="figure">{alt=‘A photo of some high
-performance computer hardware arranged in five racks in a server
-room.Each rack is about 2.2 metres high. The front doors of the
-enclosures are all open.Orange and yellow cabling is prominent
-connecting systems within the second and third racks.’}</p>
-<div id="cluster-demo" class="callout callout">
+</ul><figure><img src="../fig/Multiple_Server_.jpg" alt="A photo of some high performance computer hardware racked in five cabinets in a server room. Each cabinet is about 2.2 metres high and 0.8m wide. The doors of the cabinets are open to show the systems inside. Orange and yellow cabling is prominent, connecting ports within the second and third racks." class="figure mx-auto d-block"></figure><div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="cluster-demo" class="callout-inner">
-<h3 class="callout-title">Cluster demo<a class="anchor" aria-label="anchor" href="#cluster-demo"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="cluster-demo">Cluster demo<a class="anchor" aria-label="anchor" href="#cluster-demo"></a></h3>
 <div class="callout-content">
 <p>A this point in the course there may be a cluster demo…</p>
 </div>
@@ -693,8 +682,8 @@ number of threads to the number of cores you have</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/09-performance.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/09-performance.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-23",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-01",
+  "datePublished": "2024-03-01"
 }
 
   </script><script>

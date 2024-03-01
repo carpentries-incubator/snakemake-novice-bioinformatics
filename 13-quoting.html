@@ -174,7 +174,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-the_dag.html">4. How Snakemake plans what jobs to run</a>
+        <a href="04-the_dag.html">4. How Snakemake plans its jobs</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -332,7 +332,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Robust quoting in Snakefiles</h1>
-        <p>Last updated on 2024-02-23 |
+        <p>Last updated on 2024-03-01 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/13-quoting.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -377,8 +377,8 @@ episode.</em></p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spins<span class="pp">?</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spins<span class="pp">?</span></span></code></pre>
 </div>
 <p>The message is printed back, but not before the shell has interpreted
 the text as per various command-line parsing rules</p>
@@ -390,9 +390,9 @@ pattern if there is any matching file:</li>
 </ul><div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch spinsX spinsY</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spinsX spinsY</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> touch spinsX spinsY</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spinsX spinsY</span></code></pre>
 </div>
 <p><em>Note: if you have certain shell settings you may have seen a
 warning about the unmatched glob pattern.</em></p>
@@ -411,9 +411,9 @@ commands:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print mean read length in FASTQ file - from https://github.com/stephenturner/oneliners</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}'</span> reads/ref_1_1.fq</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">101</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Print mean read length in FASTQ file - from https://github.com/stephenturner/oneliners</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}'</span> reads/ref_1_1.fq</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">101</span></span></code></pre>
 </div>
 <p>The ‘single quotes’ ensure that the expression is passed directly to
 <em>awk</em>. If “double quotes” had been used, <em>bash</em> would
@@ -422,12 +422,12 @@ the awk logic, giving a meaningless result.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With double quotes the "$0" is substituted by *bash*, rather than being passed on to awk.</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span> reads/ref_1_1.fq</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># In an interactive shell $0 is a variable containing the value "bash"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">NR%4==2{sum+=length</span><span class="er">(</span><span class="fu">bash</span><span class="kw">)</span><span class="er">}</span><span class="ex">END{print</span> sum/<span class="er">(</span><span class="ex">NR/4</span><span class="kw">)</span><span class="er">}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># With double quotes the "$0" is substituted by *bash*, rather than being passed on to awk.</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span> reads/ref_1_1.fq</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">0</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># In an interactive shell $0 is a variable containing the value "bash"</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="ex">NR%4==2{sum+=length</span><span class="er">(</span><span class="fu">bash</span><span class="kw">)</span><span class="er">}</span><span class="ex">END{print</span> sum/<span class="er">(</span><span class="ex">NR/4</span><span class="kw">)</span><span class="er">}</span></span></code></pre>
 </div>
 <p>So in <em>bash</em>, putting a string in single quotes is normally
 enough to preserve the contents, but if you need to add literal single
@@ -436,9 +436,9 @@ quotes to the awk command for any reason you have to do some awkward
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Yuk! But it does work...</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'{print "\"double\" '"'"'single'"'"'"}'</span> <span class="op">&lt;&lt;&lt;</span><span class="st">''</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">"double"</span> <span class="st">'single'</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Yuk! But it does work...</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'{print "\"double\" '"'"'single'"'"'"}'</span> <span class="op">&lt;&lt;&lt;</span><span class="st">''</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="st">"double"</span> <span class="st">'single'</span></span></code></pre>
 </div>
 </section><section id="quoting-rules-in-snakemake"><h2 class="section-heading">Quoting rules in Snakemake<a class="anchor" aria-label="anchor" href="#quoting-rules-in-snakemake"></a>
 </h2>
@@ -508,9 +508,9 @@ literal <code>\n</code> <code>\t</code>, and both types of quotes
 Python string does as little as possible, leaving most interpretation to
 the <em>Bash</em> shell. This means that if you copy and paste the
 commands into a shell prompt or a shell script you should get the exact
-same result. The author of this course is in the habit of using r-string
-quotes for all shell commands, at the cost of a small loss of
-readability of the workflow code.</p>
+same result. You could consider using r-string quotes for all shell
+commands, at the cost of a small loss of readability of the workflow
+code.</p>
 <p>The triple-quoting does not protect {curlies}, so if you are needing
 to use <em>awk</em> commands like the one above, rather than adding
 extra braces into the command you could define it as a variable.</p>
@@ -556,7 +556,7 @@ working.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rename <span class="at">-v</span> <span class="at">-s</span> <span class="st">'etoh'</span> <span class="st">'etoh '</span> <span class="at">-s</span> <span class="st">'temp'</span> <span class="st">'temp '</span> reads/<span class="pp">*</span>.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> rename <span class="at">-v</span> <span class="at">-s</span> <span class="st">'etoh'</span> <span class="st">'etoh '</span> <span class="at">-s</span> <span class="st">'temp'</span> <span class="st">'temp '</span> reads/<span class="pp">*</span>.fq</span></code></pre>
 </div>
 <p>Fix the workflow so you can still run the MultiQC report over all the
 samples (run Snakemake with <code>-F</code> to check that all the steps
@@ -579,13 +579,12 @@ again.</p>
 </div>
 </div>
 </div>
-<div id="external-scripts" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="external-scripts" class="callout-inner">
-<h3 class="callout-title">External scripts<a class="anchor" aria-label="anchor" href="#external-scripts"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="external-scripts">External scripts<a class="anchor" aria-label="anchor" href="#external-scripts"></a></h3>
 <div class="callout-content">
 <p>If rules in your Snakefile end up containing a large amount of shell
 code, or you are running into multiple quoting issues, this is probably
@@ -613,7 +612,8 @@ Snakefile</a> incorporating the changes made in this episode.</em></p>
 <ul><li>Having a grasp of string quoting rules is boring but important</li>
 <li>Understand the three processing steps each <em>shell</em> command
 goes through before it is actually run</li>
-<li>Make use of triple-quotes</li>
+<li>Put complex shell commands into raw triple-quotes
+(<code>r"""</code>)</li>
 <li>Watch out for commands that have {curly brackets}, and double them
 up</li>
 <li>Use the built-in <code>:q</code> feature to protect arguments from
@@ -679,8 +679,8 @@ up</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/13-quoting.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/13-quoting.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-23",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-01",
+  "datePublished": "2024-03-01"
 }
 
   </script><script>

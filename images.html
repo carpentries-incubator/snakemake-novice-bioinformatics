@@ -218,7 +218,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-the_dag.html">4. How Snakemake plans what jobs to run</a>
+        <a href="04-the_dag.html">4. How Snakemake plans its jobs</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -395,80 +395,37 @@
 <hr class="half-width"></section><section id="03-chaining_rules"><h2 class="section-heading"><a href="03-chaining_rules.html">Chaining rules</a></h2>
 <hr class="half-width">
 <h3 id="03-chaining_rules-figure-1">Figure 1</h3>
-<p><img src="fig/chaining_rules.png" class="figure">{alt=‘A visual representation of
-the above process showing the rule definitions with arrows to
-indicatethe order wildcards and then placeholders are substituted. The
-arrows start from the final targetat the top - the file
-trimmed.ref1_1.fq.count, pointing down from this to output of the
-countreadsrule. Then arrows from the input of this rule go down to the
-output of the trimreads rule.Arrows then track back up through the shell
-parts of both rules and finally back to the targetoutput filename at the
-top.’}</p>
-<hr></section><section id="04-the_dag"><h2 class="section-heading"><a href="04-the_dag.html">How Snakemake plans what jobs to run</a></h2>
+<p aria-hidden="true">Image 1 of 1: ‘A visual representation of the above process showing the rule definitions, with arrows added to indicate the order wildcards and placeholders are substituted. Blue arrows start from the final target at the top, which is the file trimmed.ref1_1.fq.count, then point down from components of the filename to wildcards in the output of the countreads rule. Arrows from the input of this rule go down to the output of the trimreads rule. Orange arrows then track back up through the shell parts of both rules, where the placeholders are, and finally back to the target output filename at the top.’</p>
+<figure><img src="fig/chaining_rules.png" alt="A visual representation of the above process showing the rule definitions, with arrows added to indicate the order wildcards and placeholders are substituted. Blue arrows start from the final target at the top, which is the file trimmed.ref1_1.fq.count, then point down from components of the filename to wildcards in the output of the countreads rule. Arrows from the input of this rule go down to the output of the trimreads rule. Orange arrows then track back up through the shell parts of both rules, where the placeholders are, and finally back to the target output filename at the top." class="figure mx-auto d-block"></figure><hr></section><section id="04-the_dag"><h2 class="section-heading"><a href="04-the_dag.html">How Snakemake plans its jobs</a></h2>
 <hr class="half-width">
 <h3 id="04-the_dag-figure-1">Figure 1</h3>
-<p><img src="fig/dag_1.svg" class="figure">{alt=‘Diagram showing jobs as coloured
-boxes joined by arrows representing data flow.The box labelled as
-kallisto_index is in green at the top, with two blue boxes labelled
-trimreadsand two yellow boxes labelled countreads. The blue trimreads
-boxes have arrows into the respectiveyellow countreads boxes. Finally
-there is a kallisto_quant job shown as a red box, with incomingarrows
-from both the trimreads box as well as the kallisto_index box.’}</p>
-<hr>
+<p aria-hidden="true">Image 1 of 1: ‘Diagram showing jobs as coloured boxes joined by arrows representing data flow. The box labelled as kallisto_index is in green at the top, with two blue boxes labelled trimreads and two yellow boxes labelled countreads. The blue trimreads boxes have arrows into the respective yellow countreads boxes. Finally there is a kallisto_quant job shown as a red box, with incoming arrows from both the trimreads box as well as the kallisto_index box.’</p>
+<figure><img src="fig/dag_1.svg" alt="Diagram showing jobs as coloured boxes joined by arrows representing data flow. The box labelled as kallisto_index is in green at the top, with two blue boxes labelled trimreads and two yellow boxes labelled countreads. The blue trimreads boxes have arrows into the respective yellow countreads boxes. Finally there is a kallisto_quant job shown as a red box, with incoming arrows from both the trimreads box as well as the kallisto_index box." class="figure mx-auto d-block"></figure><hr>
 <h3 id="04-the_dag-figure-2">Figure 2</h3>
-<p><img src="fig/dag_2.png" class="figure">{alt=‘A DAG for the partial workflow with
-four boxes, representing two trimreads jobs and akallisto_index job,
-then a kallisto_quant job receiving input from the previous three, The
-boxesfor the kallisto_index and trimreads jobs are dotted, but the
-kallisto_quant box is solid.’}</p>
-<hr></section><section id="05-expansion"><h2 class="section-heading"><a href="05-expansion.html">Processing lists of inputs</a></h2>
+<p aria-hidden="true">Image 1 of 1: ‘A DAG for the partial workflow with four boxes, representing two trimreads jobs and a kallisto_index job, then a kallisto_quant job receiving input from the previous three, The boxes for the kallisto_index and trimreads jobs are dotted, but the kallisto_quant box is solid.’</p>
+<figure><img src="fig/dag_2.png" alt="A DAG for the partial workflow with four boxes, representing two trimreads jobs and a kallisto_index job, then a kallisto_quant job receiving input from the previous three, The boxes for the kallisto_index and trimreads jobs are dotted, but the kallisto_quant box is solid." class="figure mx-auto d-block"></figure><hr></section><section id="05-expansion"><h2 class="section-heading"><a href="05-expansion.html">Processing lists of inputs</a></h2>
 <hr class="half-width"></section><section id="06-awkward_programs"><h2 class="section-heading"><a href="06-awkward_programs.html">Handling awkward programs</a></h2>
 <hr class="half-width">
 <h3 id="06-awkward_programs-figure-1">Figure 1</h3>
-<p><img src="fig/fastqc.png" class="figure">{alt=‘Screenshot of a typical FastQC
-report specifically showing the per-base quality box-and-whiskerplot.
-This is one of eleven views that are shown as a selectable list in the
-application window.The plot itself shows vertical yellow bars that get
-increasingly taller and lower from left toright, indicating how the base
-quality in these short reads deteriorates as the runprogresses. There is
-a red X icon next to this plot, while other views listed have green
-ticks oryellow exclamation point icons.’}</p>
-<hr></section><section id="07-finished-workflow"><h2 class="section-heading"><a href="07-finished-workflow.html">Finishing the basic workflow</a></h2>
+<p aria-hidden="true">Image 1 of 1: ‘Screenshot of a typical FastQC report specifically showing the per-base quality box-and-whisker plot. This is one of eleven views that are shown as a selectable list in the application window. The plot itself shows vertical yellow bars that get increasingly taller and lower from left to right, indicating how the base quality in these short reads deteriorates as the run progresses. There is a red X icon next to this plot, while other views listed have green ticks or yellow exclamation point icons.’</p>
+<figure><img src="fig/fastqc.png" alt="Screenshot of a typical FastQC report specifically showing the per-base quality box-and-whisker plot. This is one of eleven views that are shown as a selectable list in the application window. The plot itself shows vertical yellow bars that get increasingly taller and lower from left to right, indicating how the base quality in these short reads deteriorates as the run progresses. There is a red X icon next to this plot, while other views listed have green ticks or yellow exclamation point icons." class="figure mx-auto d-block"></figure><hr></section><section id="07-finished-workflow"><h2 class="section-heading"><a href="07-finished-workflow.html">Finishing the basic workflow</a></h2>
 <hr class="half-width">
 <h3 id="07-finished-workflow-figure-1">Figure 1</h3>
-<p><img src="fig/overview.svg" class="figure">{alt=‘Summary of our full QC workflow
-with icons representing the steps listed above.The input data is also
-summarized, with 18 paired FASTQ files under yeast/reads, forthe three
-repeats of all three conditions, as well as the transcriptome in
-gzippedFASTA format.’}</p>
-<hr></section><section id="08-configuring"><h2 class="section-heading"><a href="08-configuring.html">Configuring workflows</a></h2>
+<p aria-hidden="true">Image 1 of 1: ‘Summary of our full QC workflow with icons representing the steps listed above. The input data is also summarized, with 18 paired FASTQ files under yeast/reads, for the three repeats of all three conditions, as well as the transcriptome in gzipped FASTA format.’</p>
+<figure><img src="fig/overview.svg" alt="Summary of our full QC workflow with icons representing the steps listed above. The input data is also summarized, with 18 paired FASTQ files under yeast/reads, for the three repeats of all three conditions, as well as the transcriptome in gzipped FASTA format." class="figure mx-auto d-block"></figure><hr></section><section id="08-configuring"><h2 class="section-heading"><a href="08-configuring.html">Configuring workflows</a></h2>
 <hr class="half-width"></section><section id="09-performance"><h2 class="section-heading"><a href="09-performance.html">Optimising workflow performance</a></h2>
 <hr class="half-width">
 <h3 id="09-performance-figure-1">Figure 1</h3>
-<p><img src="fig/snake_threads.svg" class="figure">{alt=‘Representation of a computer
-with four chip icons indicating four available cores. To the rightare
-five small green boxes representing Snakemake jobs and labelled as
-wanting 1, 1, 1, 2 and 8threads respecively.’}</p>
-<hr>
+<p aria-hidden="true">Image 1 of 1: ‘Representation of a computer with four microchip icons indicating four available cores. To the right are five small green boxes representing Snakemake jobs and labelled as wanting 1, 1, 1, 2 and 8 threads respecively.’</p>
+<figure><img src="fig/snake_threads.svg" alt="Representation of a computer with four microchip icons indicating four available cores. To the right are five small green boxes representing Snakemake jobs and labelled as wanting 1, 1, 1, 2 and 8 threads respecively." class="figure mx-auto d-block"></figure><hr>
 <h3 id="09-performance-figure-2">Figure 2</h3>
-<p><img src="fig/Multiple_Server_.jpg" class="figure">{alt=‘A photo of some high
-performance computer hardware arranged in five racks in a server
-room.Each rack is about 2.2 metres high. The front doors of the
-enclosures are all open.Orange and yellow cabling is prominent
-connecting systems within the second and third racks.’}</p>
-<hr></section><section id="10-conda_integration"><h2 class="section-heading"><a href="10-conda_integration.html">Conda integration</a></h2>
+<p aria-hidden="true">Image 1 of 1: ‘A photo of some high performance computer hardware racked in five cabinets in a server room. Each cabinet is about 2.2 metres high and 0.8m wide. The doors of the cabinets are open to show the systems inside. Orange and yellow cabling is prominent, connecting ports within the second and third racks.’</p>
+<figure><img src="fig/Multiple_Server_.jpg" alt="A photo of some high performance computer hardware racked in five cabinets in a server room. Each cabinet is about 2.2 metres high and 0.8m wide. The doors of the cabinets are open to show the systems inside. Orange and yellow cabling is prominent, connecting ports within the second and third racks." class="figure mx-auto d-block"></figure><hr></section><section id="10-conda_integration"><h2 class="section-heading"><a href="10-conda_integration.html">Conda integration</a></h2>
 <hr class="half-width"></section><section id="11-assembly_challenge"><h2 class="section-heading"><a href="11-assembly_challenge.html">Constructing a whole new workflow</a></h2>
 <hr class="half-width">
 <h3 id="11-assembly_challenge-figure-1">Figure 1</h3>
-<p><img src="fig/assembly_flow.svg" class="figure">{alt=‘A box-and-arrow
-representation of the cutadapt, concatenation, and assembly steps in the
-abovescript, with the names of the six files from the three ref samples
-in pairs at the top. Arrows comedown from each pair of files into a
-corresponding cutadapt box, then under this the arrows cross asthey go
-from the three cutadapt boxes to the two boxes labelled “concatenate”.
-Under this is asingle box labelled “assembly (velvet)” and a final box
-at the bottom labelled”find longest contig”.’}</p>
-<hr></section><section id="12-cleaning_up"><h2 class="section-heading"><a href="12-cleaning_up.html">Cleaning up</a></h2>
+<p aria-hidden="true">Image 1 of 1: ‘A box-and-arrow representation of the cutadapt, concatenation, and assembly steps in the above script, with the names of the six files from the three ref samples in pairs at the top. Arrows come down from each pair of files into a corresponding cutadapt box, then under this the arrows cross as they go from the three cutadapt boxes to the two boxes labelled "concatenate". Under this is a single box labelled "assembly (velvet)" and a final box at the bottom labelled "find longest contig".’</p>
+<figure><img src="fig/assembly_flow.svg" alt='A box-and-arrow representation of the cutadapt, concatenation, and assembly steps in the above script, with the names of the six files from the three ref samples in pairs at the top. Arrows come down from each pair of files into a corresponding cutadapt box, then under this the arrows cross as they go from the three cutadapt boxes to the two boxes labelled "concatenate". Under this is a single box labelled "assembly (velvet)" and a final box at the bottom labelled "find longest contig".' class="figure mx-auto d-block"></figure><hr></section><section id="12-cleaning_up"><h2 class="section-heading"><a href="12-cleaning_up.html">Cleaning up</a></h2>
 <hr class="half-width"></section><section id="13-quoting"><h2 class="section-heading"><a href="13-quoting.html">Robust quoting in Snakefiles</a></h2>
 <hr class="half-width"></section>
 </div>
@@ -518,8 +475,8 @@ at the bottom labelled”find longest contig”.’}</p>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/images.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/images.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-27",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-01",
+  "datePublished": "2024-03-01"
 }
 
   </script><script>

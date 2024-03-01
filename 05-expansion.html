@@ -174,7 +174,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-the_dag.html">4. How Snakemake plans what jobs to run</a>
+        <a href="04-the_dag.html">4. How Snakemake plans its jobs</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -390,20 +390,19 @@ don’t lose sight of the original file names.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mv reads original_reads</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir reads</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd reads</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ln <span class="at">-s</span> ../original_reads/<span class="pp">*</span> .</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rename <span class="at">-v</span> <span class="at">-s</span> ref ref_ <span class="pp">*</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ..</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> mv reads original_reads</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> mkdir reads</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ex">$</span> cd reads</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="ex">$</span> ln <span class="at">-s</span> ../original_reads/<span class="pp">*</span> .</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="ex">$</span> rename <span class="at">-v</span> <span class="at">-s</span> ref ref_ <span class="pp">*</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="ex">$</span> cd ..</span></code></pre>
 </div>
-<div id="file-renaming" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="file-renaming" class="callout-inner">
-<h3 class="callout-title">File renaming<a class="anchor" aria-label="anchor" href="#file-renaming"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="file-renaming">File renaming<a class="anchor" aria-label="anchor" href="#file-renaming"></a></h3>
 <div class="callout-content">
 <p>The <strong>rename</strong> command here is <a href="https://plasmasturm.org/code/rename/" class="external-link">the one provided by
 Bioconda</a>. Other Linux systems may have a different rename command
@@ -453,7 +452,7 @@ rule name</em> on the command line:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> all_counts</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> all_counts</span></code></pre>
 </div>
 <p>Here, Snakemake sees that <em>all_counts</em> is the name of a rule
 in the Snakefile, so rather than trying to make a file literally named
@@ -471,15 +470,14 @@ can simply say:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span></span></code></pre>
 </div>
-<div id="rules-as-targets" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="rules-as-targets" class="callout-inner">
-<h3 class="callout-title">Rules as targets<a class="anchor" aria-label="anchor" href="#rules-as-targets"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="rules-as-targets">Rules as targets<a class="anchor" aria-label="anchor" href="#rules-as-targets"></a></h3>
 <div class="callout-content">
 <p>Giving the name of a rule to Snakemake on the command line only works
 when that rule has <em>no wildcards</em> in the outputs, because
@@ -512,7 +510,7 @@ files in total.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>This will work.</p>
 <pre class="source"><code># Input conditions and replicates to process
@@ -560,14 +558,14 @@ be:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat file1.count file2.count file3.count ... <span class="op">&gt;</span> all_counts.txt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> cat file1.count file2.count file3.count ... <span class="op">&gt;</span> all_counts.txt</span></code></pre>
 </div>
 <p>In the Snakemake rule we just say:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">shell:</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"cat {input} &gt; {output}"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">shell:</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="st">"cat {input} &gt; {output}"</span></span></code></pre>
 </div>
 <p>Within a rule definition you can combine named inputs and list inputs
 - any named input can be list of files rather than just a single file.
@@ -598,7 +596,7 @@ separated by a semicolon <code>;</code>.</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <pre class="source"><code>rule all_counts:
     input:
@@ -627,7 +625,7 @@ separated by a semicolon <code>;</code>.</em></p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> all_counts</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> all_counts</span></code></pre>
 </div>
 </div>
 </div>
@@ -657,16 +655,16 @@ list really is the same as before.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-n</span> <span class="at">-p</span> all_counts</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Conditions</span> are:  [<span class="st">'etoh60'</span>, <span class="st">'temp33'</span>, <span class="st">'ref'</span>]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Building</span> DAG of jobs...</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Job</span> counts:</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">count</span>  jobs</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">1</span>      all_counts</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">36</span>     countreads</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">18</span>     trimreads</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">55</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-n</span> <span class="at">-p</span> all_counts</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="ex">Conditions</span> are:  [<span class="st">'etoh60'</span>, <span class="st">'temp33'</span>, <span class="st">'ref'</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="ex">Building</span> DAG of jobs...</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="ex">Job</span> counts:</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>    <span class="ex">count</span>  jobs</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>    <span class="ex">1</span>      all_counts</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>    <span class="ex">36</span>     countreads</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>    <span class="ex">18</span>     trimreads</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>    <span class="ex">55</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
 </div>
 <p>Using <code>glob_wildcards()</code> gets a little more tricky when
 you need a more complex match. To refine the match we can quickly test
@@ -676,19 +674,18 @@ Snakefile and running Snakemake just to see what
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>$ python3</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> snakemake.io <span class="im">import</span> glob_wildcards, expand</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{condition}</span><span class="st">_1_1.fq"</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>Wildcards(condition<span class="op">=</span>[<span class="st">'etoh60'</span>, <span class="st">'temp33'</span>, <span class="st">'ref'</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>$ python3</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> snakemake.io <span class="im">import</span> glob_wildcards, expand</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{condition}</span><span class="st">_1_1.fq"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>Wildcards(condition<span class="op">=</span>[<span class="st">'etoh60'</span>, <span class="st">'temp33'</span>, <span class="st">'ref'</span>])</span></code></pre>
 </div>
 <p>This is the result we got before. So far, so good.</p>
-<div id="the-python-interpreter" class="callout callout">
+<div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="the-python-interpreter" class="callout-inner">
-<h3 class="callout-title">The Python interpreter<a class="anchor" aria-label="anchor" href="#the-python-interpreter"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="the-python-interpreter">The Python interpreter<a class="anchor" aria-label="anchor" href="#the-python-interpreter"></a></h3>
 <div class="callout-content">
 <p>The Python interpreter is like a special shell for Python commands,
 and is a familiar to anyone who has learned Python. Because Snakemake
@@ -721,13 +718,13 @@ each condition.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{sample}</span><span class="st">_1.fq"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Wildcards(sample<span class="op">=</span>[<span class="st">'temp33_3'</span>, <span class="st">'temp33_2'</span>, <span class="st">'etoh60_1'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_2'</span>, <span class="st">'temp33_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_3'</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{sample}</span><span class="st">_1.fq"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>Wildcards(sample<span class="op">=</span>[<span class="st">'temp33_3'</span>, <span class="st">'temp33_2'</span>, <span class="st">'etoh60_1'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_2'</span>, <span class="st">'temp33_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_3'</span>])</span></code></pre>
 </div>
 </div>
 </div>
@@ -756,27 +753,26 @@ does in the Snakefile.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES <span class="op">=</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{sample}</span><span class="st">_1.fq"</span>).sample</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> expand(<span class="st">"</span><span class="sc">{indir}</span><span class="st">.</span><span class="sc">{sample}</span><span class="st">_</span><span class="sc">{end}</span><span class="st">.fq.count"</span>, indir<span class="op">=</span>[<span class="st">'reads'</span>, <span class="st">'trimmed'</span>], sample<span class="op">=</span>SAMPLES, end<span class="op">=</span>[<span class="st">"1"</span>,<span class="st">"2"</span>])</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> expand(<span class="st">"kallisto.</span><span class="sc">{sample}</span><span class="st">/</span><span class="sc">{outfile}</span><span class="st">"</span>, sample<span class="op">=</span>SAMPLES, outfile<span class="op">=</span>[<span class="st">'abundance.h5'</span>, <span class="st">'abundance.tsv'</span>, run_info.json<span class="st">'])</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES <span class="op">=</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{sample}</span><span class="st">_1.fq"</span>).sample</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> expand(<span class="st">"</span><span class="sc">{indir}</span><span class="st">.</span><span class="sc">{sample}</span><span class="st">_</span><span class="sc">{end}</span><span class="st">.fq.count"</span>, indir<span class="op">=</span>[<span class="st">'reads'</span>, <span class="st">'trimmed'</span>], sample<span class="op">=</span>SAMPLES, end<span class="op">=</span>[<span class="st">"1"</span>,<span class="st">"2"</span>])</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>...</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> expand(<span class="st">"kallisto.</span><span class="sc">{sample}</span><span class="st">/</span><span class="sc">{outfile}</span><span class="st">"</span>, sample<span class="op">=</span>SAMPLES, outfile<span class="op">=</span>[<span class="st">'abundance.h5'</span>, <span class="st">'abundance.tsv'</span>, run_info.json<span class="st">'])</span></span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="glob-with-multiple-wildcards" class="callout callout">
+<div id="callout4" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="glob-with-multiple-wildcards" class="callout-inner">
-<h3 class="callout-title">Glob with multiple wildcards<a class="anchor" aria-label="anchor" href="#glob-with-multiple-wildcards"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="glob-with-multiple-wildcards">Glob with multiple wildcards<a class="anchor" aria-label="anchor" href="#glob-with-multiple-wildcards"></a></h3>
 <div class="callout-content">
 <p>If there are two or more wildcards in the glob pattern, dealing with
 the result becomes a little more tricky, but it does work.</p>
@@ -786,32 +782,31 @@ interpreter as above).</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>$ python3</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> snakemake.io <span class="im">import</span> glob_wildcards, expand</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> DOUBLE_MATCH <span class="op">=</span> glob_wildcards( <span class="st">"reads/</span><span class="sc">{condition}</span><span class="st">_</span><span class="sc">{samplenum}</span><span class="st">_1.fq"</span> )</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> DOUBLE_MATCH</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>Wildcards(condition<span class="op">=</span>[<span class="st">'temp33'</span>, <span class="st">'temp33'</span>, <span class="st">'etoh60'</span>, <span class="st">'etoh60'</span>, <span class="st">'ref'</span>, <span class="st">'temp33'</span>, <span class="st">'etoh60'</span>, <span class="st">'ref'</span>, <span class="st">'ref'</span>],</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>          samplenum<span class="op">=</span>[<span class="st">'3'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'3'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'3'</span>])</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES <span class="op">=</span> expand(</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>...     <span class="st">"</span><span class="sc">{condition}</span><span class="st">_</span><span class="sc">{samplenum}</span><span class="st">"</span>,</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">zip</span>,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>...     condition <span class="op">=</span> DOUBLE_MATCH.condition,</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>...     samplenum <span class="op">=</span> DOUBLE_MATCH.samplenum )</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>[<span class="st">'temp33_3'</span>, <span class="st">'temp33_2'</span>, <span class="st">'etoh60_1'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_2'</span>, <span class="st">'temp33_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_3'</span>]</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">sorted</span>(SAMPLES)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>[<span class="st">'etoh60_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_2'</span>, <span class="st">'ref_3'</span>, <span class="st">'temp33_1'</span>, <span class="st">'temp33_2'</span>, <span class="st">'temp33_3'</span>]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>$ python3</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> snakemake.io <span class="im">import</span> glob_wildcards, expand</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> DOUBLE_MATCH <span class="op">=</span> glob_wildcards( <span class="st">"reads/</span><span class="sc">{condition}</span><span class="st">_</span><span class="sc">{samplenum}</span><span class="st">_1.fq"</span> )</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> DOUBLE_MATCH</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>Wildcards(condition<span class="op">=</span>[<span class="st">'temp33'</span>, <span class="st">'temp33'</span>, <span class="st">'etoh60'</span>, <span class="st">'etoh60'</span>, <span class="st">'ref'</span>, <span class="st">'temp33'</span>, <span class="st">'etoh60'</span>, <span class="st">'ref'</span>, <span class="st">'ref'</span>],</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>          samplenum<span class="op">=</span>[<span class="st">'3'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'3'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'3'</span>])</span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES <span class="op">=</span> expand(</span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>...     <span class="st">"</span><span class="sc">{condition}</span><span class="st">_</span><span class="sc">{samplenum}</span><span class="st">"</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>...     <span class="bu">zip</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>...     condition <span class="op">=</span> DOUBLE_MATCH.condition,</span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a>...     samplenum <span class="op">=</span> DOUBLE_MATCH.samplenum )</span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES</span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a>[<span class="st">'temp33_3'</span>, <span class="st">'temp33_2'</span>, <span class="st">'etoh60_1'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_2'</span>, <span class="st">'temp33_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_3'</span>]</span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">sorted</span>(SAMPLES)</span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a>[<span class="st">'etoh60_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_2'</span>, <span class="st">'ref_3'</span>, <span class="st">'temp33_1'</span>, <span class="st">'temp33_2'</span>, <span class="st">'temp33_3'</span>]</span></code></pre>
 </div>
 </div>
 </div>
 </div>
-<div id="rules-that-make-multiple-outputs" class="callout callout">
+<div id="callout5" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="rules-that-make-multiple-outputs" class="callout-inner">
-<h3 class="callout-title">Rules that make multiple outputs<a class="anchor" aria-label="anchor" href="#rules-that-make-multiple-outputs"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="rules-that-make-multiple-outputs">Rules that make multiple outputs<a class="anchor" aria-label="anchor" href="#rules-that-make-multiple-outputs"></a></h3>
 <div class="callout-content">
 <p>If we can have rules that combine lists of files, can we do the
 opposite and have a rule that produces a list of outputs?</p>
@@ -911,7 +906,7 @@ but variable lists of outputs are trickier and rarely needed</li>
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/05-expansion.html",
   "dateCreated": "2021-03-26",
   "dateModified": "2024-02-23",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-01"
 }
 
   </script><script>

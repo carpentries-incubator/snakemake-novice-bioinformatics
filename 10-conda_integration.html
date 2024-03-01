@@ -174,7 +174,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-the_dag.html">4. How Snakemake plans what jobs to run</a>
+        <a href="04-the_dag.html">4. How Snakemake plans its jobs</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -422,13 +422,12 @@ recreate an identical environment from that information.
 <ul><li><code>$ conda env export -n my-environment &gt; my-environment.yaml</code></li>
 <li><code>$ conda env create -n cloned-environment -f my-environment.yaml</code></li>
 </ul></li>
-</ul><div id="channel-configuration-and-conda-forge" class="callout callout">
+</ul><div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="channel-configuration-and-conda-forge" class="callout-inner">
-<h3 class="callout-title">Channel configuration and conda-forge<a class="anchor" aria-label="anchor" href="#channel-configuration-and-conda-forge"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="channel-configuration-and-conda-forge">Channel configuration and conda-forge<a class="anchor" aria-label="anchor" href="#channel-configuration-and-conda-forge"></a></h3>
 <div class="callout-content">
 <p>For advanced usage, there are many ways you might want to configure
 your Conda channels. It’s even possible to have specific channel
@@ -474,31 +473,31 @@ the <em>cutadapt</em> package from Bioconda into it.</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>There are several ways of doing this, but one using the commands
 above is:</li>
 </ol><div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="kw">|</span> <span class="fu">grep</span> fastx</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">-</span> fastx_toolkit=0.0.14=0</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="kw">|</span> <span class="fu">grep</span> fastx</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a> <span class="ex">-</span> fastx_toolkit=0.0.14=0</span></code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal"><li>Conda should already be configured to install Bioconda packages (see
 the callout above) so we can do this:</li>
 </ol><div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate new-env</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda install cutadapt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> conda activate new-env</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">$</span> conda install cutadapt</span></code></pre>
 </div>
 <p>It’s also possible to install packages at the same time as creating
 the environment, though this wasn’t shown in the examples above.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env cutadapt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env cutadapt</span></code></pre>
 </div>
 <p>You’ll still need to <em>activate</em> the new environment in order
 to run <em>cutadapt</em>.</p>
@@ -523,7 +522,7 @@ to quickly set up the same environment on any other machine.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> new-env <span class="op">&gt;</span> new-env.yaml</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> new-env <span class="op">&gt;</span> new-env.yaml</span></code></pre>
 </div>
 <p>Snakemake takes this one step further by integrating directly with
 Conda. This brings some nice features…</p>
@@ -615,7 +614,7 @@ Then run your amended workflow.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>The first thing that we need is an appropriate YAML file. It’s
 possible to write one from scratch in a text editor, but for this answer
@@ -625,18 +624,18 @@ it.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> salmon-1.2.1</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate salmon-1.2.1</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda install salmon=1.2.1 tbb=2020.2</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> salmon-1.2.1 <span class="op">&gt;</span> salmon-1.2.1.yaml</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> salmon-1.2.1</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="ex">$</span> conda activate salmon-1.2.1</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="ex">$</span> conda install salmon=1.2.1 tbb=2020.2</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> salmon-1.2.1 <span class="op">&gt;</span> salmon-1.2.1.yaml</span></code></pre>
 </div>
 <p>As an aside, having done this, we could delete the environment as we
 just need the exported YAML file.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda deactivate</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env remove <span class="at">-n</span> salmon-1.2.1</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> conda deactivate</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">$</span> conda env remove <span class="at">-n</span> salmon-1.2.1</span></code></pre>
 </div>
 <p>Next add the same <em>conda</em> declaration to both the
 <em>salmon_index</em> and <em>salmon_quant</em> rules.</p>
@@ -647,19 +646,18 @@ two rules have changed and must be re-run.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-Rsalmon_index</span> <span class="at">-Rsalmon_quant</span> <span class="at">--use-conda</span> ...</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-Rsalmon_index</span> <span class="at">-Rsalmon_quant</span> <span class="at">--use-conda</span> ...</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="note-on-the-environment-files" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note-on-the-environment-files" class="callout-inner">
-<h3 class="callout-title">Note on the environment files<a class="anchor" aria-label="anchor" href="#note-on-the-environment-files"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="note-on-the-environment-files">Note on the environment files<a class="anchor" aria-label="anchor" href="#note-on-the-environment-files"></a></h3>
 <div class="callout-content">
 <p>If you look into a YAML file created with
 <code>conda env export</code> you will see that Conda lists every single
@@ -771,7 +769,7 @@ installing the correct versions of everything</li>
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/10-conda_integration.html",
   "dateCreated": "2021-03-26",
   "dateModified": "2024-02-23",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-01"
 }
 
   </script><script>

@@ -219,7 +219,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-the_dag.html">4. How Snakemake plans what jobs to run</a>
+        <a href="04-the_dag.html">4. How Snakemake plans its jobs</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -419,7 +419,7 @@ missing inputs</li>
 <li>Rules may have multiple named inputs and/or outputs</li>
 <li>If a shell command does not yield an expected output then Snakemake
 will regard that as a failure</li>
-</ul></section><section id="04-the_dag"><h2 class="section-heading"><a href="04-the_dag.html">How Snakemake plans what jobs to run</a></h2>
+</ul></section><section id="04-the_dag"><h2 class="section-heading"><a href="04-the_dag.html">How Snakemake plans its jobs</a></h2>
 <hr class="half-width">
 <ul>
 <li>A <strong>job</strong> in Snakemake is a <strong>rule</strong> plus
@@ -518,7 +518,8 @@ files</li>
 <li>Having a grasp of string quoting rules is boring but important</li>
 <li>Understand the three processing steps each <em>shell</em> command
 goes through before it is actually run</li>
-<li>Make use of triple-quotes</li>
+<li>Put complex shell commands into raw triple-quotes
+(<code>r"""</code>)</li>
 <li>Watch out for commands that have {curly brackets}, and double them
 up</li>
 <li>Use the built-in <code>:q</code> feature to protect arguments from
@@ -571,8 +572,8 @@ up</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/key-points.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/key-points.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-27",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-01",
+  "datePublished": "2024-03-01"
 }
 
   </script><script>

@@ -178,7 +178,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-the_dag.html">4. How Snakemake plans what jobs to run</a>
+        <a href="04-the_dag.html">4. How Snakemake plans its jobs</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -391,7 +391,7 @@ multiple inputs and outputs?
 <span class="visually-hidden">Duration: </span>03h 20m
 </td>
 <td>
- 4. <a href="04-the_dag.html">How Snakemake plans what jobs to run</a>
+ 4. <a href="04-the_dag.html">How Snakemake plans its jobs</a>
 </td>
 <td>
 How do I visualise a Snakemake workflow?<br>How does Snakemake avoid
@@ -508,13 +508,12 @@ pre-requisites for Linux. It is assumed that you have:</p>
 <ul><li>access to the Bash shell on a fairly modern Linux system</li>
 <li>sufficient disk space (~1GB) to store the software and data</li>
 </ul><p>You <strong>do not</strong> need root/administrator level access.</p>
-<div id="note" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="note" class="callout-inner">
-<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h3>
 <div class="callout-content">
 <p>There are other ways to install these tools, and it should also be
 possible to run the exercises on non-Linux systems. However, this is not
@@ -527,39 +526,43 @@ Mac systems but the setup is slightly different.</em></p>
 </div>
 <p>Install software packages, including Snakemake and the bioinformatics
 tools, via Conda. For more info on Conda, see the first part of <a href="10-conda_integration.html">episode 10</a>.</p>
-<ul><li>If you don’t already have Conda, get <a href="https://docs.conda.io/en/latest/miniconda.html" class="external-link">the Miniconda
-installer</a> and follow their instructions.</li>
-</ul><p>These are the current recommended commands, taken from the above
-page, to install and initialise Miniconda in a Linux Bash
-environment.</p>
+<ul><li>If you don’t already have Conda, start with <a href="https://github.com/conda-forge/miniforge" class="external-link">the Miniforge
+installer</a>.</li>
+</ul><p>These are suggested commands to install and initialise Miniforge in a
+Linux Bash environment.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> ~/miniconda3</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh <span class="at">-O</span> ~/miniconda3/miniconda.sh</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> bash ~/miniconda3/miniconda.sh <span class="at">-b</span> <span class="at">-u</span> <span class="at">-p</span> ~/miniconda3</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm ~/miniconda3/miniconda.sh</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ~/miniconda3/bin/conda init bash</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> exit</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">...then</span> open a new shell...</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> ~/miniforge3</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh <span class="at">-O</span> ~/miniforge3/installer.sh</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ex">$</span> bash ~/miniforge3/installer.sh <span class="at">-b</span> <span class="at">-u</span> <span class="at">-p</span> ~/miniforge3</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="ex">$</span> rm ~/miniforge3/installer.sh</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="ex">$</span> ~/miniforge3/bin/conda init bash</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="ex">$</span> exit</span></code></pre>
 </div>
-<p>After this:</p>
-<ul><li>Set Conda to use <em>strict</em> channel priority when resolving
-dependencies. This setting is recommended by both Snakemake and <a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html#strict" class="external-link">by
+<p>Then open a new shell. Your shell prompt should now start with
+<code>(base)</code>.</p>
+<p>Now save the following into a file named <code>~/.condarc</code>:</p>
+<pre class="source"><code><span><span class="va">channels</span><span class="op">:</span></span>
+<span>  <span class="op">-</span> <span class="va">conda</span><span class="op">-</span><span class="va">forge</span></span>
+<span>  <span class="op">-</span> <span class="va">bioconda</span></span>
+<span><span class="va">solver</span><span class="op">:</span> <span class="va">libmamba</span></span>
+<span><span class="va">channel_priority</span><span class="op">:</span> <span class="va">strict</span></span></code></pre>
+<ul><li>You may want to enable additional channels but all the packages
+needed in the course are in the two listed above.</li>
+<li>The use of <em>strict</em> channel priority when resolving
+dependencies is recommended by both Snakemake and <a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html#strict" class="external-link">by
 Conda itself</a>.</li>
-<li>Get <a href="../files/conda_env.yaml">the <em>conda_env.yaml</em>
-environment file</a> and create the environment by running
-<code>conda env update --file conda_env.yaml</code>.</li>
-<li>Ensure the new environment is active in your shell.</li>
-</ul><p>Once you have the <code>conda</code> command available and the
-<code>conda_env.yaml</code> file saved in your current directory, these
-commands should work to complete the steps above:</p>
-<div class="codewrapper sourceCode" id="cb2">
+<li>Setting <code>solver: libmamba</code> is nowadays preferred to
+explicitly running the <code>mamba</code> command.</li>
+</ul><p>Once this is set up, get <a href="../files/conda_env.yaml">the
+<em>conda_env.yaml</em> environment file</a> and create then activate
+the environment by running:</p>
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda config <span class="at">--set</span> channel_priority strict</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env update <span class="at">--file</span> conda_env.yaml</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate snakemake_carpentry</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> conda env update <span class="at">--file</span> conda_env.yaml</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> conda activate snakemake_carpentry</span></code></pre>
 </div>
 <p>You will also need a text editor such as <a href="https://help.gnome.org/users/gedit/stable/" class="external-link">GEdit</a> or <a href="https://www.nano-editor.org/" class="external-link">Nano</a>. These are standard on most
 Linux distros. Other text editors will work fine but we only provide
@@ -568,18 +571,18 @@ specific setup instructions for GEdit and Nano here.</p>
 </h2>
 <hr class="half-width"><p>Download and unpack the sample dataset tarball from <a href="https://figshare.com/ndownloader/files/42467370" class="external-link">https://figshare.com/ndownloader/files/42467370</a></p>
 <p>You may do this in the shell with the command:</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wget <span class="at">--content-disposition</span> https://figshare.com/ndownloader/files/42467370</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> wget <span class="at">--content-disposition</span> https://figshare.com/ndownloader/files/42467370</span></code></pre>
 </div>
 <p>The <a href="https://www.gnu.org/software/tar/manual/html_node/Tutorial.html" class="external-link">tar
 file</a> needs to be unpacked to yield the directory of files used in
 the course. In the shell you may do this with:</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tar <span class="at">-xvaf</span> data-for-snakemake-novice-bioinformatics.tar.xz</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> tar <span class="at">-xvaf</span> data-for-snakemake-novice-bioinformatics.tar.xz</span></code></pre>
 </div>
 <p><a href="https://figshare.com/articles/dataset/data-for-snakemake-novice-bioinformatics_tar_xz/19733338/1" class="external-link">See
 this link</a> for details about this dataset and the redistribution
@@ -615,17 +618,17 @@ virtually every Linux system.</p>
 <p>The following command will start editing with the suggested settings,
 in particular regarding Tab handling as mentioned above, and with Python
 syntax highlighting.</p>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nano <span class="at">-wiSOE</span> <span class="at">-T</span> 4 <span class="at">-Y</span> python Snakefile</span></code></pre>
-</div>
-<p>To avoid typing all those options each time, you can add defaults to
-your <code>~/.nanorc</code> file:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nano ~/.nanorc</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> nano <span class="at">-wiSOE</span> <span class="at">-T</span> 4 <span class="at">-Y</span> python Snakefile</span></code></pre>
+</div>
+<p>To avoid typing all those options each time, you can add defaults to
+your <code>~/.nanorc</code> file:</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> nano ~/.nanorc</span></code></pre>
 </div>
 <pre class="source"><code>set nowrap
 set autoindent
@@ -686,8 +689,8 @@ default syntax highlighting within this file.</p>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/index.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/index.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-27",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-01",
+  "datePublished": "2024-03-01"
 }
 
   </script><script>

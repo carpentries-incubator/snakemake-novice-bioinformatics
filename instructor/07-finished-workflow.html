@@ -174,7 +174,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-the_dag.html">4. How Snakemake plans what jobs to run</a>
+        <a href="04-the_dag.html">4. How Snakemake plans its jobs</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -332,7 +332,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Finishing the basic workflow</h1>
-        <p>Last updated on 2024-02-23 |
+        <p>Last updated on 2024-03-01 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/07-finished-workflow.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -406,12 +406,7 @@ different alignment algorithm. <em>We’ve not used it yet.</em>
 including FastQC, Kallisto, and Salmon, into a single HTML report over
 all samples. This is by no means a full RNA-Seq analysis report but
 today it completes our Snakemake pipeline.</li>
-</ul><p><img src="../fig/overview.svg" class="figure">{alt=‘Summary of our full QC workflow
-with icons representing the steps listed above.The input data is also
-summarized, with 18 paired FASTQ files under yeast/reads, forthe three
-repeats of all three conditions, as well as the transcriptome in
-gzippedFASTA format.’}</p>
-<p>At this point we have everything we need, in terms of Snakemake
+</ul><figure><img src="../fig/overview.svg" alt="Summary of our full QC workflow with icons representing the steps listed above. The input data is also summarized, with 18 paired FASTQ files under yeast/reads, for the three repeats of all three conditions, as well as the transcriptome in gzipped FASTA format." class="figure mx-auto d-block"></figure><p>At this point we have everything we need, in terms of Snakemake
 knowledge, to add the two remaining tools and complete the Snakefile. As
 with FastQC, some quirks in the way the new tools work will need to be
 accounted for.</p>
@@ -442,8 +437,8 @@ possible.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> salmon index <span class="at">-t</span> <span class="op">&lt;</span>transcriptome as fasta<span class="op">&gt;</span> -i <span class="op">&lt;</span>index name<span class="op">&gt;</span> -k 31</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> salmon quant <span class="at">-i</span> <span class="op">&lt;</span>index name<span class="op">&gt;</span> -l A <span class="at">-1</span> <span class="op">&lt;</span>fastq1<span class="op">&gt;</span> -2 <span class="op">&lt;</span>fastq2<span class="op">&gt;</span> --validateMappings <span class="at">-o</span> <span class="op">&lt;</span>output path<span class="op">&gt;</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> salmon index <span class="at">-t</span> <span class="op">&lt;</span>transcriptome as fasta<span class="op">&gt;</span> -i <span class="op">&lt;</span>index name<span class="op">&gt;</span> -k 31</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> salmon quant <span class="at">-i</span> <span class="op">&lt;</span>index name<span class="op">&gt;</span> -l A <span class="at">-1</span> <span class="op">&lt;</span>fastq1<span class="op">&gt;</span> -2 <span class="op">&lt;</span>fastq2<span class="op">&gt;</span> --validateMappings <span class="at">-o</span> <span class="op">&lt;</span>output path<span class="op">&gt;</span></span></code></pre>
 </div>
 <p>Add a pair of rules to index and align the reads with Salmon. Note
 that:</p>
@@ -461,7 +456,7 @@ inputs.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <pre class="source"><code>rule salmon_quant:
     output: directory("salmon.{sample}")
@@ -497,7 +492,7 @@ directory, simply run:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> multiqc . <span class="at">-o</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> multiqc . <span class="at">-o</span> multiqc_out</span></code></pre>
 </div>
 <div id="adding-a-multiqc-rule" class="callout challenge">
 <div class="callout-square">
@@ -530,7 +525,7 @@ be explicitly mentioned in the <code>shell</code> part.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <pre class="source"><code>rule multiqc:
     output: directory('multiqc_out')
@@ -545,11 +540,11 @@ rule name or the output directory name as a target.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">...or</span> equivalently...</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="ex">...or</span> equivalently...</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc_out</span></code></pre>
 </div>
 </div>
 </div>
@@ -589,7 +584,7 @@ choose your own sensible name.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <pre class="source"><code># Kallisto quantification of one sample, with log capture.
 rule kallisto_quant:
@@ -650,7 +645,7 @@ make this easier, feel free to do that.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>This solution will work with the version of <em>kallisto_quant</em>
 in the solution above.</p>
@@ -679,13 +674,13 @@ configured.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> xdg-open multiqc_out/multiqc_report.html</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> xdg-open multiqc_out/multiqc_report.html</span></code></pre>
 </div>
 <p>For MacOS:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> open multiqc_out/multiqc_report.html</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> open multiqc_out/multiqc_report.html</span></code></pre>
 </div>
 <p>The report has a few issues, but we’ll not get distracted by the
 details of how to configure MultiQC to resolve them.</p>
@@ -766,8 +761,8 @@ Snakemake</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/07-finished-workflow.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/07-finished-workflow.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-02-23",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-01",
+  "datePublished": "2024-03-01"
 }
 
   </script><script>
