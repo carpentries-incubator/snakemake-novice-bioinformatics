@@ -1,5 +1,5 @@
 ---
-title: How Snakemake plans what jobs to run
+title: How Snakemake plans its jobs
 teaching: 40
 exercises: 30
 ---
