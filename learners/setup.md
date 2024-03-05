@@ -26,8 +26,8 @@ slightly different.*
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Install software packages, including Snakemake and the bioinformatics tools, via Conda. For more
-info on Conda, see the first part of [episode 10
+We can install all the software packages, including Snakemake and the bioinformatics tools, via
+Conda. For more info on Conda, see the first part of [episode 10
 ](episodes/10-conda_integration.md).
 
 - If you don't already have Conda, start with [the Miniforge installer
@@ -56,12 +56,18 @@ solver: libmamba
 channel_priority: strict
 ```
 
+:::::::::::::::: callout
+
+## Notes
+
 - You may want to enable additional channels but all the packages needed in the course are in
   the two listed above.
 - The use of *strict* channel priority when resolving dependencies is
   recommended by both Snakemake and [by Conda itself](
   https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html#strict).
 - Setting `solver: libmamba` is nowadays preferred to explicitly running the `mamba` command.
+
+:::::::::::::::::::::::::
 
 Once this is set up, get [the *conda\_env.yaml* environment file](files/conda_env.yaml) and
 create then activate the environment by running:
