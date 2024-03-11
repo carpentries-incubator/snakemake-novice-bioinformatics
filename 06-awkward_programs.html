@@ -401,11 +401,11 @@ produced.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> fastqc reads/ref_1_1.fq</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-ltr</span> reads</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="ex">-rw-r--r--</span> 1 zenmaster  users   464852 Jun  9 14:31 ref_1_1_fastqc.zip</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="ex">-rw-r--r--</span> 1 zenmaster  users   654810 Jun  9 14:31 ref_1_1_fastqc.html</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> fastqc reads/ref_1_1.fq</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-ltr</span> reads</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">-rw-r--r--</span> 1 zenmaster  users   464852 Jun  9 14:31 ref_1_1_fastqc.zip</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">-rw-r--r--</span> 1 zenmaster  users   654810 Jun  9 14:31 ref_1_1_fastqc.html</span></code></pre>
 </div>
 <p>It’s possible to supply multiple input files, but the resulting
 output is exactly the same as if processing the files one at a time. Two
@@ -416,14 +416,14 @@ output directory.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> fastqc <span class="at">--help</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>   <span class="ex">-o</span> <span class="at">--outdir</span>     Create all output files in the specified output directory.</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                   <span class="ex">Please</span> note that this directory must exist as the program</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>                   <span class="ex">will</span> not create it.  If this option is not set then the</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                   <span class="ex">output</span> file for each sequence file is created in the same</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>                   <span class="ex">directory</span> as the sequence file which was processed.</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> fastqc <span class="at">--help</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-o</span> <span class="at">--outdir</span>     Create all output files in the specified output directory.</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                   <span class="ex">Please</span> note that this directory must exist as the program</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                   <span class="ex">will</span> not create it.  If this option is not set then the</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                   <span class="ex">output</span> file for each sequence file is created in the same</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                   <span class="ex">directory</span> as the sequence file which was processed.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
 </div>
 <p>For the <code>countreads</code> rule we wrote earlier (see episode
 3), we chose our preferred output file name pattern so as to allow us to
@@ -492,7 +492,7 @@ or more target output files:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> reads/etoh60_1_1_fastqc.html reads/etoh60_1_2_fastqc.html</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> reads/etoh60_1_1_fastqc.html reads/etoh60_1_2_fastqc.html</span></code></pre>
 </div>
 </div>
 </div>
@@ -561,13 +561,14 @@ whole directory. This makes the rule definition simpler.</p>
     input:  "{indir}/{myfile}.fq"
     shell:
         "fastqc -o {output} {input}"</code></pre>
-<div id="callout1" class="callout">
+<div id="only-use-directory-on-outputs-not-inputs" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="only-use-directory-on-outputs-not-inputs">Only use <code>directory()</code> on outputs,
-not inputs<a class="anchor" aria-label="anchor" href="#only-use-directory-on-outputs-not-inputs"></a></h3>
+<div id="only-use-directory-on-outputs-not-inputs" class="callout-inner">
+<h3 class="callout-title">Only use<code>directory()</code>on outputs,
+not inputs<a class="anchor" aria-label="anchor" href="#only-use-directory-on-outputs-not-inputs"></a>
+</h3>
 <div class="callout-content">
 <p>You only use the <code>directory()</code> declaration for outputs.
 Any input to a rule may be a directory without the need for any special
@@ -579,10 +580,10 @@ syntax.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> reads.fastqc.ref_1_1</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="ex">Specified</span> output directory <span class="st">'reads.fastqc.ref_1_1'</span> does not exist</span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> reads.fastqc.ref_1_1</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Specified</span> output directory <span class="st">'reads.fastqc.ref_1_1'</span> does not exist</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
 </div>
 <p>This error is being printed by FastQC. FastQC requires that the
 output directory must exist. (Other programs might insist that the
@@ -594,13 +595,14 @@ code.</p>
     input:  "{indir}/{myfile}.fq"
     shell:
         "mkdir {output} ; fastqc -o {output} {input}"</code></pre>
-<div id="callout2" class="callout">
+<div id="the-rationale-for-making-output-directories" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="the-rationale-for-making-output-directories">The rationale for making output
-directories<a class="anchor" aria-label="anchor" href="#the-rationale-for-making-output-directories"></a></h3>
+<div id="the-rationale-for-making-output-directories" class="callout-inner">
+<h3 class="callout-title">The rationale for making output
+directories<a class="anchor" aria-label="anchor" href="#the-rationale-for-making-output-directories"></a>
+</h3>
 <div class="callout-content">
 <p>Remember that in most cases it is not necessary to manually create
 directories because Snakemake will auto-create the directory for every
@@ -690,13 +692,14 @@ the block you can run any commands and make any files you like.</p>
 </div>
 </div>
 </div>
-<div id="callout3" class="callout">
+<div id="one-problem-with-making-intermediate-outputs" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="one-problem-with-making-intermediate-outputs">One problem with making intermediate
-outputs<a class="anchor" aria-label="anchor" href="#one-problem-with-making-intermediate-outputs"></a></h3>
+<div id="one-problem-with-making-intermediate-outputs" class="callout-inner">
+<h3 class="callout-title">One problem with making intermediate
+outputs<a class="anchor" aria-label="anchor" href="#one-problem-with-making-intermediate-outputs"></a>
+</h3>
 <div class="callout-content">
 <p>There is actually a problem with the above solution which only starts
 to matter when we allow Snakemake to run multiple jobs in parallel.

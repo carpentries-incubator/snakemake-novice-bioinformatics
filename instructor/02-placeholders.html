@@ -388,12 +388,13 @@ rule countreads:
     input:  "reads/{myfile}.fq"
     shell:
         "echo $(( $(wc -l &lt;{input}) / 4 )) &gt; {output}"</code></pre>
-<div id="callout1" class="callout">
+<div id="comments-in-snakefiles" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="comments-in-snakefiles">Comments in Snakefiles<a class="anchor" aria-label="anchor" href="#comments-in-snakefiles"></a></h3>
+<div id="comments-in-snakefiles" class="callout-inner">
+<h3 class="callout-title">Comments in Snakefiles<a class="anchor" aria-label="anchor" href="#comments-in-snakefiles"></a>
+</h3>
 <div class="callout-content">
 <p>In the above code, the line beginning <code>#</code> is a comment
 line. Hopefully you are already in the habit of adding comments to your
@@ -470,16 +471,16 @@ should contain just one rule named <em>countreads</em>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>After editing the file, run the commands:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">$</span> cat temp33_1_1.fq.count</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="ex">20593</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat temp33_1_1.fq.count</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">20593</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -511,7 +512,7 @@ be <code>ref1_counts/fq.2.count</code>, etc.)?</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>In all cases, there is no need to change the <code>shell</code> part
 of the rule at all.</p>
@@ -590,12 +591,13 @@ substitution it sees that the input file would need to be named
 <code>reads/wibble_1.fq</code>, and there is no such file available.
 Therefore Snakemake stops and gives an error before any shell commands
 are run.</p>
-<div id="callout2" class="callout">
+<div id="dry-run--n-mode" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="dry-run--n-mode">Dry-run (-n) mode<a class="anchor" aria-label="anchor" href="#dry-run--n-mode"></a></h3>
+<div id="dry-run--n-mode" class="callout-inner">
+<h3 class="callout-title">Dry-run (-n) mode<a class="anchor" aria-label="anchor" href="#dry-run--n-mode"></a>
+</h3>
 <div class="callout-content">
 <p>It’s often useful to run just the first two phases, so that Snakemake
 will plan out the jobs to run, and print them to the screen, but never
@@ -603,7 +605,7 @@ actually run them. This is done with the <code>-n</code> flag, eg:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span></code></pre>
 </div>
 <p>We’ll make use of this later in the course.</p>
 </div>
@@ -624,7 +626,7 @@ FASTQ file.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> fastq_quality_trimmer <span class="at">-t</span> 20 <span class="at">-l</span> 100 <span class="at">-o</span> output.fq <span class="op">&lt;</span>input.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> fastq_quality_trimmer <span class="at">-t</span> 20 <span class="at">-l</span> 100 <span class="at">-o</span> output.fq <span class="op">&lt;</span>input.fq</span></code></pre>
 </div>
 <p>Add a second rule to your Snakefile to run this trimmer. You should
 make it so that valid outputs are files with the same name as the input,
@@ -640,7 +642,7 @@ but in a subdirectory named ‘trimmed’, for example:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <pre class="source"><code># Trim any FASTQ reads for base quality
 rule trimreads:
@@ -654,18 +656,19 @@ more files at once. For example:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed/ref1_1.fq trimmed/ref1_2.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed/ref1_1.fq trimmed/ref1_2.fq</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="callout3" class="callout">
+<div id="about-fastq_quality_trimmer" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="about-fastq_quality_trimmer">About fastq_quality_trimmer<a class="anchor" aria-label="anchor" href="#about-fastq_quality_trimmer"></a></h3>
+<div id="about-fastq_quality_trimmer" class="callout-inner">
+<h3 class="callout-title">About fastq_quality_trimmer<a class="anchor" aria-label="anchor" href="#about-fastq_quality_trimmer"></a>
+</h3>
 <div class="callout-content">
 <p><code>fastq_quality_trimmer</code> is part of the <a href="https://hannonlab.cshl.edu/fastx_toolkit/" class="external-link">FastX toolkit</a> and
 performs basic trimming on single FASTQ files. The options

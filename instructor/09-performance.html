@@ -408,19 +408,19 @@ are four system cores.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> lscpu</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> lscpu</span></code></pre>
 </div>
 <p>Likewise find out the amount of RAM available:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> free <span class="at">-h</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> free <span class="at">-h</span></span></code></pre>
 </div>
 <p>And finally disk space, on the current partition:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> df <span class="at">-h</span> .</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> df <span class="at">-h</span> .</span></code></pre>
 </div>
 <p>(or <code>df -h</code> without the <code>.</code> to show all
 partitions)</p>
@@ -436,7 +436,7 @@ precedence, so eg:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> /usr/bin/time <span class="at">-v</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">--</span> kallisto.<span class="dt">{ref</span><span class="op">,</span><span class="dt">temp33</span><span class="op">,</span><span class="dt">etoh60}</span>_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> /usr/bin/time <span class="at">-v</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">--</span> kallisto.<span class="dt">{ref</span><span class="op">,</span><span class="dt">temp33</span><span class="op">,</span><span class="dt">etoh60}</span>_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span></span></code></pre>
 </div>
 <div id="measuring-how-concurrency-affects-execution-time" class="callout challenge">
 <div class="callout-square">
@@ -558,12 +558,13 @@ unsupported.</p>
 </div>
 </div>
 </div>
-<div id="callout1" class="callout">
+<div id="fine-grained-profiling" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="fine-grained-profiling">Fine-grained profiling<a class="anchor" aria-label="anchor" href="#fine-grained-profiling"></a></h3>
+<div id="fine-grained-profiling" class="callout-inner">
+<h3 class="callout-title">Fine-grained profiling<a class="anchor" aria-label="anchor" href="#fine-grained-profiling"></a>
+</h3>
 <div class="callout-content">
 <p>Rather than timing the entire workflow, we can ask Snakemake to
 benchmark an individual rule.</p>
@@ -593,12 +594,13 @@ for you.</p>
 Snakemake manual explains how to set this up</a></li>
 <li><a href="../files/snakemake_on_eddie.pdf">We have some specific
 suggestions for Eddie, the University of Edinburgh cluster</a></li>
-</ul><figure><img src="../fig/Multiple_Server_.jpg" alt="A photo of some high performance computer hardware racked in five cabinets in a server room. Each cabinet is about 2.2 metres high and 0.8m wide. The doors of the cabinets are open to show the systems inside. Orange and yellow cabling is prominent, connecting ports within the second and third racks." class="figure mx-auto d-block"></figure><div id="callout2" class="callout">
+</ul><figure><img src="../fig/Multiple_Server_.jpg" alt="A photo of some high performance computer hardware racked in five cabinets in a server room. Each cabinet is about 2.2 metres high and 0.8m wide. The doors of the cabinets are open to show the systems inside. Orange and yellow cabling is prominent, connecting ports within the second and third racks." class="figure mx-auto d-block"></figure><div id="cluster-demo" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="cluster-demo">Cluster demo<a class="anchor" aria-label="anchor" href="#cluster-demo"></a></h3>
+<div id="cluster-demo" class="callout-inner">
+<h3 class="callout-title">Cluster demo<a class="anchor" aria-label="anchor" href="#cluster-demo"></a>
+</h3>
 <div class="callout-content">
 <p>A this point in the course there may be a cluster demo…</p>
 </div>

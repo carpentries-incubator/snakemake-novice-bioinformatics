@@ -451,7 +451,7 @@ this:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> desired_output_file</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> desired_output_file</span></code></pre>
 </div>
 <p>As a reminder, the <code>-j1</code> flag tells Snakemake to run one
 job at a time, and <code>-p</code> is to print out the shell commands
@@ -463,17 +463,17 @@ running:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p>Now try without the <code>-F</code> option. Assuming that the output
 files are already created, you’ll see this:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">Building</span> DAG of jobs...</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">Nothing</span> to be done.</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="ex">Complete</span> log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T172441.519500.snakemake.log</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Building</span> DAG of jobs...</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Nothing</span> to be done.</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Complete</span> log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T172441.519500.snakemake.log</span></code></pre>
 </div>
 <p>In normal operation, Snakemake only runs a job if:</p>
 <ol style="list-style-type: decimal"><li>A target file you explicitly requested to make is missing</li>
@@ -490,15 +490,15 @@ re-running Snakemake without the <code>-F</code> option.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-rv</span> kallisto.temp33_1</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-rv</span> kallisto.temp33_1</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p>This just re-runs <em>kallisto_quant</em> - the final step.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-v</span> trimmed/temp33_<span class="pp">*</span>.fq</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-v</span> trimmed/temp33_<span class="pp">*</span>.fq</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p>“Nothing to be done” - some intermediate output is missing but
 Snakemake already has the file you are telling it to make, so it doesn’t
@@ -506,8 +506,8 @@ worry.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> touch transcriptome/<span class="pp">*</span>.fa.gz</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch transcriptome/<span class="pp">*</span>.fa.gz</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p>The <code>touch</code> command is a standard Linux command which sets
 the timestamp of the file, so now the transcriptome looks to Snakemake
@@ -535,15 +535,15 @@ re-evaluated.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-R</span> trimreads <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-R</span> trimreads <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
-<div id="callout1" class="callout">
+<div id="note-on--r" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="note-on--r">Note on <code>-R</code>
-<a class="anchor" aria-label="anchor" href="#note-on--r"></a></h3>
+<div id="note-on--r" class="callout-inner">
+<h3 class="callout-title">Note on<code>-R</code><a class="anchor" aria-label="anchor" href="#note-on--r"></a>
+</h3>
 <div class="callout-content">
 <p>Due to a quirk of the way Snakemake parses command-line options, you
 need to make sure there are options after the <code>-R ...</code>,
@@ -557,7 +557,7 @@ targets, and Snakemake can tell which is which.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-R</span> trimreads kallisto_index <span class="at">-p</span> kallisto.temp33_1/abundance.h5 kallisto.temp33_2/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-R</span> trimreads kallisto_index <span class="at">-p</span> kallisto.temp33_1/abundance.h5 kallisto.temp33_2/abundance.h5</span></code></pre>
 </div>
 <p>The reason for using the <code>-p</code> flag here is because you
 generally always want this option.</p>
@@ -570,7 +570,7 @@ explicitly re-make specific files.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-f</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-f</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p>This always re-runs <em>kallisto_quant</em>, regardless of whether
 the output file is there already. For all intermediate outputs,
@@ -583,20 +583,20 @@ this:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-f</span> <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-f</span> <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
 </div>
 <p>Using the <code>--dag</code> option implicitly activates the
 <code>-n</code> (dry-run) option so that Snakemake will not actually run
 any jobs, it will just print the DAG and stop. Snakemake prints the DAG
 in a text format so we use the <code>gm</code> command to make this into
 a picture and show it on the screen.</p>
-<div id="callout2" class="callout">
+<div id="note-on-gm-display" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="note-on-gm-display">Note on <code>gm display</code>
-<a class="anchor" aria-label="anchor" href="#note-on-gm-display"></a></h3>
+<div id="note-on-gm-display" class="callout-inner">
+<h3 class="callout-title">Note on<code>gm display</code><a class="anchor" aria-label="anchor" href="#note-on-gm-display"></a>
+</h3>
 <div class="callout-content">
 <p>The <code>gm</code> command is provided by the <a href="https://www.graphicsmagick.org/" class="external-link">GraphicsMagick toolkit</a>. On
 systems where <code>gm</code> will not display an image directly, you
@@ -606,7 +606,7 @@ installed.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-f</span> <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">dot</span> <span class="at">-Tpng</span> <span class="op">&gt;</span> dag.png</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-f</span> <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">dot</span> <span class="at">-Tpng</span> <span class="op">&gt;</span> dag.png</span></code></pre>
 </div>
 </div>
 </div>
@@ -648,14 +648,14 @@ than “20”?</p></li>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.etoh60_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.etoh60_1/abundance.h5</span></code></pre>
 </div>
 <ol style="list-style-type: decimal"><li>This command should show four boxes, but all are dotted so no jobs
 are actually to be run.</li>
 </ol><div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal"><li><p>The <code>-f</code> flag re-runs only the job to create the
 output file, so in this case one box is solid, and only that job will
@@ -685,12 +685,13 @@ to.</p>
 </div>
 </div>
 </div>
-<div id="callout3" class="callout">
+<div id="removing-files-to-trigger-reprocessing" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="removing-files-to-trigger-reprocessing">Removing files to trigger reprocessing<a class="anchor" aria-label="anchor" href="#removing-files-to-trigger-reprocessing"></a></h3>
+<div id="removing-files-to-trigger-reprocessing" class="callout-inner">
+<h3 class="callout-title">Removing files to trigger reprocessing<a class="anchor" aria-label="anchor" href="#removing-files-to-trigger-reprocessing"></a>
+</h3>
 <div class="callout-content">
 <p>In general, getting Snakemake to re-run things by removing files is a
 bad idea, because it’s easy to forget about intermediate files that

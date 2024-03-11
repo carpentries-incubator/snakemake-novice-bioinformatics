@@ -379,8 +379,8 @@ episode.</em></p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spins<span class="pp">?</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spins<span class="pp">?</span></span></code></pre>
 </div>
 <p>The message is printed back, but not before the shell has interpreted
 the text as per various command-line parsing rules</p>
@@ -392,9 +392,9 @@ pattern if there is any matching file:</li>
 </ul><div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> touch spinsX spinsY</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spinsX spinsY</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch spinsX spinsY</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spinsX spinsY</span></code></pre>
 </div>
 <p><em>Note: if you have certain shell settings you may have seen a
 warning about the unmatched glob pattern.</em></p>
@@ -413,9 +413,9 @@ commands:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Print mean read length in FASTQ file - from https://github.com/stephenturner/oneliners</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}'</span> reads/ref_1_1.fq</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">101</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print mean read length in FASTQ file - from https://github.com/stephenturner/oneliners</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}'</span> reads/ref_1_1.fq</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">101</span></span></code></pre>
 </div>
 <p>The ‘single quotes’ ensure that the expression is passed directly to
 <em>awk</em>. If “double quotes” had been used, <em>bash</em> would
@@ -424,12 +424,12 @@ the awk logic, giving a meaningless result.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># With double quotes the "$0" is substituted by *bash*, rather than being passed on to awk.</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span> reads/ref_1_1.fq</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">0</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># In an interactive shell $0 is a variable containing the value "bash"</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="ex">NR%4==2{sum+=length</span><span class="er">(</span><span class="fu">bash</span><span class="kw">)</span><span class="er">}</span><span class="ex">END{print</span> sum/<span class="er">(</span><span class="ex">NR/4</span><span class="kw">)</span><span class="er">}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With double quotes the "$0" is substituted by *bash*, rather than being passed on to awk.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span> reads/ref_1_1.fq</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># In an interactive shell $0 is a variable containing the value "bash"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">NR%4==2{sum+=length</span><span class="er">(</span><span class="fu">bash</span><span class="kw">)</span><span class="er">}</span><span class="ex">END{print</span> sum/<span class="er">(</span><span class="ex">NR/4</span><span class="kw">)</span><span class="er">}</span></span></code></pre>
 </div>
 <p>So in <em>bash</em>, putting a string in single quotes is normally
 enough to preserve the contents, but if you need to add literal single
@@ -438,9 +438,9 @@ quotes to the awk command for any reason you have to do some awkward
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Yuk! But it does work...</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'{print "\"double\" '"'"'single'"'"'"}'</span> <span class="op">&lt;&lt;&lt;</span><span class="st">''</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="st">"double"</span> <span class="st">'single'</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Yuk! But it does work...</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'{print "\"double\" '"'"'single'"'"'"}'</span> <span class="op">&lt;&lt;&lt;</span><span class="st">''</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">"double"</span> <span class="st">'single'</span></span></code></pre>
 </div>
 </section><section id="quoting-rules-in-snakemake"><h2 class="section-heading">Quoting rules in Snakemake<a class="anchor" aria-label="anchor" href="#quoting-rules-in-snakemake"></a>
 </h2>
@@ -486,7 +486,7 @@ expression we saw earlier.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>It won’t work. Snakemake assumes that all parts of the string in
 {curlies} are placeholders. The error will say something like
@@ -558,7 +558,7 @@ working.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> rename <span class="at">-v</span> <span class="at">-s</span> <span class="st">'etoh'</span> <span class="st">'etoh '</span> <span class="at">-s</span> <span class="st">'temp'</span> <span class="st">'temp '</span> reads/<span class="pp">*</span>.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rename <span class="at">-v</span> <span class="at">-s</span> <span class="st">'etoh'</span> <span class="st">'etoh '</span> <span class="at">-s</span> <span class="st">'temp'</span> <span class="st">'temp '</span> reads/<span class="pp">*</span>.fq</span></code></pre>
 </div>
 <p>Fix the workflow so you can still run the MultiQC report over all the
 samples (run Snakemake with <code>-F</code> to check that all the steps
@@ -571,7 +571,7 @@ really work).</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>This just involves adding <code>:q</code> to a whole bunch of
 placeholders. Unless you are very diligent it will probably take a few
@@ -581,12 +581,13 @@ again.</p>
 </div>
 </div>
 </div>
-<div id="callout1" class="callout">
+<div id="external-scripts" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="external-scripts">External scripts<a class="anchor" aria-label="anchor" href="#external-scripts"></a></h3>
+<div id="external-scripts" class="callout-inner">
+<h3 class="callout-title">External scripts<a class="anchor" aria-label="anchor" href="#external-scripts"></a>
+</h3>
 <div class="callout-content">
 <p>If rules in your Snakefile end up containing a large amount of shell
 code, or you are running into multiple quoting issues, this is probably

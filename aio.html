@@ -437,10 +437,10 @@ file, <code>ref1_1.fq</code>.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> cd yeast</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> ls reads</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="ex">$</span> head <span class="at">-n8</span> reads/ref1_1.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd yeast</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls reads</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> head <span class="at">-n8</span> reads/ref1_1.fq</span></code></pre>
 </div>
 <p>Files in FASTQ format have 4 lines for each sequence.</p>
 <ul>
@@ -455,24 +455,24 @@ Again, in the shell:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> reads/ref1_1.fq</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">58708</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> reads/ref1_1.fq</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">58708</span></span></code></pre>
 </div>
 <p>We can redirect this result to a file like so:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> reads/ref1_1.fq <span class="op">&gt;</span> ref1_1.fq.count</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> head <span class="at">-v</span> <span class="pp">*</span>.count</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">==</span><span class="op">&gt;</span> ref1_1.fq.count <span class="op">&lt;</span>==</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="ex">58708</span> reads/ref1_1.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> reads/ref1_1.fq <span class="op">&gt;</span> ref1_1.fq.count</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> head <span class="at">-v</span> <span class="pp">*</span>.count</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">==</span><span class="op">&gt;</span> ref1_1.fq.count <span class="op">&lt;</span>==</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">58708</span> reads/ref1_1.fq</span></code></pre>
 </div>
-<div id="callout1" class="callout">
+<div id="the-sample-dataset" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="the-sample-dataset">The sample dataset<a class="anchor" aria-label="anchor" href="#the-sample-dataset"></a>
+<div id="the-sample-dataset" class="callout-inner">
+<h3 class="callout-title">The sample dataset<a class="anchor" aria-label="anchor" href="#the-sample-dataset"></a>
 </h3>
 <div class="callout-content">
 <p>The sample dataset represents a transcriptomics experiment in
@@ -549,7 +549,7 @@ were any missing quotes, bad indents, etc. we may see an error.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> ref1_1.fq.count</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> ref1_1.fq.count</span></code></pre>
 </div>
 <div id="running-snakemake" class="callout challenge">
 <div class="callout-square">
@@ -684,7 +684,7 @@ Snakefile. So in this example answer we use “countreads2”.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> ref1_1.fq.count etoh60_1_1.fq.count</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> ref1_1.fq.count etoh60_1_1.fq.count</span></code></pre>
 </div>
 <p>If you think writing a separate rule for each output file is silly,
 you are correct. We’ll address this next!</p>
@@ -768,12 +768,12 @@ rule countreads:
     input:  "reads/{myfile}.fq"
     shell:
         "echo $(( $(wc -l &lt;{input}) / 4 )) &gt; {output}"</code></pre>
-<div id="callout1" class="callout">
+<div id="comments-in-snakefiles" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="comments-in-snakefiles">Comments in Snakefiles<a class="anchor" aria-label="anchor" href="#comments-in-snakefiles"></a>
+<div id="comments-in-snakefiles" class="callout-inner">
+<h3 class="callout-title">Comments in Snakefiles<a class="anchor" aria-label="anchor" href="#comments-in-snakefiles"></a>
 </h3>
 <div class="callout-content">
 <p>In the above code, the line beginning <code>#</code> is a comment
@@ -855,16 +855,16 @@ should contain just one rule named <em>countreads</em>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>After editing the file, run the commands:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">$</span> cat temp33_1_1.fq.count</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="ex">20593</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat temp33_1_1.fq.count</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">20593</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -898,7 +898,7 @@ be <code>ref1_counts/fq.2.count</code>, etc.)?</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>In all cases, there is no need to change the <code>shell</code> part
 of the rule at all.</p>
@@ -989,12 +989,12 @@ substitution it sees that the input file would need to be named
 <code>reads/wibble_1.fq</code>, and there is no such file available.
 Therefore Snakemake stops and gives an error before any shell commands
 are run.</p>
-<div id="callout2" class="callout">
+<div id="dry-run--n-mode" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="dry-run--n-mode">Dry-run (-n) mode<a class="anchor" aria-label="anchor" href="#dry-run--n-mode"></a>
+<div id="dry-run--n-mode" class="callout-inner">
+<h3 class="callout-title">Dry-run (-n) mode<a class="anchor" aria-label="anchor" href="#dry-run--n-mode"></a>
 </h3>
 <div class="callout-content">
 <p>It’s often useful to run just the first two phases, so that Snakemake
@@ -1003,7 +1003,7 @@ actually run them. This is done with the <code>-n</code> flag, eg:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span></code></pre>
 </div>
 <p>We’ll make use of this later in the course.</p>
 </div>
@@ -1024,7 +1024,7 @@ FASTQ file.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> fastq_quality_trimmer <span class="at">-t</span> 20 <span class="at">-l</span> 100 <span class="at">-o</span> output.fq <span class="op">&lt;</span>input.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> fastq_quality_trimmer <span class="at">-t</span> 20 <span class="at">-l</span> 100 <span class="at">-o</span> output.fq <span class="op">&lt;</span>input.fq</span></code></pre>
 </div>
 <p>Add a second rule to your Snakefile to run this trimmer. You should
 make it so that valid outputs are files with the same name as the input,
@@ -1042,7 +1042,7 @@ but in a subdirectory named ‘trimmed’, for example:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <pre class="source"><code># Trim any FASTQ reads for base quality
 rule trimreads:
@@ -1056,18 +1056,18 @@ more files at once. For example:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed/ref1_1.fq trimmed/ref1_2.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed/ref1_1.fq trimmed/ref1_2.fq</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="callout3" class="callout">
+<div id="about-fastq_quality_trimmer" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="about-fastq_quality_trimmer">About fastq_quality_trimmer<a class="anchor" aria-label="anchor" href="#about-fastq_quality_trimmer"></a>
+<div id="about-fastq_quality_trimmer" class="callout-inner">
+<h3 class="callout-title">About fastq_quality_trimmer<a class="anchor" aria-label="anchor" href="#about-fastq_quality_trimmer"></a>
 </h3>
 <div class="callout-content">
 <p><code>fastq_quality_trimmer</code> is part of the <a href="https://hannonlab.cshl.edu/fastx_toolkit/" class="external-link">FastX toolkit</a> and
@@ -1181,9 +1181,9 @@ following this output pattern:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed.ref1_1.fq.count</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> cat trimmed.ref1_1.fq.count</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">14278</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed.ref1_1.fq.count</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat trimmed.ref1_1.fq.count</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">14278</span></span></code></pre>
 </div>
 <p>Look at the logging messages that Snakemake prints in the terminal.
 What has happened here?</p>
@@ -1223,12 +1223,12 @@ are always <strong>working backwards</strong> from the final desired
 result. The order of operations is determined by applying the pattern
 matching rules to the filenames, not by the order of the rules in the
 Snakefile.</p>
-<div id="callout1" class="callout">
+<div id="outputs-first" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="outputs-first">Outputs first?<a class="anchor" aria-label="anchor" href="#outputs-first"></a>
+<div id="outputs-first" class="callout-inner">
+<h3 class="callout-title">Outputs first?<a class="anchor" aria-label="anchor" href="#outputs-first"></a>
 </h3>
 <div class="callout-content">
 <p>The Snakemake approach of working backwards from the desired output
@@ -1285,7 +1285,7 @@ command to do so looks like this:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> kallisto quant <span class="at">-i</span> index_file <span class="at">-o</span> output_dir in_1.fastq in_2.fastq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> kallisto quant <span class="at">-i</span> index_file <span class="at">-o</span> output_dir in_1.fastq in_2.fastq</span></code></pre>
 </div>
 <p>This command has three input files:</p>
 <ol style="list-style-type: decimal">
@@ -1346,12 +1346,12 @@ episode.</li>
 <p>Even though the rule is not going to work without the index, we can
 still run it to check that Snakemake is happy with the rule
 definition.</p>
-<div id="callout2" class="callout">
+<div id="running-kallisto-on-all-replicates" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="running-kallisto-on-all-replicates">Running Kallisto on all replicates<a class="anchor" aria-label="anchor" href="#running-kallisto-on-all-replicates"></a>
+<div id="running-kallisto-on-all-replicates" class="callout-inner">
+<h3 class="callout-title">Running Kallisto on all replicates<a class="anchor" aria-label="anchor" href="#running-kallisto-on-all-replicates"></a>
 </h3>
 <div class="callout-content">
 <p>If you know about the Kallisto software, you may be thinking about
@@ -1388,7 +1388,7 @@ enough.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5</span></code></pre>
 </div>
 <p>Resulting error is “Missing input files”. Note that Snakemake does
 not try to run kallisto at all. It stops while still making a work plan,
@@ -1410,7 +1410,7 @@ pipeline by adding another rule. The command we need to run is:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> kallisto index <span class="at">-i</span> index_file_to_make fasta_file_to_index</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> kallisto index <span class="at">-i</span> index_file_to_make fasta_file_to_index</span></code></pre>
 </div>
 <p>The file to be indexed is
 <code>transcriptome/Saccharomyces_cerevisiae.R64-1-1.cdna.all.fa.gz</code>.
@@ -1449,13 +1449,13 @@ not want to use another in future?</p>
 </div>
 </div>
 </div>
-<div id="callout3" class="callout">
+<div id="log-outputs-in-snakemake" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="log-outputs-in-snakemake">
-<code>log</code> outputs in Snakemake<a class="anchor" aria-label="anchor" href="#log-outputs-in-snakemake"></a>
+<div id="log-outputs-in-snakemake" class="callout-inner">
+<h3 class="callout-title">
+<code>log</code>outputs in Snakemake<a class="anchor" aria-label="anchor" href="#log-outputs-in-snakemake"></a>
 </h3>
 <div class="callout-content">
 <p>Snakemake has a dedicated rule field for outputs that are <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files" class="external-link">log
@@ -1475,10 +1475,10 @@ Snakemake we’ll stick with regular <code>input</code> and
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="ex">...lots</span> of output...</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="ex">4</span> of 4 steps <span class="er">(</span><span class="ex">100%</span><span class="kw">)</span> <span class="cf">done</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="ex">Complete</span> log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834.snakemake.log</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...lots</span> of output...</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">4</span> of 4 steps <span class="er">(</span><span class="ex">100%</span><span class="kw">)</span> <span class="cf">done</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Complete</span> log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834.snakemake.log</span></code></pre>
 </div>
 <p>We’ll end the chapter by looking at a common problem that can arise
 if you mistype a file name in a rule. Remember that we wrote the rule
@@ -1500,7 +1500,7 @@ directory.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-rvf</span> kallisto.ref1</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-rvf</span> kallisto.ref1</span></code></pre>
 </div>
 <p>And re-run. Note that the output file name you’ll need to use on the
 command line must match the edited Snakefile, or you will get a
@@ -1554,8 +1554,8 @@ further by looking at the <code>kallisto.ref1</code> subdirectory.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">$</span> ls kallisto.ref1/</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="ex">abundance.h5</span>  abundance.tsv</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls kallisto.ref1/</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">abundance.h5</span>  abundance.tsv</span></code></pre>
 </div>
 <p>Remember that Snakemake itself does not create any output files. It
 just runs the commands you put in the <code>shell</code> sections, then
@@ -1565,12 +1565,12 @@ in the Snakefile you will get this error, and you will, in this case,
 find that some output files are present but others
 (<code>run_info.json</code>, which was named correctly) have been
 cleaned up by Snakemake.</p>
-<div id="callout4" class="callout">
+<div id="errors-are-normal" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="errors-are-normal">Errors are normal<a class="anchor" aria-label="anchor" href="#errors-are-normal"></a>
+<div id="errors-are-normal" class="callout-inner">
+<h3 class="callout-title">Errors are normal<a class="anchor" aria-label="anchor" href="#errors-are-normal"></a>
 </h3>
 <div class="callout-content">
 <p>Don’t be disheartened if you see errors like the one above when first
@@ -1592,7 +1592,7 @@ too:</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5  kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.ref1/abundance.h5  kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p><em>For reference, <a href="files/ep03.Snakefile">this is a
 Snakefile</a> incorporating the changes made in this episode.</em></p>
@@ -1734,7 +1734,7 @@ this:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> desired_output_file</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> desired_output_file</span></code></pre>
 </div>
 <p>As a reminder, the <code>-j1</code> flag tells Snakemake to run one
 job at a time, and <code>-p</code> is to print out the shell commands
@@ -1746,17 +1746,17 @@ running:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p>Now try without the <code>-F</code> option. Assuming that the output
 files are already created, you’ll see this:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">Building</span> DAG of jobs...</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">Nothing</span> to be done.</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="ex">Complete</span> log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T172441.519500.snakemake.log</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Building</span> DAG of jobs...</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Nothing</span> to be done.</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Complete</span> log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T172441.519500.snakemake.log</span></code></pre>
 </div>
 <p>In normal operation, Snakemake only runs a job if:</p>
 <ol style="list-style-type: decimal">
@@ -1775,15 +1775,15 @@ re-running Snakemake without the <code>-F</code> option.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-rv</span> kallisto.temp33_1</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-rv</span> kallisto.temp33_1</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p>This just re-runs <em>kallisto_quant</em> - the final step.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-v</span> trimmed/temp33_<span class="pp">*</span>.fq</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-v</span> trimmed/temp33_<span class="pp">*</span>.fq</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p>“Nothing to be done” - some intermediate output is missing but
 Snakemake already has the file you are telling it to make, so it doesn’t
@@ -1791,8 +1791,8 @@ worry.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> touch transcriptome/<span class="pp">*</span>.fa.gz</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch transcriptome/<span class="pp">*</span>.fa.gz</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p>The <code>touch</code> command is a standard Linux command which sets
 the timestamp of the file, so now the transcriptome looks to Snakemake
@@ -1823,15 +1823,14 @@ re-evaluated.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-R</span> trimreads <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-R</span> trimreads <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
-<div id="callout1" class="callout">
+<div id="note-on--r" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="note-on--r">Note on <code>-R</code>
-<a class="anchor" aria-label="anchor" href="#note-on--r"></a>
+<div id="note-on--r" class="callout-inner">
+<h3 class="callout-title">Note on<code>-R</code><a class="anchor" aria-label="anchor" href="#note-on--r"></a>
 </h3>
 <div class="callout-content">
 <p>Due to a quirk of the way Snakemake parses command-line options, you
@@ -1846,7 +1845,7 @@ targets, and Snakemake can tell which is which.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-R</span> trimreads kallisto_index <span class="at">-p</span> kallisto.temp33_1/abundance.h5 kallisto.temp33_2/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-R</span> trimreads kallisto_index <span class="at">-p</span> kallisto.temp33_1/abundance.h5 kallisto.temp33_2/abundance.h5</span></code></pre>
 </div>
 <p>The reason for using the <code>-p</code> flag here is because you
 generally always want this option.</p>
@@ -1859,7 +1858,7 @@ explicitly re-make specific files.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-f</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-f</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p>This always re-runs <em>kallisto_quant</em>, regardless of whether
 the output file is there already. For all intermediate outputs,
@@ -1873,20 +1872,19 @@ this:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-f</span> <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-f</span> <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
 </div>
 <p>Using the <code>--dag</code> option implicitly activates the
 <code>-n</code> (dry-run) option so that Snakemake will not actually run
 any jobs, it will just print the DAG and stop. Snakemake prints the DAG
 in a text format so we use the <code>gm</code> command to make this into
 a picture and show it on the screen.</p>
-<div id="callout2" class="callout">
+<div id="note-on-gm-display" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="note-on-gm-display">Note on <code>gm display</code>
-<a class="anchor" aria-label="anchor" href="#note-on-gm-display"></a>
+<div id="note-on-gm-display" class="callout-inner">
+<h3 class="callout-title">Note on<code>gm display</code><a class="anchor" aria-label="anchor" href="#note-on-gm-display"></a>
 </h3>
 <div class="callout-content">
 <p>The <code>gm</code> command is provided by the <a href="https://www.graphicsmagick.org/" class="external-link">GraphicsMagick toolkit</a>. On
@@ -1897,7 +1895,7 @@ installed.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-f</span> <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">dot</span> <span class="at">-Tpng</span> <span class="op">&gt;</span> dag.png</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-f</span> <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">dot</span> <span class="at">-Tpng</span> <span class="op">&gt;</span> dag.png</span></code></pre>
 </div>
 </div>
 </div>
@@ -1941,7 +1939,7 @@ than “20”?</p></li>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.etoh60_1/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.etoh60_1/abundance.h5</span></code></pre>
 </div>
 <ol style="list-style-type: decimal">
 <li>This command should show four boxes, but all are dotted so no jobs
@@ -1950,7 +1948,7 @@ are actually to be run.</li>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li><p>The <code>-f</code> flag re-runs only the job to create the
@@ -1984,12 +1982,12 @@ to.</p>
 </div>
 </div>
 </div>
-<div id="callout3" class="callout">
+<div id="removing-files-to-trigger-reprocessing" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="removing-files-to-trigger-reprocessing">Removing files to trigger reprocessing<a class="anchor" aria-label="anchor" href="#removing-files-to-trigger-reprocessing"></a>
+<div id="removing-files-to-trigger-reprocessing" class="callout-inner">
+<h3 class="callout-title">Removing files to trigger reprocessing<a class="anchor" aria-label="anchor" href="#removing-files-to-trigger-reprocessing"></a>
 </h3>
 <div class="callout-content">
 <p>In general, getting Snakemake to re-run things by removing files is a
@@ -2083,19 +2081,19 @@ don’t lose sight of the original file names.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> mv reads original_reads</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> mkdir reads</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ex">$</span> cd reads</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="ex">$</span> ln <span class="at">-s</span> ../original_reads/<span class="pp">*</span> .</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="ex">$</span> rename <span class="at">-v</span> <span class="at">-s</span> ref ref_ <span class="pp">*</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="ex">$</span> cd ..</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mv reads original_reads</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir reads</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd reads</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ln <span class="at">-s</span> ../original_reads/<span class="pp">*</span> .</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rename <span class="at">-v</span> <span class="at">-s</span> ref ref_ <span class="pp">*</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd ..</span></code></pre>
 </div>
-<div id="callout1" class="callout">
+<div id="file-renaming" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="file-renaming">File renaming<a class="anchor" aria-label="anchor" href="#file-renaming"></a>
+<div id="file-renaming" class="callout-inner">
+<h3 class="callout-title">File renaming<a class="anchor" aria-label="anchor" href="#file-renaming"></a>
 </h3>
 <div class="callout-content">
 <p>The <strong>rename</strong> command here is <a href="https://plasmasturm.org/code/rename/" class="external-link">the one provided by
@@ -2148,7 +2146,7 @@ rule name</em> on the command line:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> all_counts</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> all_counts</span></code></pre>
 </div>
 <p>Here, Snakemake sees that <em>all_counts</em> is the name of a rule
 in the Snakefile, so rather than trying to make a file literally named
@@ -2166,14 +2164,14 @@ can simply say:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span></span></code></pre>
 </div>
-<div id="callout2" class="callout">
+<div id="rules-as-targets" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="rules-as-targets">Rules as targets<a class="anchor" aria-label="anchor" href="#rules-as-targets"></a>
+<div id="rules-as-targets" class="callout-inner">
+<h3 class="callout-title">Rules as targets<a class="anchor" aria-label="anchor" href="#rules-as-targets"></a>
 </h3>
 <div class="callout-content">
 <p>Giving the name of a rule to Snakemake on the command line only works
@@ -2256,14 +2254,14 @@ be:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> cat file1.count file2.count file3.count ... <span class="op">&gt;</span> all_counts.txt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat file1.count file2.count file3.count ... <span class="op">&gt;</span> all_counts.txt</span></code></pre>
 </div>
 <p>In the Snakemake rule we just say:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">shell:</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="st">"cat {input} &gt; {output}"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">shell:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"cat {input} &gt; {output}"</span></span></code></pre>
 </div>
 <p>Within a rule definition you can combine named inputs and list inputs
 - any named input can be list of files rather than just a single file.
@@ -2325,7 +2323,7 @@ separated by a semicolon <code>;</code>.</em></p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> all_counts</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> all_counts</span></code></pre>
 </div>
 </div>
 </div>
@@ -2356,16 +2354,16 @@ list really is the same as before.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-n</span> <span class="at">-p</span> all_counts</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="ex">Conditions</span> are:  [<span class="st">'etoh60'</span>, <span class="st">'temp33'</span>, <span class="st">'ref'</span>]</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="ex">Building</span> DAG of jobs...</span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="ex">Job</span> counts:</span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>    <span class="ex">count</span>  jobs</span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>    <span class="ex">1</span>      all_counts</span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>    <span class="ex">36</span>     countreads</span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>    <span class="ex">18</span>     trimreads</span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>    <span class="ex">55</span></span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-n</span> <span class="at">-p</span> all_counts</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Conditions</span> are:  [<span class="st">'etoh60'</span>, <span class="st">'temp33'</span>, <span class="st">'ref'</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Building</span> DAG of jobs...</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Job</span> counts:</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">count</span>  jobs</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">1</span>      all_counts</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">36</span>     countreads</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">18</span>     trimreads</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">55</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
 </div>
 <p>Using <code>glob_wildcards()</code> gets a little more tricky when
 you need a more complex match. To refine the match we can quickly test
@@ -2375,18 +2373,18 @@ Snakefile and running Snakemake just to see what
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>$ python3</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> snakemake.io <span class="im">import</span> glob_wildcards, expand</span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{condition}</span><span class="st">_1_1.fq"</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>Wildcards(condition<span class="op">=</span>[<span class="st">'etoh60'</span>, <span class="st">'temp33'</span>, <span class="st">'ref'</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>$ python3</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> snakemake.io <span class="im">import</span> glob_wildcards, expand</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{condition}</span><span class="st">_1_1.fq"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>Wildcards(condition<span class="op">=</span>[<span class="st">'etoh60'</span>, <span class="st">'temp33'</span>, <span class="st">'ref'</span>])</span></code></pre>
 </div>
 <p>This is the result we got before. So far, so good.</p>
-<div id="callout3" class="callout">
+<div id="the-python-interpreter" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="the-python-interpreter">The Python interpreter<a class="anchor" aria-label="anchor" href="#the-python-interpreter"></a>
+<div id="the-python-interpreter" class="callout-inner">
+<h3 class="callout-title">The Python interpreter<a class="anchor" aria-label="anchor" href="#the-python-interpreter"></a>
 </h3>
 <div class="callout-content">
 <p>The Python interpreter is like a special shell for Python commands,
@@ -2425,8 +2423,8 @@ each condition.</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{sample}</span><span class="st">_1.fq"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>Wildcards(sample<span class="op">=</span>[<span class="st">'temp33_3'</span>, <span class="st">'temp33_2'</span>, <span class="st">'etoh60_1'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_2'</span>, <span class="st">'temp33_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_3'</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{sample}</span><span class="st">_1.fq"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Wildcards(sample<span class="op">=</span>[<span class="st">'temp33_3'</span>, <span class="st">'temp33_2'</span>, <span class="st">'etoh60_1'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_2'</span>, <span class="st">'temp33_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_3'</span>])</span></code></pre>
 </div>
 </div>
 </div>
@@ -2460,21 +2458,21 @@ does in the Snakefile.</p>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES <span class="op">=</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{sample}</span><span class="st">_1.fq"</span>).sample</span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> expand(<span class="st">"</span><span class="sc">{indir}</span><span class="st">.</span><span class="sc">{sample}</span><span class="st">_</span><span class="sc">{end}</span><span class="st">.fq.count"</span>, indir<span class="op">=</span>[<span class="st">'reads'</span>, <span class="st">'trimmed'</span>], sample<span class="op">=</span>SAMPLES, end<span class="op">=</span>[<span class="st">"1"</span>,<span class="st">"2"</span>])</span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>...</span>
-<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> expand(<span class="st">"kallisto.</span><span class="sc">{sample}</span><span class="st">/</span><span class="sc">{outfile}</span><span class="st">"</span>, sample<span class="op">=</span>SAMPLES, outfile<span class="op">=</span>[<span class="st">'abundance.h5'</span>, <span class="st">'abundance.tsv'</span>, run_info.json<span class="st">'])</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES <span class="op">=</span> glob_wildcards(<span class="st">"reads/</span><span class="sc">{sample}</span><span class="st">_1.fq"</span>).sample</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> expand(<span class="st">"</span><span class="sc">{indir}</span><span class="st">.</span><span class="sc">{sample}</span><span class="st">_</span><span class="sc">{end}</span><span class="st">.fq.count"</span>, indir<span class="op">=</span>[<span class="st">'reads'</span>, <span class="st">'trimmed'</span>], sample<span class="op">=</span>SAMPLES, end<span class="op">=</span>[<span class="st">"1"</span>,<span class="st">"2"</span>])</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> expand(<span class="st">"kallisto.</span><span class="sc">{sample}</span><span class="st">/</span><span class="sc">{outfile}</span><span class="st">"</span>, sample<span class="op">=</span>SAMPLES, outfile<span class="op">=</span>[<span class="st">'abundance.h5'</span>, <span class="st">'abundance.tsv'</span>, run_info.json<span class="st">'])</span></span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="callout4" class="callout">
+<div id="glob-with-multiple-wildcards" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="glob-with-multiple-wildcards">Glob with multiple wildcards<a class="anchor" aria-label="anchor" href="#glob-with-multiple-wildcards"></a>
+<div id="glob-with-multiple-wildcards" class="callout-inner">
+<h3 class="callout-title">Glob with multiple wildcards<a class="anchor" aria-label="anchor" href="#glob-with-multiple-wildcards"></a>
 </h3>
 <div class="callout-content">
 <p>If there are two or more wildcards in the glob pattern, dealing with
@@ -2485,31 +2483,31 @@ interpreter as above).</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>$ python3</span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> snakemake.io <span class="im">import</span> glob_wildcards, expand</span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> DOUBLE_MATCH <span class="op">=</span> glob_wildcards( <span class="st">"reads/</span><span class="sc">{condition}</span><span class="st">_</span><span class="sc">{samplenum}</span><span class="st">_1.fq"</span> )</span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> DOUBLE_MATCH</span>
-<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>Wildcards(condition<span class="op">=</span>[<span class="st">'temp33'</span>, <span class="st">'temp33'</span>, <span class="st">'etoh60'</span>, <span class="st">'etoh60'</span>, <span class="st">'ref'</span>, <span class="st">'temp33'</span>, <span class="st">'etoh60'</span>, <span class="st">'ref'</span>, <span class="st">'ref'</span>],</span>
-<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>          samplenum<span class="op">=</span>[<span class="st">'3'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'3'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'3'</span>])</span>
-<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES <span class="op">=</span> expand(</span>
-<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>...     <span class="st">"</span><span class="sc">{condition}</span><span class="st">_</span><span class="sc">{samplenum}</span><span class="st">"</span>,</span>
-<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>...     <span class="bu">zip</span>,</span>
-<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>...     condition <span class="op">=</span> DOUBLE_MATCH.condition,</span>
-<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a>...     samplenum <span class="op">=</span> DOUBLE_MATCH.samplenum )</span>
-<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES</span>
-<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a>[<span class="st">'temp33_3'</span>, <span class="st">'temp33_2'</span>, <span class="st">'etoh60_1'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_2'</span>, <span class="st">'temp33_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_3'</span>]</span>
-<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">sorted</span>(SAMPLES)</span>
-<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a>[<span class="st">'etoh60_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_2'</span>, <span class="st">'ref_3'</span>, <span class="st">'temp33_1'</span>, <span class="st">'temp33_2'</span>, <span class="st">'temp33_3'</span>]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>$ python3</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> snakemake.io <span class="im">import</span> glob_wildcards, expand</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> DOUBLE_MATCH <span class="op">=</span> glob_wildcards( <span class="st">"reads/</span><span class="sc">{condition}</span><span class="st">_</span><span class="sc">{samplenum}</span><span class="st">_1.fq"</span> )</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> DOUBLE_MATCH</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>Wildcards(condition<span class="op">=</span>[<span class="st">'temp33'</span>, <span class="st">'temp33'</span>, <span class="st">'etoh60'</span>, <span class="st">'etoh60'</span>, <span class="st">'ref'</span>, <span class="st">'temp33'</span>, <span class="st">'etoh60'</span>, <span class="st">'ref'</span>, <span class="st">'ref'</span>],</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>          samplenum<span class="op">=</span>[<span class="st">'3'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'3'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'2'</span>, <span class="st">'1'</span>, <span class="st">'3'</span>])</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES <span class="op">=</span> expand(</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>...     <span class="st">"</span><span class="sc">{condition}</span><span class="st">_</span><span class="sc">{samplenum}</span><span class="st">"</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">zip</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>...     condition <span class="op">=</span> DOUBLE_MATCH.condition,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>...     samplenum <span class="op">=</span> DOUBLE_MATCH.samplenum )</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> SAMPLES</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>[<span class="st">'temp33_3'</span>, <span class="st">'temp33_2'</span>, <span class="st">'etoh60_1'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_2'</span>, <span class="st">'temp33_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_3'</span>]</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">sorted</span>(SAMPLES)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>[<span class="st">'etoh60_1'</span>, <span class="st">'etoh60_2'</span>, <span class="st">'etoh60_3'</span>, <span class="st">'ref_1'</span>, <span class="st">'ref_2'</span>, <span class="st">'ref_3'</span>, <span class="st">'temp33_1'</span>, <span class="st">'temp33_2'</span>, <span class="st">'temp33_3'</span>]</span></code></pre>
 </div>
 </div>
 </div>
 </div>
-<div id="callout5" class="callout">
+<div id="rules-that-make-multiple-outputs" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="rules-that-make-multiple-outputs">Rules that make multiple outputs<a class="anchor" aria-label="anchor" href="#rules-that-make-multiple-outputs"></a>
+<div id="rules-that-make-multiple-outputs" class="callout-inner">
+<h3 class="callout-title">Rules that make multiple outputs<a class="anchor" aria-label="anchor" href="#rules-that-make-multiple-outputs"></a>
 </h3>
 <div class="callout-content">
 <p>If we can have rules that combine lists of files, can we do the
@@ -2625,11 +2623,11 @@ produced.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> fastqc reads/ref_1_1.fq</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-ltr</span> reads</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="ex">-rw-r--r--</span> 1 zenmaster  users   464852 Jun  9 14:31 ref_1_1_fastqc.zip</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="ex">-rw-r--r--</span> 1 zenmaster  users   654810 Jun  9 14:31 ref_1_1_fastqc.html</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> fastqc reads/ref_1_1.fq</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls <span class="at">-ltr</span> reads</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">-rw-r--r--</span> 1 zenmaster  users   464852 Jun  9 14:31 ref_1_1_fastqc.zip</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">-rw-r--r--</span> 1 zenmaster  users   654810 Jun  9 14:31 ref_1_1_fastqc.html</span></code></pre>
 </div>
 <p>It’s possible to supply multiple input files, but the resulting
 output is exactly the same as if processing the files one at a time. Two
@@ -2640,14 +2638,14 @@ output directory.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> fastqc <span class="at">--help</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>   <span class="ex">-o</span> <span class="at">--outdir</span>     Create all output files in the specified output directory.</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                   <span class="ex">Please</span> note that this directory must exist as the program</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>                   <span class="ex">will</span> not create it.  If this option is not set then the</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                   <span class="ex">output</span> file for each sequence file is created in the same</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>                   <span class="ex">directory</span> as the sequence file which was processed.</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> fastqc <span class="at">--help</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>   <span class="ex">-o</span> <span class="at">--outdir</span>     Create all output files in the specified output directory.</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                   <span class="ex">Please</span> note that this directory must exist as the program</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                   <span class="ex">will</span> not create it.  If this option is not set then the</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                   <span class="ex">output</span> file for each sequence file is created in the same</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                   <span class="ex">directory</span> as the sequence file which was processed.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
 </div>
 <p>For the <code>countreads</code> rule we wrote earlier (see episode
 3), we chose our preferred output file name pattern so as to allow us to
@@ -2719,7 +2717,7 @@ or more target output files:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> reads/etoh60_1_1_fastqc.html reads/etoh60_1_2_fastqc.html</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> reads/etoh60_1_1_fastqc.html reads/etoh60_1_2_fastqc.html</span></code></pre>
 </div>
 </div>
 </div>
@@ -2790,12 +2788,12 @@ whole directory. This makes the rule definition simpler.</p>
     input:  "{indir}/{myfile}.fq"
     shell:
         "fastqc -o {output} {input}"</code></pre>
-<div id="callout1" class="callout">
+<div id="only-use-directory-on-outputs-not-inputs" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="only-use-directory-on-outputs-not-inputs">Only use <code>directory()</code> on outputs,
+<div id="only-use-directory-on-outputs-not-inputs" class="callout-inner">
+<h3 class="callout-title">Only use<code>directory()</code>on outputs,
 not inputs<a class="anchor" aria-label="anchor" href="#only-use-directory-on-outputs-not-inputs"></a>
 </h3>
 <div class="callout-content">
@@ -2809,10 +2807,10 @@ syntax.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> reads.fastqc.ref_1_1</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="ex">Specified</span> output directory <span class="st">'reads.fastqc.ref_1_1'</span> does not exist</span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> reads.fastqc.ref_1_1</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Specified</span> output directory <span class="st">'reads.fastqc.ref_1_1'</span> does not exist</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre>
 </div>
 <p>This error is being printed by FastQC. FastQC requires that the
 output directory must exist. (Other programs might insist that the
@@ -2824,12 +2822,12 @@ code.</p>
     input:  "{indir}/{myfile}.fq"
     shell:
         "mkdir {output} ; fastqc -o {output} {input}"</code></pre>
-<div id="callout2" class="callout">
+<div id="the-rationale-for-making-output-directories" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="the-rationale-for-making-output-directories">The rationale for making output
+<div id="the-rationale-for-making-output-directories" class="callout-inner">
+<h3 class="callout-title">The rationale for making output
 directories<a class="anchor" aria-label="anchor" href="#the-rationale-for-making-output-directories"></a>
 </h3>
 <div class="callout-content">
@@ -2922,12 +2920,12 @@ the block you can run any commands and make any files you like.</p>
 </div>
 </div>
 </div>
-<div id="callout3" class="callout">
+<div id="one-problem-with-making-intermediate-outputs" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="one-problem-with-making-intermediate-outputs">One problem with making intermediate
+<div id="one-problem-with-making-intermediate-outputs" class="callout-inner">
+<h3 class="callout-title">One problem with making intermediate
 outputs<a class="anchor" aria-label="anchor" href="#one-problem-with-making-intermediate-outputs"></a>
 </h3>
 <div class="callout-content">
@@ -3097,8 +3095,8 @@ possible.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> salmon index <span class="at">-t</span> <span class="op">&lt;</span>transcriptome as fasta<span class="op">&gt;</span> -i <span class="op">&lt;</span>index name<span class="op">&gt;</span> -k 31</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> salmon quant <span class="at">-i</span> <span class="op">&lt;</span>index name<span class="op">&gt;</span> -l A <span class="at">-1</span> <span class="op">&lt;</span>fastq1<span class="op">&gt;</span> -2 <span class="op">&lt;</span>fastq2<span class="op">&gt;</span> --validateMappings <span class="at">-o</span> <span class="op">&lt;</span>output path<span class="op">&gt;</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> salmon index <span class="at">-t</span> <span class="op">&lt;</span>transcriptome as fasta<span class="op">&gt;</span> -i <span class="op">&lt;</span>index name<span class="op">&gt;</span> -k 31</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> salmon quant <span class="at">-i</span> <span class="op">&lt;</span>index name<span class="op">&gt;</span> -l A <span class="at">-1</span> <span class="op">&lt;</span>fastq1<span class="op">&gt;</span> -2 <span class="op">&lt;</span>fastq2<span class="op">&gt;</span> --validateMappings <span class="at">-o</span> <span class="op">&lt;</span>output path<span class="op">&gt;</span></span></code></pre>
 </div>
 <p>Add a pair of rules to index and align the reads with Salmon. Note
 that:</p>
@@ -3155,7 +3153,7 @@ directory, simply run:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> multiqc . <span class="at">-o</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> multiqc . <span class="at">-o</span> multiqc_out</span></code></pre>
 </div>
 <div id="adding-a-multiqc-rule" class="callout challenge">
 <div class="callout-square">
@@ -3205,11 +3203,11 @@ rule name or the output directory name as a target.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="ex">...or</span> equivalently...</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">...or</span> equivalently...</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc_out</span></code></pre>
 </div>
 </div>
 </div>
@@ -3343,13 +3341,13 @@ configured.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> xdg-open multiqc_out/multiqc_report.html</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> xdg-open multiqc_out/multiqc_report.html</span></code></pre>
 </div>
 <p>For MacOS:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> open multiqc_out/multiqc_report.html</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> open multiqc_out/multiqc_report.html</span></code></pre>
 </div>
 <p>The report has a few issues, but we’ll not get distracted by the
 details of how to configure MultiQC to resolve them.</p>
@@ -3474,7 +3472,7 @@ rule.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> <span class="at">-f</span> Saccharomyces_cerevisiae.R64-1-1.salmon_index</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> <span class="at">-f</span> Saccharomyces_cerevisiae.R64-1-1.salmon_index</span></code></pre>
 </div>
 <p>Notes:</p>
 <ul>
@@ -3523,12 +3521,12 @@ not, then just take note that the first form uses <em>square
 brackets</em> and the other uses <code>.get(...)</code> with <em>regular
 brackets</em>. Both the config entry name and the default value should
 be in quotes.</p>
-<div id="callout1" class="callout">
+<div id="using-config-settings-with-params" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="using-config-settings-with-params">Using config settings with params<a class="anchor" aria-label="anchor" href="#using-config-settings-with-params"></a>
+<div id="using-config-settings-with-params" class="callout-inner">
+<h3 class="callout-title">Using config settings with params<a class="anchor" aria-label="anchor" href="#using-config-settings-with-params"></a>
 </h3>
 <div class="callout-content">
 <p>Strictly speaking, you don’t have to use <em>config</em> in
@@ -3542,7 +3540,7 @@ referencing it on the command line:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--configfile</span><span class="op">=</span>config.yaml ...</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--configfile</span><span class="op">=</span>config.yaml ...</span></code></pre>
 </div>
 <div id="making-the-parameter-of-a-rule-configurable" class="callout challenge">
 <div class="callout-square">
@@ -3577,7 +3575,7 @@ being printed has the expected value of <em>31</em>.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> <span class="at">-f</span> <span class="at">--configfile</span><span class="op">=</span>config.yaml Saccharomyces_cerevisiae.R64-1-1.salmon_index</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> <span class="at">-f</span> <span class="at">--configfile</span><span class="op">=</span>config.yaml Saccharomyces_cerevisiae.R64-1-1.salmon_index</span></code></pre>
 </div>
 <p><em>Note that if you try to run Snakemake with no config file you
 will now get a <strong>KeyError</strong> regarding
@@ -3603,7 +3601,7 @@ configuration parameters.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--configfile</span><span class="op">=</span>config.yaml <span class="at">--config</span> salmon_kmer_len=23 <span class="at">-p</span> <span class="at">-nf</span> Saccharomyces_cerevisiae.R64-1-1.salmon_index/</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--configfile</span><span class="op">=</span>config.yaml <span class="at">--config</span> salmon_kmer_len=23 <span class="at">-p</span> <span class="at">-nf</span> Saccharomyces_cerevisiae.R64-1-1.salmon_index/</span></code></pre>
 </div>
 <p>This is all getting quite complex, so in summary:</p>
 <ul>
@@ -3661,7 +3659,7 @@ override on the command line:</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-f</span> <span class="at">--config</span> replicates=<span class="pp">[</span><span class="st">"2"</span><span class="ss">,</span><span class="st">"3"</span><span class="pp">]</span> <span class="at">-p</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-f</span> <span class="at">--config</span> replicates=[<span class="st">"2"</span>,<span class="st">"3"</span>] <span class="at">-p</span> multiqc_out</span></code></pre>
 </div>
 <p>Note that we need to re-run the final report, but only this, so only
 <code>-f</code> is necessary. If you find that replicate 1 is still in
@@ -3777,19 +3775,19 @@ are four system cores.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> lscpu</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> lscpu</span></code></pre>
 </div>
 <p>Likewise find out the amount of RAM available:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> free <span class="at">-h</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> free <span class="at">-h</span></span></code></pre>
 </div>
 <p>And finally disk space, on the current partition:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> df <span class="at">-h</span> .</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> df <span class="at">-h</span> .</span></code></pre>
 </div>
 <p>(or <code>df -h</code> without the <code>.</code> to show all
 partitions)</p>
@@ -3806,7 +3804,7 @@ precedence, so eg:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> /usr/bin/time <span class="at">-v</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">--</span> kallisto.<span class="dt">{ref</span><span class="op">,</span><span class="dt">temp33</span><span class="op">,</span><span class="dt">etoh60}</span>_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> /usr/bin/time <span class="at">-v</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">--</span> kallisto.<span class="dt">{ref</span><span class="op">,</span><span class="dt">temp33</span><span class="op">,</span><span class="dt">etoh60}</span>_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span></span></code></pre>
 </div>
 <div id="measuring-how-concurrency-affects-execution-time" class="callout challenge">
 <div class="callout-square">
@@ -3936,12 +3934,12 @@ unsupported.</p>
 </div>
 </div>
 </div>
-<div id="callout1" class="callout">
+<div id="fine-grained-profiling" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="fine-grained-profiling">Fine-grained profiling<a class="anchor" aria-label="anchor" href="#fine-grained-profiling"></a>
+<div id="fine-grained-profiling" class="callout-inner">
+<h3 class="callout-title">Fine-grained profiling<a class="anchor" aria-label="anchor" href="#fine-grained-profiling"></a>
 </h3>
 <div class="callout-content">
 <p>Rather than timing the entire workflow, we can ask Snakemake to
@@ -3975,12 +3973,12 @@ Snakemake manual explains how to set this up</a></li>
 <li><a href="files/snakemake_on_eddie.pdf">We have some specific
 suggestions for Eddie, the University of Edinburgh cluster</a></li>
 </ul>
-<figure><img src="fig/Multiple_Server_.jpg" alt="A photo of some high performance computer hardware racked in five cabinets in a server room. Each cabinet is about 2.2 metres high and 0.8m wide. The doors of the cabinets are open to show the systems inside. Orange and yellow cabling is prominent, connecting ports within the second and third racks." class="figure mx-auto d-block"></figure><div id="callout2" class="callout">
+<figure><img src="fig/Multiple_Server_.jpg" alt="A photo of some high performance computer hardware racked in five cabinets in a server room. Each cabinet is about 2.2 metres high and 0.8m wide. The doors of the cabinets are open to show the systems inside. Orange and yellow cabling is prominent, connecting ports within the second and third racks." class="figure mx-auto d-block"></figure><div id="cluster-demo" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="cluster-demo">Cluster demo<a class="anchor" aria-label="anchor" href="#cluster-demo"></a>
+<div id="cluster-demo" class="callout-inner">
+<h3 class="callout-title">Cluster demo<a class="anchor" aria-label="anchor" href="#cluster-demo"></a>
 </h3>
 <div class="callout-content">
 <p>A this point in the course there may be a cluster demo…</p>
@@ -4119,12 +4117,12 @@ recreate an identical environment from that information.
 </ul>
 </li>
 </ul>
-<div id="callout1" class="callout">
+<div id="channel-configuration-and-conda-forge" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="channel-configuration-and-conda-forge">Channel configuration and conda-forge<a class="anchor" aria-label="anchor" href="#channel-configuration-and-conda-forge"></a>
+<div id="channel-configuration-and-conda-forge" class="callout-inner">
+<h3 class="callout-title">Channel configuration and conda-forge<a class="anchor" aria-label="anchor" href="#channel-configuration-and-conda-forge"></a>
 </h3>
 <div class="callout-content">
 <p>For advanced usage, there are many ways you might want to configure
@@ -4138,7 +4136,7 @@ libraries.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> cat ~/.condarc</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat ~/.condarc</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4187,8 +4185,8 @@ above is:</li>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="kw">|</span> <span class="fu">grep</span> fastx</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a> <span class="ex">-</span> fastx_toolkit=0.0.14=0</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="kw">|</span> <span class="fu">grep</span> fastx</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">-</span> fastx_toolkit=0.0.14=0</span></code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>Conda should already be configured to install Bioconda packages (see
@@ -4197,16 +4195,16 @@ the callout above) so we can do this:</li>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> conda activate new-env</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">$</span> conda install cutadapt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate new-env</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda install cutadapt</span></code></pre>
 </div>
 <p>It’s also possible to install packages at the same time as creating
 the environment, though this wasn’t shown in the examples above.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env cutadapt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env cutadapt</span></code></pre>
 </div>
 <p>You’ll still need to <em>activate</em> the new environment in order
 to run <em>cutadapt</em>.</p>
@@ -4232,7 +4230,7 @@ to quickly set up the same environment on any other machine.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> new-env <span class="op">&gt;</span> new-env.yaml</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> new-env <span class="op">&gt;</span> new-env.yaml</span></code></pre>
 </div>
 <p>Snakemake takes this one step further by integrating directly with
 Conda. This brings some nice features…</p>
@@ -4334,18 +4332,18 @@ it.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> salmon-1.2.1</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">$</span> conda activate salmon-1.2.1</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="ex">$</span> conda install salmon=1.2.1 tbb=2020.2</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> salmon-1.2.1 <span class="op">&gt;</span> salmon-1.2.1.yaml</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> salmon-1.2.1</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate salmon-1.2.1</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda install salmon=1.2.1 tbb=2020.2</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> salmon-1.2.1 <span class="op">&gt;</span> salmon-1.2.1.yaml</span></code></pre>
 </div>
 <p>As an aside, having done this, we could delete the environment as we
 just need the exported YAML file.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> conda deactivate</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="ex">$</span> conda env remove <span class="at">-n</span> salmon-1.2.1</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda deactivate</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env remove <span class="at">-n</span> salmon-1.2.1</span></code></pre>
 </div>
 <p>Next add the same <em>conda</em> declaration to both the
 <em>salmon_index</em> and <em>salmon_quant</em> rules.</p>
@@ -4356,18 +4354,18 @@ two rules have changed and must be re-run.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-Rsalmon_index</span> <span class="at">-Rsalmon_quant</span> <span class="at">--use-conda</span> ...</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-Rsalmon_index</span> <span class="at">-Rsalmon_quant</span> <span class="at">--use-conda</span> ...</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="callout2" class="callout">
+<div id="note-on-the-environment-files" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="note-on-the-environment-files">Note on the environment files<a class="anchor" aria-label="anchor" href="#note-on-the-environment-files"></a>
+<div id="note-on-the-environment-files" class="callout-inner">
+<h3 class="callout-title">Note on the environment files<a class="anchor" aria-label="anchor" href="#note-on-the-environment-files"></a>
 </h3>
 <div class="callout-content">
 <p>If you look into a YAML file created with
@@ -4471,32 +4469,32 @@ script</a>:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># This script needs the following Bioconda packages:</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#   cutadapt</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#   velvet</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#   bbmap</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#  Use cutadapt to remove adapters. Note that cutadapt works on the paired sequences</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">mkdir</span> cutadapt</span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_1_1.fq <span class="at">-p</span> cutadapt/ref_1_2.fq reads/ref_1_1.fq reads/ref_1_2.fq</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_2_1.fq <span class="at">-p</span> cutadapt/ref_2_2.fq reads/ref_2_1.fq reads/ref_2_2.fq</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_3_1.fq <span class="at">-p</span> cutadapt/ref_3_2.fq reads/ref_3_1.fq reads/ref_3_2.fq</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co"># Combine all the samples. We still want to keep the read pairs separate.</span></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="fu">mkdir</span> concatenate</span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="fu">cat</span> cutadapt/ref_1_1.fq cutadapt/ref_2_1.fq cutadapt/ref_3_1.fq <span class="op">&gt;</span> concatenate/ref_1.fq</span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="fu">cat</span> cutadapt/ref_1_2.fq cutadapt/ref_2_2.fq cutadapt/ref_3_2.fq <span class="op">&gt;</span> concatenate/ref_2.fq</span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co"># Assemble the concatenated files with Velvet. This is a 2-step process: velveth then velvetg</span></span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="va">kmer_len</span><span class="op">=</span>21</span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="ex">velveth</span> velvet_tmp_ref_<span class="va">${kmer_len}</span> <span class="va">${kmer_len}</span> <span class="at">-shortPaired</span> <span class="at">-fastq</span> <span class="at">-separate</span> concatenate/ref_1.fq concatenate/ref_2.fq</span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="ex">velvetg</span> velvet_tmp_ref_<span class="va">${kmer_len}</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="fu">mv</span> velvet_tmp_ref_<span class="va">${kmer_len}</span>/contigs.fa contigs.fa</span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co"># Find the longest contig using the BBMap stats script</span></span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="ex">stats.sh</span> contigs.fa <span class="kw">|</span> <span class="fu">grep</span> <span class="st">'Max contig length:'</span> <span class="op">&gt;</span> max_contig.txt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This script needs the following Bioconda packages:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   cutadapt</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   velvet</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   bbmap</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  Use cutadapt to remove adapters. Note that cutadapt works on the paired sequences</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> cutadapt</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_1_1.fq <span class="at">-p</span> cutadapt/ref_1_2.fq reads/ref_1_1.fq reads/ref_1_2.fq</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_2_1.fq <span class="at">-p</span> cutadapt/ref_2_2.fq reads/ref_2_1.fq reads/ref_2_2.fq</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_3_1.fq <span class="at">-p</span> cutadapt/ref_3_2.fq reads/ref_3_1.fq reads/ref_3_2.fq</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all the samples. We still want to keep the read pairs separate.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> concatenate</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> cutadapt/ref_1_1.fq cutadapt/ref_2_1.fq cutadapt/ref_3_1.fq <span class="op">&gt;</span> concatenate/ref_1.fq</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> cutadapt/ref_1_2.fq cutadapt/ref_2_2.fq cutadapt/ref_3_2.fq <span class="op">&gt;</span> concatenate/ref_2.fq</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Assemble the concatenated files with Velvet. This is a 2-step process: velveth then velvetg</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="va">kmer_len</span><span class="op">=</span>21</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ex">velveth</span> velvet_tmp_ref_<span class="va">${kmer_len}</span> <span class="va">${kmer_len}</span> <span class="at">-shortPaired</span> <span class="at">-fastq</span> <span class="at">-separate</span> concatenate/ref_1.fq concatenate/ref_2.fq</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ex">velvetg</span> velvet_tmp_ref_<span class="va">${kmer_len}</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> velvet_tmp_ref_<span class="va">${kmer_len}</span>/contigs.fa contigs.fa</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the longest contig using the BBMap stats script</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ex">stats.sh</span> contigs.fa <span class="kw">|</span> <span class="fu">grep</span> <span class="st">'Max contig length:'</span> <span class="op">&gt;</span> max_contig.txt</span></code></pre>
 </div>
 <p>The following figure presents the steps involved in the above script,
 when run on the <code>ref</code> samples. You will see it already looks
@@ -4522,25 +4520,25 @@ produced?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>The commands to build and activate the Conda env can be found in the
 “Conda Integration” chapter.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> assembly-env <span class="at">--channel</span> bioconda <span class="at">--channel</span> conda-forge cutadapt velvet bbmap</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">$</span> conda activate assembly-env</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> assembly-env <span class="at">--channel</span> bioconda <span class="at">--channel</span> conda-forge cutadapt velvet bbmap</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate assembly-env</span></code></pre>
 </div>
 <p>Now, after saving the script above into a text file, make it
 executable and run it.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> chmod +x assembly_script.sh</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> ./assembly_script.sh</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">$</span> cat max_contig.txt</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="ex">Max</span> contig length:        655</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> chmod +x assembly_script.sh</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./assembly_script.sh</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat max_contig.txt</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Max</span> contig length:        655</span></code></pre>
 </div>
 <p>Don’t worry if you get a slightly different number. We’ve not
 specified the exact version of the assembler so the final assembly may
@@ -4677,7 +4675,7 @@ length of the longest contig in each of the twelve assemblies.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>A sample solution to this exercise <a href="files/assembly_with_conda.Snakefile">is available here</a>, along
 with a suitable <a href="files/assembly_conda_env.yaml">Conda
@@ -4848,7 +4846,7 @@ option):</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> multiqc_out</span></code></pre>
 </div>
 <p>You should see that Snakemake wants to run the
 <em>kallisto_quant</em> and <em>multiqc</em> steps but no others.</p>
@@ -4888,7 +4886,7 @@ files after modifying the Snakefile.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-p</span> <span class="at">-j1</span> <span class="at">--delete-temp-output</span> multiqc</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-p</span> <span class="at">-j1</span> <span class="at">--delete-temp-output</span> multiqc</span></code></pre>
 </div>
 </div>
 </div>
@@ -4910,14 +4908,14 @@ existing files.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> touch trimmed/<span class="pp">*</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> multiqc_out</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="ex">Job</span> counts:</span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>    <span class="ex">count</span>   jobs</span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>    <span class="ex">1</span>       multiqc</span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>    <span class="ex">9</span>       salmon_quant</span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>    <span class="ex">10</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch trimmed/<span class="pp">*</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> multiqc_out</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Job</span> counts:</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">count</span>   jobs</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">1</span>       multiqc</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">9</span>       salmon_quant</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">10</span></span></code></pre>
 </div>
 <p>Snakemake wants to re-run all the <em>salmon_quant</em> jobs (and the
 <em>kallisto_quant</em> jobs, if you completed the exercise above),
@@ -4929,14 +4927,14 @@ invocations of snakemake.”</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j</span> 1 <span class="at">--touch</span> <span class="at">-p</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j</span> 1 <span class="at">--touch</span> <span class="at">-p</span> multiqc_out</span></code></pre>
 </div>
-<div id="callout1" class="callout">
+<div id="protecting-specific-files" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="protecting-specific-files">Protecting specific files<a class="anchor" aria-label="anchor" href="#protecting-specific-files"></a>
+<div id="protecting-specific-files" class="callout-inner">
+<h3 class="callout-title">Protecting specific files<a class="anchor" aria-label="anchor" href="#protecting-specific-files"></a>
 </h3>
 <div class="callout-content">
 <p>A related feature is the <code>protected()</code> function. This is
@@ -5107,8 +5105,8 @@ episode.</em></p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spins<span class="pp">?</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spins<span class="pp">?</span></span></code></pre>
 </div>
 <p>The message is printed back, but not before the shell has interpreted
 the text as per various command-line parsing rules</p>
@@ -5122,9 +5120,9 @@ pattern if there is any matching file:</li>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> touch spinsX spinsY</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spinsX spinsY</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch spinsX spinsY</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo Why is a <span class="st">"mouse"</span> when     it spins<span class="pp">?</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Why</span> is a mouse when it spinsX spinsY</span></code></pre>
 </div>
 <p><em>Note: if you have certain shell settings you may have seen a
 warning about the unmatched glob pattern.</em></p>
@@ -5145,9 +5143,9 @@ commands:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Print mean read length in FASTQ file - from https://github.com/stephenturner/oneliners</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}'</span> reads/ref_1_1.fq</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">101</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print mean read length in FASTQ file - from https://github.com/stephenturner/oneliners</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}'</span> reads/ref_1_1.fq</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">101</span></span></code></pre>
 </div>
 <p>The ‘single quotes’ ensure that the expression is passed directly to
 <em>awk</em>. If “double quotes” had been used, <em>bash</em> would
@@ -5156,12 +5154,12 @@ the awk logic, giving a meaningless result.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># With double quotes the "$0" is substituted by *bash*, rather than being passed on to awk.</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span> reads/ref_1_1.fq</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">0</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># In an interactive shell $0 is a variable containing the value "bash"</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="ex">NR%4==2{sum+=length</span><span class="er">(</span><span class="fu">bash</span><span class="kw">)</span><span class="er">}</span><span class="ex">END{print</span> sum/<span class="er">(</span><span class="ex">NR/4</span><span class="kw">)</span><span class="er">}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With double quotes the "$0" is substituted by *bash*, rather than being passed on to awk.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span> reads/ref_1_1.fq</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># In an interactive shell $0 is a variable containing the value "bash"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"NR%4==2{sum+=length(</span><span class="va">$0</span><span class="st">)}END{print sum/(NR/4)}"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">NR%4==2{sum+=length</span><span class="er">(</span><span class="fu">bash</span><span class="kw">)</span><span class="er">}</span><span class="ex">END{print</span> sum/<span class="er">(</span><span class="ex">NR/4</span><span class="kw">)</span><span class="er">}</span></span></code></pre>
 </div>
 <p>So in <em>bash</em>, putting a string in single quotes is normally
 enough to preserve the contents, but if you need to add literal single
@@ -5170,9 +5168,9 @@ quotes to the awk command for any reason you have to do some awkward
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Yuk! But it does work...</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'{print "\"double\" '"'"'single'"'"'"}'</span> <span class="op">&lt;&lt;&lt;</span><span class="st">''</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="st">"double"</span> <span class="st">'single'</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Yuk! But it does work...</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> awk <span class="st">'{print "\"double\" '"'"'single'"'"'"}'</span> <span class="op">&lt;&lt;&lt;</span><span class="st">''</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">"double"</span> <span class="st">'single'</span></span></code></pre>
 </div>
 </section><section id="quoting-rules-in-snakemake"><h2 class="section-heading">Quoting rules in Snakemake<a class="anchor" aria-label="anchor" href="#quoting-rules-in-snakemake"></a>
 </h2>
@@ -5221,7 +5219,7 @@ expression we saw earlier.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>It won’t work. Snakemake assumes that all parts of the string in
 {curlies} are placeholders. The error will say something like
@@ -5294,7 +5292,7 @@ working.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> rename <span class="at">-v</span> <span class="at">-s</span> <span class="st">'etoh'</span> <span class="st">'etoh '</span> <span class="at">-s</span> <span class="st">'temp'</span> <span class="st">'temp '</span> reads/<span class="pp">*</span>.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rename <span class="at">-v</span> <span class="at">-s</span> <span class="st">'etoh'</span> <span class="st">'etoh '</span> <span class="at">-s</span> <span class="st">'temp'</span> <span class="st">'temp '</span> reads/<span class="pp">*</span>.fq</span></code></pre>
 </div>
 <p>Fix the workflow so you can still run the MultiQC report over all the
 samples (run Snakemake with <code>-F</code> to check that all the steps
@@ -5307,7 +5305,7 @@ really work).</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>This just involves adding <code>:q</code> to a whole bunch of
 placeholders. Unless you are very diligent it will probably take a few
@@ -5317,12 +5315,12 @@ again.</p>
 </div>
 </div>
 </div>
-<div id="callout1" class="callout">
+<div id="external-scripts" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="external-scripts">External scripts<a class="anchor" aria-label="anchor" href="#external-scripts"></a>
+<div id="external-scripts" class="callout-inner">
+<h3 class="callout-title">External scripts<a class="anchor" aria-label="anchor" href="#external-scripts"></a>
 </h3>
 <div class="callout-content">
 <p>If rules in your Snakefile end up containing a large amount of shell

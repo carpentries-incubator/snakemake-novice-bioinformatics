@@ -472,7 +472,7 @@ option):</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> multiqc_out</span></code></pre>
 </div>
 <p>You should see that Snakemake wants to run the
 <em>kallisto_quant</em> and <em>multiqc</em> steps but no others.</p>
@@ -512,7 +512,7 @@ files after modifying the Snakefile.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-p</span> <span class="at">-j1</span> <span class="at">--delete-temp-output</span> multiqc</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-p</span> <span class="at">-j1</span> <span class="at">--delete-temp-output</span> multiqc</span></code></pre>
 </div>
 </div>
 </div>
@@ -533,14 +533,14 @@ existing files.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> touch trimmed/<span class="pp">*</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> multiqc_out</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="ex">Job</span> counts:</span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>    <span class="ex">count</span>   jobs</span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>    <span class="ex">1</span>       multiqc</span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>    <span class="ex">9</span>       salmon_quant</span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>    <span class="ex">10</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch trimmed/<span class="pp">*</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> multiqc_out</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Job</span> counts:</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">count</span>   jobs</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">1</span>       multiqc</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">9</span>       salmon_quant</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">10</span></span></code></pre>
 </div>
 <p>Snakemake wants to re-run all the <em>salmon_quant</em> jobs (and the
 <em>kallisto_quant</em> jobs, if you completed the exercise above),
@@ -552,14 +552,15 @@ invocations of snakemake.”</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j</span> 1 <span class="at">--touch</span> <span class="at">-p</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j</span> 1 <span class="at">--touch</span> <span class="at">-p</span> multiqc_out</span></code></pre>
 </div>
-<div id="callout1" class="callout">
+<div id="protecting-specific-files" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="protecting-specific-files">Protecting specific files<a class="anchor" aria-label="anchor" href="#protecting-specific-files"></a></h3>
+<div id="protecting-specific-files" class="callout-inner">
+<h3 class="callout-title">Protecting specific files<a class="anchor" aria-label="anchor" href="#protecting-specific-files"></a>
+</h3>
 <div class="callout-content">
 <p>A related feature is the <code>protected()</code> function. This is
 rather like the opposite of the <code>temporary()</code> function and

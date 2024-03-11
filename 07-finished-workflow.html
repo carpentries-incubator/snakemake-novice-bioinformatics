@@ -435,8 +435,8 @@ possible.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> salmon index <span class="at">-t</span> <span class="op">&lt;</span>transcriptome as fasta<span class="op">&gt;</span> -i <span class="op">&lt;</span>index name<span class="op">&gt;</span> -k 31</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> salmon quant <span class="at">-i</span> <span class="op">&lt;</span>index name<span class="op">&gt;</span> -l A <span class="at">-1</span> <span class="op">&lt;</span>fastq1<span class="op">&gt;</span> -2 <span class="op">&lt;</span>fastq2<span class="op">&gt;</span> --validateMappings <span class="at">-o</span> <span class="op">&lt;</span>output path<span class="op">&gt;</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> salmon index <span class="at">-t</span> <span class="op">&lt;</span>transcriptome as fasta<span class="op">&gt;</span> -i <span class="op">&lt;</span>index name<span class="op">&gt;</span> -k 31</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> salmon quant <span class="at">-i</span> <span class="op">&lt;</span>index name<span class="op">&gt;</span> -l A <span class="at">-1</span> <span class="op">&lt;</span>fastq1<span class="op">&gt;</span> -2 <span class="op">&lt;</span>fastq2<span class="op">&gt;</span> --validateMappings <span class="at">-o</span> <span class="op">&lt;</span>output path<span class="op">&gt;</span></span></code></pre>
 </div>
 <p>Add a pair of rules to index and align the reads with Salmon. Note
 that:</p>
@@ -490,7 +490,7 @@ directory, simply run:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> multiqc . <span class="at">-o</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> multiqc . <span class="at">-o</span> multiqc_out</span></code></pre>
 </div>
 <div id="adding-a-multiqc-rule" class="callout challenge">
 <div class="callout-square">
@@ -538,11 +538,11 @@ rule name or the output directory name as a target.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="ex">...or</span> equivalently...</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">...or</span> equivalently...</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> multiqc_out</span></code></pre>
 </div>
 </div>
 </div>
@@ -672,13 +672,13 @@ configured.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> xdg-open multiqc_out/multiqc_report.html</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> xdg-open multiqc_out/multiqc_report.html</span></code></pre>
 </div>
 <p>For MacOS:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> open multiqc_out/multiqc_report.html</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> open multiqc_out/multiqc_report.html</span></code></pre>
 </div>
 <p>The report has a few issues, but we’ll not get distracted by the
 details of how to configure MultiQC to resolve them.</p>

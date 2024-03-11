@@ -373,12 +373,13 @@ pre-requisites for Linux. It is assumed that you have:</p>
 <ul><li>access to the Bash shell on a fairly modern Linux system</li>
 <li>sufficient disk space (~1GB) to store the software and data</li>
 </ul><p>You <strong>do not</strong> need root/administrator level access.</p>
-<div id="callout1" class="callout">
+<div id="note" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h3>
+<div id="note" class="callout-inner">
+<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#note"></a>
+</h3>
 <div class="callout-content">
 <p>There are other ways to install these tools, and it should also be
 possible to run the exercises on non-Linux systems. However, this is not
@@ -399,12 +400,12 @@ Linux Bash environment.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> ~/miniforge3</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh <span class="at">-O</span> ~/miniforge3/installer.sh</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ex">$</span> bash ~/miniforge3/installer.sh <span class="at">-b</span> <span class="at">-u</span> <span class="at">-p</span> ~/miniforge3</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="ex">$</span> rm ~/miniforge3/installer.sh</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="ex">$</span> ~/miniforge3/bin/conda init bash</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="ex">$</span> exit</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> ~/miniforge3</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh <span class="at">-O</span> ~/miniforge3/installer.sh</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> bash ~/miniforge3/installer.sh <span class="at">-b</span> <span class="at">-u</span> <span class="at">-p</span> ~/miniforge3</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm ~/miniforge3/installer.sh</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ~/miniforge3/bin/conda init bash</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> exit</span></code></pre>
 </div>
 <p>Then open a new shell. Your shell prompt should now start with
 <code>(base)</code>.</p>
@@ -414,12 +415,13 @@ Linux Bash environment.</p>
 <span>  <span class="op">-</span> <span class="va">bioconda</span></span>
 <span><span class="va">solver</span><span class="op">:</span> <span class="va">libmamba</span></span>
 <span><span class="va">channel_priority</span><span class="op">:</span> <span class="va">strict</span></span></code></pre>
-<div id="callout2" class="callout">
+<div id="notes" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="notes">Notes<a class="anchor" aria-label="anchor" href="#notes"></a></h3>
+<div id="notes" class="callout-inner">
+<h3 class="callout-title">Notes<a class="anchor" aria-label="anchor" href="#notes"></a>
+</h3>
 <div class="callout-content">
 <ul><li>You may want to enable additional channels but all the packages
 needed in the course are in the two listed above.</li>
@@ -437,8 +439,8 @@ the environment by running:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> conda env update <span class="at">--file</span> conda_env.yaml</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> conda activate snakemake_carpentry</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env update <span class="at">--file</span> conda_env.yaml</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate snakemake_carpentry</span></code></pre>
 </div>
 <p>You will also need a text editor such as <a href="https://help.gnome.org/users/gedit/stable/" class="external-link">GEdit</a> or <a href="https://www.nano-editor.org/" class="external-link">Nano</a>. These are standard on most
 Linux distros. Other text editors will work fine but we only provide
@@ -450,7 +452,7 @@ specific setup instructions for GEdit and Nano here.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> wget <span class="at">--content-disposition</span> https://figshare.com/ndownloader/files/42467370</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wget <span class="at">--content-disposition</span> https://figshare.com/ndownloader/files/42467370</span></code></pre>
 </div>
 <p>The <a href="https://www.gnu.org/software/tar/manual/html_node/Tutorial.html" class="external-link">tar
 file</a> needs to be unpacked to yield the directory of files used in
@@ -458,7 +460,7 @@ the course. In the shell you may do this with:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> tar <span class="at">-xvaf</span> data-for-snakemake-novice-bioinformatics.tar.xz</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tar <span class="at">-xvaf</span> data-for-snakemake-novice-bioinformatics.tar.xz</span></code></pre>
 </div>
 <p><a href="https://figshare.com/articles/dataset/data-for-snakemake-novice-bioinformatics_tar_xz/19733338/1" class="external-link">See
 this link</a> for details about this dataset and the redistribution
@@ -497,14 +499,14 @@ syntax highlighting.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> nano <span class="at">-wiSOE</span> <span class="at">-T</span> 4 <span class="at">-Y</span> python Snakefile</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nano <span class="at">-wiSOE</span> <span class="at">-T</span> 4 <span class="at">-Y</span> python Snakefile</span></code></pre>
 </div>
 <p>To avoid typing all those options each time, you can add defaults to
 your <code>~/.nanorc</code> file:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> nano ~/.nanorc</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nano ~/.nanorc</span></code></pre>
 </div>
 <pre class="source"><code>set nowrap
 set autoindent

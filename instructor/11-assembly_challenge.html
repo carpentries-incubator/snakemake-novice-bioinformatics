@@ -381,32 +381,32 @@ script</a>:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># This script needs the following Bioconda packages:</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#   cutadapt</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#   velvet</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#   bbmap</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#  Use cutadapt to remove adapters. Note that cutadapt works on the paired sequences</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">mkdir</span> cutadapt</span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_1_1.fq <span class="at">-p</span> cutadapt/ref_1_2.fq reads/ref_1_1.fq reads/ref_1_2.fq</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_2_1.fq <span class="at">-p</span> cutadapt/ref_2_2.fq reads/ref_2_1.fq reads/ref_2_2.fq</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_3_1.fq <span class="at">-p</span> cutadapt/ref_3_2.fq reads/ref_3_1.fq reads/ref_3_2.fq</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co"># Combine all the samples. We still want to keep the read pairs separate.</span></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="fu">mkdir</span> concatenate</span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="fu">cat</span> cutadapt/ref_1_1.fq cutadapt/ref_2_1.fq cutadapt/ref_3_1.fq <span class="op">&gt;</span> concatenate/ref_1.fq</span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="fu">cat</span> cutadapt/ref_1_2.fq cutadapt/ref_2_2.fq cutadapt/ref_3_2.fq <span class="op">&gt;</span> concatenate/ref_2.fq</span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co"># Assemble the concatenated files with Velvet. This is a 2-step process: velveth then velvetg</span></span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="va">kmer_len</span><span class="op">=</span>21</span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="ex">velveth</span> velvet_tmp_ref_<span class="va">${kmer_len}</span> <span class="va">${kmer_len}</span> <span class="at">-shortPaired</span> <span class="at">-fastq</span> <span class="at">-separate</span> concatenate/ref_1.fq concatenate/ref_2.fq</span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="ex">velvetg</span> velvet_tmp_ref_<span class="va">${kmer_len}</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="fu">mv</span> velvet_tmp_ref_<span class="va">${kmer_len}</span>/contigs.fa contigs.fa</span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co"># Find the longest contig using the BBMap stats script</span></span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="ex">stats.sh</span> contigs.fa <span class="kw">|</span> <span class="fu">grep</span> <span class="st">'Max contig length:'</span> <span class="op">&gt;</span> max_contig.txt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This script needs the following Bioconda packages:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   cutadapt</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   velvet</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   bbmap</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  Use cutadapt to remove adapters. Note that cutadapt works on the paired sequences</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> cutadapt</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_1_1.fq <span class="at">-p</span> cutadapt/ref_1_2.fq reads/ref_1_1.fq reads/ref_1_2.fq</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_2_1.fq <span class="at">-p</span> cutadapt/ref_2_2.fq reads/ref_2_1.fq reads/ref_2_2.fq</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> AGATCGGAAGAGC <span class="at">-A</span> AGATCGGAAGAGC <span class="at">-o</span> cutadapt/ref_3_1.fq <span class="at">-p</span> cutadapt/ref_3_2.fq reads/ref_3_1.fq reads/ref_3_2.fq</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all the samples. We still want to keep the read pairs separate.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> concatenate</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> cutadapt/ref_1_1.fq cutadapt/ref_2_1.fq cutadapt/ref_3_1.fq <span class="op">&gt;</span> concatenate/ref_1.fq</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> cutadapt/ref_1_2.fq cutadapt/ref_2_2.fq cutadapt/ref_3_2.fq <span class="op">&gt;</span> concatenate/ref_2.fq</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Assemble the concatenated files with Velvet. This is a 2-step process: velveth then velvetg</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="va">kmer_len</span><span class="op">=</span>21</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ex">velveth</span> velvet_tmp_ref_<span class="va">${kmer_len}</span> <span class="va">${kmer_len}</span> <span class="at">-shortPaired</span> <span class="at">-fastq</span> <span class="at">-separate</span> concatenate/ref_1.fq concatenate/ref_2.fq</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ex">velvetg</span> velvet_tmp_ref_<span class="va">${kmer_len}</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> velvet_tmp_ref_<span class="va">${kmer_len}</span>/contigs.fa contigs.fa</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the longest contig using the BBMap stats script</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ex">stats.sh</span> contigs.fa <span class="kw">|</span> <span class="fu">grep</span> <span class="st">'Max contig length:'</span> <span class="op">&gt;</span> max_contig.txt</span></code></pre>
 </div>
 <p>The following figure presents the steps involved in the above script,
 when run on the <code>ref</code> samples. You will see it already looks
@@ -432,25 +432,25 @@ produced?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>The commands to build and activate the Conda env can be found in the
 “Conda Integration” chapter.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> assembly-env <span class="at">--channel</span> bioconda <span class="at">--channel</span> conda-forge cutadapt velvet bbmap</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">$</span> conda activate assembly-env</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> assembly-env <span class="at">--channel</span> bioconda <span class="at">--channel</span> conda-forge cutadapt velvet bbmap</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate assembly-env</span></code></pre>
 </div>
 <p>Now, after saving the script above into a text file, make it
 executable and run it.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> chmod +x assembly_script.sh</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> ./assembly_script.sh</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">$</span> cat max_contig.txt</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="ex">Max</span> contig length:        655</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> chmod +x assembly_script.sh</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./assembly_script.sh</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat max_contig.txt</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Max</span> contig length:        655</span></code></pre>
 </div>
 <p>Don’t worry if you get a slightly different number. We’ve not
 specified the exact version of the assembler so the final assembly may
@@ -564,7 +564,7 @@ length of the longest contig in each of the twelve assemblies.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>A sample solution to this exercise <a href="../files/assembly_with_conda.Snakefile">is available here</a>, along
 with a suitable <a href="../files/assembly_conda_env.yaml">Conda

@@ -378,10 +378,10 @@ file, <code>ref1_1.fq</code>.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> cd yeast</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> ls reads</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="ex">$</span> head <span class="at">-n8</span> reads/ref1_1.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd yeast</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls reads</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> head <span class="at">-n8</span> reads/ref1_1.fq</span></code></pre>
 </div>
 <p>Files in FASTQ format have 4 lines for each sequence.</p>
 <ul><li>Header line, beginning with <code>@</code>
@@ -394,24 +394,25 @@ Again, in the shell:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> reads/ref1_1.fq</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">58708</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> reads/ref1_1.fq</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">58708</span></span></code></pre>
 </div>
 <p>We can redirect this result to a file like so:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> reads/ref1_1.fq <span class="op">&gt;</span> ref1_1.fq.count</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> head <span class="at">-v</span> <span class="pp">*</span>.count</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">==</span><span class="op">&gt;</span> ref1_1.fq.count <span class="op">&lt;</span>==</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="ex">58708</span> reads/ref1_1.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wc <span class="at">-l</span> reads/ref1_1.fq <span class="op">&gt;</span> ref1_1.fq.count</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> head <span class="at">-v</span> <span class="pp">*</span>.count</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">==</span><span class="op">&gt;</span> ref1_1.fq.count <span class="op">&lt;</span>==</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">58708</span> reads/ref1_1.fq</span></code></pre>
 </div>
-<div id="callout1" class="callout">
+<div id="the-sample-dataset" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="the-sample-dataset">The sample dataset<a class="anchor" aria-label="anchor" href="#the-sample-dataset"></a></h3>
+<div id="the-sample-dataset" class="callout-inner">
+<h3 class="callout-title">The sample dataset<a class="anchor" aria-label="anchor" href="#the-sample-dataset"></a>
+</h3>
 <div class="callout-content">
 <p>The sample dataset represents a transcriptomics experiment in
 brewer’s yeast (Saccharomyces cerevisiae) under three conditions:</p>
@@ -482,7 +483,7 @@ were any missing quotes, bad indents, etc. we may see an error.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> ref1_1.fq.count</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> ref1_1.fq.count</span></code></pre>
 </div>
 <div id="running-snakemake" class="callout challenge">
 <div class="callout-square">
@@ -610,7 +611,7 @@ Snakefile. So in this example answer we use “countreads2”.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> ref1_1.fq.count etoh60_1_1.fq.count</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> ref1_1.fq.count etoh60_1_1.fq.count</span></code></pre>
 </div>
 <p>If you think writing a separate rule for each output file is silly,
 you are correct. We’ll address this next!</p>
