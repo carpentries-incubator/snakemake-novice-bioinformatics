@@ -6,7 +6,7 @@ exercises: 15
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Understand the function of *temporary* and *protected* outputs.
+- Understand the function of *temporary* outputs.
 - Learn about running in *\--touch* mode
 - Learn about *shadow* mode rules
 
@@ -31,7 +31,7 @@ well want to clean them up. This way you save disk space and reduce clutter.
 
 Remember that Snakemake only re-generates intermediate files if it needs them to make a target,
 so simply deleting intermediate files manually works fine. Assuming you already made the
-*multiqc* report:
+*multiqc* report, and have not edited the rules in the Snakefile since:
 
 ```output
 $ rm trimmed/ref*.fq
@@ -76,11 +76,11 @@ rule trimreads:
     output: temporary("trimmed/{sample}.fq")
 ```
 
-And now re-run the workflow. Since we modified the *trimreads* rule, we'll force that rule to be
-re-run with the `-R` flag:
+And now re-run the workflow. Since we modified the *trimreads* rule, Snakemake should see that it
+needs to be rerun:
 
 ```output
-$ snakemake -j1 -p -Rtrimreads multiqc_out
+$ snakemake -j1 -p multiqc_out
 ...
 $ ls trimmed/
 etoh60_1_1.fq.gz  ref_1_1.fq.gz  temp33_1_1.fq.gz
@@ -115,16 +115,18 @@ rule definition.
     fq2   = "trimmed/{sample}_2.fq.gz",
 ```
 
-One quick way to check the result is:
+We can check the result by trying a *dry run* (`-n` option):
 
 ```bash
-$ snakemake -n -Rkallisto_quant multiqc
+$ snakemake -n -p multiqc_out
 ```
 
-You should see that Snakemake wants to run the *kallisto\_quant* and *multiqc* steps but
+You should see that Snakemake wants to run the *kallisto_quant* and *multiqc* steps but
 no others.
 
 ::::::::::::::::::::::
+
+## Removing the HTML reports from FastQC
 
 We have no use for the HTML reports produced by FastQC. Modify the Snakefile to automatically
 remove them.
@@ -141,7 +143,7 @@ html = temporary("{indir}.{sample}_fastqc.html"),
 
 Since the files are already there, Snakemake will not normally remove them unless the jobs
 are re-run, so you could do that as was done for *trimreads* above.
-However, there is also a `--delete-temp-output` option which forces all temporary files in
+However, there is also a *\--delete-temp-output* option which forces all temporary files in
 the DAG to be removed, and this provides the cleanest way to remove the files after modifying
 the Snakefile.
 
@@ -153,7 +155,7 @@ $ snakemake -p -j1 --delete-temp-output multiqc
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Protected outputs and *\--touch* mode
+## Running in *\--touch* mode
 
 One annoying thing about Snakemake is that, in moderately complex workflows, it may seem determined
 to re-run a job for reasons that are unclear to you. For example, after adding the *gzip\_fastq*
@@ -177,7 +179,7 @@ Job counts:
 
 Snakemake wants to re-run all the *salmon\_quant* jobs (and the *kallisto\_quant* jobs, if you
 completed the exercise above), which makes sense. However, we know the results are good, and don't
-want to waste time re-making them, so we can fudge the timestamps using the `--touch` option. In
+want to waste time re-making them, so we can fudge the timestamps using the *\--touch* option. In
 the words of the Snakemake manual, "This is used to pretend that the rules were executed, in order
 to fool future invocations of snakemake."
 
@@ -185,56 +187,19 @@ to fool future invocations of snakemake."
 $ snakemake -j 1 --touch -p multiqc_out
 ```
 
-Another feature is the `protected()` function. This is rather like the opposite of the
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Protecting specific files
+
+A related feature is the `protected()` function. This is rather like the opposite of the
 `temporary()` function and says that once an output has been produced it must not be overwritten.
 In practise, Snakemake does this by revoking write permissions on the files
 (as in `chmod -w {output}`).
 
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Protecting some outputs
-
-The longest operations in our test workflow are the genome indexing steps.
-
-Get Snakemake to protect the outputs from these steps. What happens if you try to overwite the
-protected files, by re-running the whole workflow with the `-F` option?
-
-:::::::::::::::  solution
-
-## Answer
-
-```source
-rule salmon_index:
-    output:
-        idx = protected(directory("{strain}.salmon_index"))
-    ...
-
-rule kallisto_index:
-    output:
-        idx = protected("{strain}.kallisto_index"),
-        log = "{strain}.kallisto_log",
-    ...
-```
-
-When Snakemake is re-run, it will start processing the workflow and only fail when it comes to
-a protected file. In the current version, Snakemake does not detect that the file is protected
-prior to starting executing jobs. That may change in future versions.
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Note on protecting files
-
-In practise, it can be annoying to have Snakemake trying to regenerate files that have been
-protected so if you don't expect to be rebuilding indexes you could just remove or comment out
-the corresponding rules from the Snakefile, so Snakemake will not try to run them at all.
-
-Alternatively, once you have generated an important output, move the file away from your working
-directory. That way it will be easier not to accidentally clobber it (which is remarkably
-easy to do!).
+This works, but can be annoying because Snakemake will refuse to run if it believes it needs to
+re-create a file which is protected. An alternative suggestion is, once you have generated
+an important output file, move or copy the file away from your working directory. That way it will
+be harder to accidentally clobber it (which is remarkably easy to do!).
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -252,18 +217,18 @@ this way.
 
 This test rule serves to demonstrate the operation of rules using the *shadow* directive.
 The file `temp_file.txt` will not be there after the job has run, but the `shadow_out.txt` file
-will be there because Snakemake sees that it is an output file and copies it back.
+will be there because Snakemake sees that it is an output file and moves it back to the real
+working directory,
 
 ```source
-rule shallow_shadow_rule:
+rule shallow_rule:
     output: "shadow_out.txt"
-    shadow: "shallow"
+    shadow: "minimal"
     shell:
-        """exec >{output}
-           echo shallow shadow mode
-           echo Current directory is: `pwd`
+        """echo minimal shadow mode
+           touch shadow_out.txt
            touch temp_file.txt
-           tree
+           tree `pwd`
         """
 ```
 
@@ -282,12 +247,46 @@ Disadvantages are:
 - Symlinks to subdirectories do not always work the way you expect.
 - Shadow directories are not always removed cleanly if Snakemake exits with an error.
 
-You may want to test your rules in normal mode first, then add `shadow: ...` before you run the
-workflow for real.
+You may want to test your rules in normal mode first, then add `shadow: "minimal"` before you run
+the workflow for real.
+
+
+::::::::::::::::::::::::::::::::::::::::  challenge
+
+## Removing the HTML reports (again)
+
+Amend the *fastqc* rule once more so that the HTML reports are not even mentioned in the rule, and
+will not appear in the working directory.
+
+:::::::::::::::  solution
+
+## Solution
+
+The `shadow: "minimal"` directive will do the job nicely. You also need to remove mention of the
+`.html` file from the list of outputs and the shell commands.
+
+```code
+rule fastqc:
+    shadow: "minimal"
+    output:
+        zip  = "{indir}.{myfile}_fastqc.zip"
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        """fastqc -o . {input}
+           mv {wildcards.myfile}_fastqc.zip {output.zip}
+        """
+```
+
+In this case, marking the *html* output as `temporary()` or simply removing the file within the
+*shell* part does work fine, but the good thing about the *shadow* approach is you do
+not need to deal with or mention the unwanted file at all.
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::
 
 *For reference, [this is a Snakefile](files/ep12.Snakefile) incorporating the changes made in
 this episode.*
-
 
 
 :::::::::::::::::::::::::::::::::::::::: keypoints

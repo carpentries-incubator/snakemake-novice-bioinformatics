@@ -77,16 +77,20 @@ and libraries.
 
 To be sure all is well, check your channel settings:
 
+```bash
+$ cat ~/.condarc
+```
+
 ```output
-$ conda config --show channels
 channels:
   - conda-forge
   - bioconda
-  - defaults
+solver: libmamba
+channel_priority: strict
 ```
 
-If you don't see these exact channels in this order, try the `conda config ...` commands shown
-above to fix the situation. Once this configuration is right you won't need to do anything else
+You may have other channels listed after "bioconda" but you should have these two at the top, and
+the other settings. Once this configuration is right you won't need to do anything else
 regarding the channel configuration in this course.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -282,7 +286,6 @@ name: cutadapt-env
 channels:
   - conda-forge
   - bioconda
-  - nodefaults
 dependencies:
   - cutadapt=3.4
 ```

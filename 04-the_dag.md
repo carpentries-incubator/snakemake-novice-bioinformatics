@@ -45,9 +45,9 @@ trim, count and quantify the *ref1* sample.
   defines a **job**)
 - The arrows show dependency ordering between jobs
 - Snakemake can run the jobs in any order that doesn't break dependency - for example
-  `kallisto quant` cannot run until
-  both `kallisto index` and `trimreads` have completed, but it may run before or after
-  `countreads`
+  *kallisto_quant* cannot run until
+  both *kallisto_index* and *trimreads* have completed, but it may run before or after
+  *countreads*
 - This is a work list, *not a flowchart*, so there are no if/else decisions or loops - Snakemake
   runs every job in the DAG exactly once
 - The DAG depends both on the Snakefile *and* on the requested target outputs, and the files
@@ -62,14 +62,14 @@ trim, count and quantify the *ref1* sample.
 
 ## How many jobs?
 
-If we asked Snakemake to run *kallisto\_quant* on all three of the reference samples
+If we asked Snakemake to run *kallisto_quant* on all three of the reference samples
 (ref1, ref2, ref3), how many jobs would that be in total?
 
 :::::::::::::::  solution
 
 ## Solution
 
-10 in total: 3 \* kallisto\_quant // 6 \* trim // 1 \* kallisto\_index // 0 \* countreads
+10 in total: 3 \* kallisto\_quant // 6 \* trimreads // 1 \* kallisto\_index // 0 \* countreads
 
 :::::::::::::::::::::::::
 
@@ -107,21 +107,24 @@ Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T172441.519500
 In normal operation, Snakemake only runs a job if:
 
 1. A target file you explicitly requested to make is missing
-2. An intermediate file is missing and it is needed in the process of making a target file
-3. Snakemake can see an input file which is newer than an output file
+1. An intermediate file is missing and it is needed in the process of making a target file
+1. Snakemake can see an input file which is newer than an output file
+1. A rule definition or configuration has changed since the output file was created
+
+The last of these relies on a ledger that Snakemake saves into the `.snakemake` directory.
 
 Let's demonstrate each of these in turn, by altering some files and re-running Snakemake without
 the `-F` option.
 
 ```bash
-$ rm kallisto.temp33_1/*
+$ rm -rv kallisto.temp33_1
 $ snakemake -j1 -p kallisto.temp33_1/abundance.h5
 ```
 
-This just re-runs the kallisto quantification - the final step.
+This just re-runs *kallisto_quant* - the final step.
 
 ```bash
-$ rm trimmed/temp33_*.fq
+$ rm -v trimmed/temp33_*.fq
 $ snakemake -j1 -p kallisto.temp33_1/abundance.h5
 ```
 
@@ -138,7 +141,7 @@ transcriptome looks to Snakemake as if it was just modified.
 
 Snakemake sees that one of the input files used in the process of producing
 `kallisto.temp33_1/abundance.h5` is newer than the existing output file, so it needs to run the
-`kallisto index` and `kallisto quant` steps again. Of course, the `kallisto quant` step needs the
+*kallisto index* and *kallisto quant* steps again. Of course, the *kallisto quant* step needs the
 trimmed reads which we deleted earlier, so now the trimming step is re-run also.
 
 ## Explicitly telling Snakemake what to re-run
@@ -148,10 +151,9 @@ The default timestamp-based logic is really useful when you want to:
 1. Change or add some inputs to an existing analysis without re-processing everything
 2. Continue running a workflow that failed part-way
 
-But it doesn't help us in the situation when rules in the Snakefile change, rather than input
-files. Snakemake won't see that the results are out-of-date. For example, if we changed the quality
-cutoffs within the trimreads rule then Snakemake would not automatically re-run those rules,
-because it only checks that the output file is newer than the input file.
+In most cases you can also rely on Snakemake to detect when you have edited a rule, but sometimes
+you need to be explicit, for example if you have updated an external script or changed a setting
+which Snakemake doesn't see.
 
 The `-R` flag allows you to explicitly tell Snakemake that a rule has changed and that all outputs
 from that rule need to be re-evaluated.
@@ -180,24 +182,6 @@ The reason for using the `-p` flag here is because you generally always want thi
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Another note on `-R`
-
-In [Snakemake version 7.8
-](https://github.com/snakemake/snakemake/blob/main/CHANGELOG.md#780-2022-05-24)
-the behaviour is altered to automatically detect changes to rules, as well as parameters and
-input file contents. This to some extent makes the `-R` flag redundant, but the exact behaviour
-may change again in future as there are [problems with the logic in more complex cases
-](https://github.com/snakemake/snakemake/issues/1694).
-You should check the manual for whatever version of Snakemake you are using, and particularly the
-`--rerun-triggers` option, to see what behaviour is expected.
-
-Snakemake is under active development, so changes to behaviour and features are always liable to
-be introduced in new versions.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
 The `-f` flag specifies that the target outputs named on the command line should always be
 regenerated, so you can use this to explicitly re-make specific files.
 
@@ -205,7 +189,7 @@ regenerated, so you can use this to explicitly re-make specific files.
 $ snakemake -j1 -f -p kallisto.temp33_1/abundance.h5
 ```
 
-This always re-runs *kallisto\_quant*, regardless of whether the output file is there already. For
+This always re-runs *kallisto_quant*, regardless of whether the output file is there already. For
 all intermediate outputs, Snakemake applies the default timestamp-based logic. Contrast with `-F`
 which runs the entire DAG every time.
 
@@ -242,55 +226,59 @@ already present and newer than the input files.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Updating a parameter and re-running
+## Visualising the effect of the `-R` and `-f` flags
 
-Run `kallisto_quant` on all three of the **etoh60** samples. Now edit the Snakefile so that the
-`qual_threshold` for `trimreads` is "22", rather than "20".
+Run *kallisto_quant* on the first of the **etoh60** samples, then use the `--dag` option as shown
+above to check:
 
-How would you get Snakemake to update all three Kallisto results:
+1) How many jobs will run if you ask again to create this output with no `-f`, `-F` or `-R`
+   options?
 
-1) By using the -R flag
+2) How many if you use the `-f` option?
 
-2) By using the -f flag
+3) How many if you use the `-R trimreads` option?
 
-3) By using the touch command
-
-4) By deleting some of the existing files
-
-Use the `--dag` option as shown above to check your answers.
+4) How many if you edit the Snakefile so that the `qual_threshold` for `trimreads` is "22",
+   rather than "20"?
 
 :::::::::::::::::::: solution
 
 ## Solution
 
-This will make all the Kallisto results in the first place:
+This is a way to make the Kallisto result in the first place:
 
 ```bash
-$ snakemake -j1 -p kallisto.etoh60_{1,2,3}/abundance.h5
+$ snakemake -j1 -p kallisto.etoh60_1/abundance.h5
 ```
 
-*The {1,2,3} syntax is expanded by the shell into the 3 file names. You could also type all
-three names in full.*
+1) This command should show four boxes, but all are dotted so no jobs are actually to be
+run.
 
-1) -R flag
 ```bash
-$ snakemake -Rtrimreads --dag kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -
+$ snakemake --dag kallisto.etoh60_1/abundance.h5 | gm display -
 ```
 
-2) -f flag
-```bash
-$ snakemake -j1 -p --dag -f trimmed/etoh60_{1,2,3}_{1,2}.fq kallisto.etoh60_{1,2,3}/abundance.h5 | gm display -
+2) The `-f` flag re-runs only the job to create the output file, so in this case one box is
+solid, and only that job will run.
+
+3) With `-R trimreads`, the two *trimreads* jobs will re-run, and Snakemake sees that this also
+requires re-running *kallisto_quant*, so the answer is 3.
+
+If you see a message like the one below, it's because you need to put an option after `trimreads`
+or else Snakemake gets confused about what are parameters of `-R`, and what things are
+targets.
+
+```error
+WorkflowError:
+Target rules may not contain wildcards.
 ```
 
-3) touch command
-```bash
-$ touch reads/etoh60_*.fq`
-```
+4) Editing the Snakefile has the same effect as forcing the *trimreads* rule to re-run, so again
+there will be three jobs to be run from the DAG.
 
-4) by deleting files
-```bash
-$ rm -r trimmed/etoh60_*.fq kallisto.etoh60_*
-```
+With older versions of Snakemake this would not be auto-detected, and in fact you can see this
+behaviour if you remove the hidden `.snakemake` directory. Now Snakemake has no memory of the
+rule change so it will not re-run any jobs unless explicitly told to.
 
 :::::::::::::::::::::::::::::::::::
 
@@ -302,7 +290,7 @@ $ rm -r trimmed/etoh60_*.fq kallisto.etoh60_*
 
 In general, getting Snakemake to re-run things by removing files is a bad idea, because it's easy
 to forget about intermediate files that actually contain stale results and need to be updated.
-Using the `-R` flag or `touch` command is simpler and more reliable. If in doubt, and if it will
+Using the `-R` flag is simpler and more reliable. If in doubt, and if it will
 not be too time consuming, keep it simple and just use `-F` to run the whole workflow from scratch.
 
 For the opposite case where you want to avoid re-running particular steps, see the `‑‑touch`
@@ -326,10 +314,11 @@ kallisto\_quant box is solid.'}
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- A **job** in Snakemake is a **rule** plus **wildcard values** (determined by working back from the requested output)
+- A **job** in Snakemake is a **rule** plus **wildcard values** (determined by working back from
+  the requested output)
 - Snakemake plans its work by arranging all the jobs into a **DAG** (directed acyclic graph)
 - If output files already exist, Snakemake can skip parts of the DAG
-- Snakemake compares file timestamps to determine if outputs need regenerating
+- Snakemake compares file timestamps and a log of previous runs to determine what need regenerating
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -57,7 +57,7 @@ rule more readable.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Adding a parameter to the `salmon\_index` rule
+## Adding a parameter to the `salmon_index` rule
 
 Modify the existing salmon\_index rule so that the `-k` setting (k-mer length) is a parameter.
 
