@@ -389,8 +389,9 @@ Mac systems but the setup is slightly different.</em></p>
 </div>
 </div>
 </div>
-<p>Install software packages, including Snakemake and the bioinformatics
-tools, via Conda. For more info on Conda, see the first part of <a href="10-conda_integration.html">episode 10</a>.</p>
+<p>We can install all the software packages, including Snakemake and the
+bioinformatics tools, via Conda. For more info on Conda, see the first
+part of <a href="10-conda_integration.html">episode 10</a>.</p>
 <ul><li>If you don’t already have Conda, start with <a href="https://github.com/conda-forge/miniforge" class="external-link">the Miniforge
 installer</a>.</li>
 </ul><p>These are suggested commands to install and initialise Miniforge in a
@@ -413,6 +414,13 @@ Linux Bash environment.</p>
 <span>  <span class="op">-</span> <span class="va">bioconda</span></span>
 <span><span class="va">solver</span><span class="op">:</span> <span class="va">libmamba</span></span>
 <span><span class="va">channel_priority</span><span class="op">:</span> <span class="va">strict</span></span></code></pre>
+<div id="callout2" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="notes">Notes<a class="anchor" aria-label="anchor" href="#notes"></a></h3>
+<div class="callout-content">
 <ul><li>You may want to enable additional channels but all the packages
 needed in the course are in the two listed above.</li>
 <li>The use of <em>strict</em> channel priority when resolving
@@ -420,7 +428,10 @@ dependencies is recommended by both Snakemake and <a href="https://conda.io/proj
 Conda itself</a>.</li>
 <li>Setting <code>solver: libmamba</code> is nowadays preferred to
 explicitly running the <code>mamba</code> command.</li>
-</ul><p>Once this is set up, get <a href="files/conda_env.yaml">the
+</ul></div>
+</div>
+</div>
+<p>Once this is set up, get <a href="files/conda_env.yaml">the
 <em>conda_env.yaml</em> environment file</a> and create then activate
 the environment by running:</p>
 <div class="codewrapper sourceCode" id="cb3">
@@ -532,7 +543,7 @@ default syntax highlighting within this file.</p>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.2" class="external-link">sandpaper (0.16.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.3" class="external-link">pegboard (0.7.3)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.1" class="external-link">varnish (1.0.1)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.2" class="external-link">sandpaper (0.16.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.4" class="external-link">pegboard (0.7.4)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.1" class="external-link">varnish (1.0.1)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -554,8 +565,8 @@ default syntax highlighting within this file.</p>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/index.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/index.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-03-05",
-  "datePublished": "2024-03-05"
+  "dateModified": "2024-03-11",
+  "datePublished": "2024-03-11"
 }
 
   </script><script>

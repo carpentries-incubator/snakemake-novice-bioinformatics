@@ -859,7 +859,7 @@ should contain just one rule named <em>countreads</em>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>After editing the file, run the commands:</p>
 <div class="codewrapper sourceCode" id="cb3">
@@ -902,7 +902,7 @@ be <code>ref1_counts/fq.2.count</code>, etc.)?</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>In all cases, there is no need to change the <code>shell</code> part
 of the rule at all.</p>
@@ -1046,7 +1046,7 @@ but in a subdirectory named ‘trimmed’, for example:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <pre class="source"><code># Trim any FASTQ reads for base quality
 rule trimreads:
@@ -1621,7 +1621,7 @@ will regard that as a failure</li>
 </div>
 </section></section><section id="aio-04-the_dag"><p>Content from <a href="04-the_dag.html">How Snakemake plans its jobs</a></p>
 <hr>
-<p>Last updated on 2024-03-01 |
+<p>Last updated on 2024-03-11 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/04-the_dag.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 70 minutes</p>
@@ -1688,9 +1688,9 @@ sample.</p>
 <strong>job</strong>)</li>
 <li>The arrows show dependency ordering between jobs</li>
 <li>Snakemake can run the jobs in any order that doesn’t break
-dependency - for example <code>kallisto quant</code> cannot run until
-both <code>kallisto index</code> and <code>trimreads</code> have
-completed, but it may run before or after <code>countreads</code>
+dependency - for example <em>kallisto_quant</em> cannot run until both
+<em>kallisto_index</em> and <em>trimreads</em> have completed, but it
+may run before or after <em>countreads</em>
 </li>
 <li>This is a work list, <em>not a flowchart</em>, so there are no
 if/else decisions or loops - Snakemake runs every job in the DAG exactly
@@ -1726,8 +1726,8 @@ total?</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<p>10 in total: 3 * kallisto_quant // 6 * trim // 1 * kallisto_index //
-0 * countreads</p>
+<p>10 in total: 3 * kallisto_quant // 6 * trimreads // 1 *
+kallisto_index // 0 * countreads</p>
 </div>
 </div>
 </div>
@@ -1771,20 +1771,24 @@ files are already created, you’ll see this:</p>
 making a target file</li>
 <li>Snakemake can see an input file which is newer than an output
 file</li>
+<li>A rule definition or configuration has changed since the output file
+was created</li>
 </ol>
+<p>The last of these relies on a ledger that Snakemake saves into the
+<code>.snakemake</code> directory.</p>
 <p>Let’s demonstrate each of these in turn, by altering some files and
 re-running Snakemake without the <code>-F</code> option.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> rm kallisto.temp33_1/<span class="pp">*</span></span>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-rv</span> kallisto.temp33_1</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
-<p>This just re-runs the kallisto quantification - the final step.</p>
+<p>This just re-runs <em>kallisto_quant</em> - the final step.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> rm trimmed/temp33_<span class="pp">*</span>.fq</span>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-v</span> trimmed/temp33_<span class="pp">*</span>.fq</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.temp33_1/abundance.h5</span></code></pre>
 </div>
 <p>“Nothing to be done” - some intermediate output is missing but
@@ -1801,10 +1805,10 @@ the timestamp of the file, so now the transcriptome looks to Snakemake
 as if it was just modified.</p>
 <p>Snakemake sees that one of the input files used in the process of
 producing <code>kallisto.temp33_1/abundance.h5</code> is newer than the
-existing output file, so it needs to run the <code>kallisto index</code>
-and <code>kallisto quant</code> steps again. Of course, the
-<code>kallisto quant</code> step needs the trimmed reads which we
-deleted earlier, so now the trimming step is re-run also.</p>
+existing output file, so it needs to run the <em>kallisto index</em> and
+<em>kallisto quant</em> steps again. Of course, the <em>kallisto
+quant</em> step needs the trimmed reads which we deleted earlier, so now
+the trimming step is re-run also.</p>
 </section><section id="explicitly-telling-snakemake-what-to-re-run"><h2 class="section-heading">Explicitly telling Snakemake what to re-run<a class="anchor" aria-label="anchor" href="#explicitly-telling-snakemake-what-to-re-run"></a>
 </h2>
 <hr class="half-width">
@@ -1815,12 +1819,10 @@ to:</p>
 re-processing everything</li>
 <li>Continue running a workflow that failed part-way</li>
 </ol>
-<p>But it doesn’t help us in the situation when rules in the Snakefile
-change, rather than input files. Snakemake won’t see that the results
-are out-of-date. For example, if we changed the quality cutoffs within
-the trimreads rule then Snakemake would not automatically re-run those
-rules, because it only checks that the output file is newer than the
-input file.</p>
+<p>In most cases you can also rely on Snakemake to detect when you have
+edited a rule, but sometimes you need to be explicit, for example if you
+have updated an external script or changed a setting which Snakemake
+doesn’t see.</p>
 <p>The <code>-R</code> flag allows you to explicitly tell Snakemake that
 a rule has changed and that all outputs from that rule need to be
 re-evaluated.</p>
@@ -1857,29 +1859,6 @@ generally always want this option.</p>
 </div>
 </div>
 </div>
-<div id="callout2" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="another-note-on--r">Another note on <code>-R</code>
-<a class="anchor" aria-label="anchor" href="#another-note-on--r"></a>
-</h3>
-<div class="callout-content">
-<p>In <a href="https://github.com/snakemake/snakemake/blob/main/CHANGELOG.md#780-2022-05-24" class="external-link">Snakemake
-version 7.8</a> the behaviour is altered to automatically detect changes
-to rules, as well as parameters and input file contents. This to some
-extent makes the <code>-R</code> flag redundant, but the exact behaviour
-may change again in future as there are <a href="https://github.com/snakemake/snakemake/issues/1694" class="external-link">problems with
-the logic in more complex cases</a>. You should check the manual for
-whatever version of Snakemake you are using, and particularly the
-<code>--rerun-triggers</code> option, to see what behaviour is
-expected.</p>
-<p>Snakemake is under active development, so changes to behaviour and
-features are always liable to be introduced in new versions.</p>
-</div>
-</div>
-</div>
 <p>The <code>-f</code> flag specifies that the target outputs named on
 the command line should always be regenerated, so you can use this to
 explicitly re-make specific files.</p>
@@ -1907,7 +1886,7 @@ this:</p>
 any jobs, it will just print the DAG and stop. Snakemake prints the DAG
 in a text format so we use the <code>gm</code> command to make this into
 a picture and show it on the screen.</p>
-<div id="callout3" class="callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -1932,27 +1911,28 @@ installed.</p>
 <figure><img src="../fig/dag_2.png" alt="A DAG for the partial workflow with four boxes, representing two trimreads jobs and a kallisto_index job, then a kallisto_quant job receiving input from the previous three, The boxes for the kallisto_index and trimreads jobs are dotted, but the kallisto_quant box is solid." class="figure mx-auto d-block"></figure><p>The boxes drawn with dotted lines indicate steps that are not to be
 run, as the output files are already present and newer than the input
 files.</p>
-<div id="updating-a-parameter-and-re-running" class="callout challenge">
+<div id="visualising-the-effect-of-the--r-and--f-flags" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="updating-a-parameter-and-re-running" class="callout-inner">
-<h3 class="callout-title">Updating a parameter and re-running<a class="anchor" aria-label="anchor" href="#updating-a-parameter-and-re-running"></a>
+<div id="visualising-the-effect-of-the--r-and--f-flags" class="callout-inner">
+<h3 class="callout-title">Visualising the effect of the<code>-R</code>and<code>-f</code>flags<a class="anchor" aria-label="anchor" href="#visualising-the-effect-of-the--r-and--f-flags"></a>
 </h3>
 <div class="callout-content">
-<p>Run <code>kallisto_quant</code> on all three of the
-<strong>etoh60</strong> samples. Now edit the Snakefile so that the
-<code>qual_threshold</code> for <code>trimreads</code> is “22”, rather
-than “20”.</p>
-<p>How would you get Snakemake to update all three Kallisto results:</p>
+<p>Run <em>kallisto_quant</em> on the first of the
+<strong>etoh60</strong> samples, then use the <code>--dag</code> option
+as shown above to check:</p>
 <ol style="list-style-type: decimal">
-<li><p>By using the -R flag</p></li>
-<li><p>By using the -f flag</p></li>
-<li><p>By using the touch command</p></li>
-<li><p>By deleting some of the existing files</p></li>
+<li><p>How many jobs will run if you ask again to create this output
+with no <code>-f</code>, <code>-F</code> or <code>-R</code>
+options?</p></li>
+<li><p>How many if you use the <code>-f</code> option?</p></li>
+<li><p>How many if you use the <code>-R trimreads</code>
+option?</p></li>
+<li><p>How many if you edit the Snakefile so that the
+<code>qual_threshold</code> for <code>trimreads</code> is “22”, rather
+than “20”?</p></li>
 </ol>
-<p>Use the <code>--dag</code> option as shown above to check your
-answers.</p>
 </div>
 </div>
 </div>
@@ -1963,51 +1943,54 @@ answers.</p>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<p>This will make all the Kallisto results in the first place:</p>
+<p>This is a way to make the Kallisto result in the first place:</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.etoh60_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span>/abundance.h5</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> kallisto.etoh60_1/abundance.h5</span></code></pre>
 </div>
-<p><em>The {1,2,3} syntax is expanded by the shell into the 3 file
-names. You could also type all three names in full.</em></p>
 <ol style="list-style-type: decimal">
-<li>-R flag</li>
+<li>This command should show four boxes, but all are dotted so no jobs
+are actually to be run.</li>
 </ol>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-Rtrimreads</span> <span class="at">--dag</span> kallisto.etoh60_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span>/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--dag</span> kallisto.etoh60_1/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal">
-<li>-f flag</li>
+<li><p>The <code>-f</code> flag re-runs only the job to create the
+output file, so in this case one box is solid, and only that job will
+run.</p></li>
+<li><p>With <code>-R trimreads</code>, the two <em>trimreads</em> jobs
+will re-run, and Snakemake sees that this also requires re-running
+<em>kallisto_quant</em>, so the answer is 3.</p></li>
 </ol>
-<div class="codewrapper sourceCode" id="cb15">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<p>If you see a message like the one below, it’s because you need to put
+an option after <code>trimreads</code> or else Snakemake gets confused
+about what are parameters of <code>-R</code>, and what things are
+targets.</p>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> <span class="at">--dag</span> <span class="at">-f</span> trimmed/etoh60_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span>_<span class="dt">{1</span><span class="op">,</span><span class="dt">2}</span>.fq kallisto.etoh60_<span class="dt">{1</span><span class="op">,</span><span class="dt">2</span><span class="op">,</span><span class="dt">3}</span>/abundance.h5 <span class="kw">|</span> <span class="ex">gm</span> display <span class="at">-</span></span></code></pre>
-</div>
-<ol start="3" style="list-style-type: decimal">
-<li>touch command</li>
-</ol>
-<div class="codewrapper sourceCode" id="cb16">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="ex">$</span> touch reads/etoh60_<span class="pp">*</span>.fq<span class="kw">`</span></span></code></pre>
+<pre class="error" tabindex="0"><code>WorkflowError:
+Target rules may not contain wildcards.</code></pre>
 </div>
 <ol start="4" style="list-style-type: decimal">
-<li>by deleting files</li>
+<li>Editing the Snakefile has the same effect as forcing the
+<em>trimreads</em> rule to re-run, so again there will be three jobs to
+be run from the DAG.</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="ex">$</span> rm <span class="at">-r</span> trimmed/etoh60_<span class="pp">*</span>.fq kallisto.etoh60_<span class="pp">*</span></span></code></pre>
+<p>With older versions of Snakemake this would not be auto-detected, and
+in fact you can see this behaviour if you remove the hidden
+<code>.snakemake</code> directory. Now Snakemake has no memory of the
+rule change so it will not re-run any jobs unless explicitly told
+to.</p>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div id="callout4" class="callout">
+<div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -2018,10 +2001,9 @@ names. You could also type all three names in full.</em></p>
 <p>In general, getting Snakemake to re-run things by removing files is a
 bad idea, because it’s easy to forget about intermediate files that
 actually contain stale results and need to be updated. Using the
-<code>-R</code> flag or <code>touch</code> command is simpler and more
-reliable. If in doubt, and if it will not be too time consuming, keep it
-simple and just use <code>-F</code> to run the whole workflow from
-scratch.</p>
+<code>-R</code> flag is simpler and more reliable. If in doubt, and if
+it will not be too time consuming, keep it simple and just use
+<code>-F</code> to run the whole workflow from scratch.</p>
 <p>For the opposite case where you want to avoid re-running particular
 steps, see the <code>‑‑touch</code> option of Snakemake mentioned <a href="12-cleaning_up.html">later in the course.</a></p>
 </div>
@@ -2043,8 +2025,8 @@ requested output)</li>
 <strong>DAG</strong> (directed acyclic graph)</li>
 <li>If output files already exist, Snakemake can skip parts of the
 DAG</li>
-<li>Snakemake compares file timestamps to determine if outputs need
-regenerating</li>
+<li>Snakemake compares file timestamps and a log of previous runs to
+determine what need regenerating</li>
 </ul>
 </div>
 </div>
@@ -2232,7 +2214,7 @@ files in total.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>This will work.</p>
 <pre class="source"><code># Input conditions and replicates to process
@@ -2321,7 +2303,7 @@ separated by a semicolon <code>;</code>.</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <pre class="source"><code>rule all_counts:
     input:
@@ -2445,7 +2427,7 @@ each condition.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2480,7 +2462,7 @@ does in the Snakefile.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3145,7 +3127,7 @@ inputs.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <pre class="source"><code>rule salmon_quant:
     output: directory("salmon.{sample}")
@@ -3217,7 +3199,7 @@ be explicitly mentioned in the <code>shell</code> part.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <pre class="source"><code>rule multiqc:
     output: directory('multiqc_out')
@@ -3278,7 +3260,7 @@ choose your own sensible name.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <pre class="source"><code># Kallisto quantification of one sample, with log capture.
 rule kallisto_quant:
@@ -3341,7 +3323,7 @@ make this easier, feel free to do that.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>This solution will work with the version of <em>kallisto_quant</em>
 in the solution above.</p>
@@ -3403,7 +3385,7 @@ Snakemake</li>
 </div>
 </section></section><section id="aio-08-configuring"><p>Content from <a href="08-configuring.html">Configuring workflows</a></p>
 <hr>
-<p>Last updated on 2024-02-23 |
+<p>Last updated on 2024-03-11 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/08-configuring.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 50 minutes</p>
@@ -3473,7 +3455,7 @@ readable.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="adding-a-parameter-to-the-salmon_index-rule" class="callout-inner">
-<h3 class="callout-title">Adding a parameter to the<code>salmon\_index</code>rule<a class="anchor" aria-label="anchor" href="#adding-a-parameter-to-the-salmon_index-rule"></a>
+<h3 class="callout-title">Adding a parameter to the<code>salmon_index</code>rule<a class="anchor" aria-label="anchor" href="#adding-a-parameter-to-the-salmon_index-rule"></a>
 </h3>
 <div class="callout-content">
 <p>Modify the existing salmon_index rule so that the <code>-k</code>
@@ -4040,7 +4022,7 @@ number of threads to the number of cores you have</li>
 </div>
 </section></section><section id="aio-10-conda_integration"><p>Content from <a href="10-conda_integration.html">Conda integration</a></p>
 <hr>
-<p>Last updated on 2024-02-23 |
+<p>Last updated on 2024-03-11 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/10-conda_integration.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 70 minutes</p>
@@ -4165,19 +4147,24 @@ Bioconda website</a> this involves a dependency a second channel named
 <em>conda-forge</em>, which provides some supporting tools and
 libraries.</p>
 <p>To be sure all is well, check your channel settings:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> cat ~/.condarc</span></code></pre>
+</div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>$ conda config --show channels
-channels:
-  - conda-forge
-  - bioconda
-  - defaults</code></pre>
+<pre class="output" tabindex="0"><code><span><span class="va">channels</span><span class="op">:</span></span>
+<span>  <span class="op">-</span> <span class="va">conda</span><span class="op">-</span><span class="va">forge</span></span>
+<span>  <span class="op">-</span> <span class="va">bioconda</span></span>
+<span><span class="va">solver</span><span class="op">:</span> <span class="va">libmamba</span></span>
+<span><span class="va">channel_priority</span><span class="op">:</span> <span class="va">strict</span></span></code></pre>
 </div>
-<p>If you don’t see these exact channels in this order, try the
-<code>conda config ...</code> commands shown above to fix the situation.
-Once this configuration is right you won’t need to do anything else
-regarding the channel configuration in this course.</p>
+<p>You may have other channels listed after “bioconda” but you should
+have these two at the top, and the other settings. Once this
+configuration is right you won’t need to do anything else regarding the
+channel configuration in this course.</p>
 </div>
 </div>
 </div>
@@ -4209,29 +4196,29 @@ the <em>cutadapt</em> package from Bioconda into it.</p></li>
 <li>There are several ways of doing this, but one using the commands
 above is:</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="kw">|</span> <span class="fu">grep</span> fastx</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a> <span class="ex">-</span> fastx_toolkit=0.0.14=0</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="kw">|</span> <span class="fu">grep</span> fastx</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a> <span class="ex">-</span> fastx_toolkit=0.0.14=0</span></code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>Conda should already be configured to install Bioconda packages (see
 the callout above) so we can do this:</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> conda activate new-env</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">$</span> conda install cutadapt</span></code></pre>
-</div>
-<p>It’s also possible to install packages at the same time as creating
-the environment, though this wasn’t shown in the examples above.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env cutadapt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> conda activate new-env</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">$</span> conda install cutadapt</span></code></pre>
+</div>
+<p>It’s also possible to install packages at the same time as creating
+the environment, though this wasn’t shown in the examples above.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env cutadapt</span></code></pre>
 </div>
 <p>You’ll still need to <em>activate</em> the new environment in order
 to run <em>cutadapt</em>.</p>
@@ -4254,10 +4241,10 @@ or produces different results.</p>
 dependencies for your workflow into a Conda environment, then
 <code>conda env export</code> that into a YAML file, which you can use
 to quickly set up the same environment on any other machine.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> new-env <span class="op">&gt;</span> new-env.yaml</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> new-env <span class="op">&gt;</span> new-env.yaml</span></code></pre>
 </div>
 <p>Snakemake takes this one step further by integrating directly with
 Conda. This brings some nice features…</p>
@@ -4356,21 +4343,21 @@ possible to write one from scratch in a text editor, but for this answer
 we’ll follow the process shown above, that is to <em>conda create</em>
 an environment, install the required packages and then <em>export</em>
 it.</p>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> salmon-1.2.1</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="ex">$</span> conda activate salmon-1.2.1</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="ex">$</span> conda install salmon=1.2.1 tbb=2020.2</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> salmon-1.2.1 <span class="op">&gt;</span> salmon-1.2.1.yaml</span></code></pre>
-</div>
-<p>As an aside, having done this, we could delete the environment as we
-just need the exported YAML file.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> conda deactivate</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">$</span> conda env remove <span class="at">-n</span> salmon-1.2.1</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> salmon-1.2.1</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">$</span> conda activate salmon-1.2.1</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="ex">$</span> conda install salmon=1.2.1 tbb=2020.2</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> salmon-1.2.1 <span class="op">&gt;</span> salmon-1.2.1.yaml</span></code></pre>
+</div>
+<p>As an aside, having done this, we could delete the environment as we
+just need the exported YAML file.</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> conda deactivate</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="ex">$</span> conda env remove <span class="at">-n</span> salmon-1.2.1</span></code></pre>
 </div>
 <p>Next add the same <em>conda</em> declaration to both the
 <em>salmon_index</em> and <em>salmon_quant</em> rules.</p>
@@ -4378,10 +4365,10 @@ just need the exported YAML file.</p>
 <p>And when running the workflow, we need to give the
 <code>--use-conda</code> option as well as telling Snakemake that these
 two rules have changed and must be re-run.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-Rsalmon_index</span> <span class="at">-Rsalmon_quant</span> <span class="at">--use-conda</span> ...</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-Rsalmon_index</span> <span class="at">-Rsalmon_quant</span> <span class="at">--use-conda</span> ...</span></code></pre>
 </div>
 </div>
 </div>
@@ -4407,7 +4394,6 @@ this.</p>
 <span><span class="va">channels</span><span class="op">:</span></span>
 <span>  <span class="op">-</span> <span class="va">conda</span><span class="op">-</span><span class="va">forge</span></span>
 <span>  <span class="op">-</span> <span class="va">bioconda</span></span>
-<span>  <span class="op">-</span> <span class="va">nodefaults</span></span>
 <span><span class="va">dependencies</span><span class="op">:</span></span>
 <span>  <span class="op">-</span> <span class="va">cutadapt</span><span class="op">=</span><span class="fl">3.4</span></span></code></pre>
 <p>In this case, Conda will install version 3.4 of Cutadapt, but will
@@ -4738,7 +4724,7 @@ approach to diagnose the problem</li>
 </div>
 </section></section><section id="aio-12-cleaning_up"><p>Content from <a href="12-cleaning_up.html">Cleaning up</a></p>
 <hr>
-<p>Last updated on 2024-02-23 |
+<p>Last updated on 2024-03-11 |
         
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/12-cleaning_up.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 35 minutes</p>
@@ -4764,8 +4750,7 @@ approach to diagnose the problem</li>
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Understand the function of <em>temporary</em> and <em>protected</em>
-outputs.</li>
+<li>Understand the function of <em>temporary</em> outputs.</li>
 <li>Learn about running in <em>--touch</em> mode</li>
 <li>Learn about <em>shadow</em> mode rules</li>
 </ul>
@@ -4789,7 +4774,7 @@ space and reduce clutter.</p>
 <p>Remember that Snakemake only re-generates intermediate files if it
 needs them to make a target, so simply deleting intermediate files
 manually works fine. Assuming you already made the <em>multiqc</em>
-report:</p>
+report, and have not edited the rules in the Snakefile since:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -4829,12 +4814,11 @@ files.</p>
 <pre class="source"><code>rule trimreads:
     output: temporary("trimmed/{sample}.fq")</code></pre>
 <p>And now re-run the workflow. Since we modified the <em>trimreads</em>
-rule, we’ll force that rule to be re-run with the <code>-R</code>
-flag:</p>
+rule, Snakemake should see that it needs to be rerun:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>$ snakemake -j1 -p -Rtrimreads multiqc_out
+<pre class="output" tabindex="0"><code>$ snakemake -j1 -p multiqc_out
 ...
 $ ls trimmed/
 etoh60_1_1.fq.gz  ref_1_1.fq.gz  temp33_1_1.fq.gz
@@ -4867,17 +4851,18 @@ triggering the <em>trimreads</em> or <em>gzip_fastq</em> rules.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>In the first instance, this involves changing two input lines in the
 <em>kallisto_quant</em> rule definition.</p>
 <pre class="source"><code>    fq1   = "trimmed/{sample}_1.fq.gz",
     fq2   = "trimmed/{sample}_2.fq.gz",</code></pre>
-<p>One quick way to check the result is:</p>
+<p>We can check the result by trying a <em>dry run</em> (<code>-n</code>
+option):</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-Rkallisto_quant</span> multiqc</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> multiqc_out</span></code></pre>
 </div>
 <p>You should see that Snakemake wants to run the
 <em>kallisto_quant</em> and <em>multiqc</em> steps but no others.</p>
@@ -4885,12 +4870,12 @@ triggering the <em>trimreads</em> or <em>gzip_fastq</em> rules.</p>
 </div>
 </div>
 </div>
-<div id="working-with-gzipped-files" class="callout challenge">
+<div id="removing-the-html-reports-from-fastqc" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="working-with-gzipped-files" class="callout-inner">
-<h3 class="callout-title">Working with gzipped files<em>(continued)</em><a class="anchor" aria-label="anchor" href="#working-with-gzipped-files"></a>
+<div id="removing-the-html-reports-from-fastqc" class="callout-inner">
+<h3 class="callout-title">Removing the HTML reports from FastQC<a class="anchor" aria-label="anchor" href="#removing-the-html-reports-from-fastqc"></a>
 </h3>
 <div class="callout-content">
 <p>We have no use for the HTML reports produced by FastQC. Modify the
@@ -4903,7 +4888,7 @@ Snakefile to automatically remove them.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Amend the <em>html</em> output of the <em>fastqc</em> rule to mark it
 as <code>temporary()</code>:</p>
@@ -4911,9 +4896,9 @@ as <code>temporary()</code>:</p>
 <p>Since the files are already there, Snakemake will not normally remove
 them unless the jobs are re-run, so you could do that as was done for
 <em>trimreads</em> above. However, there is also a
-<code>--delete-temp-output</code> option which forces all temporary
-files in the DAG to be removed, and this provides the cleanest way to
-remove the files after modifying the Snakefile.</p>
+<em>--delete-temp-output</em> option which forces all temporary files in
+the DAG to be removed, and this provides the cleanest way to remove the
+files after modifying the Snakefile.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -4923,7 +4908,7 @@ remove the files after modifying the Snakefile.</p>
 </div>
 </div>
 </div>
-</section><section id="protected-outputs-and---touch-mode"><h2 class="section-heading">Protected outputs and <em>--touch</em> mode<a class="anchor" aria-label="anchor" href="#protected-outputs-and---touch-mode"></a>
+</section><section id="running-in---touch-mode"><h2 class="section-heading">Running in <em>--touch</em> mode<a class="anchor" aria-label="anchor" href="#running-in---touch-mode"></a>
 </h2>
 <hr class="half-width">
 <p>One annoying thing about Snakemake is that, in moderately complex
@@ -4952,76 +4937,33 @@ existing files.</p>
 <em>kallisto_quant</em> jobs, if you completed the exercise above),
 which makes sense. However, we know the results are good, and don’t want
 to waste time re-making them, so we can fudge the timestamps using the
-<code>--touch</code> option. In the words of the Snakemake manual, “This
-is used to pretend that the rules were executed, in order to fool future
+<em>--touch</em> option. In the words of the Snakemake manual, “This is
+used to pretend that the rules were executed, in order to fool future
 invocations of snakemake.”</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j</span> 1 <span class="at">--touch</span> <span class="at">-p</span> multiqc_out</span></code></pre>
 </div>
-<p>Another feature is the <code>protected()</code> function. This is
-rather like the opposite of the <code>temporary()</code> function and
-says that once an output has been produced it must not be overwritten.
-In practise, Snakemake does this by revoking write permissions on the
-files (as in <code>chmod -w {output}</code>).</p>
-<div id="protecting-some-outputs" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="protecting-some-outputs" class="callout-inner">
-<h3 class="callout-title">Protecting some outputs<a class="anchor" aria-label="anchor" href="#protecting-some-outputs"></a>
-</h3>
-<div class="callout-content">
-<p>The longest operations in our test workflow are the genome indexing
-steps.</p>
-<p>Get Snakemake to protect the outputs from these steps. What happens
-if you try to overwite the protected files, by re-running the whole
-workflow with the <code>-F</code> option?</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3">Answer</h4>
-</button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
-<div class="accordion-body">
-<pre class="source"><code>rule salmon_index:
-    output:
-        idx = protected(directory("{strain}.salmon_index"))
-    ...
-
-rule kallisto_index:
-    output:
-        idx = protected("{strain}.kallisto_index"),
-        log = "{strain}.kallisto_log",
-    ...</code></pre>
-<p>When Snakemake is re-run, it will start processing the workflow and
-only fail when it comes to a protected file. In the current version,
-Snakemake does not detect that the file is protected prior to starting
-executing jobs. That may change in future versions.</p>
-</div>
-</div>
-</div>
-</div>
 <div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="note-on-protecting-files">Note on protecting files<a class="anchor" aria-label="anchor" href="#note-on-protecting-files"></a>
+<h3 class="callout-title" id="protecting-specific-files">Protecting specific files<a class="anchor" aria-label="anchor" href="#protecting-specific-files"></a>
 </h3>
 <div class="callout-content">
-<p>In practise, it can be annoying to have Snakemake trying to
-regenerate files that have been protected so if you don’t expect to be
-rebuilding indexes you could just remove or comment out the
-corresponding rules from the Snakefile, so Snakemake will not try to run
-them at all.</p>
-<p>Alternatively, once you have generated an important output, move the
-file away from your working directory. That way it will be easier not to
-accidentally clobber it (which is remarkably easy to do!).</p>
+<p>A related feature is the <code>protected()</code> function. This is
+rather like the opposite of the <code>temporary()</code> function and
+says that once an output has been produced it must not be overwritten.
+In practise, Snakemake does this by revoking write permissions on the
+files (as in <code>chmod -w {output}</code>).</p>
+<p>This works, but can be annoying because Snakemake will refuse to run
+if it believes it needs to re-create a file which is protected. An
+alternative suggestion is, once you have generated an important output
+file, move or copy the file away from your working directory. That way
+it will be harder to accidentally clobber it (which is remarkably easy
+to do!).</p>
 </div>
 </div>
 </div>
@@ -5039,17 +4981,16 @@ NextFlow runs all workflow steps this way.</p>
 <p>This test rule serves to demonstrate the operation of rules using the
 <em>shadow</em> directive. The file <code>temp_file.txt</code> will not
 be there after the job has run, but the <code>shadow_out.txt</code> file
-will be there because Snakemake sees that it is an output file and
-copies it back.</p>
-<pre class="source"><code>rule shallow_shadow_rule:
+will be there because Snakemake sees that it is an output file and moves
+it back to the real working directory,</p>
+<pre class="source"><code>rule shallow_rule:
     output: "shadow_out.txt"
-    shadow: "shallow"
+    shadow: "minimal"
     shell:
-        """exec &gt;{output}
-           echo shallow shadow mode
-           echo Current directory is: `pwd`
+        """echo minimal shadow mode
+           touch shadow_out.txt
            touch temp_file.txt
-           tree
+           tree `pwd`
         """</code></pre>
 <p>Advantages of using shadow rules are:</p>
 <ul>
@@ -5071,7 +5012,49 @@ expect.</li>
 with an error.</li>
 </ul>
 <p>You may want to test your rules in normal mode first, then add
-<code>shadow: ...</code> before you run the workflow for real.</p>
+<code>shadow: "minimal"</code> before you run the workflow for real.</p>
+<div id="removing-the-html-reports-again" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="removing-the-html-reports-again" class="callout-inner">
+<h3 class="callout-title">Removing the HTML reports (again)<a class="anchor" aria-label="anchor" href="#removing-the-html-reports-again"></a>
+</h3>
+<div class="callout-content">
+<p>Amend the <em>fastqc</em> rule once more so that the HTML reports are
+not even mentioned in the rule, and will not appear in the working
+directory.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div class="accordion-body">
+<p>The <code>shadow: "minimal"</code> directive will do the job nicely.
+You also need to remove mention of the <code>.html</code> file from the
+list of outputs and the shell commands.</p>
+<pre class="code"><code>rule fastqc:
+    shadow: "minimal"
+    output:
+        zip  = "{indir}.{myfile}_fastqc.zip"
+    input:  "{indir}/{myfile}.fq"
+    shell:
+        """fastqc -o . {input}
+           mv {wildcards.myfile}_fastqc.zip {output.zip}
+        """</code></pre>
+<p>In this case, marking the <em>html</em> output as
+<code>temporary()</code> or simply removing the file within the
+<em>shell</em> part does work fine, but the good thing about the
+<em>shadow</em> approach is you do not need to deal with or mention the
+unwanted file at all.</p>
+</div>
+</div>
+</div>
+</div>
 <p><em>For reference, <a href="../files/ep12.Snakefile">this is a
 Snakefile</a> incorporating the changes made in this episode.</em></p>
 <div id="keypoints1" class="callout keypoints">
@@ -5253,7 +5236,7 @@ expression we saw earlier.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>It won’t work. Snakemake assumes that all parts of the string in
 {curlies} are placeholders. The error will say something like
@@ -5339,7 +5322,7 @@ really work).</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>This just involves adding <code>:q</code> to a whole bunch of
 placeholders. Unless you are very diligent it will probably take a few
@@ -5419,7 +5402,7 @@ up</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.2" class="external-link">sandpaper (0.16.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.3" class="external-link">pegboard (0.7.3)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.1" class="external-link">varnish (1.0.1)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.2" class="external-link">sandpaper (0.16.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.4" class="external-link">pegboard (0.7.4)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.1" class="external-link">varnish (1.0.1)</a></p>
 			</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -5442,8 +5425,8 @@ up</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/aio.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/aio.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-03-05",
-  "datePublished": "2024-03-05"
+  "dateModified": "2024-03-11",
+  "datePublished": "2024-03-11"
 }
 
   </script><script>
