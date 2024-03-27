@@ -24,4 +24,4 @@ mv velvet_tmp_ref_${kmer_len}/contigs.fa contigs.fa
 
 # Find the longest contig using the BBMap stats script
 stats.sh contigs.fa | grep 'Max contig length:' > max_contig.txt
-
+head -v max_contig.txt
