@@ -16,13 +16,16 @@ You **do not** need root/administrator level access.
 
 ## Note
 
-There are other ways to install these tools, and it should also be possible to run the exercises
-on non-Linux systems. However, this is not covered here. We would welcome
-[contributions](https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/blob/gh-pages/CONTRIBUTING.md)
-in this regard.
+The recommended installation method here uses a *frozen* conda environment so that you will be
+running the exact version of Snakemake, and other tools, that has been tested with this material.
 
-*TODO - Add instructions for Mac. All software is known to work on Mac systems but the setup is
-slightly different.*
+There are other ways to install these tools, but Snakemake in particular is under active
+development and so newer or older versions may not behave the same way that the material shows.
+
+The frozen environment in `conda_env.yaml` only works on Linux just now, but we would welcome
+[contributions](https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/blob/gh-pages/CONTRIBUTING.md)
+in this regard, such as setup instructions for Mac users. See the *Keeping the course updated*
+section for more details.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -36,10 +39,9 @@ Conda. For more info on Conda, see the first part of [episode 10
 These are suggested commands to install and initialise Miniforge in a Linux Bash environment.
 
 ```bash
-$ mkdir -p ~/miniforge3
-$ wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O ~/miniforge3/installer.sh
-$ bash ~/miniforge3/installer.sh -b -u -p ~/miniforge3
-$ rm ~/miniforge3/installer.sh
+$ wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O installer.sh
+$ bash ./installer.sh -b -u -p ~/miniforge3
+$ rm installer.sh
 $ ~/miniforge3/bin/conda init bash
 $ exit
 ```
@@ -112,7 +114,21 @@ workflows. These are also good for editing most other types of script and code.
 
 GEdit is the text editor that comes with the GNOME desktop and is a simple to use general-purpose
 editor. Within the application menus it is normally just called "Text Editor" but you can also
-start it from your shell by typing "gedit \&".
+start it from your shell by typing "`gedit`".
+
+:::::::::::::::: callout
+
+## Running gedit from the shell
+
+If you type "`gedit`" in the shell, and GEdit is already running, a new tab will be created
+in the existing editor and your shell prompt will return. If GEdit was not already running the
+shell prompt in your terminal will not come back until GEdit is closed.
+
+You can type "`gedit &`" to
+get your shell prompt back immediately, but the program has a habit of printing sporadic warnings
+into that terminal, so the cleanest option is to just start a new terminal window.
+
+:::::::::::::::::::::::::
 
 Snakemake uses Python file structure which is very fussy about the use of tab characters and line
 breaks. Before writing any code in GEdit, you need to go into the preferences and select the

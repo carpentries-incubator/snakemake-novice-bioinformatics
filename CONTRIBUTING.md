@@ -73,6 +73,31 @@ platform. Our workshops typically contain a mixture of Windows, macOS, and
 Linux users; in order to be usable, our lessons must run equally well on all
 three.
 
+### Keeping the course updated
+
+The course material references several tools that are under active development, not least
+Snakemake itself. In order to try and ensure that what learners see is consistent with the
+course material, learners are instructed to install a frozen Conda environment from the file
+`conda_env.yaml` where all versions and dependencies are pinned. Updating this file and
+testing the course material with the new software versions is a regular maintenance task.
+
+The file `conda_env_min.yaml` lists all the course dependencies without specifying the
+versions, so if an environment is built from this then conda will select all the latest
+packages.
+
+The update process is as follows:
+
+* Build a fresh conda environment using conda_env_min.yaml
+* Test everything in the course (commands, solutions, sample output)
+* Fix the episodes as necessary
+* Tweak the working conda env if necessary
+* Freeze the tested conda env to make a new conda_env.yaml
+* Release updated course
+
+At present this is all done on Linux. If you are interested in helping test the course
+updates for Mac users please let the maintainers know. The course is never going to run
+natively on Windows, but contrubutions to help users of WSL would be welcomed.
+
 ### Using GitHub
 
 If you choose to contribute via GitHub, you may want to look at [How to
