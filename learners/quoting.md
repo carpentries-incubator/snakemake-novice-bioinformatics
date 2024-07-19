@@ -1,5 +1,5 @@
 ---
-title: Robust quoting in Snakefiles
+title: 'Extra Episode: Robust quoting in Snakefiles'
 teaching: 20
 exercises: 20
 ---
