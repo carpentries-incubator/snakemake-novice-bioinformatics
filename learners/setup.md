@@ -4,7 +4,7 @@ title: Setup
 
 ## Software installation
 
-These instructions set out how to obtain and install the course pre-requisites for Linux. It is
+These instructions set out how to obtain and install the software and data on Linux. It is
 assumed that you have:
 
 - access to the Bash shell on a fairly modern Linux system
@@ -147,7 +147,9 @@ The following settings are recommended but not required:
 
 ### Nano
 
-The Nano editor works directly in the terminal and is found on virtually every Linux system.
+The Nano editor, as introduced in [the shell-novice lesson](
+https://swcarpentry.github.io/shell-novice/06-script.html) works directly in the terminal and
+is found on virtually every Linux system.
 
 The following command will start editing with the suggested settings, in particular regarding Tab
 handling as mentioned above, and with Python syntax highlighting.

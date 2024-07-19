@@ -1,5 +1,5 @@
 ---
-title: 'Glossary'
+title: 'Reference'
 ---
 
 ## Glossary
