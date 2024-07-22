@@ -225,11 +225,11 @@ A this point in the course there may be a cluster demo...
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-{% comment %}
+[comment]: # (
 Photo credit: Cskiran
 Sourced from Wikimedia Commons
 CC-BY-SA-4.0
-{% endcomment %}
+)
 
 *For reference, [this is a Snakefile](files/ep09.Snakefile) incorporating the changes made in
 this episode.*

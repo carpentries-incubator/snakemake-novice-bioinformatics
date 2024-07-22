@@ -27,7 +27,7 @@ For now we'll just look at one single file, `ref1_1.fq`.
 In the terminal:
 
 ```bash
-$ cd yeast
+$ cd snakemake_data/yeast
 $ ls reads
 
 $ head -n8 reads/ref1_1.fq
@@ -121,6 +121,9 @@ indents, etc. we may see an error.
 $ snakemake -j1 -F -p ref1_1.fq.count
 ```
 
+For these early examples, we'll always run Snakemake with the `-j1`, `-F` and `-p` options. Later
+we'll look more deeply at these and other available command-line options to Snakemake.
+
 :::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Running Snakemake
@@ -143,7 +146,7 @@ What does the `-p` option in the `snakemake` command above do?
 
 This is such a useful thing we don't know why it isn't the default! The `-j1` option is what
 tells Snakemake to only run one process at a time, and we'll stick with this for now as it
-makes things simpler. The `-F` option tells Snakemake to always overwrite output files, and
+makes things simpler. The `-F` option tells Snakemake to always recreate output files, and
 we'll learn about protected outputs much later in the course. Answer 4 is a total red-herring,
 as Snakemake never prompts interactively for user input.
 

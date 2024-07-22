@@ -26,7 +26,10 @@ In the planning phase of writing this course material we outlined some [learner 
 
 ::::::::::::::::::::::::::::::::::::::::::  prereq
 
-## Prerequisites
+## Learner Prerequisites
+
+See the [prerequisites](prereqs.html) page for a full list of skills and concepts we assume that
+learners will know prior to taking this lesson. In brief:
 
 This is an intermediate lesson and assumes learners have some prior experience in bioinformatics:
 
@@ -35,7 +38,7 @@ This is an intermediate lesson and assumes learners have some prior experience i
 - Knowing about bioinformatics fundamentals like the [FASTQ file format
   ](https://en.wikipedia.org/wiki/FASTQ_format) and [read mapping
   ](https://en.wikipedia.org/wiki/Read_\(biology\)#NGS_and_read_mapping),
-  in order to understand the example workflow.
+  in order to understand the example workflows.
 
 No previous knowledge of Snakemake or workflow systems, or Python programming, is assumed.
 
