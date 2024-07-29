@@ -24,8 +24,9 @@ the episode.*
 
 ## A pipeline of multiple rules
 
-We now have a "trimreads" rule and a "countreads" rule. Following the previous chapter, the
-contents of the Snakefile should be:
+Our goal is to apply a quality filter to our reads and to see how many reads are discarded by that
+filter. We are not quite there yet, but we do have a *countreads* rule and a *trimreads* rule.
+Following the previous chapter, the contents of the Snakefile should be:
 
 ```source
 # New generic read counter
@@ -43,13 +44,13 @@ rule trimreads:
         "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 ```
 
-The problem is there is no good way to use these rules together, that is, to trim an input file and
-then count the reads in the trimmed file. The *countreads* rule only takes input reads from the
-*reads* directory, whereas the *trimreads* rule puts all results into the *trimmed* directory.
+The missing piece is that there is no way to count the reads in the trimmed file. The *countreads*
+rule only takes input reads from the *reads* directory, whereas the *trimreads* rule puts all
+results into the *trimmed* directory.
 
-Chaining rules in Snakemake is a matter of choosing filename patterns that connect the rules.
-There's something of an art to it - most times there are several options that will work. Consider
-the following alternative version of the *countreads* rule:
+To fix this, we could move the trimmed reads into the *reads* directory, or add a second
+read-counting rule, but the most elegant solution here is to make the *countreads* rule even more
+generic, so it can count everything.
 
 ```source
 # New even-more-generic read counter
@@ -62,7 +63,7 @@ rule countreads:
 
 Now, the rule no longer requires the input files to be in the "reads" directory. The directory name
 has been replaced by the `{indir}` wildcard. We can request Snakemake to create a file following
-this output pattern:
+this new output pattern:
 
 ```bash
 $ snakemake -j1 -F -p trimmed.ref1_1.fq.count
@@ -99,7 +100,38 @@ pattern matching rules to the filenames, not by the order of the rules in the Sn
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
+## Choosing file name patterns
+
+Chaining rules in Snakemake is a matter of choosing filename patterns that connect the rules.
+There's something of an art to it, and most times there are several options that will work, but
+in all cases the file names you choose will need to be consistent and unabiguous.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Seeing how many reads were discarded
+
+So, how many reads were removed from the sample? We can now get this information.
+
+```bash
+$ snakemake -j1 -F -p reads.ref1_1.fq.count trimmed.ref1_1.fq.count
+$ head *.ref1_1.fq.count
+==> reads.ref1_1.fq.count <==
+14677
+
+==> trimmed.ref1_1.fq.count <==
+14278
+```
+
+So we can see that, in this case, 390 reads have been removed. We could add a further rule to
+perform the subtraction explicitly. This rule would need to take both of the `.count` files as
+inputs. It would also be nice to have Snakemake run this automatically for all our samples. We'll
+see how to do this in a later episode.
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
 ## Outputs first?
+
+**TODO - remove this in light of issue #46**
 
 The Snakemake approach of working backwards from the desired output to determine the workflow
 is why we're putting the `output` lines first in all our rules - to remind us that these are what
@@ -140,10 +172,10 @@ this out and use arrows to indicate the linkages between the steps.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Adding an alignment step to the pipeline
+## Adding a transcript counting step to the pipeline
 
 Let's add another rule to our Snakefile. The reads we have are from a yeast RNA-seq experiment so
-we might reasonably want to quantify transcript abundance using the **kallisto** aligner. The
+we might reasonably want to quantify transcript abundance using the **kallisto** program. The
 command to do so looks like this:
 
 ```bash
@@ -207,9 +239,9 @@ Snakemake is happy with the rule definition.
 
 ## Running Kallisto on all replicates
 
-If you know about the Kallisto software, you may be thinking about running Kallisto on all
-replicates of the condition at once. We'll look at this later in the course, but for now assume
-that Kallisto is run once per sample, ie. once for each pair of FASTQ files.
+If you are already familiar with the Kallisto software, you may be thinking about running Kallisto
+on all replicates of the condition at once. We'll look at this later in the course, but for now
+we will be running Kallisto once per sample, ie. once for each pair of FASTQ files.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -254,9 +286,10 @@ The file to be indexed is `transcriptome/Saccharomyces_cerevisiae.R64-1-1.cdna.a
 there is only one input to the rule you don't have to give it a name, but you may do so if you
 like.
 
-Make it so that the output printed by the program is captured to a file, and therefore your rule
-will have two separate outputs: the *index file* and the *log file*. Note that the program prints
-messages on *stderr*, so you will need to use `>&` rather than `>` to capture the output.
+Make it so that the terminal messages printed by the program are captured to a file, and therefore
+your rule will have two separate outputs: the *index file* and the *messages file*. Note that the
+program prints messages on *stderr*, so you will need to use `>&` rather than `>` to capture that
+output.
 
 :::::::::::::::  solution
 
@@ -271,11 +304,11 @@ in future?
 rule kallisto_index:
     output:
         idx = "{strain}.kallisto_index",
-        log = "{strain}.kallisto_log",
+        messages = "{strain}.kallisto_stderr",
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
     shell:
-        "kallisto index -i {output.idx} {input.fasta} >& {output.log}"
+        "kallisto index -i {output.idx} {input.fasta} >& {output.messages}"
 ```
 
 :::::::::::::::::::::::::

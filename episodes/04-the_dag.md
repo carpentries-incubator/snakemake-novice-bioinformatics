@@ -178,7 +178,7 @@ rules to re-run, and also multiple targets, and Snakemake can tell which is whic
 $ snakemake -j1 -R trimreads kallisto_index -p kallisto.temp33_1/abundance.h5 kallisto.temp33_2/abundance.h5
 ```
 
-The reason for using the `-p` flag here is because you generally always want this option.
+The reason for using the `-p` flag specifically is that you pretty much always want this option.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

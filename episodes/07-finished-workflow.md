@@ -35,10 +35,10 @@ quantification tool called *Salmon* and this will complete the pipeline.
 - **FastQC** calculates a variety of metrics on a FASTQ file and produces an HTML report and a
   ZIP file.
   *We introduced this in [episode 6](06-awkward_programs.md).*
-- **Kallisto** aligns the reads to a reference transcriptome and produces a table of
-  transcript abundance.
+- **Kallisto** performs pseudo-alignment of the reads to a reference transcriptome and produces
+  a table of transcript abundance.
   *We first used it in [episode 3](03-chaining_rules.md).*
-- **Salmon** is a alternative to Kallisto, using a different alignment algorithm.
+- **Salmon** is a alternative to Kallisto, using a different transcript quantification algorithm.
   *We've not used it yet.*
 - **MultiQC** combines the reports from various tools, including FastQC, Kallisto, and Salmon,
   into a single HTML report over all samples. This is by no means a full RNA-Seq analysis report
@@ -73,7 +73,7 @@ $ salmon index -t <transcriptome as fasta> -i <index name> -k 31
 $ salmon quant -i <index name> -l A -1 <fastq1> -2 <fastq2> --validateMappings -o <output path>
 ```
 
-Add a pair of rules to index and align the reads with Salmon. Note that:
+Add a pair of rules to index and quantify the reads with Salmon. Note that:
 
 1. Unlike Kallisto, the index produced by Salmon is a directory of files, not a single file - so
   both of these new rules will produce a directory as output.

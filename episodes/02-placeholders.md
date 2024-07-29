@@ -22,14 +22,20 @@ exercises: 30
 *For reference, [this is the Snakefile](files/ep01.Snakefile) you should have to start
 the episode.*
 
+## Trimming and counting reads
+
+In the previous episode we used Snakemake to count the sequences in two FASTQ files. Later in this
+episode we will apply a filtering operation to remove low-quality sequences from the input files,
+and the ability to count the reads will show us how many reads have been discarded by the filter.
+
+We have eighteen input files to process and we would like to avoid writing eighteen near-identical
+rules, so the first job is to make the existing read-counting rule generic - a single rule to count
+the reads in any file. We will then add a filtering rule which will also be generic.
+
 ## Wildcards and placeholders
 
-In the previous episode you wrote two rules to count the sequences in two files. These work, but
-they are not a very efficient use of Snakemake. We have eighteen input files to process and we
-don't want to write eighteen near-identical rules!
-
-To make a more general-purpose rule we need **placeholders** and **wildcards**. Here is a new rule
-that will count the sequences in **any** of the `.fq` files.
+To make a rule that can process more than one possible input file we need **placeholders** and
+**wildcards**. Here is a new rule that will count the sequences in **any** of the `.fq` files.
 
 ```source
 # New generic read counter
@@ -233,7 +239,7 @@ become very useful to us indeed.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Adding a second rule
+## Adding a rule for filtering the reads
 
 Here is a command that will trim and filter low quality reads from a FASTQ file.
 
