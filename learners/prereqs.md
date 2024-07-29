@@ -58,18 +58,18 @@ $ ls -ltrF --directory --human-readable foo_*
 * Know how to look up the meaning of such options in the `man` page
 * See that `foo_*` is a wildcard (aka. glob) pattern that may match multiple file names
 
-And these specific tasks occur within the course:
+And these specific concepts occur within the course:
 
 * Use `cd` to change the current working directory
 * Use `&` to run a command as a background job
-* Use `>` and `<` to redirect output to, and input from files
+* Use `>` and `<` to redirect terminal output to, and input from, files
 * Use `|` to redirect (pipe) output directly between commands
 * Use `wget` to fetch a file from a web URL
 * Create and remove directories with `mkdir` and `rmdir`
 * Use `rm` and `rm -r` to remove files and non-empty directories
 * Use `ln -s` to create a symbolic link
 * Use `cat` and `head` to show the contents of a text file in the terminal
-* Run a Bash script file containing shell commands
+* Run a Bash script file containing shell commands: `bash scriptname.sh`
 
 ## Biology and bioinformatics
 
@@ -87,14 +87,14 @@ overlap, but more typically the fragments loaded in the machine are longer, and 
 middle of the fragment are never read.
 
 The data from the machine is saved into a file format named [FASTQ](
-https://en.wikipedia.org/wiki/FASTQ_format) which contains both the sequence (in *ATCG* letters)
+https://en.wikipedia.org/wiki/FASTQ_format) which contains both the sequence (of *ATCG* letters)
 and the per-base quality score, which is an estimate of the error rate recorded by the machine as
-it runs. Average quality drops off as the sequencer reads further into the fragment.  It is
-generally desirable to discard low-quality data, either by trimming off bad bases or discarding
-the whole read.
+it runs. Average quality drops off as the sequencer reads further into the fragment. It is
+generally desirable to discard low-quality data, either by trimming off bad bases from the end or
+discarding the whole read.
 
 In the most common case, the next step in DNA analysis after quality filtering is to map the
-reads on a known reference genome, which is the job of [an aligner](
+reads onto a known reference genome, which is the job of [an aligner](
 https://en.wikipedia.org/wiki/List_of_sequence_alignment_software#Short-read_sequence_alignment).
 This finds the most likely location where the raw read came from, allowing for a certain degree
 of sequence mismatch. The second most common idea is to perform a [de-novo assembly](
