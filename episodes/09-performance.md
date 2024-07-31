@@ -210,10 +210,17 @@ cluster-aware. But if your workflow is written in Snakemake, it will run on a cl
 to no modification. Snakemake turns the individual jobs into cluster jobs, then submits and
 monitors them for you.
 
-- [The Snakemake manual explains how to set this up
-  ](https://snakemake.readthedocs.io/en/stable/executing/cluster.html)
-- [We have some specific suggestions for Eddie, the University of Edinburgh cluster
-  ](files/snakemake_on_eddie.pdf)
+To run Snakemake in this way, someone will need to determine the right parameters for your
+particular cluster and save them as a profile. Once this is working, you can share the profile
+with other users on the cluster, so discuss this with your cluster sysadmin.
+
+Instructions for configuring the SLURM executor plugin can be found in the [Snakemake plugin
+ctalog](https://snakemake.github.io/snakemake-plugin-catalog/), along with the *drmaa*,
+*cluster-generic* and *cluster-sync* plugins which can support *PBS*, *SGE* and other cluster
+schedulers.
+
+[We have some specific suggestions for Eddie, the University of Edinburgh cluster](
+files/snakemake_on_eddie.pdf)
 
 ![][fig-cluster]
 

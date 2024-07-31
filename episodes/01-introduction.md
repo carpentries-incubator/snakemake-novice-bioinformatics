@@ -168,7 +168,7 @@ Note that the input filename is now preceeded by `<`. This is a little trick to 
 only the number of lines, and not the filename. The `$( ... )` syntax captures this output value
 and the `$(( ... ))` syntax encloses an arithmetic expression, which needs to be printed with
 `echo`. Don't worry if this is unfamiliar - you just need to know that this is a shell command you
-can copy and use.
+can copy and use to count the sequences.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 

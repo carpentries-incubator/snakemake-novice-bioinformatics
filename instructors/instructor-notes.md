@@ -80,6 +80,8 @@ of analysis steps with Snakemake, not the choice of what software is best for an
 
 ## Episode 01 - Running commands with Snakemake
 
+### Use of the -F flag
+
 In the first few episodes we always run Snakemake with the `-F` flag, and it's not explained what
 this does until Ep. 04. The rationale is that the default Snakemake behaviour when pruning the DAG
 leads to learners seeing different output (typically the message "nothing to be done") when
@@ -90,6 +92,18 @@ The internal rules used by Snakemake to determine which jobs in the DAG are to b
 skipped, are pretty complex, but the behaviour seen under `-F` is much more simple and consistent;
 Snakemake simply runs every job in the DAG every time. You can think of `-F` as disabling the lazy
 evaluation feature of Snakemake, until we are ready to properly introduce and understand it.
+
+### Use of redirection (<) and shell arithmetic
+
+A command is presented to count the sequences in a FASTQ file:
+
+```
+$ echo $(( $(wc -l <file.fq) / 4 ))
+```
+
+Understanding this in depth involves some advanced shell concepts that learners will not
+necessarily be familiar with. However, other alternatives involve extra software, or use curly
+brackets (which would have to be doubled-up) or are not robust (eg. `grep '^@' file.fq`).
 
 ## Episode 03 - Chaining rules
 
