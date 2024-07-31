@@ -6,12 +6,12 @@
 # 4) Test the assembly script and the sample answer
 #
 
-name: Code sample tests
+name: Code sample tests on Ubuntu
 
 on:
   push:
     branches: [ master ]
-    paths: ['episodes/files/**']
+    paths: ['episodes/files/**', '.test/**', '.github/workflows/code-test-ubuntu.yml']
 
 jobs:
   auto_test:
@@ -40,13 +40,6 @@ jobs:
         gunzip data-for-snakemake-novice-bioinformatics.tar.xz
 
         md5sum -c <<<"4522e76f9dddda13e55f7d283638e628  data-for-snakemake-novice-bioinformatics.tar.xz"
-
-    # I use 'jq' for inspecting a JSON file in a later test. Could install it via conda instead,
-    # or just grep the JSON file to avoid the dependency.
-    - uses: awalsh128/cache-apt-pkgs-action@latest
-      name: Install extra packages
-      with:
-        packages: jq
 
     - name: Install Conda
       uses: conda-incubator/setup-miniconda@v3
