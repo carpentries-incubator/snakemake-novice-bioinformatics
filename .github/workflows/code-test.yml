@@ -1,0 +1,100 @@
+# Upon each push, if anything under episodes/files/ is changed, we would like to:
+#
+# 1) Download the sample data
+# 2) Install the conda environment (episodes/files/conda_env.yaml)
+# 3) Test every ep??.Snakefile
+# 4) Test the assembly script and the sample answer
+#
+
+name: Code sample tests
+
+on:
+  push:
+    branches: [ master ]
+    paths: ['episodes/files/**']
+
+jobs:
+  auto_test:
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -eo pipefail -l {0} # Needed for conda
+
+    steps:
+
+    - uses: actions/checkout@main
+
+    # Do this first. It looks like figshare denies downloads after a few times, so we may need
+    # to mirror the file somewhere else. At least this will fail fast.
+    # - name: Download the sample data
+    #   run: |
+    #     wget --progress=dot:mega --content-disposition https://figshare.com/ndownloader/files/42467370
+    #     md5sum -c <<<"4522e76f9dddda13e55f7d283638e628  data-for-snakemake-novice-bioinformatics.tar.xz"
+
+    # Let's use this copy for testing. Yes it's in .xz.gz format, otherwise GitHub won't accept it.
+    - name: Download the sample data from GitHub
+      run: |
+        wget --progress=dot:mega \
+          https://github.com/user-attachments/files/16439467/data-for-snakemake-novice-bioinformatics.tar.xz.gz
+        gunzip data-for-snakemake-novice-bioinformatics.tar.xz
+
+        md5sum -c <<<"4522e76f9dddda13e55f7d283638e628  data-for-snakemake-novice-bioinformatics.tar.xz"
+
+    # I use 'jq' for inspecting a JSON file in a later test. Could install it via conda instead,
+    # or just grep the JSON file to avoid the dependency.
+    - uses: awalsh128/cache-apt-pkgs-action@latest
+      name: Install extra packages
+      with:
+        packages: jq
+
+    - name: Install Conda
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        miniforge-version: latest
+        use-mamba: false
+        activate-environment: snakemake_carpentry
+        environment-file: episodes/files/conda_env.yaml
+
+    # This only matters for the assembly test, where Snakemake installs packages
+    - name: Configure Conda as per lesson setup
+      run: |
+        cat >~/.condarc <<END
+        channels:
+          - conda-forge
+          - bioconda
+        solver: libmamba
+        channel_priority: strict
+        END
+
+    - name: Confirm Snakemake Version
+      run: |
+        conda env list
+        echo ---
+        which snakemake
+        snakemake --version
+        which rename
+        ( rename --man | head -n 8 ) || true
+
+    # Check all the interim answers with fresh data dir
+    - name: Test interim answers
+      run: |
+        for tf in .test/ep*.test.sh ; do
+          rm -rf snakemake_data
+          tar -xaf data-for-snakemake-novice-bioinformatics.tar.xz
+          echo "Running $tf..."
+          ( set -euo pipefail ; source $tf )
+          printf '\n-\n'
+        done
+
+    # Check the sample script and the solution to the larger exercise
+    - name: Test assembly BASH script and Snakefile
+      run: |
+        for tf in .test/assembly_*.test.sh ; do
+          rm -rf snakemake_data
+          tar -xaf data-for-snakemake-novice-bioinformatics.tar.xz
+
+          echo "Running $tf..."
+          ( set -euo pipefail ; source $tf )
+          printf '\n-\n'
+        done

@@ -1,8 +1,7 @@
 channels:
-  - bioconda
   - conda-forge
-  - defaults
+  - bioconda
 dependencies:
-  - bbmap=38.92=he522d1c_0
-  - cutadapt=3.4=py39h38f01e4_1
-  - velvet=1.2.10=h5bf99c6_4
+  - bbmap=39.06=h92535d8_1
+  - cutadapt=4.9=py312hf67a6ed_0
+  - velvet=1.2.10=he4a0461_7

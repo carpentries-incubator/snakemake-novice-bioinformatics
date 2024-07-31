@@ -10,7 +10,7 @@
 CONDITIONS = ["ref", "etoh60", "temp33"]
 REPLICATES = ["1", "2", "3"]
 
-# "rule all_counts" has been removed to reduce clutter
+# "rule all_counts" is no longer being used and has been removed to reduce clutter
 
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
