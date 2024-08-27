@@ -263,6 +263,8 @@ find that replicate 1 is still in you report, make sure you are using the final 
 *For reference, [this is a Snakefile](files/ep08.Snakefile) incorporating the changes made in
 this episode.*
 
+*To run it, you need to save out [this file](files/ep08/config.yaml) to the same directory.*
+
 
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
