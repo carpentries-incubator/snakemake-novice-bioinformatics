@@ -282,6 +282,27 @@ $ open multiqc_out/multiqc_report.html
 The report has a few issues, but we'll not get distracted by the details of how to configure
 MultiQC to resolve them.
 
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Use Snakemake Wrappers to handle your awkward programs
+
+In the last two chapters we've shown some tactics for cleanly incorporating various tools into
+workflows, but given that these are commonly used pieces of software you may reasonably think
+that dealing with their quirks yourself is a waste of your time. It's easier to copy a working rule
+from an existing workflow. In fact, Snakemake provides something a little more sophisticated in the
+form of the [Snakemake wrappers collection](
+https://snakemake-wrappers.readthedocs.io/en/stable/wrappers.html).
+
+Using a wrapper, instead of writing your own shell code, allows you to apply a best-practise
+approach, supported by the Snakemake developer community, for a large number of common tools.
+There are additional advantages, like integration with Bioconda (see episode 10).
+
+You will see that wrappers are available for several of the tools used in this workflow. Here is
+[a sample Snakefile](files/ep07/wrappers.Snakefile) using the four available wrappers.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 *For reference, [this is a Snakefile](files/ep07.Snakefile) incorporating the changes made in
 this episode. You may now proceed to any later episode in the lesson using this workflow as a
 starting point.*

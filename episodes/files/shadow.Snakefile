@@ -1,7 +1,7 @@
 # A Snakefile to demonstrate how shadow rules work. Try:
 #
-# $ snakemake -F -j1 -s shadow.Snakefile {normal,shallow,full}_out.txt
-# $ head -n 30 {normal,shallow,full}_out.txt
+# $ snakemake -F -j1 -s shadow.Snakefile {normal,minimal,full}_out.txt
+# $ head -n 30 {normal,minimal,full}_out.txt
 # $ ls ?_temp_file
 
 rule normal_rule:
@@ -14,12 +14,12 @@ rule normal_rule:
            tree
         """
 
-rule shallow_shadow_rule:
-    output: "shallow_out.txt"
-    shadow: "shallow"
+rule minimal_shadow_rule:
+    output: "minimal_out.txt"
+    shadow: "minimal"
     shell:
        r"""exec >{output}
-           echo shallow shadow mode
+           echo minimal shadow mode
            echo Current directory is: `pwd`
            touch 2_temp_file
            tree

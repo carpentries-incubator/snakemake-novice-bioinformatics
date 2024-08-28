@@ -80,6 +80,17 @@ jobs:
           printf '\n-\n'
         done
 
+    # Test the shadow demo
+    - name: Test shadow demo
+      run: |
+        for tf in .test/shadow.test.sh ; do
+          rm -rf snakemake_data
+          mkdir snakemake_data
+          echo "Running $tf..."
+          ( set -euo pipefail ; source $tf )
+          printf '\n-\n'
+        done
+
     # Check the sample script and the solution to the larger exercise
     - name: Test assembly BASH script and Snakefile
       run: |
