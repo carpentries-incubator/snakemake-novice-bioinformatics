@@ -6,14 +6,22 @@ title: Instructor Notes
 
 ## How to introduce Snakemake
 
-Prior to beginning the first lesson you want to say something about Snakemake. As an instructor,
-saying how you yourself came across Snakemake and how you use it in your own work is probably
-the best approach.
+Prior to beginning the first lesson you want to say something about Snakemake in general.
+As an instructor, saying how you yourself came across Snakemake and how you use it in your own
+work is probably the best approach.
 
 Otherwise, the info on [https://snakemake.readthedocs.io](https://snakemake.readthedocs.io) should
 have everything you need, and the [rolling paper](https://f1000research.com/articles/10-33/v2)
 has a nice graphic (fig. 2) showing the history of the Snakemake project. As of July 2024 this
 paper has over 1000 citations.
+
+You can also show the workflows available in the public catalogues to give an overview of what
+people are doing with Snakemake.
+
+* [Snakemake workflows in WokflowHub](
+   https://workflowhub.eu/workflows?filter%5Bworkflow_type%5D=snakemake&order=downloads_desc)
+* [Snakemake workflow catalogue](
+   https://snakemake.github.io/snakemake-workflow-catalog/)
 
 ## When to use a workflow system?
 
@@ -131,3 +139,45 @@ possible to have a list of outputs, but this is uncommon and not needed to solve
 challenges in this course. In fact, introducing lists of outputs may confuse learners as they
 may think it is possible for a rule to yield a variable number of outputs in the manner of the old
 `dynamic()` behaviour, which is not a thing.
+
+## Episode 07 - Finishing the basic workflow
+
+The episode describes some tactics for incorporating "awkward" programs and then mentions wrappers
+as an aside at the end.
+
+Wrappers are great when they work, and potentially infuriating when they do not. Also, users of
+Snakemake are liable to come across tools that are not in the wrappers repository, or they may
+even aim to contribute to this effort, in which case they need to understand the principle of
+what is going on inside.
+
+Converting the workflow to use wrappers was mostly straightforward, but here are some caveats:
+
+1) The wrappers are designed for the specific versions of the tools specified in the Conda
+requirements. It took some trial an error to find the right version of the Kallisto wrapper to
+work with our older version of Kallisto (which was chosen for CPU compatibility).
+
+2) All tool wrappers have sample code but it's not necessarily obvious what you may change
+(normally wildcard names) and what you can't (input and output names).
+
+3) Some wrappers use lists of inputs and outputs while others use named inputs and outputs. This
+course has urged that outputs should always be named, but with wrappers the user must use
+whatever setup the wrapper used.
+
+## Episode 09 - Performance
+
+### Running on cluster and cloud
+
+Running workflows on HPC or Cloud systems could be a whole course in itself. The topic is too
+important not to be mentioned here, but also complex to teach because you need a cluster to work
+on.
+
+The original author of this material would demonstrate running the workflow on the [Cirrus](
+https://cirrus.ac.uk) system in Edinburgh. If you are teaching this lesson and have institutional
+HPC then ideally you should liaise with the administrators of the system to make a suitable
+installation of a recent Snakemake version and a profile to run jobs on the cluster job scheduler.
+In practise this may be easier said than done!
+
+If you are able to demonstrate Snakemake running on cloud as part of one of these courses then
+we'd much appreciate any feedback on how you did this and how it went.
+
+
