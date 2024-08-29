@@ -1,7 +1,7 @@
 echo "Test for episodes/files/assembly_with_conda.Snakefile"
 
-cp -vf episodes/files/assembly_with_conda.Snakefile snakemake_data/yeast/
-cp -vf episodes/files/assembly_conda_env.yaml snakemake_data/yeast/
+cp -vf episodes/files/ep11/sample_answer.Snakefile snakemake_data/yeast/
+cp -vf episodes/files/ep11/assembly_conda_env.yaml snakemake_data/yeast/
 
 cd snakemake_data/yeast
 

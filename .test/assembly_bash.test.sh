@@ -2,8 +2,8 @@ echo "Test for episodes/files/assembly_script.sh"
 
 # Test the shell script that should do just one assembly
 
-cp -vf episodes/files/assembly_script.sh snakemake_data/yeast/
-cp -vf episodes/files/assembly_conda_env.yaml snakemake_data/yeast/
+cp -vf episodes/files/ep11/assembly_script.sh snakemake_data/yeast/
+cp -vf episodes/files/ep11/assembly_conda_env.yaml snakemake_data/yeast/
 
 cd snakemake_data/yeast
 

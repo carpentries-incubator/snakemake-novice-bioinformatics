@@ -39,7 +39,7 @@ rule kallisto_quant:
     log:
         "logs/kallisto_quant_{sample}.log",
     wrapper:
-        "v4.2.0/bio/kallisto/quant"
+        "v2.2.1/bio/kallisto/quant"
 
 rule kallisto_index:
     output:
@@ -49,7 +49,7 @@ rule kallisto_index:
     log:
         "{strain}.kallisto_log",
     wrapper:
-        "v4.2.0/bio/kallisto/index"
+        "v2.2.1/bio/kallisto/index"
 
 rule fastqc:
     output:
@@ -57,12 +57,15 @@ rule fastqc:
         zip  = "{indir}.{myfile}_fastqc.zip"
     input:  "{indir}/{myfile}.fq"
     log:
-        "logs/fastqc/{sample}.log"
+        "logs/fastqc/{indir}.{myfile}.log"
     wrapper:
         "v4.2.0/bio/fastqc"
 
 rule salmon_quant:
-    output: directory("salmon.{sample}")
+    output:
+        dir   = directory("salmon.{sample}"),
+        quant = "salmon.{sample}/quant.sf",
+        lib   = "salmon.{sample}/lib_format_counts.json",
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.salmon_index",
         r1   = "trimmed/{sample}_1.fq",
@@ -80,7 +83,7 @@ rule salmon_index:
     input:
         sequences = "transcriptome/{strain}.cdna.all.fa.gz"
     log:
-        "logs/salmon/transcriptome_index.log",
+        "logs/salmon/{strain}_index.log",
     wrapper:
         "v4.2.0/bio/salmon/index"
 

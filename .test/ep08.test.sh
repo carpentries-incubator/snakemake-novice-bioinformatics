@@ -1,13 +1,17 @@
 echo "Test for episodes/files/ep08.Snakefile"
 
 cp -vf episodes/files/ep08.Snakefile snakemake_data/yeast/Snakefile
+cp -vf episodes/files/ep08/config.yaml snakemake_data/yeast/
 cd snakemake_data/yeast
 
 # This assumes renames are applied
 ( cd reads ; rename -v -s ref ref_ ref?_?.fq )
 
 # Extract the default config from the comment in the Snakefile itself
-sed -n -e '/config.yaml contents/,/^$/s/^# //p' Snakefile > config.yaml
+sed -n -e '/config.yaml contents/,/^$/s/^# //p' Snakefile > config_fromfile.yaml
+
+# They should be the same!
+diff -qbZ config.yaml config_fromfile.yaml
 
 # Use dry-run to save a little time
 res1=$( snakemake -Fn --config -p multiqc | grep ^trimreads | tail -n1 )
