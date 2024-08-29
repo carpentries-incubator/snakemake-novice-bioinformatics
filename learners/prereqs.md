@@ -81,17 +81,19 @@ want to dig into these further, to which end some links to Wikipedia are provide
 [Second generation DNA sequencing](https://en.wikipedia.org/wiki/Massive_parallel_sequencing) is
 a technology allowing large quantities of DNA to be read quickly on a single machine, by sequencing
 millions of short DNA fragments in parallel. These fragments are typically read from
-both ends, yielding a matched pair of sequence reads, but the technology can only get a short
-way into the fragment from either end. If the fragments are short enough the pair of reads will
-overlap, but more typically the fragments loaded in the machine are longer, and the bases in the
-middle of the fragment are never read.
+both ends, yielding a matched pair of sequence reads, but the technology can only see a short
+way into the fragment from either end. If the physical fragments are short enough the pair of reads
+will overlap, but more typically the fragments loaded in the machine are longer, and the bases in
+the middle of the fragment are never read.
 
-The data from the machine is saved into a file format named [FASTQ](
+The sequence reads from the machine are saved into a file format named [FASTQ](
 https://en.wikipedia.org/wiki/FASTQ_format) which contains both the sequence (of *ATCG* letters)
 and the per-base quality score, which is an estimate of the error rate recorded by the machine as
 it runs. Average quality drops off as the sequencer reads further into the fragment. It is
 generally desirable to discard low-quality data, either by trimming off bad bases from the end or
-discarding the whole read.
+discarding the whole bad read. There may also be "adapter sequences" within the reads which are
+artefacts of preparing the DNA fragments for sequencing, not part of the biological sample. Tools
+exist to detect and remove these from the FASTQ files.
 
 In the most common case, the next step in DNA analysis after quality filtering is to map the
 reads onto a known reference genome, which is the job of [an aligner](
