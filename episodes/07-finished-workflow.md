@@ -287,19 +287,21 @@ MultiQC to resolve them.
 
 ## Use Snakemake Wrappers to handle your awkward programs
 
-In the last two chapters we've shown some tactics for cleanly incorporating various tools into
-workflows, but given that these are commonly used pieces of software you may reasonably think
-that dealing with their quirks yourself is a waste of your time. It's easier to copy a working rule
-from an existing workflow. In fact, Snakemake provides something a little more sophisticated in the
-form of the [Snakemake wrappers collection](
+In the last two chapters we've shown some tactics for incorporating tools into
+workflows using standard *shell* rules, but given how commonly these pieces of software are used
+there is no point in you, as a workflow author, having to re-invent these fixes each time.
+It's easier to copy a working rule from an existing workflow. In fact, Snakemake provides something
+a little more sophisticated in the form of the [Snakemake wrappers collection](
 https://snakemake-wrappers.readthedocs.io/en/stable/wrappers.html).
 
 Using a wrapper, instead of writing your own shell code, allows you to apply a best-practise
 approach, supported by the Snakemake developer community, for a large number of common tools.
 There are additional advantages, like integration with Bioconda (see episode 10).
 
-You will see that wrappers are available for several of the tools used in this workflow. Here is
-[a sample Snakefile](files/ep07/wrappers.Snakefile) using the four available wrappers.
+You will see that wrappers are available for several of the tools used in this workflow. We will
+not cover the details here in this course, but for reference we provide
+[an equivalent Snakefile](files/ep07/wrappers.Snakefile) using the four available wrappers to
+make the same MultiQC report.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

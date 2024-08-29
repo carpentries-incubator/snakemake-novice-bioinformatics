@@ -300,6 +300,19 @@ shortcomings, and software setup continues to be a perennial headache for bioinf
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Using Conda with Snakemake Wrappers
+
+Tool wrappers in the [Snakemake wrappers collection](
+https://snakemake-wrappers.readthedocs.io/en/stable/wrappers.html) include recommended Conda
+environments. It's not strictly necessary to run a workflow with `--use-conda` in order to use the
+wrappers, but this is the intended way. Snakemake will then install the tools and run the jobs
+within the environment specified by the wrapper, just as if the environment had been set by an
+explicit *conda:* directive in the rule.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 *For reference, [this is a Snakefile](files/ep10.Snakefile) incorporating the changes made in
 this episode.*
 
