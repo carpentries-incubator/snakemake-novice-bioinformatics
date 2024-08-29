@@ -7,6 +7,8 @@ cd snakemake_data/yeast
 # This assumes renames are applied
 ( cd reads ; rename -v -s ref ref_ ref?_?.fq )
 
+set -x # So I can see what's running.
+
 snakemake -j1 -p multiqc
 
 # Report should appear
@@ -16,7 +18,7 @@ test -s multiqc_out/multiqc_report.html
 snakemake -j1 --delete-all-output multiqc
 test '!' -e multiqc_out
 
-snakemake -j1 -s wrappers.Snakefile -p multiqc
+snakemake -c all -s wrappers.Snakefile -p multiqc
 
 # Report should appear again
 test -s multiqc_out/multiqc_report.html

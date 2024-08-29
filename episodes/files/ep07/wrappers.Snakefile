@@ -93,7 +93,7 @@ rule salmon_index:
 # a directory as the output, with that directory containing the console log.
 rule multiqc:
     output:
-        "multiqc_out/multiqc.html",
+        "multiqc_out/multiqc_report.html",
         directory("multiqc_out/multiqc_data"),
     input:
         salmon =   expand("salmon.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
