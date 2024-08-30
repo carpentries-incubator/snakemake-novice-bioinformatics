@@ -282,7 +282,6 @@ $ open multiqc_out/multiqc_report.html
 The report has a few issues, but we'll not get distracted by the details of how to configure
 MultiQC to resolve them.
 
-
 :::::::::::::::::::::::::::::::::::::::::  callout
 
 ## Use Snakemake Wrappers to handle your awkward programs
@@ -304,6 +303,33 @@ not cover the details here in this course, but for reference we provide
 make the same MultiQC report.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::: instructor
+
+## If you want to say more about wrappers
+
+The episode describes some tactics for incorporating "awkward" programs and then mentions wrappers
+as an aside at the end.
+
+Wrappers are great when they work, and potentially infuriating when they do not. Also, users of
+Snakemake are liable to come across tools that are not in the wrappers repository, or they may
+even aim to contribute to this effort, in which case they need to understand the principle of
+what is going on inside.
+
+Converting the workflow to use wrappers was mostly straightforward, but here are some caveats:
+
+1) The wrappers are designed for the specific versions of the tools specified in the Conda
+requirements. It took some trial an error to find the right version of the Kallisto wrapper to
+work with our older version of Kallisto (which was chosen for CPU compatibility).
+
+2) All tool wrappers have sample code but it's not necessarily obvious what you may change
+(normally wildcard names) and what you can't (input and output names).
+
+3) Some wrappers use lists of inputs and outputs while others use named inputs and outputs. This
+course has urged that outputs should always be named, but with wrappers the user must use
+whatever setup the wrapper used.
+
+::::::::::::::::::::::::::::::::::::::::::::
 
 *For reference, [this is a Snakefile](files/ep07.Snakefile) incorporating the changes made in
 this episode. You may now proceed to any later episode in the lesson using this workflow as a

@@ -259,8 +259,8 @@ rule fastqc:
 The "triple quoting" syntax comes from Python. Not only does it allow multiple lines to be added
 within the quotes but it also allows you to embed both single and double quotes into the shell
 commands. For a further discussion of string quoting and a way to disable the interpretation of
-"backslash escapes" like `\n` and `\t` see [episode 13
-](13-quoting.md)
+"backslash escapes" like `\n` and `\t` see [the extra episode on quoting
+](/learners/quoting.md)
 
 This rule is also fine, but because the individual files are not explicitly named as outputs we may
 have problems chaining later rules. Also consider that some applications won't give you any control

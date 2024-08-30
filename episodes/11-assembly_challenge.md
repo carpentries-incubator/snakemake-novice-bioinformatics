@@ -1,7 +1,7 @@
 ---
 title: Constructing a whole new workflow
-teaching: 10
-exercises: 60
+teaching: 30
+exercises: 90
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives

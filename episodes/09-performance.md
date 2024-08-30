@@ -224,6 +224,25 @@ files/snakemake_on_eddie.pdf)
 
 ![][fig-cluster]
 
+::::::::::::::::::::::::::::::: instructor
+
+## Running on cluster and cloud
+
+Running workflows on HPC or Cloud systems could be a whole course in itself. The topic is too
+important not to be mentioned here, but also complex to teach because you need a cluster to work
+on.
+
+The original author of this material would demonstrate running the workflow on the [Cirrus](
+https://cirrus.ac.uk) system in Edinburgh. If you are teaching this lesson and have institutional
+HPC then ideally you should liaise with the administrators of the system to make a suitable
+installation of a recent Snakemake version and a profile to run jobs on the cluster job scheduler.
+In practise this may be easier said than done!
+
+If you are able to demonstrate Snakemake running on cloud as part of one of these courses then
+we'd much appreciate any feedback on how you did this and how it went.
+
+::::::::::::::::::::::::::::::::::::::::::::
+
 :::::::::::::::::::::::::::::::::::::::::  callout
 
 ## Cluster demo

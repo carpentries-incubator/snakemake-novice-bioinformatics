@@ -25,12 +25,12 @@ use to start this episode.*
 ## Temporary files in Snakemake
 
 Analyses in bioinformatics inevitably generate a lot of files. Not all of these need to be kept, if
-they are intermediate files produced during the workflow. Even if the files are not completely
-redundant, knowing that you can regenerate them again with a single Snakemake command means you may
+they are intermediate files produced during the workflow. Even if the files might be needed again,
+knowing that you can regenerate them again with a single Snakemake command means you may
 well want to clean them up. This way you save disk space and reduce clutter.
 
 Remember that Snakemake only re-generates intermediate files if it needs them to make a target,
-so simply deleting intermediate files manually works fine. Assuming you already made the
+so simply deleting intermediate files manually is fine. Assuming you already made the
 *multiqc* report, and have not edited the rules in the Snakefile since:
 
 ```output
@@ -44,20 +44,34 @@ To get Snakemake to clean up files for you, mark them with the `temporary()` fun
 the `directory()` function, this is applied only on the outputs of rules. Any file marked as
 *temporary* will be removed by Snakemake as soon as it is no longer needed.
 
-To provide a better example, lets say we decide to compress the trimmed reads with *gzip*. It's
-very common to store FASTQ files in this compressed format, and most software will read the gzipped
-files directly, so there is no need to keep the uncompressed files. Add a new rule like so:
+To provide a plausible example, lets say we decide to compress the trimmed reads with *gzip*. It's
+very common to store FASTQ files in this compressed format, and most software will read the Gzipped
+files directly, so there is no need to keep the uncompressed files. This includes Salmon and
+Kallisto. Add a new rule like so:
 
 ```source
 rule gzip_fastq:
-    output: "{afile}.fq.gz"
-    input:  "{afile}.fq"
+    output: "trimmed/{afile}.fq.gz"
+    input:  "trimmed/{afile}.fq"
     shell:
         "gzip -nc {input} > {output}"
 ```
 
-Note that this will compress any `.fq` file in any subdirectory, because Snakemake wildcards can
-match full paths. Now modify just the *salmon\_quant* rule to work on the compressed files.
+Now we can tell Snakemake not to keep the uncompressed files, but remember we can only add
+the `temporary()` marker to outputs, not inputs, so we need to modify the existing *trimreads*
+rule.
+
+```source
+rule trimreads:
+    output: temporary("trimmed/{myfile}.fq")
+    input:  "reads/{myfile}.fq"
+    shell:
+        ...
+```
+
+Snakemake will only run our *gzip\_fastq* rule if we have a consumer for the Gzipped files, so
+modify both the *salmon\_quant* and *kallisto\_quant* rules to work on the compressed files. In
+both cases, you just need to add `.gz` to the *fq1* and *fq2* input filenames.
 
 ```source
 rule salmon_quant:
@@ -66,18 +80,23 @@ rule salmon_quant:
         index = "Saccharomyces_cerevisiae.R64-1-1.salmon_index",
         fq1   = "trimmed/{sample}_1.fq.gz",
         fq2   = "trimmed/{sample}_2.fq.gz",
-    ...
-```
+    shell:
+        ...
 
-Finally, declare the output of the *trimreads* rule to be *temporary*.
-
-```source
-rule trimreads:
-    output: temporary("trimmed/{sample}.fq")
+rule kallisto_quant:
+    output: directory("kallisto.{sample}")
+    input:
+        index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
+        fq1   = "trimmed/{sample}_1.fq.gz",
+        fq2   = "trimmed/{sample}_2.fq.gz",
+    shell:
+        ...
 ```
 
 And now re-run the workflow. Since we modified the *trimreads* rule, Snakemake should see that it
-needs to be rerun:
+needs to be re-run, and will also re-run any downstream rules, which now includes *gzip_fastq*.
+Snakemake will remove the uncompressed trimmed reads once no jobs in the DAG require them,
+and so at the end we are left with just the Gzipped versions.
 
 ```output
 $ snakemake -j1 -p multiqc_out
@@ -91,45 +110,12 @@ etoh60_3_1.fq.gz  ref_3_1.fq.gz  temp33_3_1.fq.gz
 etoh60_3_2.fq.gz  ref_3_2.fq.gz  temp33_3_2.fq.gz
 ```
 
-Snakemake kept the uncompressed trimmed reads long enough to run *kallisto\_quant* on all the
-samples, then removed them leaving only the gzipped versions.
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Working with gzipped files
-
-Like Salmon, Kallisto can read compressed `.fq.gz` files directly. Amend the *kallisto\_quant*
-rule to use gzipped input files.
-Show that the new rule can be re-run on all samples without triggering the *trimreads* or
-*gzip\_fastq* rules.
-
-:::::::::::::::  solution
-
-## Solution
-
-In the first instance, this involves changing two input lines in the *kallisto\_quant*
-rule definition.
-
-```source
-    fq1   = "trimmed/{sample}_1.fq.gz",
-    fq2   = "trimmed/{sample}_2.fq.gz",
-```
-
-We can check the result by trying a *dry run* (`-n` option):
-
-```bash
-$ snakemake -n -p multiqc_out
-```
-
-You should see that Snakemake wants to run the *kallisto_quant* and *multiqc* steps but
-no others.
-
-::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Removing the HTML reports from FastQC
 
-We have no use for the HTML reports produced by FastQC. Modify the Snakefile to automatically
-remove them.
+We have no use for the HTML reports produced by FastQC. Modify the Snakefile so that
+Snakemake will automatically remove them.
 
 :::::::::::::::  solution
 
@@ -142,7 +128,7 @@ html = temporary("{indir}.{sample}_fastqc.html"),
 ```
 
 Since the files are already there, Snakemake will not normally remove them unless the jobs
-are re-run, so you could do that as was done for *trimreads* above.
+are re-run, so you could re-run the workflow as was done for *trimreads* above.
 However, there is also a *\--delete-temp-output* option which forces all temporary files in
 the DAG to be removed, and this provides the cleanest way to remove the files after modifying
 the Snakefile.

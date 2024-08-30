@@ -87,6 +87,18 @@ Look at the logging messages that Snakemake prints in the terminal. What has hap
 
 ![][fig-chaining]
 
+::::::::::::::::::::: instructor
+
+## Illustrating the wildcard matching process
+
+A figure is shown here to illustrate the way Snakemake finds rules by wildcard matching and then
+tracks back until it runs out of rule matches and finds a file that it already has. You may find
+that showing an animated version of this is helpful, in which case
+[there are some slides here](
+https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/files/9299078/wildcard_demo.pptx).
+
+::::::::::::::::::::::::::::::::::::
+
 This, in a nutshell, is how we build workflows in Snakemake.
 
 1. Define rules for all the processing steps
@@ -215,6 +227,27 @@ rule kallisto_quant:
     shell:
         "kallisto quant -i {input.index} -o kallisto.{wildcards.sample} {input.fq1} {input.fq2}"
 ```
+
+::::::::::::::::::::::::::::: instructor
+
+## Named inputs versus lists of inputs
+
+In this course, we introduce named inputs and outputs before lists of inputs and outputs. This
+results in shell commands like:
+
+`"kallisto quant -i {input.index} -o kallisto.{wildcards.sample} {input.fq1} {input.fq2}"`
+
+Rather than the less readable version with a simple list of inputs:
+
+`"kallisto quant -i {input[0]} -o kallisto.{wildcards.sample} {input[1]} {input[2]}"`
+
+Later, we introduce lists of inputs in tandem with the `expand()` function. Of course it is
+possible to have a list of outputs, but this is uncommon and not needed to solve any of the
+challenges in this course. In fact, introducing lists of outputs may confuse learners as they
+may think it is possible for a rule to yield a variable number of outputs in the manner of the old
+`dynamic()` behaviour, which is not a thing.
+
+::::::::::::::::::::::::::::::::::
 
 There are many things to note here:
 
