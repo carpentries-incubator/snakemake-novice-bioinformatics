@@ -302,6 +302,19 @@ not cover the details here in this course, but for reference we provide
 [an equivalent Snakefile](files/ep07/wrappers.Snakefile) using the four available wrappers to
 make the same MultiQC report.
 
+Converting the workflow to use wrappers was mostly straightforward, but here are some caveats:
+
+1. The wrappers are designed for the specific versions of the tools specified in their Conda
+requirements. It took some trial an error to find the right version of the Kallisto wrapper to
+work with our older version of Kallisto (which was chosen for CPU compatibility).
+
+2. All tool wrappers have sample code, but it's not necessarily obvious what you may change
+(normally any wildcard names) and what you can't (input and output names).
+
+3. Some wrappers use lists of inputs and outputs while others use named inputs and outputs. This
+course has urged that outputs should always be named, but with wrappers you as the user must use
+whatever setup the wrapper used.
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::: instructor
@@ -315,19 +328,6 @@ Wrappers are great when they work, and potentially infuriating when they do not.
 Snakemake are liable to come across tools that are not in the wrappers repository, or they may
 even aim to contribute to this effort, in which case they need to understand the principle of
 what is going on inside.
-
-Converting the workflow to use wrappers was mostly straightforward, but here are some caveats:
-
-1) The wrappers are designed for the specific versions of the tools specified in the Conda
-requirements. It took some trial an error to find the right version of the Kallisto wrapper to
-work with our older version of Kallisto (which was chosen for CPU compatibility).
-
-2) All tool wrappers have sample code but it's not necessarily obvious what you may change
-(normally wildcard names) and what you can't (input and output names).
-
-3) Some wrappers use lists of inputs and outputs while others use named inputs and outputs. This
-course has urged that outputs should always be named, but with wrappers the user must use
-whatever setup the wrapper used.
 
 ::::::::::::::::::::::::::::::::::::::::::::
 
