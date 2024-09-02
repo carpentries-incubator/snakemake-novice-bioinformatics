@@ -189,7 +189,7 @@ can copy and use to count the sequences.
 
 :::::::::::::::::::::::::::::::::::: instructor
 
-## Use of redirection (<) and shell arithmetic
+## Use of stdin redirection and shell arithmetic
 
 A command is presented to count the sequences in a FASTQ file:
 

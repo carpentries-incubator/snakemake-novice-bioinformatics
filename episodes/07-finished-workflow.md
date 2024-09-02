@@ -315,7 +315,7 @@ work with our older version of Kallisto (which was chosen for CPU compatibility)
 course has urged that outputs should always be named, but with wrappers you as the user must use
 whatever setup the wrapper used.
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::: instructor
 
@@ -329,7 +329,7 @@ Snakemake are liable to come across tools that are not in the wrappers repositor
 even aim to contribute to this effort, in which case they need to understand the principle of
 what is going on inside.
 
-::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::
 
 *For reference, [this is a Snakefile](files/ep07.Snakefile) incorporating the changes made in
 this episode. You may now proceed to any later episode in the lesson using this workflow as a

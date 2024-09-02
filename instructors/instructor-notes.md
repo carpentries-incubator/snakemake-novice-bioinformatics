@@ -84,3 +84,9 @@ of the bioinformatics software. If you have the time and are confident talking a
 so, but if not then it is valid to reiterate that the focus of the course is on the orchestration
 of analysis steps with Snakemake, not the choice of what software is best for any given analysis.
 
+## Questions from Learners
+
+### Q: Example question here?
+
+A: Example answer here.
+
