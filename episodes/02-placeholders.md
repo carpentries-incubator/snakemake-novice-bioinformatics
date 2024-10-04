@@ -29,8 +29,8 @@ episode we will apply a filtering operation to remove low-quality sequences from
 and the ability to count the reads will show us how many reads have been discarded by the filter.
 
 We have eighteen input files to process and we would like to avoid writing eighteen near-identical
-rules, so the first job is to make the existing read-counting rule generic - a single rule to count
-the reads in any file. We will then add a filtering rule which will also be generic.
+rules, so the first job is to make the existing read-counting rule **generic** - a single rule to
+count the reads in any file. We will then add a filtering rule which will also be generic.
 
 ## Wildcards and placeholders
 
@@ -236,6 +236,8 @@ We'll make use of this later in the course.
 
 The amount of checking may seem pedantic right now, but as the workflow gains more steps this will
 become very useful to us indeed.
+
+## Filtering the reads for quality
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 

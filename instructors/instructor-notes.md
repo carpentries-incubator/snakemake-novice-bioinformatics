@@ -2,8 +2,6 @@
 title: Instructor Notes
 ---
 
-# General
-
 ## How to introduce Snakemake
 
 Prior to beginning the first lesson you want to say something about Snakemake in general.
