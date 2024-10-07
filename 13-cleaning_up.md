@@ -6,7 +6,7 @@ exercises: 15
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Understand the function of *temporary* outputs.
+- Understand how Snakemake manages *temporary* outputs
 - Learn about running in *\--touch* mode
 - Learn about *shadow* mode rules
 
@@ -15,7 +15,7 @@ exercises: 15
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - How do I save disk space by removing temporary files?
-- How do I protect important outputs from deletion?
+- How do I isolate the interim files created by jobs from each other?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -182,6 +182,9 @@ A related feature is the `protected()` function. This is rather like the opposit
 In practise, Snakemake does this by revoking write permissions on the files
 (as in `chmod -w {output}`).
 
+We can do this for the Salmon and Kallisto indexes, for example, as these should only ever need to
+be generated once.
+
 This works, but can be annoying because Snakemake will refuse to run if it believes it needs to
 re-create a file which is protected. An alternative suggestion is, once you have generated
 an important output file, move or copy the file away from your working directory. That way it will
@@ -279,6 +282,7 @@ this episode.*
 
 - Cleaning up working files is good practise
 - Make use of the `temporary()` function on outputs you don't need to keep
+- Protect outputs which are expensive to reproduce
 - Shadow rules can solve issues with commands that produce unwanted files
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
