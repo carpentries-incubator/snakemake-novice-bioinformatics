@@ -220,7 +220,7 @@ see how to do this in a later episode.*
 
 ## Outputs first?
 
-**TODO - remove this in light of issue #46**
+**TODO - reconsider this in light of issue #46**
 
 The Snakemake approach of working backwards from the desired output to determine the workflow
 is why we're putting the `output` lines first in all our rules - to remind us that these are what
