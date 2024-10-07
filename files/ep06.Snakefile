@@ -2,9 +2,14 @@
 # Snakefile you should have after completing episode 06
 ###
 
-# Input conditions and replicates to process
+# All conditions and replicates to process
 CONDITIONS = ["ref", "etoh60", "temp33"]
 REPLICATES = ["1", "2", "3"]
+
+# Alternative dynamic version using glob_wildcards, and with a print() to
+# show us the content of the list:
+#  CONDITIONS = glob_wildcards("reads/{condition}_1_1.fq").condition
+#  print("Conditions are: ", CONDITIONS)
 
 # Rule to make all counts and compile the results in two files
 rule all_counts:
@@ -36,33 +41,33 @@ rule trimreads:
     shell:
         "fastq_quality_trimmer -t 22 -l 100 -o {output} <{input}"
 
+# Find the difference between untrimmed and trimmed count files
+rule calculate_difference:
+    output: "{myfile}.reads_removed.txt"
+    input:
+        untrimmed = "reads.{myfile}.fq.count",
+        trimmed = "trimmed.{myfile}.fq.count",
+    shell:
+        "echo $(( $(<{input.untrimmed}) - $(<{input.trimmed}) )) > {output}"
+
 # Kallisto quantification of one sample
-# Modified to declare the whole directory as the output.
 rule kallisto_quant:
-    output: directory("kallisto.{sample}")
+    output:
+        h5   = "kallisto.{sample}/abundance.h5",
+        tsv  = "kallisto.{sample}/abundance.tsv",
+        json = "kallisto.{sample}/run_info.json",
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
         fq1   = "trimmed/{sample}_1.fq",
         fq2   = "trimmed/{sample}_2.fq",
     shell:
-        "kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2}"
+        "kallisto quant -i {input.index} -o kallisto.{wildcards.sample} {input.fq1} {input.fq2}"
 
 rule kallisto_index:
     output:
         idx = "{strain}.kallisto_index",
-        log = "{strain}.kallisto_log",
     input:
-        fasta = "transcriptome/{strain}.cdna.all.fa.gz"
+        fasta = "transcriptome/{strain}.cdna.all.fa.gz",
+    log: "{strain}.kallisto_log"
     shell:
-        "kallisto index -i {output.idx} {input.fasta} >& {output.log}"
-
-rule fastqc:
-    output:
-        html = "{indir}.{myfile}_fastqc.html",
-        zip  = "{indir}.{myfile}_fastqc.zip"
-    input:  "{indir}/{myfile}.fq"
-    shell:
-        """fastqc -o . {input}
-           mv {wildcards.myfile}_fastqc.html {output.html}
-           mv {wildcards.myfile}_fastqc.zip  {output.zip}
-        """
+        "kallisto index -i {output.idx} {input.fasta} >& {log}"

@@ -1,0 +1,7 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - bbmap=39.06=h92535d8_1
+  - cutadapt=4.9=py312hf67a6ed_0
+  - velvet=1.2.10=he4a0461_7

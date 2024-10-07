@@ -1,0 +1,5 @@
+salmon_kmer_len: "31"
+trimreads_qual_threshold: "20"
+trimreads_min_length: "100"
+conditions: ["etoh60", "temp33", "ref"]
+replicates: ["1", "2", "3"]

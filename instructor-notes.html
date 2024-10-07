@@ -122,8 +122,10 @@
             More <i data-feather="chevron-down"></i>
           </button>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+<li><a class="dropdown-item" href="B1-quoting.html">Extra Episode: Robust quoting in Snakefiles</a></li>
 <li><a class="dropdown-item" href="discuss.html">Discussion</a></li>
-<li><a class="dropdown-item" href="reference.html">Glossary</a></li>
+<li><a class="dropdown-item" href="prereqs.html">Prerequisites</a></li>
+<li><a class="dropdown-item" href="reference.html">Reference</a></li>
           </ul>
 </li>
       </ul>
@@ -280,7 +282,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-the_dag.html">4. How Snakemake plans its jobs</a>
+        <a href="04-logs_and_errors.html">4. Adding logs, and understanding errors</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -292,7 +294,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="05-expansion.html">5. Processing lists of inputs</a>
+        <a href="05-the_dag.html">5. How Snakemake plans its jobs</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -304,7 +306,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="06-awkward_programs.html">6. Handling awkward programs</a>
+        <a href="06-expansion.html">6. Processing lists of inputs</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -316,7 +318,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="07-finished-workflow.html">7. Finishing the basic workflow</a>
+        <a href="07-awkward_programs.html">7. Handling awkward programs</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -328,7 +330,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="08-configuring.html">8. Configuring workflows</a>
+        <a href="08-finished-workflow.html">8. Finishing the basic workflow</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -340,7 +342,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="09-performance.html">9. Optimising workflow performance</a>
+        <a href="09-configuring.html">9. Configuring workflows</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -352,7 +354,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="10-conda_integration.html">10. Conda integration</a>
+        <a href="10-performance.html">10. Optimising workflow performance</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -364,7 +366,7 @@
 <div class="accordion accordion-flush" id="accordionFlush12">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading12">
-        <a href="11-assembly_challenge.html">11. Constructing a whole new workflow</a>
+        <a href="11-conda_integration.html">11. Conda integration</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -376,7 +378,7 @@
 <div class="accordion accordion-flush" id="accordionFlush13">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading13">
-        <a href="12-cleaning_up.html">12. Cleaning up</a>
+        <a href="12-assembly_challenge.html">12. Constructing a whole new workflow</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -388,7 +390,7 @@
 <div class="accordion accordion-flush" id="accordionFlush14">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading14">
-        <a href="13-quoting.html">13. Robust quoting in Snakefiles</a>
+        <a href="13-cleaning_up.html">13. Cleaning up</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -421,8 +423,10 @@
                       <li>
                         <a href="profiles.html">Learner Profiles</a>
                       </li>
-                      <li><a href="discuss.html">Discussion</a></li>
-<li><a href="reference.html">Glossary</a></li>
+                      <li><a href="B1-quoting.html">Extra Episode: Robust quoting in Snakefiles</a></li>
+<li><a href="discuss.html">Discussion</a></li>
+<li><a href="prereqs.html">Prerequisites</a></li>
+<li><a href="reference.html">Reference</a></li>
                     </ul>
 </div>
                 </div>
@@ -453,23 +457,27 @@
         <h1>Instructor Notes</h1>
         
 
-<div class="section level1">
-<h1 id="general">General<a class="anchor" aria-label="anchor" href="#general"></a>
-</h1>
-<div class="section level2">
-<h2 id="how-to-introduce-snakemake">How to introduce Snakemake<a class="anchor" aria-label="anchor" href="#how-to-introduce-snakemake"></a>
+<section><h2 class="section-heading" id="how-to-introduce-snakemake">How to introduce Snakemake<a class="anchor" aria-label="anchor" href="#how-to-introduce-snakemake"></a>
 </h2>
+<hr class="half-width">
 <p>Prior to beginning the first lesson you want to say something about
-Snakemake. As an instructor, saying how you yourself came across
-Snakemake and how you use it in your own work is probably the best
-approach.</p>
+Snakemake in general. As an instructor, saying how you yourself came
+across Snakemake and how you use it in your own work is probably the
+best approach.</p>
 <p>Otherwise, the info on <a href="https://snakemake.readthedocs.io" class="external-link">https://snakemake.readthedocs.io</a>
-should have everything you need, and the “rolling paper” has a nice
-graphic showing the history of the Snakemake project.</p>
-</div>
-<div class="section level2">
-<h2 id="when-to-use-a-workflow-system">When to use a workflow system?<a class="anchor" aria-label="anchor" href="#when-to-use-a-workflow-system"></a>
+should have everything you need, and the <a href="https://f1000research.com/articles/10-33/v2" class="external-link">rolling paper</a> has
+a nice graphic (fig. 2) showing the history of the Snakemake project. As
+of July 2024 this paper has over 1000 citations.</p>
+<p>You can also show the workflows available in the public catalogues to
+give an overview of what people are doing with Snakemake.</p>
+<ul>
+<li><a href="https://workflowhub.eu/workflows?filter%5Bworkflow_type%5D=snakemake&amp;order=downloads_desc" class="external-link">Snakemake
+workflows in WokflowHub</a></li>
+<li><a href="https://snakemake.github.io/snakemake-workflow-catalog/" class="external-link">Snakemake
+workflow catalogue</a></li>
+</ul></section><section><h2 class="section-heading" id="when-to-use-a-workflow-system">When to use a workflow system?<a class="anchor" aria-label="anchor" href="#when-to-use-a-workflow-system"></a>
 </h2>
+<hr class="half-width">
 <p>Learners may ask when it is appropriate to use a system like
 Snakemake.</p>
 <p>The paper <a href="https://pubmed.ncbi.nlm.nih.gov/31477884/" class="external-link">Workflow systems turn
@@ -495,22 +503,23 @@ understand the fundamentals you are likely to start using Snakemake for
 even these simple tasks.</p>
 <p>Having said this, not every data analysis task is suited to
 Snakemake, or in some cases you may only want to use Snakemake for part
-of a task, and do the rest with regular scripting.</p>
-</div>
-<div class="section level2">
-<h2 id="which-is-the-best-workflow-system-to-use">Which is the best workflow system to use?<a class="anchor" aria-label="anchor" href="#which-is-the-best-workflow-system-to-use"></a>
+of a task, and do the rest with, say, regular scripting.</p>
+</section><section><h2 class="section-heading" id="which-is-the-best-workflow-system-to-use">Which is the best workflow system to use?<a class="anchor" aria-label="anchor" href="#which-is-the-best-workflow-system-to-use"></a>
 </h2>
-<p>Snakemake 🐍</p>
+<hr class="half-width">
+<p>Snakemake! 🐍</p>
 <p>But, in seriousness, other workflow systems are available. Some are
 better suited to different tasks, and some users have a preference for
 one over another. For a large task, it is worth investigating multiple
 options before committing to an approach. <a href="https://github.com/GoekeLab/bioinformatics-workflows" class="external-link">This GIT
 repository and associated paper</a> comparing eight workflow systems is
-a good place to start.</p>
-</div>
-<div class="section level2">
-<h2 id="about-the-sample-data-files">About the sample data files<a class="anchor" aria-label="anchor" href="#about-the-sample-data-files"></a>
+a good place to start. And in fact the previously mentioned <a href="https://f1000research.com/articles/10-33/v2" class="external-link">Snakemake rolling
+paper</a> compares Snakemake to several other workflow systems.</p>
+<p>You should also look through existing workflows on resources like <a href="https://workflowhub.eu" class="external-link">WorkflowHub</a>, as someone may have
+already solved all or part of your problem.</p>
+</section><section><h2 class="section-heading" id="about-the-sample-data-files">About the sample data files<a class="anchor" aria-label="anchor" href="#about-the-sample-data-files"></a>
 </h2>
+<hr class="half-width">
 <p>The sample data files are not biologically meaningful. They are not
 even really from three different conditions, so do not try to do any
 sort of real data analysis on them. For the purposes of this course, the
@@ -521,24 +530,28 @@ course.</p>
 <p>It’s possible that a learner will accidentally delete or overwite the
 input files. In this case, note that a copy is available to download -
 see the link on <a href="index.html#setup">the setup page</a>.</p>
-</div>
-</div>
-<div class="section level1">
-<h1 id="notes-on-specific-episodes">Notes on specific episodes<a class="anchor" aria-label="anchor" href="#notes-on-specific-episodes"></a>
-</h1>
-<div class="section level2">
-<h2 id="episode-03---chaining-rules">Episode 03 - Chaining rules<a class="anchor" aria-label="anchor" href="#episode-03---chaining-rules"></a>
+</section><section><h2 class="section-heading" id="choice-of-bioinformatics-software">Choice of bioinformatics software<a class="anchor" aria-label="anchor" href="#choice-of-bioinformatics-software"></a>
 </h2>
-<p>There is a figure to illustrate the way Snakemake finds rules by
-wildcard matching and then tracks back until it runs out of rule matches
-and finds a file that it already has. You may find that showing an
-animated version of this is helpful, in which case <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/files/9299078/wildcard_demo.pptx" class="external-link">there
-are some slides here</a>.</p>
+<hr class="half-width">
+<p>Like the toy dataset, the tools in this course are chosen to
+illustrate the workings of Snakemake. The choice of older and simpler
+tools like <em>fastx toolkit</em> is deliberate, and reduces the burden
+of maintenance of this course material as tools are updated.</p>
+<p>In practise, learners may ask to go into more depth on the choice,
+configuration, and functionality of the bioinformatics software. If you
+have the time and are confident talking about this then do so, but if
+not then it is valid to reiterate that the focus of the course is on the
+orchestration of analysis steps with Snakemake, not the choice of what
+software is best for any given analysis.</p>
+</section><section><h2 class="section-heading" id="questions-from-learners">Questions from Learners<a class="anchor" aria-label="anchor" href="#questions-from-learners"></a>
+</h2>
+<hr class="half-width">
+<div class="section level3">
+<h3 id="q-example-question-here">Q: Example question here?<a class="anchor" aria-label="anchor" href="#q-example-question-here"></a>
+</h3>
+<p>A: Example answer here.</p>
 </div>
-</div>
-
-
-      <section id="aggregate-instructor-notes"></section>
+</section><section id="aggregate-instructor-notes"></section>
 </div>
     </main>
 </div>
@@ -586,8 +599,8 @@ are some slides here</a>.</p>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor-notes.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor-notes.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-10-01",
-  "datePublished": "2024-10-01"
+  "dateModified": "2024-10-07",
+  "datePublished": "2024-10-07"
 }
 
   </script><script>

@@ -1,5 +1,5 @@
 ###
-# Snakefile you should have after completing episode 10, assuming you start with ep07.Snakefile
+# Snakefile you should have after completing episode 10, assuming you start with ep08.Snakefile
 ###
 
 # Input conditions and replicates to process
@@ -29,19 +29,20 @@ rule kallisto_quant:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
         fq1   = "trimmed/{sample}_1.fq",
         fq2   = "trimmed/{sample}_2.fq",
+    threads: 4
     shell:
         """mkdir {output}
-           kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
+           kallisto quant -t {threads} -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
         """
 
 rule kallisto_index:
     output:
         idx = "{strain}.kallisto_index",
-        log = "{strain}.kallisto_log",
     input:
-        fasta = "transcriptome/{strain}.cdna.all.fa.gz"
+        fasta = "transcriptome/{strain}.cdna.all.fa.gz",
+    log: "{strain}.kallisto_log"
     shell:
-        "kallisto index -i {output.idx} {input.fasta} >& {output.log}"
+        "kallisto index -i {output.idx} {input.fasta} >& {log}"
 
 rule fastqc:
     output:
@@ -60,23 +61,22 @@ rule salmon_quant:
         index = "Saccharomyces_cerevisiae.R64-1-1.salmon_index",
         fq1   = "trimmed/{sample}_1.fq",
         fq2   = "trimmed/{sample}_2.fq",
-    conda: "salmon-1.2.1.yaml"
+    threads: 4
     shell:
-        "salmon quant -i {input.index} -l A -1 {input.fq1} -2 {input.fq2} --validateMappings -o {output}"
+        "salmon quant -p {threads} -i {input.index} -l A -1 {input.fq1} -2 {input.fq2} --validateMappings -o {output}"
 
 rule salmon_index:
     output:
         idx = directory("{strain}.salmon_index")
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
-    conda: "salmon-1.2.1.yaml"
     shell:
         "salmon index -t {input.fasta} -i {output.idx} -k 31"
 
 # A version of the MultiQC rule that ensures nothing unexpected is hoovered up by multiqc,
 # by linking the files into a temporary directory.
 # Note that this requires the *kallisto_quant* rule to be amended as above so that it has
-# a directory as the output, with that directory containing the console log.
+# a directory as the output, with that directory containing the console output.
 rule multiqc:
     output:
         mqc_out = directory('multiqc_out'),
@@ -90,9 +90,3 @@ rule multiqc:
            ln -snr -t {output.mqc_in} {input}
            multiqc {output.mqc_in} -o {output.mqc_out}
         """
-
-# Rule to demonstrate using a conda environment
-rule a_conda_rule:
-    conda:  "new-env.yaml"
-    shell:
-        "which cutadapt"

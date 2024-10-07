@@ -1,6 +1,5 @@
 ###
 # Snakefile you should have after completing episode 03
-# It's not modified during episode 04
 ###
 
 # Generic read counter rule using wildcards and placeholders,
@@ -18,24 +17,11 @@ rule trimreads:
     shell:
         "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 
-# Kallisto quantification of one sample
-rule kallisto_quant:
-    output:
-        h5   = "kallisto.{sample}/abundance.h5",
-        tsv  = "kallisto.{sample}/abundance.tsv",
-        json = "kallisto.{sample}/run_info.json",
+# Find the difference between untrimmed and trimmed count files
+rule calculate_difference:
+    output: "{myfile}.reads_removed.txt"
     input:
-        index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
-        fq1   = "trimmed/{sample}_1.fq",
-        fq2   = "trimmed/{sample}_2.fq",
+        untrimmed = "reads.{myfile}.fq.count",
+        trimmed = "trimmed.{myfile}.fq.count",
     shell:
-        "kallisto quant -i {input.index} -o kallisto.{wildcards.sample} {input.fq1} {input.fq2}"
-
-rule kallisto_index:
-    output:
-        idx = "{strain}.kallisto_index",
-        log = "{strain}.kallisto_log",
-    input:
-        fasta = "transcriptome/{strain}.cdna.all.fa.gz"
-    shell:
-        "kallisto index -i {output.idx} {input.fasta} >& {output.log}"
+        "echo $(( $(<{input.untrimmed}) - $(<{input.trimmed}) )) > {output}"

@@ -122,8 +122,10 @@
             More <i data-feather="chevron-down"></i>
           </button>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+<li><a class="dropdown-item" href="B1-quoting.html">Extra Episode: Robust quoting in Snakefiles</a></li>
 <li><a class="dropdown-item" href="discuss.html">Discussion</a></li>
-<li><a class="dropdown-item" href="reference.html">Glossary</a></li>
+<li><a class="dropdown-item" href="prereqs.html">Prerequisites</a></li>
+<li><a class="dropdown-item" href="reference.html">Reference</a></li>
           </ul>
 </li>
       </ul>
@@ -280,7 +282,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-the_dag.html">4. How Snakemake plans its jobs</a>
+        <a href="04-logs_and_errors.html">4. Adding logs, and understanding errors</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -292,7 +294,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="05-expansion.html">5. Processing lists of inputs</a>
+        <a href="05-the_dag.html">5. How Snakemake plans its jobs</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -304,7 +306,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="06-awkward_programs.html">6. Handling awkward programs</a>
+        <a href="06-expansion.html">6. Processing lists of inputs</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -316,7 +318,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="07-finished-workflow.html">7. Finishing the basic workflow</a>
+        <a href="07-awkward_programs.html">7. Handling awkward programs</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -328,7 +330,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="08-configuring.html">8. Configuring workflows</a>
+        <a href="08-finished-workflow.html">8. Finishing the basic workflow</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -340,7 +342,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="09-performance.html">9. Optimising workflow performance</a>
+        <a href="09-configuring.html">9. Configuring workflows</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -352,7 +354,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="10-conda_integration.html">10. Conda integration</a>
+        <a href="10-performance.html">10. Optimising workflow performance</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -364,7 +366,7 @@
 <div class="accordion accordion-flush" id="accordionFlush12">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading12">
-        <a href="11-assembly_challenge.html">11. Constructing a whole new workflow</a>
+        <a href="11-conda_integration.html">11. Conda integration</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -376,7 +378,7 @@
 <div class="accordion accordion-flush" id="accordionFlush13">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading13">
-        <a href="12-cleaning_up.html">12. Cleaning up</a>
+        <a href="12-assembly_challenge.html">12. Constructing a whole new workflow</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -388,7 +390,7 @@
 <div class="accordion accordion-flush" id="accordionFlush14">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading14">
-        <a href="13-quoting.html">13. Robust quoting in Snakefiles</a>
+        <a href="13-cleaning_up.html">13. Cleaning up</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -421,8 +423,10 @@
                       <li>
                         <a href="profiles.html">Learner Profiles</a>
                       </li>
-                      <li><a href="discuss.html">Discussion</a></li>
-<li><a href="reference.html">Glossary</a></li>
+                      <li><a href="B1-quoting.html">Extra Episode: Robust quoting in Snakefiles</a></li>
+<li><a href="discuss.html">Discussion</a></li>
+<li><a href="prereqs.html">Prerequisites</a></li>
+<li><a href="reference.html">Reference</a></li>
                     </ul>
 </div>
                 </div>
@@ -479,7 +483,15 @@ missing inputs</li>
 <li>Rules may have multiple named inputs and/or outputs</li>
 <li>If a shell command does not yield an expected output then Snakemake
 will regard that as a failure</li>
-</ul></section><section id="04-the_dag"><h2 class="section-heading"><a href="04-the_dag.html">How Snakemake plans its jobs</a></h2>
+</ul></section><section id="04-logs_and_errors"><h2 class="section-heading"><a href="04-logs_and_errors.html">Adding logs, and understanding errors</a></h2>
+<hr class="half-width">
+<ul>
+<li>Snakemake links rules by iteratively looking for rules that make
+missing inputs</li>
+<li>Rules may have multiple named inputs and/or outputs</li>
+<li>If a shell command does not yield an expected output then Snakemake
+will regard that as a failure</li>
+</ul></section><section id="05-the_dag"><h2 class="section-heading"><a href="05-the_dag.html">How Snakemake plans its jobs</a></h2>
 <hr class="half-width">
 <ul>
 <li>A <strong>job</strong> in Snakemake is a <strong>rule</strong> plus
@@ -491,7 +503,7 @@ requested output)</li>
 DAG</li>
 <li>Snakemake compares file timestamps and a log of previous runs to
 determine what need regenerating</li>
-</ul></section><section id="05-expansion"><h2 class="section-heading"><a href="05-expansion.html">Processing lists of inputs</a></h2>
+</ul></section><section id="06-expansion"><h2 class="section-heading"><a href="06-expansion.html">Processing lists of inputs</a></h2>
 <hr class="half-width">
 <ul>
 <li>Rename your input files if necessary to maintain consistent
@@ -504,7 +516,7 @@ filenames you want to combine</li>
 <li>These functions can be tested in the Python interpreter</li>
 <li>Any <code>{input}</code> to a rule can be a variable-length list,
 but variable lists of outputs are trickier and rarely needed</li>
-</ul></section><section id="06-awkward_programs"><h2 class="section-heading"><a href="06-awkward_programs.html">Handling awkward programs</a></h2>
+</ul></section><section id="07-awkward_programs"><h2 class="section-heading"><a href="07-awkward_programs.html">Handling awkward programs</a></h2>
 <hr class="half-width">
 <ul>
 <li>Different bioinformatics tools will have different quirks</li>
@@ -512,14 +524,14 @@ but variable lists of outputs are trickier and rarely needed</li>
 filenames, you have several ways to deal with this</li>
 <li>Use triple-quote syntax to make longer shell scripts with multiple
 commands</li>
-</ul></section><section id="07-finished-workflow"><h2 class="section-heading"><a href="07-finished-workflow.html">Finishing the basic workflow</a></h2>
+</ul></section><section id="08-finished-workflow"><h2 class="section-heading"><a href="08-finished-workflow.html">Finishing the basic workflow</a></h2>
 <hr class="half-width">
 <ul>
 <li>Once a workflow is complete and working, there will still be room
 for refinement</li>
 <li>This completes the introduction to the fundamentals of
 Snakemake</li>
-</ul></section><section id="08-configuring"><h2 class="section-heading"><a href="08-configuring.html">Configuring workflows</a></h2>
+</ul></section><section id="09-configuring"><h2 class="section-heading"><a href="09-configuring.html">Configuring workflows</a></h2>
 <hr class="half-width">
 <ul>
 <li>Break out significant options into rule parameters</li>
@@ -534,7 +546,7 @@ line with <code>--configfile</code>
 <code>--config name1=value1 name2=value2</code> and end the list with a
 new parameter, eg. <code>-p</code>
 </li>
-</ul></section><section id="09-performance"><h2 class="section-heading"><a href="09-performance.html">Optimising workflow performance</a></h2>
+</ul></section><section id="10-performance"><h2 class="section-heading"><a href="10-performance.html">Optimising workflow performance</a></h2>
 <hr class="half-width">
 <ul>
 <li>To make your workflow run as fast as possible, try to match the
@@ -542,7 +554,7 @@ number of threads to the number of cores you have</li>
 <li>You also need to consider RAM, disk, and network bottlenecks</li>
 <li>Profile your jobs to see what is taking most resources</li>
 <li>Snakemake is great for running workflows on compute clusters</li>
-</ul></section><section id="10-conda_integration"><h2 class="section-heading"><a href="10-conda_integration.html">Conda integration</a></h2>
+</ul></section><section id="11-conda_integration"><h2 class="section-heading"><a href="11-conda_integration.html">Conda integration</a></h2>
 <hr class="half-width">
 <ul>
 <li>Conda is a system for managing software packages in self-contained
@@ -555,7 +567,7 @@ set these up for you</li>
 modifying globally-installed packages</li>
 <li>Workflows made this way are super-portable, because Conda handles
 installing the correct versions of everything</li>
-</ul></section><section id="11-assembly_challenge"><h2 class="section-heading"><a href="11-assembly_challenge.html">Constructing a whole new workflow</a></h2>
+</ul></section><section id="12-assembly_challenge"><h2 class="section-heading"><a href="12-assembly_challenge.html">Constructing a whole new workflow</a></h2>
 <hr class="half-width">
 <ul>
 <li>By now, you are ready to start using Snakemake for your own workflow
@@ -564,7 +576,7 @@ tasks</li>
 workflow</li>
 <li>Don’t be disheartened by errors, which are normal; use a systematic
 approach to diagnose the problem</li>
-</ul></section><section id="12-cleaning_up"><h2 class="section-heading"><a href="12-cleaning_up.html">Cleaning up</a></h2>
+</ul></section><section id="13-cleaning_up"><h2 class="section-heading"><a href="13-cleaning_up.html">Cleaning up</a></h2>
 <hr class="half-width">
 <ul>
 <li>Cleaning up working files is good practise</li>
@@ -572,18 +584,6 @@ approach to diagnose the problem</li>
 don’t need to keep</li>
 <li>Shadow rules can solve issues with commands that produce unwanted
 files</li>
-</ul></section><section id="13-quoting"><h2 class="section-heading"><a href="13-quoting.html">Robust quoting in Snakefiles</a></h2>
-<hr class="half-width">
-<ul>
-<li>Having a grasp of string quoting rules is boring but important</li>
-<li>Understand the three processing steps each <em>shell</em> command
-goes through before it is actually run</li>
-<li>Put complex shell commands into raw triple-quotes
-(<code>r"""</code>)</li>
-<li>Watch out for commands that have {curly brackets}, and double them
-up</li>
-<li>Use the built-in <code>:q</code> feature to protect arguments from
-<em>bash</em> interpretation</li>
 </ul></section>
 </div>
     </main>
@@ -632,8 +632,8 @@ up</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/key-points.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/key-points.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-10-01",
-  "datePublished": "2024-10-01"
+  "dateModified": "2024-10-07",
+  "datePublished": "2024-10-07"
 }
 
   </script><script>

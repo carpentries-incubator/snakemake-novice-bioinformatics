@@ -10,13 +10,25 @@
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/03-chaining_rules.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/04-logs_and_errors.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/04-the_dag.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/05-expansion.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/05-the_dag.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/06-awkward_programs.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/06-expansion.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/07-awkward_programs.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/07-finished-workflow.html</loc>
@@ -25,22 +37,43 @@
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/08-configuring.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/08-finished-workflow.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/09-configuring.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/09-performance.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/10-conda_integration.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/10-performance.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/11-assembly_challenge.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/11-conda_integration.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/12-assembly_challenge.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/12-cleaning_up.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/13-cleaning_up.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/13-quoting.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/404.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/B1-quoting.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/CODE_OF_CONDUCT.html</loc>
@@ -70,13 +103,25 @@
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/03-chaining_rules.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/04-logs_and_errors.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/04-the_dag.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/05-expansion.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/05-the_dag.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/06-awkward_programs.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/06-expansion.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/07-awkward_programs.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/07-finished-workflow.html</loc>
@@ -85,22 +130,43 @@
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/08-configuring.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/08-finished-workflow.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/09-configuring.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/09-performance.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/10-conda_integration.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/10-performance.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/11-assembly_challenge.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/11-conda_integration.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/12-assembly_challenge.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/12-cleaning_up.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/13-cleaning_up.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/13-quoting.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/404.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/B1-quoting.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/CODE_OF_CONDUCT.html</loc>
@@ -130,6 +196,9 @@
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/paper.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/prereqs.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/profiles.html</loc>
   </url>
   <url>
@@ -143,6 +212,9 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/paper.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/prereqs.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/profiles.html</loc>
