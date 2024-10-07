@@ -1,27 +1,24 @@
 echo "Test for episodes/files/ep08.Snakefile"
 
 cp -vf episodes/files/ep08.Snakefile snakemake_data/yeast/Snakefile
-cp -vf episodes/files/ep08/config.yaml snakemake_data/yeast/
+cp -vf episodes/files/ep08/wrappers.Snakefile snakemake_data/yeast/wrappers.Snakefile
 cd snakemake_data/yeast
 
 # This assumes renames are applied
 ( cd reads ; rename -v -s ref ref_ ref?_?.fq )
 
-# Extract the default config from the comment in the Snakefile itself
-sed -n -e '/config.yaml contents/,/^$/s/^# //p' Snakefile > config_fromfile.yaml
+snakemake -j1 -p multiqc
 
-# They should be the same!
-diff -qbZ config.yaml config_fromfile.yaml
+# Report should appear
+test -s multiqc_out/multiqc_report.html
 
-# Use dry-run to save a little time
-res1=$( snakemake -Fn --config -p multiqc | grep ^trimreads | tail -n1 )
+# There is also the version with wrappers
+snakemake -j1 --delete-all-output multiqc
+test '!' -e multiqc_out
 
-# 9 samples, 2 .fq files each
-[[ "$res1" =~ trimreads.+18 ]]
+echo "Testing the version that uses wrappers..."
 
-# And with alternative --config, only 2 samples precessed
-res2=$( snakemake -Fn --config conditions='["temp33"]' replicates='["2", "3"]' -p multiqc | \
-        grep ^trimreads | tail -n1 )
+snakemake -c all -s wrappers.Snakefile -p multiqc
 
-[[ "$res2" =~ trimreads.+4 ]]
-
+# Report should appear again
+test -s multiqc_out/multiqc_report.html

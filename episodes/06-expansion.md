@@ -20,7 +20,7 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the Snakefile](files/ep03.Snakefile) you should have to start the
+*For reference, [this is the Snakefile](files/ep04.Snakefile) you should have to start the
 episode. We didn't modify it during the last episode.*
 
 ## Defining a list of samples to process
@@ -408,7 +408,7 @@ In practise these are very rarely needed, so we'll not be covering them here in 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is a Snakefile](files/ep05.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep06.Snakefile) incorporating the changes made in
 this episode.*
 
 

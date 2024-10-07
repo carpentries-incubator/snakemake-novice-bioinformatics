@@ -1,5 +1,5 @@
 ###
-# Snakefile you should have after completing episodes 01 to 07,
+# Snakefile you should have after completing episodes 01 to 08,
 # but using wrappers from https://snakemake-wrappers.readthedocs.io
 #
 # To run a full MultiQC report on all samples, use:

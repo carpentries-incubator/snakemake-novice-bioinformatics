@@ -28,7 +28,7 @@ The script performs a de-novo assembly of the RNA sequences in the demo dataset.
 does not produce a biologically meaningful assembly, but nevertheless this is the basis for
 a nice example workflow, so we will go ahead and try.
 
-The following shell script [can also be downloaded here](files/ep11/assembly_script.sh):
+The following shell script [can also be downloaded here](files/ep12/assembly_script.sh):
 
 ```bash
 #!/bin/bash
@@ -194,8 +194,8 @@ the longest contig in each of the twelve assemblies.
 
 ## Solution
 
-A sample solution to this exercise [is available here](files/ep11/sample_answer.Snakefile),
-along with a suitable [Conda environment spec](files/ep11/assembly_conda_env.yaml). However, there
+A sample solution to this exercise [is available here](files/ep12/sample_answer.Snakefile),
+along with a suitable [Conda environment spec](files/ep12/assembly_conda_env.yaml). However, there
 is no single "correct" answer, so don't worry if your approach looks different. Hopefully we
 will have time in the course to look through and compare some different answers.
 

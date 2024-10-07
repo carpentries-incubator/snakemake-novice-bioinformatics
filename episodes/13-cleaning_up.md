@@ -19,7 +19,7 @@ exercises: 15
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the final Snakefile from episodes 1 to 7](files/ep07.Snakefile) you may
+*For reference, [this is the final Snakefile from episodes 1 to 8](files/ep08.Snakefile) you may
 use to start this episode.*
 
 ## Temporary files in Snakemake
@@ -224,7 +224,7 @@ Advantages of using shadow rules are:
   (as with `temp_file.txt` in the above example).
 - When running jobs in parallel (eg. `-j2`) certain conflicts related to temporary files will be
   avoided by not ever running multiple jobs in the same directory at once - we've already seen
-  a case back in [Episode 06](06-awkward_programs.html) where the final version of the *fastqc*
+  a case back in [Episode 07](07-awkward_programs.html) where the final version of the *fastqc*
   rule has this problem.
 
 Disadvantages are:
@@ -271,7 +271,7 @@ not need to deal with or mention the unwanted file at all.
 
 :::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is a Snakefile](files/ep12.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep13.Snakefile) incorporating the changes made in
 this episode.*
 
 

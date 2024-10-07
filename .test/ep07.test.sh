@@ -1,24 +1,15 @@
 echo "Test for episodes/files/ep07.Snakefile"
 
 cp -vf episodes/files/ep07.Snakefile snakemake_data/yeast/Snakefile
-cp -vf episodes/files/ep07/wrappers.Snakefile snakemake_data/yeast/wrappers.Snakefile
 cd snakemake_data/yeast
 
-# This assumes renames are applied
+# This Snakefile assumes renames are applied
 ( cd reads ; rename -v -s ref ref_ ref?_?.fq )
 
-snakemake -j1 -p multiqc
+snakemake -j1 -p trimmed_counts_concatenated.txt \
+                 trimmed.etoh60_1_1_fastqc.zip \
+                 reads.etoh60_1_1_fastqc.zip
 
-# Report should appear
-test -s multiqc_out/multiqc_report.html
-
-# There is also the version with wrappers
-snakemake -j1 --delete-all-output multiqc
-test '!' -e multiqc_out
-
-echo "Testing the version that uses wrappers..."
-
-snakemake -c all -s wrappers.Snakefile -p multiqc
-
-# Report should appear again
-test -s multiqc_out/multiqc_report.html
+test -s trimmed_counts_concatenated.txt
+test -s trimmed.etoh60_1_1_fastqc.html
+test -s reads.etoh60_1_1_fastqc.html

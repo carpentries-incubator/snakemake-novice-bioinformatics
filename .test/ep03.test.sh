@@ -3,7 +3,9 @@ echo "Test for episodes/files/ep03.Snakefile"
 cp -vf episodes/files/ep03.Snakefile snakemake_data/yeast/Snakefile
 cd snakemake_data/yeast
 
-snakemake -j1 -p kallisto.etoh60_1/abundance.h5 trimmed.etoh60_2_2.fq.count
+snakemake -j1 -F -p ref1_1.reads_removed.txt etoh60_1_1.reads_removed.txt
 
-test -s trimmed/etoh60_2_2.fq
-test -s kallisto.etoh60_1/abundance.h5
+head -v *_removed.txt
+
+[[ <(cat ref1_1.reads_removed.txt == 399 ]]
+[[ <(cat etoh60_1_1.reads_removed.txt == 399 ]]

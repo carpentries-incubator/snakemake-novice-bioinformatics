@@ -19,7 +19,7 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the Snakefile](files/ep03.Snakefile) you should have to start the
+*For reference, [this is the Snakefile](files/ep04.Snakefile) you should have to start the
 episode.*
 
 ## The DAG
@@ -295,7 +295,7 @@ not be too time consuming, keep it simple and just use `-F` to run the whole wor
 
 For the opposite case where you want to avoid re-running particular steps, see the `‑‑touch`
 option of Snakemake mentioned [later in the course.
-](12-cleaning_up.md)
+](13-cleaning_up.md)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

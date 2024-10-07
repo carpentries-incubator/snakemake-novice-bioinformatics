@@ -18,7 +18,7 @@ exercises: 20
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the final Snakefile from episodes 1 to 7](files/ep07.Snakefile) you may
+*For reference, [this is the final Snakefile from episodes 1 to 8](files/ep08.Snakefile) you may
 use to start this episode.*
 
 ## The basics of Conda
@@ -313,7 +313,7 @@ explicit *conda:* directive in the rule.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is a Snakefile](files/ep10.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep11.Snakefile) incorporating the changes made in
 this episode.*
 
 

@@ -30,8 +30,8 @@ section for more details.
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 We can install all the software packages, including Snakemake and the bioinformatics tools, via
-Conda. For more info on Conda, see the first part of [episode 10
-](episodes/10-conda_integration.md).
+Conda. For more info on Conda, see the first part of [episode 11
+](episodes/11-conda_integration.md).
 
 - If you don't already have Conda, start with [the Miniforge installer
   ](https://github.com/conda-forge/miniforge).

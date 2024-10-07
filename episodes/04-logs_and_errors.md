@@ -162,7 +162,7 @@ was run now?
 Try it by telling Snakemake to run the new rule on the files `ref1_1.fq` and `ref1_2.fq`.
 Since the rule defines multiple outputs, asking for any one of the output files will be enough.
 
-:::::::::::::::  solution
+::::::::::::::::::::::::::  solution
 
 ## Solution
 
@@ -176,7 +176,7 @@ missing.
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -218,9 +218,9 @@ rule kallisto_index:
         "kallisto index -i {output.idx} {input.fasta} >& {output.messages}"
 ```
 
-:::::::::::::::::::::::::
+::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Log outputs in Snakemake
 
@@ -243,7 +243,7 @@ if the job produces an error, so you can look at the log to help diagnose the er
 For an output to be treated as a log file, list it under `log:` instead of `output:` and then
 within the shell command use the placeholder `{log}` instead of `{output}`.
 
-:::::::::::::::::::::::::::::::::::::::  challenge
+::::::::::::::::::::::::::::::::::  challenge
 
 ## Using an explicit log output
 
@@ -279,7 +279,9 @@ rule kallisto_index:
         "kallisto index -i {output} {input} >& {log}"
 ```
 
-:::::::::::::::::::::::::
+:::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::
 
 
 ## Dealing with a *missing files* error
@@ -385,7 +387,7 @@ sample too:
 $ snakemake -j1 -F -p kallisto.ref1/abundance.h5  kallisto.temp33_1/abundance.h5
 ```
 
-*For reference, [this is a Snakefile](files/ep03.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep04.Snakefile) incorporating the changes made in
 this episode.*
 
 

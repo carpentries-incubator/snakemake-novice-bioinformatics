@@ -1,5 +1,5 @@
 ###
-# Snakefile you should have after completing episode 12, assuming you start with ep07.Snakefile
+# Snakefile you should have after completing episode 11, assuming you start with ep08.Snakefile
 ###
 
 # Input conditions and replicates to process
@@ -16,17 +16,10 @@ rule countreads:
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-    output: temporary("trimmed/{myfile}.fq")
+    output: "trimmed/{myfile}.fq"
     input:  "reads/{myfile}.fq"
     shell:
         "fastq_quality_trimmer -t 22 -l 100 -o {output} <{input}"
-
-# Rule to zip any FASTQ file
-rule gzip_fastq:
-    output: "{afile}.fq.gz"
-    input:  "{afile}.fq"
-    shell:
-        "gzip -nc {input} > {output}"
 
 # Kallisto quantification of one sample.
 # Modified to declare the whole directory as the output.
@@ -34,8 +27,8 @@ rule kallisto_quant:
     output: directory("kallisto.{sample}")
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
-        fq1   = "trimmed/{sample}_1.fq.gz",
-        fq2   = "trimmed/{sample}_2.fq.gz",
+        fq1   = "trimmed/{sample}_1.fq",
+        fq2   = "trimmed/{sample}_2.fq",
     shell:
         """mkdir {output}
            kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
@@ -43,21 +36,18 @@ rule kallisto_quant:
 
 rule kallisto_index:
     output:
-        idx = protected("{strain}.kallisto_index"),
+        idx = "{strain}.kallisto_index",
         log = "{strain}.kallisto_log",
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
     shell:
         "kallisto index -i {output.idx} {input.fasta} >& {output.log}"
 
-# Having this rule run in shadow mode avoids potential filename conflicts when running
-# workflow jobs in parallel. In this case, "minimal" shadow is fine.
 rule fastqc:
     output:
-        html = temporary("{indir}.{myfile}_fastqc.html"),
+        html = "{indir}.{myfile}_fastqc.html",
         zip  = "{indir}.{myfile}_fastqc.zip"
     input:  "{indir}/{myfile}.fq"
-    shadow: "minimal"
     shell:
         """fastqc -o . {input}
            mv {wildcards.myfile}_fastqc.html {output.html}
@@ -68,16 +58,18 @@ rule salmon_quant:
     output: directory("salmon.{sample}")
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.salmon_index",
-        fq1   = "trimmed/{sample}_1.fq.gz",
-        fq2   = "trimmed/{sample}_2.fq.gz",
+        fq1   = "trimmed/{sample}_1.fq",
+        fq2   = "trimmed/{sample}_2.fq",
+    conda: "salmon-1.2.1.yaml"
     shell:
         "salmon quant -i {input.index} -l A -1 {input.fq1} -2 {input.fq2} --validateMappings -o {output}"
 
 rule salmon_index:
     output:
-        idx = protected(directory("{strain}.salmon_index"))
+        idx = directory("{strain}.salmon_index")
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
+    conda: "salmon-1.2.1.yaml"
     shell:
         "salmon index -t {input.fasta} -i {output.idx} -k 31"
 
@@ -98,3 +90,9 @@ rule multiqc:
            ln -snr -t {output.mqc_in} {input}
            multiqc {output.mqc_in} -o {output.mqc_out}
         """
+
+# Rule to demonstrate using a conda environment
+rule a_conda_rule:
+    conda:  "new-env.yaml"
+    shell:
+        "which cutadapt"
