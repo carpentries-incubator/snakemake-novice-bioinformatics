@@ -411,7 +411,8 @@
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul><li>How do I save disk space by removing temporary files?</li>
-<li>How do I protect important outputs from deletion?</li>
+<li>How do I isolate the interim files created by jobs from each
+other?</li>
 </ul></div>
 </div>
 </div>
@@ -419,7 +420,7 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>Understand the function of <em>temporary</em> outputs.</li>
+<ul><li>Understand how Snakemake manages <em>temporary</em> outputs</li>
 <li>Learn about running in <em>--touch</em> mode</li>
 <li>Learn about <em>shadow</em> mode rules</li>
 </ul></div>
@@ -598,6 +599,8 @@ rather like the opposite of the <code>temporary()</code> function and
 says that once an output has been produced it must not be overwritten.
 In practise, Snakemake does this by revoking write permissions on the
 files (as in <code>chmod -w {output}</code>).</p>
+<p>We can do this for the Salmon and Kallisto indexes, for example, as
+these should only ever need to be generated once.</p>
 <p>This works, but can be annoying because Snakemake will refuse to run
 if it believes it needs to re-create a file which is protected. An
 alternative suggestion is, once you have generated an important output
@@ -700,6 +703,7 @@ Snakefile</a> incorporating the changes made in this episode.</em></p>
 <ul><li>Cleaning up working files is good practise</li>
 <li>Make use of the <code>temporary()</code> function on outputs you
 don’t need to keep</li>
+<li>Protect outputs which are expensive to reproduce</li>
 <li>Shadow rules can solve issues with commands that produce unwanted
 files</li>
 </ul></div>
