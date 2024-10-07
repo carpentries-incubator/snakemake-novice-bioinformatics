@@ -7,5 +7,5 @@ snakemake -j1 -F -p ref1_1.reads_removed.txt etoh60_1_1.reads_removed.txt
 
 head -v *_removed.txt
 
-[[ <(cat ref1_1.reads_removed.txt == 399 ]]
-[[ <(cat etoh60_1_1.reads_removed.txt == 399 ]]
+[[ $(<ref1_1.reads_removed.txt) == 399 ]]
+[[ $(<etoh60_1_1.reads_removed.txt) == 532 ]]
