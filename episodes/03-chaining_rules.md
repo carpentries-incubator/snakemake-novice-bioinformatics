@@ -178,9 +178,9 @@ Note that:
 
  1. The above rule has two inputs, *trimmed* and *untrimmed*
  2. We can choose what to call the inputs, so use descriptive names
- 3. There is a newline after `input:` and the named inputs are indented
+ 3. There is a newline after `input:` and the next two lines are indented
  4. The `=` and `,` symbols are needed
- 5. You can leave off the last comma, but it's generally easier to just put one on every line
+ 5. You can leave off the final comma, but it's generally easier to just put one on every line
  6. We refer to the input file names as `{input.untrimmed}` and `{input.trimmed}`
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -202,8 +202,14 @@ rule calculate_difference:
         "echo $(( $(<{input.untrimmed}) - $(<{input.trimmed}) )) > {output}"
 ```
 
-::::::::::::::::::::::::
+Here, I've chosen to use the wildcard name `{myfile}` again, but you can use any name you like.
+We do also need to ensure that the output file is referenced using the `{output}` placeholder.
 
+```bash
+$ snakemake -j1 -F -p etoh60_1_1.reads_removed.txt
+```
+
+::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::
 

@@ -129,16 +129,14 @@ may think it is possible for a rule to yield a variable number of outputs in the
 
 There are many things to note here:
 
- 1. The individual input and output files are given names.
- 2. In the `shell` part, we use placeholders like `{input.name}` (`{output.name}` could also be
-    used).
- 3. We've used the wildcard name `{sample}` rather than `{myfile}` because this will match only the
+ 1. The individual input and output files are all given names.
+ 2. We've used the wildcard name `{sample}` rather than `{myfile}` because this will match only the
     sample name, eg `ref1`, not `ref1_1`. Snakemake doesn't care what name we use, but carefully
     chosen names make for more readable rules.
- 4. Because `kallisto quant` only takes the output directory name, we've used the placeholder
-    `{wildcards.sample}` rather than `{output}` which would give the full file names.
- 5. We've chosen to only quantify the *trimmed* version of the reads.
- 6. We don't actually have the `{input.index}` file yet. This will need to be created using the
+ 3. Because `kallisto quant` only takes the output directory name, we've used the placeholder
+    `{wildcards.sample}` rather than `{output}` which would expand to the full file names.
+ 4. We've chosen to only quantify the *trimmed* version of the reads.
+ 5. We don't actually have the `{input.index}` file yet. This will need to be created using the
     `kallisto index` command.
 
 Even though the rule is not going to work without the index, we can still run it to check that
@@ -193,7 +191,7 @@ $ kallisto index -i index_file_to_make fasta_file_to_index
 
 The file to be indexed is `transcriptome/Saccharomyces_cerevisiae.R64-1-1.cdna.all.fa.gz`. As
 there is only one input to the rule you don't have to give it a name, but you may do so if you
-like.
+prefer.
 
 Make it so that the terminal messages printed by the program are captured to a file, and therefore
 your rule will have two separate outputs: the *index file* and the *messages file*. Note that the
@@ -224,29 +222,67 @@ rule kallisto_index:
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::  callout
+## Log outputs in Snakemake
 
-## `log` outputs in Snakemake
-
-Snakemake has a dedicated rule field for outputs that are
-[log files](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files),
-and these are mostly treated as regular outputs except that log files are not removed if the job
-produces an error. This means you can look at the log to help diagnose the error. In a real
-workflow this can be very useful, but in terms of learning the fundementals of Snakemake we'll
-stick with regular `input` and `output` fields here.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Dealing with a *missing files* error
-
-All being well, your new rules are now ready to run Kallisto.
+All being well, our new rules are now ready to run Kallisto, and we can analyse any sample we
+like.
 
 ```bash
-$ snakemake -j1 -F -p kallisto.ref1/abundance.h5
+$ snakemake -j1 -F -p kallisto.ref3/abundance.h5
 ...lots of output...
 4 of 4 steps (100%) done
 Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834.snakemake.log
 ```
+
+There is one particular improvement we can make, since Snakemake has a dedicated rule field for
+outputs that are [log files](
+https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files).
+These are mostly treated the same as regular outputs except that log files are always kept even
+if the job produces an error, so you can look at the log to help diagnose the error.
+
+For an output to be treated as a log file, list it under `log:` instead of `output:` and then
+within the shell command use the placeholder `{log}` instead of `{output}`.
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Using an explicit log output
+
+Modify the solution to the previous challenge so that it uses the `log` keyword to capture the
+terminal output from `kallisto quant`.
+
+:::::::::::::::  solution
+
+## Solution
+
+```source
+rule kallisto_index:
+    output:
+        idx = "{strain}.kallisto_index",
+    input:
+        fasta = "transcriptome/{strain}.cdna.all.fa.gz"
+    log:
+        messages = "{strain}.kallisto_stderr",
+    shell:
+        "kallisto index -i {output.idx} {input.fasta} >& {log.messages}"
+```
+
+The order of the `log:`, `output:` and `input:` parts can be however you like. In this case since
+there is now a single input file, a single output file, and a single log file, you may feel that
+there is no point naming them all.
+
+```source
+rule kallisto_index:
+    output: "{strain}.kallisto_index"
+    input:  "transcriptome/{strain}.cdna.all.fa.gz"
+    log:    "{strain}.kallisto_stderr"
+    shell:
+        "kallisto index -i {output} {input} >& {log}"
+```
+
+:::::::::::::::::::::::::
+
+
+## Dealing with a *missing files* error
 
 We'll end the chapter by looking at a common problem that can arise if you mistype a file
 name in a rule. Remember that we wrote the rule based on the expected output filenames given in the
@@ -351,16 +387,6 @@ $ snakemake -j1 -F -p kallisto.ref1/abundance.h5  kallisto.temp33_1/abundance.h5
 
 *For reference, [this is a Snakefile](files/ep03.Snakefile) incorporating the changes made in
 this episode.*
-
-
-
-[fig-chaining]: fig/chaining_rules.png {alt='A visual representation of the above process showing
-the rule definitions, with arrows added to indicate the order wildcards and placeholders are
-substituted. Blue arrows start from the final target at the top, which is the file
-trimmed.ref1\_1.fq.count, then point down from components of the filename to wildcards in the
-output of the countreads rule. Arrows from the input of this rule go down to the output of the
-trimreads rule. Orange arrows then track back up through the shell parts of both rules, where the
-placeholders are, and finally back to the target output filename at the top.'}
 
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
