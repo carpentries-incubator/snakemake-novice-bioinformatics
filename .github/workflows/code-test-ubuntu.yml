@@ -10,7 +10,7 @@ name: Code sample tests on Ubuntu
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths: ['episodes/files/**', '.test/**', '.github/workflows/code-test-ubuntu.yml']
 
 jobs:
