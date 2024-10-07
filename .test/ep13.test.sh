@@ -1,6 +1,7 @@
 echo "Test for episodes/files/ep13.Snakefile"
 
-cp -vf episodes/files/ep13.Snakefile snakemake_data/yeast/Snakefile
+rm -f snakemake_data/yeast/Snakefile
+cp -v episodes/files/ep13.Snakefile snakemake_data/yeast/Snakefile
 cd snakemake_data/yeast
 
 # This assumes renames are applied
@@ -17,8 +18,9 @@ res2=$( snakemake -Fn -p multiqc | \
 
 # Protected files don't show in the dry-run, so we actually have to make the Kallisto index
 # and then check the perms on it. Then delete it so we don't upset later tests.
+set -x
 rm -f Saccharomyces_cerevisiae.R64-1-1.kallisto_index
-snakemake -j1 -p Saccharomyces_cerevisiae.R64-1-1.kallisto_index
+( umask 0022 ; snakemake -j1 -p Saccharomyces_cerevisiae.R64-1-1.kallisto_index )
 perms=$(stat --format %A Saccharomyces_cerevisiae.R64-1-1.kallisto_index)
 [[ "$perms" == "-r--r--r--" ]]
 rm -vf Saccharomyces_cerevisiae.R64-1-1.kallisto_index

@@ -38,7 +38,7 @@ jobs:
       run: |
         wget --progress=dot:mega \
           https://github.com/user-attachments/files/16439467/data-for-snakemake-novice-bioinformatics.tar.xz.gz
-        gunzip data-for-snakemake-novice-bioinformatics.tar.xz
+        gunzip data-for-snakemake-novice-bioinformatics.tar.xz.gz
 
         md5sum -c <<<"4522e76f9dddda13e55f7d283638e628  data-for-snakemake-novice-bioinformatics.tar.xz"
 

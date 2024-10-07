@@ -43,7 +43,7 @@ rule kallisto_quant:
 
 rule kallisto_index:
     output:
-        idx = "{strain}.kallisto_index",
+        idx = protected("{strain}.kallisto_index"),
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz",
     log: "{strain}.kallisto_log"
