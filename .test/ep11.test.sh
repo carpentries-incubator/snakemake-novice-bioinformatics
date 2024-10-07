@@ -15,9 +15,11 @@ dependencies:
 .
 
 # Now run the thing
+export SALMON_NO_VERSION_CHECK=1
 snakemake -j1 --sdm conda -p salmon.etoh60_1
 
 # A conda env should have been created
+set -x
 conda env list | grep -F /.snakemake/
 
 # But remove it
