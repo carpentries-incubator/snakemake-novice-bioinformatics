@@ -18,11 +18,11 @@ exercises: 40
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the Snakefile](files/ep06.Snakefile) you should have to start
+*For reference, [this is the Snakefile](files/ep07.Snakefile) you should have to start
 the episode.*
 
 We've seen how to link rules in a pipeline and how to merge all the results at the final step. This
-is the basic pattern for many analysis workflows. For simplicity, in episode 5, we just used the
+is the basic pattern for many analysis workflows. For simplicity, in episode 6, we just used the
 `cat` command to combine all the `.count` files but now we'll use *MultiQC* to combine the results
 from Kallisto and FastQC into a single report for all samples. We'll also add in an alternative
 quantification tool called *Salmon* and this will complete the pipeline.
@@ -34,11 +34,11 @@ quantification tool called *Salmon* and this will complete the pipeline.
   *We first used it in [episode 2](02-placeholders.md).*
 - **FastQC** calculates a variety of metrics on a FASTQ file and produces an HTML report and a
   ZIP file.
-  *We introduced this in [episode 6](06-awkward_programs.md).*
-- **Kallisto** aligns the reads to a reference transcriptome and produces a table of
-  transcript abundance.
-  *We first used it in [episode 3](03-chaining_rules.md).*
-- **Salmon** is a alternative to Kallisto, using a different alignment algorithm.
+  *We introduced this in [episode 7](07-awkward_programs.md).*
+- **Kallisto** performs pseudo-alignment of the reads to a reference transcriptome and produces
+  a table of transcript abundance.
+  *We first used it in [episode 4](04-logs_and_errors.md).*
+- **Salmon** is a alternative to Kallisto, using a different transcript quantification algorithm.
   *We've not used it yet.*
 - **MultiQC** combines the reports from various tools, including FastQC, Kallisto, and Salmon,
   into a single HTML report over all samples. This is by no means a full RNA-Seq analysis report
@@ -73,7 +73,7 @@ $ salmon index -t <transcriptome as fasta> -i <index name> -k 31
 $ salmon quant -i <index name> -l A -1 <fastq1> -2 <fastq2> --validateMappings -o <output path>
 ```
 
-Add a pair of rules to index and align the reads with Salmon. Note that:
+Add a pair of rules to index and quantify the reads with Salmon. Note that:
 
 1. Unlike Kallisto, the index produced by Salmon is a directory of files, not a single file - so
   both of these new rules will produce a directory as output.
@@ -125,7 +125,7 @@ $ multiqc . -o multiqc_out
 
 ## Adding a MultiQC rule
 
-Earlier, in episode 5, we made a basic summary-type rule called *all\_counts*. Now make a
+Earlier, in episode 6, we made a basic summary-type rule called *all\_counts*. Now make a
 *multiqc* rule that gathers up all the FastQC, Salmon and Kallisto reports.
 
 Considerations:
@@ -282,7 +282,56 @@ $ open multiqc_out/multiqc_report.html
 The report has a few issues, but we'll not get distracted by the details of how to configure
 MultiQC to resolve them.
 
-*For reference, [this is a Snakefile](files/ep07.Snakefile) incorporating the changes made in
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Use Snakemake Wrappers to handle your awkward programs
+
+In the last two chapters we've shown some tactics for incorporating tools into
+workflows using standard *shell* rules, but given how commonly these pieces of software are used
+there is no point in you, as a workflow author, having to re-invent these fixes each time.
+It's easier to copy a working rule from an existing workflow. In fact, Snakemake provides something
+a little more sophisticated in the form of the [Snakemake wrappers collection](
+https://snakemake-wrappers.readthedocs.io/en/stable/wrappers.html).
+
+Using a wrapper, instead of writing your own shell code, allows you to apply a best-practise
+approach, supported by the Snakemake developer community, for a large number of common tools.
+There are additional advantages, like integration with Bioconda (see episode 11).
+
+You will see that wrappers are available for several of the tools used in this workflow. We will
+not cover the details here in this course, but for reference we provide
+[an equivalent Snakefile](files/ep08/wrappers.Snakefile) using the four available wrappers to
+make the same MultiQC report.
+
+Converting the workflow to use wrappers was mostly straightforward, but here are some caveats:
+
+1. The wrappers are designed for the specific versions of the tools specified in their Conda
+requirements. It took some trial an error to find the right version of the Kallisto wrapper to
+work with our older version of Kallisto (which was chosen for CPU compatibility).
+
+2. All tool wrappers have sample code, but it's not necessarily obvious what you may change
+(normally any wildcard names) and what you can't (input and output names).
+
+3. Some wrappers use lists of inputs and outputs while others use named inputs and outputs. This
+course has urged that outputs should always be named, but with wrappers you as the user must use
+whatever setup the wrapper used.
+
+::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::: instructor
+
+## If you want to say more about wrappers
+
+The episode describes some tactics for incorporating "awkward" programs and then mentions wrappers
+as an aside at the end.
+
+Wrappers are great when they work, and potentially infuriating when they do not. Also, users of
+Snakemake are liable to come across tools that are not in the wrappers repository, or they may
+even aim to contribute to this effort, in which case they need to understand the principle of
+what is going on inside.
+
+::::::::::::::::::::::::::::::::::::::::::
+
+*For reference, [this is a Snakefile](files/ep08.Snakefile) incorporating the changes made in
 this episode. You may now proceed to any later episode in the lesson using this workflow as a
 starting point.*
 

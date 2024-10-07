@@ -7,8 +7,7 @@ exercises: 30
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Use Snakemake to filter and then count the lines in a FASTQ file
-- Add an RNA quantification step in the data analysis
-- See how Snakemake deals with missing outputs
+- Add a rule that calculates the number of reads filtered out
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -24,8 +23,10 @@ the episode.*
 
 ## A pipeline of multiple rules
 
-We now have a "trimreads" rule and a "countreads" rule. Following the previous chapter, the
-contents of the Snakefile should be:
+Our goal at this point is to apply a quality filter to our reads and to see how many reads are
+discarded by that filter for any given sample. We are not quite there yet, but we do have a
+*countreads* rule and a *trimreads* rule. Following the previous chapter, the contents of
+the Snakefile should be:
 
 ```source
 # New generic read counter
@@ -43,13 +44,13 @@ rule trimreads:
         "fastq_quality_trimmer -t 20 -l 100 -o {output} <{input}"
 ```
 
-The problem is there is no good way to use these rules together, that is, to trim an input file and
-then count the reads in the trimmed file. The *countreads* rule only takes input reads from the
-*reads* directory, whereas the *trimreads* rule puts all results into the *trimmed* directory.
+The missing piece is that there is no way to count the reads in the trimmed file. The *countreads*
+rule only takes input reads from the *reads* directory, whereas the *trimreads* rule puts all
+results into the *trimmed* directory.
 
-Chaining rules in Snakemake is a matter of choosing filename patterns that connect the rules.
-There's something of an art to it - most times there are several options that will work. Consider
-the following alternative version of the *countreads* rule:
+To fix this, we could move the trimmed reads into the *reads* directory, or add a second
+read-counting rule, but the most elegant solution here is to make the *countreads* rule even more
+generic, so it can count everything.
 
 ```source
 # New even-more-generic read counter
@@ -62,7 +63,7 @@ rule countreads:
 
 Now, the rule no longer requires the input files to be in the "reads" directory. The directory name
 has been replaced by the `{indir}` wildcard. We can request Snakemake to create a file following
-this output pattern:
+this new output pattern:
 
 ```bash
 $ snakemake -j1 -F -p trimmed.ref1_1.fq.count
@@ -86,6 +87,18 @@ Look at the logging messages that Snakemake prints in the terminal. What has hap
 
 ![][fig-chaining]
 
+::::::::::::::::::::: instructor
+
+## Illustrating the wildcard matching process
+
+A figure is shown here to illustrate the way Snakemake finds rules by wildcard matching and then
+tracks back until it runs out of rule matches and finds a file that it already has. You may find
+that showing an animated version of this is helpful, in which case
+[there are some slides here](
+https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/files/9299078/wildcard_demo.pptx).
+
+::::::::::::::::::::::::::::::::::::
+
 This, in a nutshell, is how we build workflows in Snakemake.
 
 1. Define rules for all the processing steps
@@ -99,7 +112,115 @@ pattern matching rules to the filenames, not by the order of the rules in the Sn
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
+## Choosing file name patterns
+
+Chaining rules in Snakemake is a matter of choosing filename patterns that connect the rules.
+There's something of an art to it, and most times there are several options that will work, but
+in all cases the file names you choose will need to be consistent and unabiguous.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Seeing how many reads were discarded
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## How many reads were removed?
+
+How many reads were removed from the *ref1* sample by the filtering step?
+
+:::::::::::::::  solution
+
+After generating both the trimmed and untrimmed `.count` files we can get this information.
+
+```bash
+$ snakemake -j1 -F -p reads.ref1_1.fq.count trimmed.ref1_1.fq.count
+$ head *.ref1_1.fq.count
+==> reads.ref1_1.fq.count <==
+14677
+
+==> trimmed.ref1_1.fq.count <==
+14278
+```
+
+Subtracting these numbers shows that **399** reads have been removed.
+
+::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::
+
+To finish this part of the
+workflow we will add a third rule to perform the calculation for us. This rule will need to take
+both of the `.count` files as inputs. We can use the arithmetic features of the Bash shell to do
+the subtraction.
+
+```bash
+$ echo $(( $(<reads.ref1_1.fq.count) - $(<trimmed.ref1_1.fq.count) ))
+399
+```
+
+Check that this command runs in your terminal. Take care to get the symbols and spaces all correct.
+As with the original countreads rule, this shell syntax may well be unfamiliar to you, but armed
+with this working command we can simply substitute the names of any two files we want to compare.
+
+We can put the shell command into a rule.
+
+```source
+rule calculate_difference:
+    output: "ref1_1.reads_removed.txt"
+    input:
+        untrimmed = "reads.ref1_1.fq.count",
+        trimmed = "trimmed.ref1_1.fq.count",
+    shell:
+        "echo $(( $(<{input.untrimmed}) - $(<{input.trimmed}) )) > ref1_1.reads_removed.txt"
+```
+
+Note that:
+
+ 1. The above rule has two inputs, *trimmed* and *untrimmed*
+ 2. We can choose what to call the inputs, so use descriptive names
+ 3. There is a newline after `input:` and the next two lines are indented
+ 4. The `=` and `,` symbols are needed
+ 5. You can leave off the final comma, but it's generally easier to just put one on every line
+ 6. We refer to the input file names as `{input.untrimmed}` and `{input.trimmed}`
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Making this rule generic
+
+Alter the above rule to make it generic by adding suitable wildcards. Use the generic rule to
+calculate the number of reads removed from the **etoh60_1_1.fq** input file.
+
+::::::::::::::::  solution
+
+```source
+rule calculate_difference:
+    output: "{myfile}.reads_removed.txt"
+    input:
+        untrimmed = "reads.{myfile}.fq.count",
+        trimmed = "trimmed.{myfile}.fq.count",
+    shell:
+        "echo $(( $(<{input.untrimmed}) - $(<{input.trimmed}) )) > {output}"
+```
+
+Here, I've chosen to use the wildcard name `{myfile}` again, but you can use any name you like.
+We do also need to ensure that the output file is referenced using the `{output}` placeholder.
+
+```bash
+$ snakemake -j1 -F -p etoh60_1_1.reads_removed.txt
+```
+
+::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::
+
+*It would also be nice to have Snakemake run this automatically for all our samples. We'll
+see how to do this in a later episode.*
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
 ## Outputs first?
+
+**TODO - reconsider this in light of issue #46**
 
 The Snakemake approach of working backwards from the desired output to determine the workflow
 is why we're putting the `output` lines first in all our rules - to remind us that these are what
@@ -110,306 +231,9 @@ so in practise you should use whatever order makes sense to you.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Thinking about your own workflows
-
-Think about any data processing task you have done yourself, and write down three or four steps
-from that workflow.
-
-What were the inputs to, and outputs from, each step?
-
-How did the steps connect up, in terms of data going from one to the next? You may want to sketch
-this out and use arrows to indicate the linkages between the steps.
-
-:::::::::::::::  solution
-
-## A sample answer based on brewing a mug of tea.
-
-*TODO - draw this out too.*
-
-```
-"Boil Water" : input=cold water, output=hot water
-
-"Brew Tea" : input=[hot water, tea bag, mug], output=tea infusion
-
-"Add Milk And Sugar" : input=[tea infusion, milk, sugar], output=cuppa
-```
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Adding an alignment step to the pipeline
-
-Let's add another rule to our Snakefile. The reads we have are from a yeast RNA-seq experiment so
-we might reasonably want to quantify transcript abundance using the **kallisto** aligner. The
-command to do so looks like this:
-
-```bash
-$ kallisto quant -i index_file -o output_dir in_1.fastq in_2.fastq
-```
-
-This command has three input files:
-
-1. The transcriptome index
-2. The first of the paired FASTQ files
-3. The second of the paired FASTQ files
-
-And it produces a directory of output files. According to
-[the Kallisto manual](https://pachterlab.github.io/kallisto/manual#quant) this directory will
-have three output files in it:
-
-1. abundance.h5
-2. abundance.tsv
-3. run\_info.json
-
-We'll not worry about what the contents of these files mean just now, or how Kallisto generates
-them. We just know that we want to run the `kallisto quant` command and have it make the output
-files, and the output files are going to be useful once we add later steps in the analysis.
-
-Making a rule with multiple inputs and outputs like this works much like the previous rules.
-
-```source
-rule kallisto_quant:
-    output:
-        h5   = "kallisto.{sample}/abundance.h5",
-        tsv  = "kallisto.{sample}/abundance.tsv",
-        json = "kallisto.{sample}/run_info.json",
-    input:
-        index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
-        fq1   = "trimmed/{sample}_1.fq",
-        fq2   = "trimmed/{sample}_2.fq",
-    shell:
-        "kallisto quant -i {input.index} -o kallisto.{wildcards.sample} {input.fq1} {input.fq2}"
-```
-
-There are many things to note here:
-
-1. The individual input and output files are given names using the `=` syntax.
-2. Each of these lines must end with a `,` (optional for the last one).
-3. In the `shell` part, the input placeholders are now like `{input.name}`.
-4. We've chosen to only quantify the *trimmed* version of the reads.
-5. We've used the wildcard name `{sample}` rather than `{myfile}` because this will match only the
-  sample name, eg `ref1`, not `ref1_1`. Snakemake doesn't care what name we use, but carefully
-  chosen names make for more readable rules.
-6. Because `kallisto quant` only takes the output directory name, we've used the placeholder
-  `{wildcards.sample}` rather than `{output}` which would give the full file names.
-7. We don't actually have the `{input.index}` file yet. This will need to be created using the
-  `kallisto index` command.
-8. If the number of input or output files had been variable, we'd need a slightly different
-  approach. We'll come on to this in a later episode.
-
-Even though the rule is not going to work without the index, we can still run it to check that
-Snakemake is happy with the rule definition.
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Running Kallisto on all replicates
-
-If you know about the Kallisto software, you may be thinking about running Kallisto on all
-replicates of the condition at once. We'll look at this later in the course, but for now assume
-that Kallisto is run once per sample, ie. once for each pair of FASTQ files.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Running the kallisto\_quant rule
-
-Given that the *index* input is missing, what would you expect Snakemake to do if the new rule
-was run now?
-
-Try it by telling Snakemake to run the new rule on the files `ref1_1.fq` and `ref1_2.fq`.
-Since the rule defines multiple outputs, asking for any one of the output files will be enough.
-
-:::::::::::::::  solution
-
-## Solution
-
-```bash
-$ snakemake -j1 -F -p kallisto.ref1/abundance.h5
-```
-
-Resulting error is "Missing input files". Note that Snakemake does not try to run kallisto at
-all. It stops while still making a work plan, because it sees that a required input file is
-missing.
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Building the index
-
-Instruct Snakemake how to build the genome index as part of the pipeline by adding another rule.
-The command we need to run is:
-
-```bash
-$ kallisto index -i index_file_to_make fasta_file_to_index
-```
-
-The file to be indexed is `transcriptome/Saccharomyces_cerevisiae.R64-1-1.cdna.all.fa.gz`. As
-there is only one input to the rule you don't have to give it a name, but you may do so if you
-like.
-
-Make it so that the output printed by the program is captured to a file, and therefore your rule
-will have two separate outputs: the *index file* and the *log file*. Note that the program prints
-messages on *stderr*, so you will need to use `>&` rather than `>` to capture the output.
-
-:::::::::::::::  solution
-
-## Solution
-
-The rule you write could look something like this, but there are many variations that will work
-just as well. Since there is only one transcriptome in the project, you may feel that use of
-the `{strain}` wildcard is overkill, but who's to say we might not want to use another
-in future?
-
-```source
-rule kallisto_index:
-    output:
-        idx = "{strain}.kallisto_index",
-        log = "{strain}.kallisto_log",
-    input:
-        fasta = "transcriptome/{strain}.cdna.all.fa.gz"
-    shell:
-        "kallisto index -i {output.idx} {input.fasta} >& {output.log}"
-```
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## `log` outputs in Snakemake
-
-Snakemake has a dedicated rule field for outputs that are
-[log files](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files),
-and these are mostly treated as regular outputs except that log files are not removed if the job
-produces an error. This means you can look at the log to help diagnose the error. In a real
-workflow this can be very useful, but in terms of learning the fundementals of Snakemake we'll
-stick with regular `input` and `output` fields here.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Dealing with a *missing files* error
-
-All being well, your new rules are now ready to run Kallisto.
-
-```bash
-$ snakemake -j1 -F -p kallisto.ref1/abundance.h5
-...lots of output...
-4 of 4 steps (100%) done
-Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834.snakemake.log
-```
-
-We'll end the chapter by looking at a common problem that can arise if you mistype a file
-name in a rule. Remember that we wrote the rule based on the expected output filenames given in the
-Kallisto manual. In an older version of this manual there was a typo where the file names were
-incorrectly given as `abundances.h5` and `abundances.tsv`, with the extra `s` on each.
-
-It may seem silly to break the workflow when we just got it working, but it will be instructive,
-so edit the Snakefile and change these names to the incorrect versions.
-
-```source
-rule kallisto_quant:
-    output:
-        h5   = "kallisto.{sample}/abundances.h5",
-        tsv  = "kallisto.{sample}/abundances.tsv",
-        json = "kallisto.{sample}/run_info.json",
-...
-```
-
-To keep things tidy, this time we'll manually remove the output directory.
-
-```bash
-$ rm -rvf kallisto.ref1
-```
-
-And re-run. Note that the output file name you'll need to use on the command line must match the
-edited Snakefile, or you will get a `MissingRuleException`.
-
-```output
-$ snakemake -j1 -F -p kallisto.ref1/abundances.h5
-
-...
-kallisto quant -i Saccharomyces_cerevisiae.R64-1-1.kallisto_index -o kallisto.ref1 trimmed/ref1_2.fq trimmed/ref1_2.fq
-
-[quant] fragment length distribution will be estimated from the data
-...more Kallisto output...
-[   em] the Expectation-Maximization algorithm ran for 265 rounds
-
-Waiting at most 5 seconds for missing files.
-MissingOutputException in line 24 of /home/zenmaster/data/yeast/Snakefile:
-Job Missing files after 5 seconds:
-kallisto.ref1/abundances.h5
-kallisto.ref1/abundances.tsv
-This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait.
-Job id: 0 completed successfully, but some output files are missing. 0
-  File "/opt/python3.7/site-packages/snakemake/executors/__init__.py", line 583, in handle_job_success
-  File "/opt/python3.7/site-packages/snakemake/executors/__init__.py", line 259, in handle_job_success
-Removing output files of failed job kallisto_quant since they might be corrupted:
-kallisto.ref1/run_info.json
-Shutting down, this might take some time.
-Exiting because a job execution failed. Look above for error message
-Complete log: /home/zenmaster/data/yeast/.snakemake/log/2021-04-23T142649.632834.snakemake.log
-```
-
-There's a lot to take in here. Some of the messages are very informative. Some less so.
-
-1. Snakemake did actually run kallisto, as evidenced by the output from kallisto that we see on the
-  screen.
-2. There is no obvious error message being reported by kallisto.
-3. Snakemake complains some expected output files are missing: `kallisto.ref1/abundances.h5` and
-  `kallisto.ref1/abundances.tsv`.
-4. The third expected output file `kallisto.ref1/run_info.json` was found but has now been
-  removed by Snakemake.
-5. Snakemake suggest this might be due to "filesystem latency".
-
-This last point is a red herring. "Filesystem latency" is not an issue here, and never will be
-since we are not using a network filesystem. We know what the problem is, as we deliberately caused
-it, but to diagnose an unexpected error like this we would investigate further by looking at the
-`kallisto.ref1` subdirectory.
-
-```bash
-$ ls kallisto.ref1/
-abundance.h5  abundance.tsv
-```
-
-Remember that Snakemake itself does not create any output files. It just runs the commands you put
-in the `shell` sections, then checks to see if all the expected output files have appeared.
-
-So if the file names created by kallisto are not exactly the same as in the Snakefile you will get
-this error, and you will, in this case, find that some output files are present but others
-(`run_info.json`, which was named correctly) have been cleaned up by Snakemake.
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Errors are normal
-
-Don't be disheartened if you see errors like the one above when first testing your new Snakemake
-pipelines. There is a lot that can go wrong when writing a new workflow, and you'll normally need
-several iterations to get things just right. One advantage of the Snakemake approach compared to
-regular scripts is that Snakemake fails fast when there is a problem, rather than ploughing on
-and potentially running junk calculations on partial or corrupted data. Another advantage is that
-when a step fails we can safely resume from where we left off, as we'll see in the next episode.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-Finally, edit the names in the Snakefile back to the correct version and re-run to confirm that all
-is well. Assure yourself that that the rules are still generic by processing the *temp33\_1*
-sample too:
-
-```bash
-$ snakemake -j1 -F -p kallisto.ref1/abundance.h5  kallisto.temp33_1/abundance.h5
-```
 
 *For reference, [this is a Snakefile](files/ep03.Snakefile) incorporating the changes made in
 this episode.*
-
 
 
 [fig-chaining]: fig/chaining_rules.png {alt='A visual representation of the above process showing

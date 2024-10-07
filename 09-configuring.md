@@ -17,7 +17,7 @@ exercises: 20
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the final Snakefile from episodes 1 to 7](files/ep07.Snakefile) you
+*For reference, [this is the final Snakefile from episodes 1 to 8](files/ep08.Snakefile) you
 may use to start this episode.*
 
 ## Adding parameters (params) to rules
@@ -89,7 +89,7 @@ Notes:
   hyphens.
 - Changing the parameters doesn't automatically trigger Snakemake to re-run the rule so you
   need to use `-f` (or `-R` or `-F`) to force the job to be re-run (but, as mentioned in
-  [episode 4](04-the_dag.md),
+  [episode 5](05-the_dag.md),
   this behaviour is changed in recent Snakemake versions).
 
 :::::::::::::::::::::::::
@@ -260,8 +260,10 @@ find that replicate 1 is still in you report, make sure you are using the final 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is a Snakefile](files/ep08.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep09.Snakefile) incorporating the changes made in
 this episode.*
+
+*To run it, you need to save out [this file](files/ep09/config.yaml) to the same directory.*
 
 
 

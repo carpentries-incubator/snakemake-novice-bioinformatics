@@ -13,4 +13,5 @@ dependencies:
   - rename
   - salmon
   - snakemake>8.5.0
+  - snakemake-wrapper-utils
 prefix: /home/zenmaster/miniforge3/envs/snakemake_carpentry

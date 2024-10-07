@@ -1,5 +1,5 @@
 ---
-title: Robust quoting in Snakefiles
+title: 'Extra Episode: Robust quoting in Snakefiles'
 teaching: 20
 exercises: 20
 ---
@@ -19,7 +19,7 @@ exercises: 20
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the final Snakefile from episodes 1 to 7](files/ep07.Snakefile) you may
+*For reference, [this is the final Snakefile from episodes 1 to 8](files/ep08.Snakefile) you may
 use to start this episode.*
 
 ## A review of quoting rules in the *bash* shell
@@ -103,7 +103,7 @@ avoid most mis-quoting complications.
 
 <!-- The funky HTML entities in the heading below are a workaround for
      https://github.com/carpentries/sandpaper/issues/562
-     I shouldn't be doing this, but in the contect of this particular episode it seems almost
+     I shouldn't be doing this, but in the context of this particular episode it seems almost
      appropriate. -->
 
 ::::::::::::::::::::::::::::::::::::::: challenge
@@ -128,7 +128,8 @@ Will this work as shown? If not, why not? Try it and see.
 ## Solution
 
 It won't work. Snakemake assumes that all parts of the string in {curlies} are placeholders.
-The error will say something like `NameError: The name 'sum+=length($0)' is unknown in this context`. To resolve this, we have to double up all the curly braces:
+The error will say something like `NameError: The name 'sum+=length($0)' is unknown in this
+context`. To resolve this, we have to double up all the curly braces:
 
 ```source
   shell:
@@ -238,7 +239,7 @@ expalantion, with examples, of how this works.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is a Snakefile](files/ep13.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/epB1.Snakefile) incorporating the changes made in
 this episode.*
 
 

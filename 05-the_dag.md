@@ -19,7 +19,7 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the Snakefile](files/ep03.Snakefile) you should have to start the
+*For reference, [this is the Snakefile](files/ep04.Snakefile) you should have to start the
 episode.*
 
 ## The DAG
@@ -178,7 +178,7 @@ rules to re-run, and also multiple targets, and Snakemake can tell which is whic
 $ snakemake -j1 -R trimreads kallisto_index -p kallisto.temp33_1/abundance.h5 kallisto.temp33_2/abundance.h5
 ```
 
-The reason for using the `-p` flag here is because you generally always want this option.
+The reason for using the `-p` flag specifically is that you pretty much always want this option.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -295,7 +295,7 @@ not be too time consuming, keep it simple and just use `-F` to run the whole wor
 
 For the opposite case where you want to avoid re-running particular steps, see the `‑‑touch`
 option of Snakemake mentioned [later in the course.
-](12-cleaning_up.md)
+](13-cleaning_up.md)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -27,7 +27,7 @@ For now we'll just look at one single file, `ref1_1.fq`.
 In the terminal:
 
 ```bash
-$ cd yeast
+$ cd snakemake_data/yeast
 $ ls reads
 
 $ head -n8 reads/ref1_1.fq
@@ -121,6 +121,26 @@ indents, etc. we may see an error.
 $ snakemake -j1 -F -p ref1_1.fq.count
 ```
 
+For these early examples, we'll always run Snakemake with the `-j1`, `-F` and `-p` options. Later
+we'll look more deeply at these and other available command-line options to Snakemake.
+
+::::::::::::::::::::::::::::::::::: instructor
+
+## Use of the -F flag
+
+In the first few episodes we always run Snakemake with the `-F` flag, and it's not explained what
+this does until Ep. 04. The rationale is that the default Snakemake behaviour when pruning the DAG
+leads to learners seeing different output (typically the message "nothing to be done") when
+repeating the exact same command. This can seem strange to learners who are used to scripting and
+imperative programming.
+
+The internal rules used by Snakemake to determine which jobs in the DAG are to be run, and which
+skipped, are pretty complex, but the behaviour seen under `-F` is much more simple and consistent;
+Snakemake simply runs every job in the DAG every time. You can think of `-F` as disabling the lazy
+evaluation feature of Snakemake, until we are ready to properly introduce and understand it.
+
+:::::::::::::::::::::::::::::::::::::::
+
 :::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Running Snakemake
@@ -143,7 +163,7 @@ What does the `-p` option in the `snakemake` command above do?
 
 This is such a useful thing we don't know why it isn't the default! The `-j1` option is what
 tells Snakemake to only run one process at a time, and we'll stick with this for now as it
-makes things simpler. The `-F` option tells Snakemake to always overwrite output files, and
+makes things simpler. The `-F` option tells Snakemake to always recreate output files, and
 we'll learn about protected outputs much later in the course. Answer 4 is a total red-herring,
 as Snakemake never prompts interactively for user input.
 
@@ -165,7 +185,23 @@ Note that the input filename is now preceeded by `<`. This is a little trick to 
 only the number of lines, and not the filename. The `$( ... )` syntax captures this output value
 and the `$(( ... ))` syntax encloses an arithmetic expression, which needs to be printed with
 `echo`. Don't worry if this is unfamiliar - you just need to know that this is a shell command you
-can copy and use.
+can copy and use to count the sequences.
+
+:::::::::::::::::::::::::::::::::::: instructor
+
+## Use of stdin redirection and shell arithmetic
+
+A command is presented to count the sequences in a FASTQ file:
+
+```
+$ echo $(( $(wc -l <file.fq) / 4 ))
+```
+
+Understanding this in depth involves some advanced shell concepts that learners will not
+necessarily be familiar with. However, other alternatives involve extra software, or use curly
+brackets (which would have to be doubled-up) or are not robust (eg. `grep '^@' file.fq`).
+
+:::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 

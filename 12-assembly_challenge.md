@@ -1,7 +1,7 @@
 ---
 title: Constructing a whole new workflow
-teaching: 10
-exercises: 60
+teaching: 30
+exercises: 90
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
@@ -18,14 +18,17 @@ exercises: 60
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Assembling the sequences
+## A script to assemble the sequences
 
-This episode introduces a longer challenge to build an assembly workflow from scratch, using the
-concepts we've learned through the course.
+This episode comprises a longer challenge to build a workflow from scratch, using the Snakemake
+concepts we've learned through the course. A partial solution is provided as a Bash script, which
+we will re-write in Snakemake and then extend it to get a full solution.
 
-A de-novo assembly of the RNA sequences in the demo dataset does not produce a biologically
-meaningful assembly, but nevertheless attempting to assemble them yields a nice example workflow,
-so we will go ahead and try. Look at [the following shell script](files/assembly_script.sh):
+The script performs a de-novo assembly of the RNA sequences in the demo dataset. Note that this
+does not produce a biologically meaningful assembly, but nevertheless this is the basis for
+a nice example workflow, so we will go ahead and try.
+
+The following shell script [can also be downloaded here](files/ep12/assembly_script.sh):
 
 ```bash
 #!/bin/bash
@@ -54,12 +57,32 @@ mv velvet_tmp_ref_${kmer_len}/contigs.fa contigs.fa
 
 # Find the longest contig using the BBMap stats script
 stats.sh contigs.fa | grep 'Max contig length:' > max_contig.txt
+head -v max_contig.txt
 ```
 
-The following figure presents the steps involved in the above script, when run on the `ref` samples.
-You will see it already looks a little like a Snakemake DAG.
+## Steps in the assembly process
+
+The following figure presents the steps involved in the above script, when run on the `ref`
+samples. You will see it already looks a little like a Snakemake DAG.
 
 ![][fig-flow]
+
+* *Cutadapt* removes adapter sequence from the reads. Normally this should not be present but
+  any that is left in will hinder the assembly. The `AGATCGGAAGAGC` sequence relates to the library
+  prep kit used when preparing this cDNA for sequencing.
+* *Velvet* is a simple (and old) short read assembler which attempts to piece together the raw
+  short reads into longer sequences, known as contigs. More powerful de-novo assemblers exist, but
+  for the purpose of this lesson Velvet does what we need. Velvet handles the type of paired short
+  reads provided in the sample data.
+* `velveth` and `velvetg` are components of the Velvet software which must be run one after the
+  other to obtain a file of contigs (*contigs.fa*).
+* When running `velveth` one must specify a *kmer length* parameter. We're not going to go into the
+  theory of what this does, but the final Snakemake pipeline will help us explore the effect of
+  changing this value.
+* `stats.sh` is a handy program provided by the *BBMap* package, used here to tell us the longest
+  contig.
+* Note that we run *Cutadapt* on each `ref` sample separately, but then make a *Velvet* assembly
+  of all the `ref` reads in one go.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -92,7 +115,8 @@ Max contig length:        655
 ```
 
 Don't worry if you get a slightly different number. We've not specified the exact version of
-the assembler so the final assembly may be slightly different if the software has been updated.
+the Velvet assembler so the final assembly may be slightly different if the software has been
+updated.
 
 :::::::::::::::::::::::::
 
@@ -170,8 +194,8 @@ the longest contig in each of the twelve assemblies.
 
 ## Solution
 
-A sample solution to this exercise [is available here](files/assembly_with_conda.Snakefile),
-along with a suitable [Conda environment spec](files/assembly_conda_env.yaml). However, there
+A sample solution to this exercise [is available here](files/ep12/sample_answer.Snakefile),
+along with a suitable [Conda environment spec](files/ep12/assembly_conda_env.yaml). However, there
 is no single "correct" answer, so don't worry if your approach looks different. Hopefully we
 will have time in the course to look through and compare some different answers.
 

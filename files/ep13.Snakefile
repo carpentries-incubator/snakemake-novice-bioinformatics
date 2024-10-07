@@ -1,5 +1,5 @@
 ###
-# Snakefile you should have after completing episode 13, assuming you start with ep07.Snakefile
+# Snakefile you should have after completing episode 13, assuming you start with ep08.Snakefile
 ###
 
 # Input conditions and replicates to process
@@ -12,22 +12,21 @@ rule countreads:
     output: "{indir}.{myfile}.fq.count"
     input:  "{indir}/{myfile}.fq"
     shell:
-        "echo $(( $(wc -l <{input:q}) / 4 )) > {output:q}"
-
-LEN_READS_CMD = "NR%4==2{sum+=length($0)}END{print sum/(NR/4)}"
-rule lenreads:
-    output: "{indir}.{myfile}.fq.len"
-    input:  "{indir}/{myfile}.fq"
-    shell:
-        "awk {LEN_READS_CMD:q} {input:q} > {output:q}"
-
+        "echo $(( $(wc -l <{input}) / 4 )) > {output}"
 
 # Trim any FASTQ reads for base quality
 rule trimreads:
-    output: "trimmed/{myfile}.fq"
+    output: temporary("trimmed/{myfile}.fq")
     input:  "reads/{myfile}.fq"
     shell:
-        "fastq_quality_trimmer -t 22 -l 100 -o {output:q} <{input:q}"
+        "fastq_quality_trimmer -t 22 -l 100 -o {output} <{input}"
+
+# Rule to zip any FASTQ file
+rule gzip_fastq:
+    output: "{afile}.fq.gz"
+    input:  "{afile}.fq"
+    shell:
+        "gzip -nc {input} > {output}"
 
 # Kallisto quantification of one sample.
 # Modified to declare the whole directory as the output.
@@ -35,45 +34,48 @@ rule kallisto_quant:
     output: directory("kallisto.{sample}")
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.kallisto_index",
-        fq1   = "trimmed/{sample}_1.fq",
-        fq2   = "trimmed/{sample}_2.fq",
+        fq1   = "trimmed/{sample}_1.fq.gz",
+        fq2   = "trimmed/{sample}_2.fq.gz",
     shell:
-       r"""mkdir {output:q}
-           kallisto quant -i {input.index} -o {output:q} {input.fq1:q} {input.fq2:q} >& {output:q}/kallisto_quant.log
+        """mkdir {output}
+           kallisto quant -i {input.index} -o {output} {input.fq1} {input.fq2} >& {output}/kallisto_quant.log
         """
 
 rule kallisto_index:
     output:
         idx = "{strain}.kallisto_index",
-        log = "{strain}.kallisto_log",
     input:
-        fasta = "transcriptome/{strain}.cdna.all.fa.gz"
+        fasta = "transcriptome/{strain}.cdna.all.fa.gz",
+    log: "{strain}.kallisto_log"
     shell:
-        "kallisto index -i {output.idx} {input.fasta} >& {output.log}"
+        "kallisto index -i {output.idx} {input.fasta} >& {log}"
 
+# Having this rule run in shadow mode avoids potential filename conflicts when running
+# workflow jobs in parallel. In this case, "minimal" shadow is fine.
 rule fastqc:
     output:
-        html = "{indir}.{myfile}_fastqc.html",
+        html = temporary("{indir}.{myfile}_fastqc.html"),
         zip  = "{indir}.{myfile}_fastqc.zip"
     input:  "{indir}/{myfile}.fq"
+    shadow: "minimal"
     shell:
-       r"""fastqc -o . {input:q}
-           mv {wildcards.myfile:q}_fastqc.html {output.html:q}
-           mv {wildcards.myfile:q}_fastqc.zip  {output.zip:q}
+        """fastqc -o . {input}
+           mv {wildcards.myfile}_fastqc.html {output.html}
+           mv {wildcards.myfile}_fastqc.zip  {output.zip}
         """
 
 rule salmon_quant:
     output: directory("salmon.{sample}")
     input:
         index = "Saccharomyces_cerevisiae.R64-1-1.salmon_index",
-        fq1   = "trimmed/{sample}_1.fq",
-        fq2   = "trimmed/{sample}_2.fq",
+        fq1   = "trimmed/{sample}_1.fq.gz",
+        fq2   = "trimmed/{sample}_2.fq.gz",
     shell:
-        "salmon quant -i {input.index} -l A -1 {input.fq1:q} -2 {input.fq2:q} --validateMappings -o {output:q}"
+        "salmon quant -i {input.index} -l A -1 {input.fq1} -2 {input.fq2} --validateMappings -o {output}"
 
 rule salmon_index:
     output:
-        idx = directory("{strain}.salmon_index")
+        idx = protected(directory("{strain}.salmon_index"))
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
     shell:
@@ -81,6 +83,8 @@ rule salmon_index:
 
 # A version of the MultiQC rule that ensures nothing unexpected is hoovered up by multiqc,
 # by linking the files into a temporary directory.
+# Note that this requires the *kallisto_quant* rule to be amended as above so that it has
+# a directory as the output, with that directory containing the console output.
 rule multiqc:
     output:
         mqc_out = directory('multiqc_out'),
@@ -90,7 +94,7 @@ rule multiqc:
         kallisto = expand("kallisto.{cond}_{rep}", cond=CONDITIONS, rep=REPLICATES),
         fastqc =   expand("reads.{cond}_{rep}_{end}_fastqc.zip", cond=CONDITIONS, rep=REPLICATES, end=["1","2"]),
     shell:
-       r"""mkdir {output.mqc_in:q}
-           ln -snr -t {output.mqc_in:q} {input:q}
-           multiqc {output.mqc_in:q} -o {output.mqc_out:q}
+        """mkdir {output.mqc_in}
+           ln -snr -t {output.mqc_in} {input}
+           multiqc {output.mqc_in} -o {output.mqc_out}
         """

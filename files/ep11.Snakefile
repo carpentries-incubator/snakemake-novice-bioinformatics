@@ -1,25 +1,10 @@
 ###
-# Snakefile you should have after completing episode 09, assuming you start with ep08.Snakefile
+# Snakefile you should have after completing episode 11, assuming you start with ep08.Snakefile
 ###
 
-# Set configuration
-configfile: "config.yaml"
-# Print the configuration to the screen
-# note - I could have used logger.info() in place of print()
-print("Config is: ", config)
-
-### config.yaml contents is:
-# salmon_kmer_len: "31"
-# trimreads_qual_threshold: "20"
-# trimreads_min_length: "100"
-# conditions: ["etoh60", "temp33", "ref"]
-# replicates: ["1", "2", "3"]
-
 # Input conditions and replicates to process
-CONDITIONS = config["conditions"]
-REPLICATES = config["replicates"]
-print("Conditions are: ", CONDITIONS)
-print("Replicates are: ", REPLICATES)
+CONDITIONS = ["ref", "etoh60", "temp33"]
+REPLICATES = ["1", "2", "3"]
 
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.
@@ -33,11 +18,8 @@ rule countreads:
 rule trimreads:
     output: "trimmed/{myfile}.fq"
     input:  "reads/{myfile}.fq"
-    params:
-        qual_threshold = config["trimreads_qual_threshold"],
-        min_length     = config.get("trimreads_min_length", "100"),
     shell:
-        "fastq_quality_trimmer -t {params.qual_threshold} -l {params.min_length} -o {output} <{input}"
+        "fastq_quality_trimmer -t 22 -l 100 -o {output} <{input}"
 
 # Kallisto quantification of one sample.
 # Modified to declare the whole directory as the output.
@@ -61,7 +43,6 @@ rule kallisto_index:
     shell:
         "kallisto index -i {output.idx} {input.fasta} >& {log}"
 
-
 rule fastqc:
     output:
         html = "{indir}.{myfile}_fastqc.html",
@@ -79,6 +60,7 @@ rule salmon_quant:
         index = "Saccharomyces_cerevisiae.R64-1-1.salmon_index",
         fq1   = "trimmed/{sample}_1.fq",
         fq2   = "trimmed/{sample}_2.fq",
+    conda: "salmon-1.2.1.yaml"
     shell:
         "salmon quant -i {input.index} -l A -1 {input.fq1} -2 {input.fq2} --validateMappings -o {output}"
 
@@ -87,10 +69,9 @@ rule salmon_index:
         idx = directory("{strain}.salmon_index")
     input:
         fasta = "transcriptome/{strain}.cdna.all.fa.gz"
-    params:
-        kmer_len = config.get("salmon_kmer_len", "29")
+    conda: "salmon-1.2.1.yaml"
     shell:
-        "salmon index -t {input.fasta} -i {output.idx} -k {params.kmer_len}"
+        "salmon index -t {input.fasta} -i {output.idx} -k 31"
 
 # A version of the MultiQC rule that ensures nothing unexpected is hoovered up by multiqc,
 # by linking the files into a temporary directory.
@@ -109,3 +90,9 @@ rule multiqc:
            ln -snr -t {output.mqc_in} {input}
            multiqc {output.mqc_in} -o {output.mqc_out}
         """
+
+# Rule to demonstrate using a conda environment
+rule a_conda_rule:
+    conda:  "new-env.yaml"
+    shell:
+        "which cutadapt"

@@ -62,16 +62,17 @@ episodes:
 - 01-introduction.md
 - 02-placeholders.md
 - 03-chaining_rules.md
-- 04-the_dag.md
-- 05-expansion.md
-- 06-awkward_programs.md
-- 07-finished-workflow.md
-- 08-configuring.md
-- 09-performance.md
-- 10-conda_integration.md
-- 11-assembly_challenge.md
-- 12-cleaning_up.md
-- 13-quoting.md
+- 04-logs_and_errors.md
+- 05-the_dag.md
+- 06-expansion.md
+- 07-awkward_programs.md
+- 08-finished-workflow.md
+- 09-configuring.md
+- 10-performance.md
+- 11-conda_integration.md
+- 12-assembly_challenge.md
+- 13-cleaning_up.md
+
 
 # Information for Learners
 learners:

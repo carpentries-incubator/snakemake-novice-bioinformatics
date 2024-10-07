@@ -20,7 +20,7 @@ exercises: 40
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the Snakefile](files/ep05.Snakefile) you should have to start
+*For reference, [this is the Snakefile](files/ep06.Snakefile) you should have to start
 the episode.*
 
 ## Introducing FastQC
@@ -72,9 +72,9 @@ $ fastqc --help
 ...
 ```
 
-For the `countreads` rule we wrote earlier (see episode 3), we chose our preferred output file name
-pattern so as to allow us to effectively link rules. This gives us a rule that can count both
-*trimmed* and *untrimmed* reads.
+For the `countreads` rule we wrote earlier (see [episode 4](04-logs_and_errors.md)), we chose our
+preferred output file name pattern so as to allow us to effectively link rules. This gives us a
+rule that can count both *trimmed* and *untrimmed* reads.
 
 ```source
 # Our existing countreads rule, for reference...
@@ -259,8 +259,8 @@ rule fastqc:
 The "triple quoting" syntax comes from Python. Not only does it allow multiple lines to be added
 within the quotes but it also allows you to embed both single and double quotes into the shell
 commands. For a further discussion of string quoting and a way to disable the interpretation of
-"backslash escapes" like `\n` and `\t` see [episode 13
-](13-quoting.md)
+"backslash escapes" like `\n` and `\t` see [the extra episode on quoting
+](/learners/B1-quoting.md)
 
 This rule is also fine, but because the individual files are not explicitly named as outputs we may
 have problems chaining later rules. Also consider that some applications won't give you any control
@@ -354,7 +354,7 @@ Make the change in your Snakefile now. In other workflows this might not be the 
 in this case it works fine and makes the Snakefile neater. It will also make sense in the next
 chapter where we add the remaining rules and finish the workflow.
 
-*For reference, [this is a Snakefile](files/ep06.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep07.Snakefile) incorporating the changes made in
 this episode.*
 
 

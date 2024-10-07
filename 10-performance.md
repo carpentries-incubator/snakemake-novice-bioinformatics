@@ -21,7 +21,7 @@ exercises: 20
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-*For reference, [this is the final Snakefile from episodes 1 to 7](files/ep07.Snakefile) you
+*For reference, [this is the final Snakefile from episodes 1 to 8](files/ep08.Snakefile) you
 may use to start this episode.*
 
 ## Processes, threads and processors
@@ -210,12 +210,38 @@ cluster-aware. But if your workflow is written in Snakemake, it will run on a cl
 to no modification. Snakemake turns the individual jobs into cluster jobs, then submits and
 monitors them for you.
 
-- [The Snakemake manual explains how to set this up
-  ](https://snakemake.readthedocs.io/en/stable/executing/cluster.html)
-- [We have some specific suggestions for Eddie, the University of Edinburgh cluster
-  ](files/snakemake_on_eddie.pdf)
+To run Snakemake in this way, someone will need to determine the right parameters for your
+particular cluster and save them as a profile. Once this is working, you can share the profile
+with other users on the cluster, so discuss this with your cluster sysadmin.
+
+Instructions for configuring the SLURM executor plugin can be found in the [Snakemake plugin
+ctalog](https://snakemake.github.io/snakemake-plugin-catalog/), along with the *drmaa*,
+*cluster-generic* and *cluster-sync* plugins which can support *PBS*, *SGE* and other cluster
+schedulers.
+
+[We have some specific suggestions for Eddie, the University of Edinburgh cluster](
+files/snakemake_on_eddie.pdf)
 
 ![][fig-cluster]
+
+::::::::::::::::::::::::::::::: instructor
+
+## Running on cluster and cloud
+
+Running workflows on HPC or Cloud systems could be a whole course in itself. The topic is too
+important not to be mentioned here, but also complex to teach because you need a cluster to work
+on.
+
+The original author of this material would demonstrate running the workflow on the [Cirrus](
+https://cirrus.ac.uk) system in Edinburgh. If you are teaching this lesson and have institutional
+HPC then ideally you should liaise with the administrators of the system to make a suitable
+installation of a recent Snakemake version and a profile to run jobs on the cluster job scheduler.
+In practise this may be easier said than done!
+
+If you are able to demonstrate Snakemake running on cloud as part of one of these courses then
+we'd much appreciate any feedback on how you did this and how it went.
+
+::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -225,13 +251,13 @@ A this point in the course there may be a cluster demo...
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-{% comment %}
+[comment]: # (
 Photo credit: Cskiran
 Sourced from Wikimedia Commons
 CC-BY-SA-4.0
-{% endcomment %}
+)
 
-*For reference, [this is a Snakefile](files/ep09.Snakefile) incorporating the changes made in
+*For reference, [this is a Snakefile](files/ep10.Snakefile) incorporating the changes made in
 this episode.*
 
 
