@@ -31,7 +31,7 @@ rule trimreads:
 
 # Kallisto quantification of one sample
 # Modified to declare the whole directory as the output, and to capture all output to
-# a log file.
+# a text file.
 rule kallisto_quant:
     output: directory("kallisto.{sample}")
     input:
@@ -46,11 +46,11 @@ rule kallisto_quant:
 rule kallisto_index:
     output:
         idx = "{strain}.kallisto_index",
-        log = "{strain}.kallisto_log",
     input:
-        fasta = "transcriptome/{strain}.cdna.all.fa.gz"
+        fasta = "transcriptome/{strain}.cdna.all.fa.gz",
+    log: "{strain}.kallisto_log"
     shell:
-        "kallisto index -i {output.idx} {input.fasta} >& {output.log}"
+        "kallisto index -i {output.idx} {input.fasta} >& {log}"
 
 rule fastqc:
     output:
@@ -83,7 +83,7 @@ rule salmon_index:
 # A version of the MultiQC rule that ensures nothing unexpected is hoovered up by multiqc,
 # by linking the files into a temporary directory.
 # Note that this requires the *kallisto_quant* rule to be amended as above so that it has
-# a directory as the output, with that directory containing the console log.
+# a directory as the output, with that directory containing the console output.
 rule multiqc:
     output:
         mqc_out = directory('multiqc_out'),

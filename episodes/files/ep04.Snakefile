@@ -43,8 +43,8 @@ rule kallisto_quant:
 rule kallisto_index:
     output:
         idx = "{strain}.kallisto_index",
-        log = "{strain}.kallisto_log",
     input:
-        fasta = "transcriptome/{strain}.cdna.all.fa.gz"
+        fasta = "transcriptome/{strain}.cdna.all.fa.gz",
+    log: "{strain}.kallisto_log"
     shell:
-        "kallisto index -i {output.idx} {input.fasta} >& {output.log}"
+        "kallisto index -i {output.idx} {input.fasta} >& {log}"
