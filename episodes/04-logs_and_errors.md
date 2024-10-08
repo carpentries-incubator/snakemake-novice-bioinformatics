@@ -393,9 +393,11 @@ this episode.*
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Snakemake links rules by iteratively looking for rules that make missing inputs
-- Rules may have multiple named inputs and/or outputs
-- If a shell command does not yield an expected output then Snakemake will regard that as a failure
+- Try out commands on test files before adding them to the workflow
+- You can build up the workflow in the order that makes sense to you, but always test as you go
+- Use log outputs to capture the messages printed by programs as they run
+- If a shell command exits with an error, or does not yield an expected output then Snakemake will
+  regard that as a failure and stop the workflow
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
