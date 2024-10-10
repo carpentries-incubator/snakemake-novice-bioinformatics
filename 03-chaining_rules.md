@@ -1,12 +1,13 @@
 ---
 title: Chaining rules
-teaching: 40
-exercises: 30
+teaching: 30
+exercises: 20
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Use Snakemake to filter and then count the lines in a FASTQ file
+- Use Snakemake to filter and then count the sequences in a FASTQ file
+- Understand how rules are linked by filename patterns
 - Add a rule that calculates the number of reads filtered out
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -14,7 +15,7 @@ exercises: 30
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - How do I combine rules into a workflow?
-- How do I make a rule with multiple inputs and outputs?
+- How can I make a rule with multiple input files?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -177,11 +178,12 @@ rule calculate_difference:
 Note that:
 
  1. The above rule has two inputs, *trimmed* and *untrimmed*
- 2. We can choose what to call the inputs, so use descriptive names
+ 2. We can choose what to call the individual inputs, so use descriptive names
  3. There is a newline after `input:` and the next two lines are indented
  4. The `=` and `,` symbols are needed
  5. You can leave off the final comma, but it's generally easier to just put one on every line
  6. We refer to the input file names as `{input.untrimmed}` and `{input.trimmed}`
+ 7. There is only one output, but we can have multiple named outputs too.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -213,8 +215,14 @@ $ snakemake -j1 -F -p etoh60_1_1.reads_removed.txt
 
 ::::::::::::::::::::::::::::::::::::::
 
-*It would also be nice to have Snakemake run this automatically for all our samples. We'll
-see how to do this in a later episode.*
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Processing all the inputs
+
+It would be nice to have Snakemake run this automatically for all our samples. We'll
+see how to do this later, in [episode 6](06-expansion.md).
+
+:::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -247,9 +255,9 @@ placeholders are, and finally back to the target output filename at the top.'}
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Snakemake links rules by iteratively looking for rules that make missing inputs
-- Rules may have multiple named inputs and/or outputs
-- If a shell command does not yield an expected output then Snakemake will regard that as a failure
+- Snakemake links up rules by iteratively looking for rules that make missing inputs
+- Careful choice of filenames allows this to work
+- Rules may have multiple named input files (and output files)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

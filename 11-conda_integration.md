@@ -97,7 +97,7 @@ regarding the channel configuration in this course.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Queryting and installing Conda packages
+## Querying and installing Conda packages
 
 1. Find out what version of *fastx\_toolkit* is installed in the current conda environment.
 

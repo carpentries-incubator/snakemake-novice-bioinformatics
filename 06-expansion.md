@@ -13,10 +13,9 @@ exercises: 30
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- How do I process multiple files at once?
 - How do I define a default set of outputs for my Snakefile?
-- How do I make Snakemake detect what to process?
-- How do I combine multiple files together?
+- How do I make rules which combine whole lists of files?
+- How do I process all available input files at once?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -416,10 +415,12 @@ this episode.*
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Rename your input files if necessary to maintain consistent naming
-- List the things you want to proces as global variables, or discover input files with `glob_wildcards()`
+- List the things you want to proces as global variables, or discover input files with
+  `glob_wildcards()`
 - Use the `expand()` function to generate lists of filenames you want to combine
 - These functions can be tested in the Python interpreter
-- Any `{input}` to a rule can be a variable-length list, but variable lists of outputs are trickier and rarely needed
+- Any `{input}` to a rule can be a variable-length list
+- (But variable lists of outputs are trickier and rarely needed)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
