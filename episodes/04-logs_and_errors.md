@@ -1,7 +1,7 @@
 ---
-title: Adding logs, and understanding errors
-teaching: 40
-exercises: 30
+title: Complex outputs, logs and errors
+teaching: 30
+exercises: 20
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
