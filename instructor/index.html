@@ -237,7 +237,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-logs_and_errors.html">4. Adding logs, and understanding errors</a>
+        <a href="04-logs_and_errors.html">4. Complex outputs, logs and errors</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -445,14 +445,14 @@ run?
  3. <a href="03-chaining_rules.html">Chaining rules</a>
 </td>
 <td>
-How do I combine rules into a workflow?<br>How do I make a rule with
-multiple inputs and outputs?
+How do I combine rules into a workflow?<br>How can I make a rule with
+multiple input files?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>03h 20m
+<span class="visually-hidden">Duration: </span>03h 00m
 </td>
 <td>
- 4. <a href="04-logs_and_errors.html">Adding logs, and understanding
+ 4. <a href="04-logs_and_errors.html">Complex outputs, logs and
 errors</a>
 </td>
 <td>
@@ -460,7 +460,7 @@ How can we start to analyse the sample data?<br>What can cause a job in
 Snakemake to fail?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>04h 30m
+<span class="visually-hidden">Duration: </span>03h 50m
 </td>
 <td>
  5. <a href="05-the_dag.html">How Snakemake plans its jobs</a>
@@ -470,18 +470,18 @@ How do I visualise a Snakemake workflow?<br>How does Snakemake avoid
 unecessary work?<br>How do I control what steps will be run?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>05h 40m
+<span class="visually-hidden">Duration: </span>05h 00m
 </td>
 <td>
  6. <a href="06-expansion.html">Processing lists of inputs</a>
 </td>
 <td>
-How do I process multiple files at once?<br>How do I define a default
-set of outputs for my Snakefile?<br>How do I make Snakemake detect what
-to process?<br>How do I combine multiple files together?
+How do I define a default set of outputs for my Snakefile?<br>How do I
+make rules which combine whole lists of files?<br>How do I process all
+available input files at once?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>07h 00m
+<span class="visually-hidden">Duration: </span>06h 20m
 </td>
 <td>
  7. <a href="07-awkward_programs.html">Handling awkward programs</a>
@@ -491,7 +491,7 @@ How do I handle tools which don’t let me specify output file
 names?<br>How do I define a rule where the output is a directory?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>08h 20m
+<span class="visually-hidden">Duration: </span>07h 40m
 </td>
 <td>
  8. <a href="08-finished-workflow.html">Finishing the basic workflow</a>
@@ -501,7 +501,7 @@ What does the full sample workflow look like?<br>How can we report some
 initial results from this analysis?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>09h 40m
+<span class="visually-hidden">Duration: </span>09h 00m
 </td>
 <td>
  9. <a href="09-configuring.html">Configuring workflows</a>
@@ -510,7 +510,7 @@ initial results from this analysis?
 How do I separate my rules from my configuration?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>10h 30m
+<span class="visually-hidden">Duration: </span>09h 50m
 </td>
 <td>
 10. <a href="10-performance.html">Optimising workflow performance</a>
@@ -522,7 +522,7 @@ resources being used by a workflow?<br>How do I run my workflow steps
 in parallel?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>11h 10m
+<span class="visually-hidden">Duration: </span>10h 30m
 </td>
 <td>
 11. <a href="11-conda_integration.html">Conda integration</a>
@@ -532,7 +532,7 @@ How do I install new packages with Conda?<br>How do I get Snakemake to
 manage software dependencies?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>12h 20m
+<span class="visually-hidden">Duration: </span>11h 40m
 </td>
 <td>
 12. <a href="12-assembly_challenge.html">Constructing a whole new
@@ -543,7 +543,7 @@ How do I approach making a new workflow from scratch?<br>How do I
 understand and debug the errors I see?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>14h 20m
+<span class="visually-hidden">Duration: </span>13h 40m
 </td>
 <td>
 13. <a href="13-cleaning_up.html">Cleaning up</a>
@@ -553,7 +553,7 @@ How do I save disk space by removing temporary files?<br>How do I
 isolate the interim files created by jobs from each other?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>14h 55m
+<span class="visually-hidden">Duration: </span>14h 15m
 </td>
 <td>
 Finish
@@ -569,7 +569,7 @@ data on Linux. It is assumed that you have:</p>
 <ul><li>access to the Bash shell on a fairly modern Linux system</li>
 <li>sufficient disk space (~1GB) to store the software and data</li>
 </ul><p>You <strong>do not</strong> need root/administrator level access.</p>
-<div id="note" class="callout callout">
+<div id="note" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -599,11 +599,11 @@ Linux Bash environment.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh <span class="at">-O</span> installer.sh</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> bash ./installer.sh <span class="at">-b</span> <span class="at">-u</span> <span class="at">-p</span> ~/miniforge3</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm installer.sh</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ~/miniforge3/bin/conda init bash</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> exit</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh <span class="at">-O</span> installer.sh</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> bash ./installer.sh <span class="at">-b</span> <span class="at">-u</span> <span class="at">-p</span> ~/miniforge3</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ex">$</span> rm installer.sh</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="ex">$</span> ~/miniforge3/bin/conda init bash</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="ex">$</span> exit</span></code></pre>
 </div>
 <p>Then open a new shell. Your shell prompt should now start with
 <code>(base)</code>.</p>
@@ -613,7 +613,7 @@ Linux Bash environment.</p>
 <span>  <span class="op">-</span> <span class="va">bioconda</span></span>
 <span><span class="va">solver</span><span class="op">:</span> <span class="va">libmamba</span></span>
 <span><span class="va">channel_priority</span><span class="op">:</span> <span class="va">strict</span></span></code></pre>
-<div id="notes" class="callout callout">
+<div id="notes" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -636,8 +636,8 @@ the environment by running:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env update <span class="at">--file</span> conda_env.yaml</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate snakemake_carpentry</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> conda env update <span class="at">--file</span> conda_env.yaml</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> conda activate snakemake_carpentry</span></code></pre>
 </div>
 <p>You will also need a text editor such as <a href="https://help.gnome.org/users/gedit/stable/" class="external-link">GEdit</a> or <a href="https://www.nano-editor.org/" class="external-link">Nano</a>. These are standard on most
 Linux distros. Other text editors will work fine but we only provide
@@ -648,7 +648,7 @@ specific setup instructions for GEdit and Nano here.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> wget <span class="at">--content-disposition</span> https://figshare.com/ndownloader/files/42467370</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> wget <span class="at">--content-disposition</span> https://figshare.com/ndownloader/files/42467370</span></code></pre>
 </div>
 <p>The <a href="https://www.gnu.org/software/tar/manual/html_node/Tutorial.html" class="external-link">tar
 file</a> needs to be unpacked to yield the directory of files used in
@@ -656,7 +656,7 @@ the course. In the shell you may do this with:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> tar <span class="at">-xvaf</span> data-for-snakemake-novice-bioinformatics.tar.xz</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> tar <span class="at">-xvaf</span> data-for-snakemake-novice-bioinformatics.tar.xz</span></code></pre>
 </div>
 <p><a href="https://figshare.com/articles/dataset/data-for-snakemake-novice-bioinformatics_tar_xz/19733338/1" class="external-link">See
 this link</a> for details about this dataset and the redistribution
@@ -671,7 +671,7 @@ most other types of script and code.</p>
 simple to use general-purpose editor. Within the application menus it is
 normally just called “Text Editor” but you can also start it from your
 shell by typing “<code>gedit</code>”.</p>
-<div id="running-gedit-from-the-shell" class="callout callout">
+<div id="running-gedit-from-the-shell" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -713,14 +713,14 @@ syntax highlighting.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nano <span class="at">-wiSOE</span> <span class="at">-T</span> 4 <span class="at">-Y</span> python Snakefile</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> nano <span class="at">-wiSOE</span> <span class="at">-T</span> 4 <span class="at">-Y</span> python Snakefile</span></code></pre>
 </div>
 <p>To avoid typing all those options each time, you can add defaults to
 your <code>~/.nanorc</code> file:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> nano ~/.nanorc</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> nano ~/.nanorc</span></code></pre>
 </div>
 <pre class="source"><code>set nowrap
 set autoindent
@@ -781,8 +781,8 @@ default syntax highlighting within this file.</p>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/index.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/index.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-10-08",
-  "datePublished": "2024-10-08"
+  "dateModified": "2024-10-10",
+  "datePublished": "2024-10-10"
 }
 
   </script><script>

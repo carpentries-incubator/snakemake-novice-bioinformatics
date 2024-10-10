@@ -118,11 +118,11 @@
   Snakemake for Bioinformatics
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 75%" class="percentage">
-    75%
+<aside class="col-md-12 lesson-progress"><div style="width: 74%" class="percentage">
+    74%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 75%" aria-valuenow="75" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 74%" aria-valuenow="74" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -233,7 +233,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-logs_and_errors.html">4. Adding logs, and understanding errors</a>
+        <a href="04-logs_and_errors.html">4. Complex outputs, logs and errors</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -390,7 +390,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Conda integration</h1>
-        <p>Last updated on 2024-10-07 |
+        <p>Last updated on 2024-10-10 |
 
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/11-conda_integration.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -482,7 +482,7 @@ recreate an identical environment from that information.
 <ul><li><code>$ conda env export -n my-environment &gt; my-environment.yaml</code></li>
 <li><code>$ conda env create -n cloned-environment -f my-environment.yaml</code></li>
 </ul></li>
-</ul><div id="channel-configuration-and-conda-forge" class="callout callout">
+</ul><div id="channel-configuration-and-conda-forge" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -500,7 +500,7 @@ libraries.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat ~/.condarc</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> cat ~/.condarc</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -518,12 +518,12 @@ channel configuration in this course.</p>
 </div>
 </div>
 </div>
-<div id="queryting-and-installing-conda-packages" class="callout challenge">
+<div id="querying-and-installing-conda-packages" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="queryting-and-installing-conda-packages" class="callout-inner">
-<h3 class="callout-title">Queryting and installing Conda packages</h3>
+<div id="querying-and-installing-conda-packages" class="callout-inner">
+<h3 class="callout-title">Querying and installing Conda packages</h3>
 <div class="callout-content">
 <ol style="list-style-type: decimal"><li><p>Find out what version of <em>fastx_toolkit</em> is installed in
 the current conda environment.</p></li>
@@ -544,24 +544,24 @@ above is:</li>
 </ol><div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="kw">|</span> <span class="fu">grep</span> fastx</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">-</span> fastx_toolkit=0.0.14=0</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="kw">|</span> <span class="fu">grep</span> fastx</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a> <span class="ex">-</span> fastx_toolkit=0.0.14=0</span></code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal"><li>Conda should already be configured to install Bioconda packages (see
 the callout above) so we can do this:</li>
 </ol><div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate new-env</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda install cutadapt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> conda activate new-env</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">$</span> conda install cutadapt</span></code></pre>
 </div>
 <p>It’s also possible to install packages at the same time as creating
 the environment, though this wasn’t shown in the examples above.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env cutadapt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> new-env cutadapt</span></code></pre>
 </div>
 <p>You’ll still need to <em>activate</em> the new environment in order
 to run <em>cutadapt</em>.</p>
@@ -585,7 +585,7 @@ to quickly set up the same environment on any other machine.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> new-env <span class="op">&gt;</span> new-env.yaml</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> new-env <span class="op">&gt;</span> new-env.yaml</span></code></pre>
 </div>
 <p>Snakemake takes this one step further by integrating directly with
 Conda. This brings some nice features…</p>
@@ -686,18 +686,18 @@ it.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> salmon-1.2.1</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda activate salmon-1.2.1</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda install salmon=1.2.1 tbb=2020.2</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> salmon-1.2.1 <span class="op">&gt;</span> salmon-1.2.1.yaml</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> conda create <span class="at">-n</span> salmon-1.2.1</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">$</span> conda activate salmon-1.2.1</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="ex">$</span> conda install salmon=1.2.1 tbb=2020.2</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="ex">$</span> conda env export <span class="at">-n</span> salmon-1.2.1 <span class="op">&gt;</span> salmon-1.2.1.yaml</span></code></pre>
 </div>
 <p>As an aside, having done this, we could delete the environment as we
 just need the exported YAML file.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda deactivate</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> conda env remove <span class="at">-n</span> salmon-1.2.1</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">$</span> conda deactivate</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="ex">$</span> conda env remove <span class="at">-n</span> salmon-1.2.1</span></code></pre>
 </div>
 <p>Next add the same <em>conda</em> declaration to both the
 <em>salmon_index</em> and <em>salmon_quant</em> rules.</p>
@@ -708,13 +708,13 @@ two rules have changed and must be re-run.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-Rsalmon_index</span> <span class="at">-Rsalmon_quant</span> <span class="at">--use-conda</span> ...</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-Rsalmon_index</span> <span class="at">-Rsalmon_quant</span> <span class="at">--use-conda</span> ...</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="note-on-the-environment-files" class="callout callout">
+<div id="note-on-the-environment-files" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -748,7 +748,7 @@ for bioinformaticians.</p>
 </div>
 </div>
 </div>
-<div id="using-conda-with-snakemake-wrappers" class="callout callout">
+<div id="using-conda-with-snakemake-wrappers" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -845,8 +845,8 @@ installing the correct versions of everything</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/11-conda_integration.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/11-conda_integration.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-10-07",
-  "datePublished": "2024-10-08"
+  "dateModified": "2024-10-10",
+  "datePublished": "2024-10-10"
 }
 
   </script><script>

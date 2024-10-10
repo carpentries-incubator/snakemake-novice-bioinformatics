@@ -245,7 +245,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-logs_and_errors.html">4. Adding logs, and understanding errors</a>
+        <a href="04-logs_and_errors.html">4. Complex outputs, logs and errors</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -384,19 +384,19 @@
           Previous: Placeholders and
         </a>
         <a class="chapter-link float-end" href="../instructor/04-logs_and_errors.html" rel="next">
-          Next: Adding logs, and...
+          Next: Complex outputs,...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Chaining rules</h1>
-        <p>Last updated on 2024-10-07 |
+        <p>Last updated on 2024-10-10 |
 
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/03-chaining_rules.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
 
 
-        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 70 minutes</p>
+        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 50 minutes</p>
 
         <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -412,7 +412,7 @@
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul><li>How do I combine rules into a workflow?</li>
-<li>How do I make a rule with multiple inputs and outputs?</li>
+<li>How can I make a rule with multiple input files?</li>
 </ul></div>
 </div>
 </div>
@@ -420,8 +420,9 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>Use Snakemake to filter and then count the lines in a FASTQ
+<ul><li>Use Snakemake to filter and then count the sequences in a FASTQ
 file</li>
+<li>Understand how rules are linked by filename patterns</li>
 <li>Add a rule that calculates the number of reads filtered out</li>
 </ul></div>
 </div>
@@ -470,9 +471,9 @@ following this new output pattern:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed.ref1_1.fq.count</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat trimmed.ref1_1.fq.count</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">14278</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed.ref1_1.fq.count</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> cat trimmed.ref1_1.fq.count</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">14278</span></span></code></pre>
 </div>
 <p>Look at the logging messages that Snakemake prints in the terminal.
 What has happened here?</p>
@@ -500,7 +501,7 @@ steps to get the final output</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Illustrating the wildcard matching process </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>A figure is shown here to illustrate the way Snakemake finds rules by
 wildcard matching and then tracks back until it runs out of rule matches
@@ -522,7 +523,7 @@ are always <strong>working backwards</strong> from the final desired
 result. The order of operations is determined by applying the pattern
 matching rules to the filenames, not by the order of the rules in the
 Snakefile.</p>
-<div id="choosing-file-name-patterns" class="callout callout">
+<div id="choosing-file-name-patterns" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -554,20 +555,20 @@ filtering step?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>After generating both the trimmed and untrimmed <code>.count</code>
 files we can get this information.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> reads.ref1_1.fq.count trimmed.ref1_1.fq.count</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> head <span class="pp">*</span>.ref1_1.fq.count</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">==</span><span class="op">&gt;</span> reads.ref1_1.fq.count <span class="op">&lt;</span>==</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">14677</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">==</span><span class="op">&gt;</span> trimmed.ref1_1.fq.count <span class="op">&lt;</span>==</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">14278</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> reads.ref1_1.fq.count trimmed.ref1_1.fq.count</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">$</span> head <span class="pp">*</span>.ref1_1.fq.count</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">==</span><span class="op">&gt;</span> reads.ref1_1.fq.count <span class="op">&lt;</span>==</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="ex">14677</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="ex">==</span><span class="op">&gt;</span> trimmed.ref1_1.fq.count <span class="op">&lt;</span>==</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="ex">14278</span></span></code></pre>
 </div>
 <p>Subtracting these numbers shows that <strong>399</strong> reads have
 been removed.</p>
@@ -582,8 +583,8 @@ of the Bash shell to do the subtraction.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$((</span> <span class="va">$(</span><span class="op">&lt;</span>reads.ref1_1.fq.count<span class="va">)</span> <span class="op">-</span> <span class="va">$(</span><span class="op">&lt;</span>trimmed.ref1_1.fq.count<span class="va">)</span> <span class="va">))</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">399</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$((</span> <span class="va">$(</span><span class="op">&lt;</span>reads.ref1_1.fq.count<span class="va">)</span> <span class="op">-</span> <span class="va">$(</span><span class="op">&lt;</span>trimmed.ref1_1.fq.count<span class="va">)</span> <span class="va">))</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">399</span></span></code></pre>
 </div>
 <p>Check that this command runs in your terminal. Take care to get the
 symbols and spaces all correct. As with the original countreads rule,
@@ -602,7 +603,8 @@ want to compare.</p>
 <ol style="list-style-type: decimal"><li>The above rule has two inputs, <em>trimmed</em> and
 <em>untrimmed</em>
 </li>
-<li>We can choose what to call the inputs, so use descriptive names</li>
+<li>We can choose what to call the individual inputs, so use descriptive
+names</li>
 <li>There is a newline after <code>input:</code> and the next two lines
 are indented</li>
 <li>The <code>=</code> and <code>,</code> symbols are needed</li>
@@ -611,6 +613,8 @@ put one on every line</li>
 <li>We refer to the input file names as <code>{input.untrimmed}</code>
 and <code>{input.trimmed}</code>
 </li>
+<li>There is only one output, but we can have multiple named outputs
+too.</li>
 </ol><div id="making-this-rule-generic" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -629,7 +633,7 @@ Use the generic rule to calculate the number of reads removed from the
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <pre class="source"><code>rule calculate_difference:
     output: "{myfile}.reads_removed.txt"
@@ -645,16 +649,25 @@ placeholder.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> etoh60_1_1.reads_removed.txt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> etoh60_1_1.reads_removed.txt</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<p><em>It would also be nice to have Snakemake run this automatically
-for all our samples. We’ll see how to do this in a later
-episode.</em></p>
-<div id="outputs-first" class="callout callout">
+<div id="processing-all-the-inputs" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="processing-all-the-inputs" class="callout-inner">
+<h3 class="callout-title">Processing all the inputs</h3>
+<div class="callout-content">
+<p>It would be nice to have Snakemake run this automatically for all our
+samples. We’ll see how to do this later, in <a href="06-expansion.html">episode 6</a>.</p>
+</div>
+</div>
+</div>
+<div id="outputs-first" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -681,11 +694,10 @@ Snakefile</a> incorporating the changes made in this episode.</em></p>
 <div class="callout-inner">
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
-<ul><li>Snakemake links rules by iteratively looking for rules that make
+<ul><li>Snakemake links up rules by iteratively looking for rules that make
 missing inputs</li>
-<li>Rules may have multiple named inputs and/or outputs</li>
-<li>If a shell command does not yield an expected output then Snakemake
-will regard that as a failure</li>
+<li>Careful choice of filenames allows this to work</li>
+<li>Rules may have multiple named input files (and output files)</li>
 </ul></div>
 </div>
 </div>
@@ -701,7 +713,7 @@ will regard that as a failure</li>
           Previous: Placeholders and
         </a>
         <a class="chapter-link float-end" href="../instructor/04-logs_and_errors.html" rel="next">
-          Next: Adding logs, and...
+          Next: Complex outputs,...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -747,8 +759,8 @@ will regard that as a failure</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/03-chaining_rules.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/03-chaining_rules.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-10-07",
-  "datePublished": "2024-10-08"
+  "dateModified": "2024-10-10",
+  "datePublished": "2024-10-10"
 }
 
   </script><script>

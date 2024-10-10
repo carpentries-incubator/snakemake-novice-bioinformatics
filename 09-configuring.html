@@ -118,11 +118,11 @@
   Snakemake for Bioinformatics
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 65%" class="percentage">
-    65%
+<aside class="col-md-12 lesson-progress"><div style="width: 63%" class="percentage">
+    63%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 65%" aria-valuenow="65" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 63%" aria-valuenow="63" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -233,7 +233,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-logs_and_errors.html">4. Adding logs, and understanding errors</a>
+        <a href="04-logs_and_errors.html">4. Complex outputs, logs and errors</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -474,7 +474,7 @@ rule.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <pre class="source"><code>rule salmon_index:
     output:
@@ -488,7 +488,7 @@ rule.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> <span class="at">-f</span> Saccharomyces_cerevisiae.R64-1-1.salmon_index</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-p</span> <span class="at">-f</span> Saccharomyces_cerevisiae.R64-1-1.salmon_index</span></code></pre>
 </div>
 <p>Notes:</p>
 <ul><li>You can choose a different parameter name, but it must be a valid
@@ -533,7 +533,7 @@ not, then just take note that the first form uses <em>square
 brackets</em> and the other uses <code>.get(...)</code> with <em>regular
 brackets</em>. Both the config entry name and the default value should
 be in quotes.</p>
-<div id="using-config-settings-with-params" class="callout callout">
+<div id="using-config-settings-with-params" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -551,7 +551,7 @@ referencing it on the command line:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--configfile</span><span class="op">=</span>config.yaml ...</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--configfile</span><span class="op">=</span>config.yaml ...</span></code></pre>
 </div>
 <div id="making-the-parameter-of-a-rule-configurable" class="callout challenge">
 <div class="callout-square">
@@ -573,7 +573,7 @@ that this is working as expected.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Rule is as before, aside from:</p>
 <pre class="source"><code><span><span class="va">params</span><span class="op">:</span></span>
@@ -584,7 +584,7 @@ being printed has the expected value of <em>31</em>.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> <span class="at">-f</span> <span class="at">--configfile</span><span class="op">=</span>config.yaml Saccharomyces_cerevisiae.R64-1-1.salmon_index</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-p</span> <span class="at">-f</span> <span class="at">--configfile</span><span class="op">=</span>config.yaml Saccharomyces_cerevisiae.R64-1-1.salmon_index</span></code></pre>
 </div>
 <p><em>Note that if you try to run Snakemake with no config file you
 will now get a <strong>KeyError</strong> regarding
@@ -608,7 +608,7 @@ configuration parameters.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--configfile</span><span class="op">=</span>config.yaml <span class="at">--config</span> salmon_kmer_len=23 <span class="at">-p</span> <span class="at">-nf</span> Saccharomyces_cerevisiae.R64-1-1.salmon_index/</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">--configfile</span><span class="op">=</span>config.yaml <span class="at">--config</span> salmon_kmer_len=23 <span class="at">-p</span> <span class="at">-nf</span> Saccharomyces_cerevisiae.R64-1-1.salmon_index/</span></code></pre>
 </div>
 <p>This is all getting quite complex, so in summary:</p>
 <ul><li>Snakemake loads the <code>--configfile</code> supplied on the
@@ -646,7 +646,7 @@ these replicates in there.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>In <em>config.yaml</em> add the lines:</p>
 <pre class="source"><code>conditions: ["etoh60", "temp33", "ref"]
@@ -662,7 +662,7 @@ override on the command line:</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-f</span> <span class="at">--config</span> replicates=[<span class="st">"2"</span>,<span class="st">"3"</span>] <span class="at">-p</span> multiqc_out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-f</span> <span class="at">--config</span> replicates=<span class="pp">[</span><span class="st">"2"</span><span class="ss">,</span><span class="st">"3"</span><span class="pp">]</span> <span class="at">-p</span> multiqc_out</span></code></pre>
 </div>
 <p>Note that we need to re-run the final report, but only this, so only
 <code>-f</code> is necessary. If you find that replicate 1 is still in
@@ -758,7 +758,7 @@ new parameter, eg. <code>-p</code>
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/09-configuring.html",
   "dateCreated": "2021-03-26",
   "dateModified": "2024-10-07",
-  "datePublished": "2024-10-08"
+  "datePublished": "2024-10-10"
 }
 
   </script><script>

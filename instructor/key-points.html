@@ -283,7 +283,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-logs_and_errors.html">4. Adding logs, and understanding errors</a>
+        <a href="04-logs_and_errors.html">4. Complex outputs, logs and errors</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -480,19 +480,22 @@ sees a problem</li>
 </ul></section><section id="03-chaining_rules"><h2 class="section-heading"><a href="03-chaining_rules.html">Chaining rules</a></h2>
 <hr class="half-width">
 <ul>
-<li>Snakemake links rules by iteratively looking for rules that make
+<li>Snakemake links up rules by iteratively looking for rules that make
 missing inputs</li>
-<li>Rules may have multiple named inputs and/or outputs</li>
-<li>If a shell command does not yield an expected output then Snakemake
-will regard that as a failure</li>
-</ul></section><section id="04-logs_and_errors"><h2 class="section-heading"><a href="04-logs_and_errors.html">Adding logs, and understanding errors</a></h2>
+<li>Careful choice of filenames allows this to work</li>
+<li>Rules may have multiple named input files (and output files)</li>
+</ul></section><section id="04-logs_and_errors"><h2 class="section-heading"><a href="04-logs_and_errors.html">Complex outputs, logs and errors</a></h2>
 <hr class="half-width">
 <ul>
-<li>Snakemake links rules by iteratively looking for rules that make
-missing inputs</li>
-<li>Rules may have multiple named inputs and/or outputs</li>
-<li>If a shell command does not yield an expected output then Snakemake
-will regard that as a failure</li>
+<li>Try out commands on test files before adding them to the
+workflow</li>
+<li>You can build up the workflow in the order that makes sense to you,
+but always test as you go</li>
+<li>Use log outputs to capture the messages printed by programs as they
+run</li>
+<li>If a shell command exits with an error, or does not yield an
+expected output then Snakemake will regard that as a failure and stop
+the workflow</li>
 </ul></section><section id="05-the_dag"><h2 class="section-heading"><a href="05-the_dag.html">How Snakemake plans its jobs</a></h2>
 <hr class="half-width">
 <ul>
@@ -516,8 +519,9 @@ input files with <code>glob_wildcards()</code>
 <li>Use the <code>expand()</code> function to generate lists of
 filenames you want to combine</li>
 <li>These functions can be tested in the Python interpreter</li>
-<li>Any <code>{input}</code> to a rule can be a variable-length list,
-but variable lists of outputs are trickier and rarely needed</li>
+<li>Any <code>{input}</code> to a rule can be a variable-length
+list</li>
+<li>(But variable lists of outputs are trickier and rarely needed)</li>
 </ul></section><section id="07-awkward_programs"><h2 class="section-heading"><a href="07-awkward_programs.html">Handling awkward programs</a></h2>
 <hr class="half-width">
 <ul>
@@ -635,8 +639,8 @@ files</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/key-points.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/instructor/key-points.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-10-08",
-  "datePublished": "2024-10-08"
+  "dateModified": "2024-10-10",
+  "datePublished": "2024-10-10"
 }
 
   </script><script>

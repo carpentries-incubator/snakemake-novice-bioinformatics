@@ -247,7 +247,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-logs_and_errors.html">4. Adding logs, and understanding errors</a>
+        <a href="04-logs_and_errors.html">4. Complex outputs, logs and errors</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -453,7 +453,7 @@ rule countreads:
     input:  "reads/{myfile}.fq"
     shell:
         "echo $(( $(wc -l &lt;{input}) / 4 )) &gt; {output}"</code></pre>
-<div id="comments-in-snakefiles" class="callout callout">
+<div id="comments-in-snakefiles" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -540,10 +540,10 @@ should contain just one rule named <em>countreads</em>.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat temp33_1_1.fq.count</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">20593</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">$</span> cat temp33_1_1.fq.count</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="ex">20593</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -652,7 +652,7 @@ substitution it sees that the input file would need to be named
 <code>reads/wibble_1.fq</code>, and there is no such file available.
 Therefore Snakemake stops and gives an error before any shell commands
 are run.</p>
-<div id="dry-run--n-mode" class="callout callout">
+<div id="dry-run--n-mode" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -665,7 +665,7 @@ actually run them. This is done with the <code>-n</code> flag, eg:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-n</span> <span class="at">-F</span> <span class="at">-p</span> temp33_1_1.fq.count</span></code></pre>
 </div>
 <p>We’ll make use of this later in the course.</p>
 </div>
@@ -686,7 +686,7 @@ FASTQ file.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> fastq_quality_trimmer <span class="at">-t</span> 20 <span class="at">-l</span> 100 <span class="at">-o</span> output.fq <span class="op">&lt;</span>input.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">$</span> fastq_quality_trimmer <span class="at">-t</span> 20 <span class="at">-l</span> 100 <span class="at">-o</span> output.fq <span class="op">&lt;</span>input.fq</span></code></pre>
 </div>
 <p>Add a second rule to your Snakefile to run this trimmer. You should
 make it so that valid outputs are files with the same name as the input,
@@ -716,13 +716,13 @@ more files at once. For example:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed/ref1_1.fq trimmed/ref1_2.fq</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">$</span> snakemake <span class="at">-j1</span> <span class="at">-F</span> <span class="at">-p</span> trimmed/ref1_1.fq trimmed/ref1_2.fq</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="about-fastq_quality_trimmer" class="callout callout">
+<div id="about-fastq_quality_trimmer" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -817,7 +817,7 @@ sees a problem</li>
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/02-placeholders.html",
   "dateCreated": "2021-03-26",
   "dateModified": "2024-10-07",
-  "datePublished": "2024-10-08"
+  "datePublished": "2024-10-10"
 }
 
   </script><script>
