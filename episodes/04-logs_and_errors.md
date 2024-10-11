@@ -38,7 +38,9 @@ this out and use arrows to indicate the linkages between the steps.
 
 :::::::::::::::  solution
 
-## A sample answer based on brewing a mug of tea.
+## Solution
+
+### A sample answer based on brewing a mug of tea.
 
 ```
 "Boil Water" : input=cold water, output=hot water
@@ -48,7 +50,7 @@ this out and use arrows to indicate the linkages between the steps.
 "Add Milk And Sugar" : input=[tea infusion, milk, sugar], output=cuppa
 ```
 
-## A more bioinformatics-centric workflow
+### A simple bioinformatics workflow
 
 ```
 "Align reads to genome" : input=[reads, reference], output=BAM file
