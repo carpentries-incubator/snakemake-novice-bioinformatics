@@ -390,7 +390,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Chaining rules</h1>
-        <p>Last updated on 2024-10-10 |
+        <p>Last updated on 2025-02-25 |
 
         <a href="https://github.com/carpentries-incubator/snakemake-novice-bioinformatics/edit/main/episodes/03-chaining_rules.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -537,7 +537,7 @@ filtering step?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>After generating both the trimmed and untrimmed <code>.count</code>
 files we can get this information.</p>
@@ -615,7 +615,7 @@ Use the generic rule to calculate the number of reads removed from the
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <pre class="source"><code>rule calculate_difference:
     output: "{myfile}.reads_removed.txt"
@@ -656,7 +656,6 @@ samples. We’ll see how to do this later, in <a href="06-expansion.html">episod
 <div id="outputs-first" class="callout-inner">
 <h3 class="callout-title">Outputs first?</h3>
 <div class="callout-content">
-<p><strong>TODO - reconsider this in light of issue #46</strong></p>
 <p>The Snakemake approach of working backwards from the desired output
 to determine the workflow is why we’re putting the <code>output</code>
 lines first in all our rules - to remind us that these are what
@@ -719,7 +718,7 @@ missing inputs</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.11" class="external-link">sandpaper (0.16.11)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.7" class="external-link">pegboard (0.7.7)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.5" class="external-link">varnish (1.0.5)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.11" class="external-link">sandpaper (0.16.11)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.5" class="external-link">varnish (1.0.5)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -741,8 +740,8 @@ missing inputs</li>
   "url": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/03-chaining_rules.html",
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/03-chaining_rules.html",
   "dateCreated": "2021-03-26",
-  "dateModified": "2024-10-10",
-  "datePublished": "2025-02-18"
+  "dateModified": "2025-02-25",
+  "datePublished": "2025-02-25"
 }
 
   </script><script>
