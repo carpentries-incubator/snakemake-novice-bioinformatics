@@ -11,10 +11,10 @@ rule all_max:
 rule cutadapt:
     output:
         read1 = "cutadapt/{sample}_1.fq",
-        read2 = "cutadapt/{sample}_2.fq"
+        read2 = "cutadapt/{sample}_2.fq",
     input:
         read1 = "reads/{sample}_1.fq",
-        read2 = "reads/{sample}_2.fq"
+        read2 = "reads/{sample}_2.fq",
     params:
         adapter = "AGATCGGAAGAGC"
     conda: "assembly_conda_env.yaml"
@@ -27,7 +27,7 @@ rule cutadapt:
 rule concatenate:
     output:
         read1 = "concatenate/{condition}_1.fq",
-        read2 = "concatenate/{condition}_2.fq"
+        read2 = "concatenate/{condition}_2.fq",
     input:
         read1s = ["cutadapt/{condition}_1_1.fq", "cutadapt/{condition}_2_1.fq", "cutadapt/{condition}_3_1.fq"],
         read2s = ["cutadapt/{condition}_1_2.fq", "cutadapt/{condition}_2_2.fq", "cutadapt/{condition}_3_2.fq"],
@@ -40,7 +40,7 @@ rule assemble:
     output: "assem/{sample}_k{kmer}_contigs.fa"
     input:
         read1 = "concatenate/{sample}_1.fq",
-        read2 = "concatenate/{sample}_2.fq"
+        read2 = "concatenate/{sample}_2.fq",
     params:
         tmpdir = "velvet_tmp_{sample}_{kmer}"
     conda: "assembly_conda_env.yaml"
