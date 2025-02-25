@@ -6,20 +6,18 @@
 CONDITIONS = ["ref", "etoh60", "temp33"]
 REPLICATES = ["1", "2", "3"]
 
-# Rule to make all counts and compile the results in two files
-rule all_counts:
+# Rule to make all counts, calculate the difference, and compile the results in two files
+rule all_differences:
+    input: expand("all_read{end}_removed.txt", end=["1","2"])
+
+rule all_differences_per_end:
     input:
-        untrimmed = expand( "reads.{cond}_{rep}_{end}.fq.count",   cond  = CONDITIONS,
-                                                                   rep   = REPLICATES,
-                                                                   end   = ["1", "2"] ),
-        trimmed   = expand( "trimmed.{cond}_{rep}_{end}.fq.count", cond  = CONDITIONS,
-                                                                   rep   = REPLICATES,
-                                                                   end   = ["1", "2"] ),
+        expand( "{cond}_{rep}_{{end}}.reads_removed.txt", cond  = CONDITIONS,
+                                                          rep   = REPLICATES )
     output:
-        untrimmed = "untrimmed_counts_concatenated.txt",
-        trimmed   = "trimmed_counts_concatenated.txt",
+        "all_read{end}_removed.txt"
     shell:
-        "cat {input.untrimmed} > {output.untrimmed} ; cat {input.trimmed} > {output.trimmed}"
+        "cat {input} > {output}"
 
 # Generic read counter rule using wildcards and placeholders,
 # which can count trimmed and untrimmed reads.

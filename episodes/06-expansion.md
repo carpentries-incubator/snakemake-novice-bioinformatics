@@ -80,8 +80,8 @@ We'll add another rule to our Snakefile. This special target rule will have an `
 no `output` or `shell` sections (yet).
 
 ```source
-rule all_counts:
-    input: expand("trimmed.{cond}_{rep}_1.fq.count", cond=CONDITIONS, rep=REPLICATES)
+rule all_differences:
+    input: expand("{cond}_{rep}_1.reads_removed.txt", cond=CONDITIONS, rep=REPLICATES)
 ```
 
 The `expand(...)` function in this rule generates a list of filenames, by taking the first thing in
@@ -97,18 +97,19 @@ anything. It's just a placeholder for a bunch of filenames.
 We now tell Snakemake to make all these files by using the *target rule name* on the command line:
 
 ```bash
-$ snakemake -j1 -p all_counts
+$ snakemake -j1 -p all_differences
 ```
 
-Here, Snakemake sees that *all\_counts* is the name of a rule in the Snakefile, so rather than
-trying to make a file literally named `all_counts` it looks at all the input files for the rule and
-tries to make them. In this case, all of the inputs to *all\_counts* can be made by the *countreads*
-rule, and all of the inputs for those jobs are made by *trimreads*. The resulting workflow is the
-same as if we had typed out all 9 of the filenames on the command line.
+Here, Snakemake sees that *all\_differences* is the name of a rule in the Snakefile, so rather than
+trying to make a file literally named `all_differences` it looks at all the input files for the
+rule and tries to make them. In this case, all of the inputs to *all\_differences* can be made by
+the *calculate\_difference* rule, and all of the inputs for those jobs are made by *trimreads* and
+*countreads*. The resulting workflow is the same as if we had typed out all 9 of the filenames on
+the command line.
 
 If you don't specify a target rule name or any file names on the command line when running
 Snakemake, the default is to use **the first rule** in the Snakefile as the target. So if
-*all\_counts* is defined at the top, before the other rules, you can simply say:
+*all\_differences* is defined at the top, before the other rules, you can simply say:
 
 ```bash
 $ snakemake -j1 -p
@@ -130,9 +131,9 @@ the first rule defined in the Snakefile.
 
 ## Counting all the reads
 
-Check that the *all\_counts* rule is working. Now adapt the Snakefile so that it makes all the
-counts for both of the pairs of reads (`_1.fq` and `_2.fq`), and also for both trimmed and
-untrimmed versions of the files. So you should end up with 36 count files in total.
+Check that the *all\_differences* rule is working. Now adapt the Snakefile so that it makes all the
+*reads_removed.txt* for both of the pairs of reads (`_1.fq` and `_2.fq`). So you should end up
+with 18 output files in total.
 
 :::::::::::::::  solution
 
@@ -145,14 +146,13 @@ This will work.
 CONDITIONS = ["ref", "etoh60", "temp33"]
 REPLICATES = ["1", "2", "3"]
 READ_ENDS  = ["1", "2"]
-COUNT_DIR  = ["reads", "trimmed"]
 
-# Rule to make all counts at once
-rule all_counts:
-    input: expand("{indir}.{cond}_{rep}_{end}.fq.count", indir=COUNT_DIR, cond=CONDITIONS, rep=REPLICATES, end=READ_ENDS)
+# Rule to make all reads_removed.txt files at once
+rule all_differences:
+    input: expand("{cond}_{rep}_{end}.reads_removed.txt", cond=CONDITIONS, rep=REPLICATES, end=READ_ENDS)
 ```
 
-Alternatively you can put the lists directly into the `expand()` function rather than declaring
+Alternatively you can put the list directly into the `expand()` function rather than declaring
 more variables. To aid readability of the code it's also possible to split the function over
 more than one line, but note that this only works if you put a newline after the `input:`
 line too.
@@ -162,13 +162,12 @@ line too.
 CONDITIONS = ["ref", "etoh60", "temp33"]
 REPLICATES = ["1", "2", "3"]
 
-# Rule to make all counts at once
-rule all_counts:
+# Rule to make all reads_removed.txt files at once
+rule all_differences:
     input:
-        expand( "{indir}.{cond}_{rep}_{end}.fq.count", indir = ["reads", "trimmed"],
-                                                       cond  = CONDITIONS,
-                                                       rep   = REPLICATES,
-                                                       end   = ["1", "2"] )
+        expand( "{cond}_{rep}_{end}.reads_removed.txt", cond = CONDITIONS,
+                                                        rep  = REPLICATES,
+                                                        end  = READ_ENDS )
 ```
 
 :::::::::::::::::::::::::
@@ -177,17 +176,17 @@ rule all_counts:
 
 ## Rules that combine multiple inputs
 
-Our *all\_counts* rule is a rule which takes a list of input files. The length of that list is not
-fixed by the rule, but can change based on `CONDITIONS` and `REPLICATES`. If we want to perform
+Our *all\_differences* rule is a rule which takes a list of input files. The length of that list is
+not fixed by the rule, but can change based on `CONDITIONS` and `REPLICATES`. If we want to perform
 some combining operation on the whole list of files, we can add `output` and `shell` sections to
 this rule.
 
 In typical bioinformatics workflows, the final steps will combine all the results together into
 some big report. For our final workflow we'll be doing this with *MultiQC*, but as a simple first
-example, let's just concatenate all the count files. In the shell this would be:
+example, let's just concatenate all the text files. In the shell this would be:
 
 ```bash
-$ cat file1.count file2.count file3.count ... > all_counts.txt
+$ cat *.reads_removed.txt > all_reads_removed.txt
 ```
 
 In the Snakemake rule we just say:
@@ -203,12 +202,12 @@ command it will expand to the full list.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Combining the inputs of the *all\_counts* rule
+## Combining the inputs of the *all\_differences* rule
 
-1. Make it so that the *all\_counts* rule concatenates all the count files into a single output
-  file named `all_counts_concatenated.txt`.
-2. Adapt the rule further so that there are two outputs named `trimmed_counts_concatenated.txt`
-  and `untrimmed_counts_concatenated.txt`, and the respective counts go into each.
+1. Make it so that the *all\_differences* rule concatenates all the `.reads_removed.txt` files into
+   a single output file named `all_reads_removed.txt`.
+2. Adapt the rule further so that there are two outputs named `all_read1_removed.txt`
+   and `all_read2_removed.txt`, and the respective counts go into each.
 
 *Hint: you can put two commands into the `shell` part, separated by a semicolon `;`.*
 
@@ -217,38 +216,56 @@ command it will expand to the full list.
 ## Solution
 
 ```source
-rule all_counts:
+rule all_differences:
     input:
-        expand( "{indir}.{cond}_{rep}_{end}.fq.count", indir = ["reads", "trimmed"],
-                                                       cond  = CONDITIONS,
-                                                       rep   = REPLICATES,
-                                                       end   = ["1", "2"] )
+        expand( "{cond}_{rep}_{end}.reads_removed.txt", cond = CONDITIONS,
+                                                        rep  = REPLICATES,
+                                                        end  = READ_ENDS )
     output:
-        "all_counts_concatenated.txt"
+        "all_reads_removed.txt"
     shell:
         "cat {input} > {output}"
 ```
 
+And for the version with separate output files.
+
 ```source
-rule all_counts:
+rule all_differences:
     input:
-        untrimmed = expand( "reads.{cond}_{rep}_{end}.fq.count",   cond  = CONDITIONS,
-                                                                   rep   = REPLICATES,
-                                                                   end   = ["1", "2"] ),
-        trimmed   = expand( "trimmed.{cond}_{rep}_{end}.fq.count", cond  = CONDITIONS,
-                                                                   rep   = REPLICATES,
-                                                                   end   = ["1", "2"] ),
+        read1 = expand( "{cond}_{rep}_1.reads_removed.txt", cond  = CONDITIONS,
+                                                            rep   = REPLICATES ),
+        read2 = expand( "{cond}_{rep}_2.reads_removed.txt", cond  = CONDITIONS,
+                                                            rep   = REPLICATES ),
     output:
-        untrimmed = "untrimmed_counts_concatenated.txt",
-        trimmed   = "trimmed_counts_concatenated.txt",
+        read1 = "all_read1_removed.txt",
+        read2 = "all_read2_removed.txt",
     shell:
-        "cat {input.untrimmed} > {output.untrimmed} ; cat {input.trimmed} > {output.trimmed}"
+        "cat {input.read1} > {output.read1} ; cat {input.read2} > {output.read2}"
 ```
 
-To run either version of the rule:
+This works, but may more elegantly be broken down into two rules, so that once again the target
+rule has only *input* and no *outputs*. There is a quirk where we
+need to put extra braces around `{{end}}` in the place where this is a wildcard, and not to be
+expanded out.
+
+```source
+rule all_differences:
+    input: expand("all_read{end}_removed.txt", end=["1","2"])
+
+rule all_differences_per_end:
+    input:
+        expand( "{cond}_{rep}_{{end}}.reads_removed.txt", cond  = CONDITIONS,
+                                                          rep   = REPLICATES )
+    output:
+        "all_read{end}_removed.txt"
+    shell:
+        "cat {input} > {output}"
+```
+
+To run any version of the rule:
 
 ```bash
-$ snakemake -j1 -p all_counts
+$ snakemake -j1 -p all_differences
 ```
 
 :::::::::::::::::::::::::
@@ -277,15 +294,18 @@ when the Snakefile is run (including dry-run mode, activated with the `-n` optio
 [Episode 2](02-placeholders.html)), and reassures us that the list really is the same as before.
 
 ```bash
-$ snakemake -j1 -F -n -p all_counts
+$ snakemake -j1 -F -n -p all_differences
 Conditions are:  ['etoh60', 'temp33', 'ref']
 Building DAG of jobs...
-Job counts:
-    count  jobs
-    1      all_counts
-    36     countreads
-    18     trimreads
-    55
+Job stats:
+job                        count
+-----------------------  -------
+all_differences                1
+all_differences_per_end        2
+calculate_difference          18
+countreads                    36
+trimreads                     18
+total                         75
 ...
 ```
 
@@ -423,5 +443,4 @@ this episode.*
 - (But variable lists of outputs are trickier and rarely needed)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
-
 

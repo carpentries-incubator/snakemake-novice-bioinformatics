@@ -11,7 +11,8 @@ CONDITIONS = ["ref", "etoh60", "temp33"]
 REPLICATES = ["1", "2", "3"]
 
 # The following rules are no longer being used and have been removed to reduce clutter:
-#  - all_counts
+#  - all_differences
+#  - all_differences_per_end
 #  - calculate_difference
 
 # Generic read counter rule using wildcards and placeholders,

@@ -23,7 +23,7 @@ the episode.*
 
 We've seen how to link rules in a pipeline and how to merge all the results at the final step. This
 is the basic pattern for many analysis workflows. For simplicity, in episode 6, we just used the
-`cat` command to combine all the `.count` files but now we'll use *MultiQC* to combine the results
+`cat` command to combine all the `.txt` files but now we'll use *MultiQC* to combine the results
 from Kallisto and FastQC into a single report for all samples. We'll also add in an alternative
 quantification tool called *Salmon* and this will complete the pipeline.
 
@@ -125,7 +125,7 @@ $ multiqc . -o multiqc_out
 
 ## Adding a MultiQC rule
 
-Earlier, in episode 6, we made a basic summary-type rule called *all\_counts*. Now make a
+Earlier, in episode 6, we made a basic summary-type rule called *all\_differences*. Now make a
 *multiqc* rule that gathers up all the FastQC, Salmon and Kallisto reports.
 
 Considerations:

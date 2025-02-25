@@ -6,8 +6,10 @@ cd snakemake_data/yeast
 # The all_counts rule assumes renames are applied
 ( cd reads ; rename -v -s ref ref_ ref?_?.fq )
 
-snakemake -j1 -p trimmed_counts_concatenated.txt kallisto.etoh60_1/abundance.h5
-
-test -s trimmed_counts_concatenated.txt
-test -s untrimmed_counts_concatenated.txt
+snakemake -j1 -p all_read1_removed.txt kallisto.etoh60_1/abundance.h5
+test -s all_read1_removed.txt
 test -s kallisto.etoh60_1/abundance.tsv
+test '!' -s all_read2_removed.txt
+
+snakemake -j1 -p all_differences
+test -s all_read2_removed.txt
