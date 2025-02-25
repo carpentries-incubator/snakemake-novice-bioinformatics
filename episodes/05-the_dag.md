@@ -34,7 +34,7 @@ A DAG is a **Directed Acyclic Graph** and it can be pictured like so:
 
 ![][fig-dag]
 
-The above DAG is based on four of our existing rules, and shows all the jobs Snakemake would run to
+The above DAG is based on our existing rules, and shows all the jobs Snakemake would run to
 trim, count and quantify the *ref1* sample.
 
 :::::::::::::::::::::::::::::::::::::::  checklist
@@ -43,7 +43,8 @@ trim, count and quantify the *ref1* sample.
 
 - A rule can appear more than once, with different wildcards (a **rule** plus **wildcard values**
   defines a **job**)
-- A rule may not be used at all, if it is not required for the target outputs
+- A rule (here, *calculate_difference*) may not be used at all, if it is not required for the
+  target outputs
 - The arrows show dependency ordering between jobs
 - Snakemake can run the jobs in any order that doesn't break dependency - for example
   *kallisto_quant* cannot run until
@@ -70,7 +71,13 @@ If we asked Snakemake to run *kallisto_quant* on all three of the reference samp
 
 ## Solution
 
-10 in total: 3 \* kallisto\_quant // 6 \* trimreads // 1 \* kallisto\_index // 0 \* countreads
+10 in total:
+
+- 3 \* kallisto\_quant
+- 6 \* trimreads
+- 1 \* kallisto\_index
+- 0 \* countreads
+- 0 \* calculate\_difference
 
 :::::::::::::::::::::::::
 

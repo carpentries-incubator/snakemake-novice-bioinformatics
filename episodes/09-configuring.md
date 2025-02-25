@@ -203,8 +203,9 @@ $ snakemake --configfile=config.yaml --config salmon_kmer_len=23 -p -nf Saccharo
 
 This is all getting quite complex, so in summary:
 
-- Snakemake loads the `--configfile` supplied on the command line, or else defaults to the one
-  named in the Snakefile, or else runs with no config file.
+- Snakemake loads any `configfile:` set in the Snakefile. You should put this right at the top.
+- Snakemake loads the `--configfile` supplied on the command line, which overrides any values in
+  the one named in the Snakefile.
 - Individual `--config` items on the command line always take precedence over settings in the
   config file.
 - You can set multiple `--config` values on the command line and the list ends when there is
