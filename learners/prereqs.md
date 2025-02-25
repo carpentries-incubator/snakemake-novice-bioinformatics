@@ -70,6 +70,7 @@ And these specific concepts occur within the course:
 * Use `ln -s` to create a symbolic link
 * Use `cat` and `head` to show the contents of a text file in the terminal
 * Run a Bash script file containing shell commands: `bash scriptname.sh`
+* Knowing that each command returns an exit code, denoting success or error
 
 ## Biology and bioinformatics
 

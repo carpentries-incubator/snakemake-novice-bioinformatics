@@ -24,6 +24,14 @@ the episode.*
 
 ## Adding a transcript counting step to the pipeline
 
+::::::::::::::::::::::::::::: instructor
+
+The main point of the following exercise is to get some insight into what the learners might want
+to do with Snakemake. You should focus on the answers received rather than dwelling on the sample
+answers below.
+
+::::::::::::::::::::::
+
 :::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Thinking about your own workflows
@@ -40,16 +48,6 @@ this out and use arrows to indicate the linkages between the steps.
 
 ## Solution
 
-### A sample answer based on brewing a mug of tea.
-
-```
-"Boil Water" : input=cold water, output=hot water
-
-"Brew Tea" : input=[hot water, tea bag, mug], output=tea infusion
-
-"Add Milk And Sugar" : input=[tea infusion, milk, sugar], output=cuppa
-```
-
 ### A simple bioinformatics workflow
 
 ```
@@ -58,6 +56,16 @@ this out and use arrows to indicate the linkages between the steps.
 "Sort BAM file" : input=BAM file, output=sorted BAM file
 
 "Summarize coverage" : input=[sorted BAM file, reference], output=histogram
+```
+
+### A workflow for a robot to brew a mug of tea
+
+```
+"Boil Water" : input=cold water, output=hot water
+
+"Brew Tea" : input=[hot water, tea bag, mug], output=tea infusion
+
+"Add Milk And Sugar" : input=[tea infusion, milk, sugar], output=cuppa
 ```
 
 :::::::::::::::::::::::::
