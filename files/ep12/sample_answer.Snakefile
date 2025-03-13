@@ -19,10 +19,10 @@ rule cutadapt:
         adapter = "AGATCGGAAGAGC"
     conda: "assembly_conda_env.yaml"
     shell:
-        r"""cutadapt -a {params.adapter} -A {params.adapter} \
-            -o {output.read1} -p {output.read2} \
-               {input.read1}     {input.read2}
-         """
+        """cutadapt -a {params.adapter} -A {params.adapter} \
+           -o {output.read1} -p {output.read2} \
+              {input.read1}     {input.read2}
+        """
 
 rule concatenate:
     output:
@@ -32,9 +32,9 @@ rule concatenate:
         read1s = ["cutadapt/{condition}_1_1.fq", "cutadapt/{condition}_2_1.fq", "cutadapt/{condition}_3_1.fq"],
         read2s = ["cutadapt/{condition}_1_2.fq", "cutadapt/{condition}_2_2.fq", "cutadapt/{condition}_3_2.fq"],
     shell:
-        r"""cat {input.read1s} > {output.read1}
-            cat {input.read2s} > {output.read2}
-         """
+        """cat {input.read1s} > {output.read1}
+           cat {input.read2s} > {output.read2}
+        """
 
 rule assemble:
     output: "assem/{sample}_k{kmer}_contigs.fa"
@@ -45,9 +45,9 @@ rule assemble:
         tmpdir = "velvet_tmp_{sample}_{kmer}"
     conda: "assembly_conda_env.yaml"
     shell:
-        r"""velveth {params.tmpdir} {wildcards.kmer} -shortPaired -fastq -separate {input.read1} {input.read2}
-            velvetg {params.tmpdir}
-            mv {params.tmpdir}/contigs.fa {output}
+        """velveth {params.tmpdir} {wildcards.kmer} -shortPaired -fastq -separate {input.read1} {input.read2}
+           velvetg {params.tmpdir}
+           mv {params.tmpdir}/contigs.fa {output}
         """
 
 rule max_contig:
