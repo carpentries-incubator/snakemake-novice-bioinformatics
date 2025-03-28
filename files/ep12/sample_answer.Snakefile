@@ -25,16 +25,13 @@ rule cutadapt:
         """
 
 rule concatenate:
-    output:
-        read1 = "concatenate/{condition}_1.fq",
-        read2 = "concatenate/{condition}_2.fq",
+    output: "concatenate/{condition}_{readnum}.fq"
     input:
-        read1s = ["cutadapt/{condition}_1_1.fq", "cutadapt/{condition}_2_1.fq", "cutadapt/{condition}_3_1.fq"],
-        read2s = ["cutadapt/{condition}_1_2.fq", "cutadapt/{condition}_2_2.fq", "cutadapt/{condition}_3_2.fq"],
+        [ "cutadapt/{condition}_1_{readnum}.fq",
+          "cutadapt/{condition}_2_{readnum}.fq",
+          "cutadapt/{condition}_3_{readnum}.fq" ],
     shell:
-        """cat {input.read1s} > {output.read1}
-           cat {input.read2s} > {output.read2}
-        """
+        "cat {input} > {output}"
 
 rule assemble:
     output: "assem/{sample}_k{kmer}_contigs.fa"
