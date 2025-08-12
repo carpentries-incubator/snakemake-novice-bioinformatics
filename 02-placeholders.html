@@ -457,6 +457,7 @@ rule countreads:
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div id="comments-in-snakefiles" class="callout-inner">
 <h3 class="callout-title">Comments in Snakefiles</h3>
 <div class="callout-content">
@@ -515,6 +516,7 @@ placeholders.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="running-the-general-purpose-rule" class="callout-inner">
 <h3 class="callout-title">Running the general-purpose rule</h3>
 <div class="callout-content">
@@ -534,7 +536,7 @@ should contain just one rule named <em>countreads</em>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>After editing the file, run the commands:</p>
 <div class="codewrapper sourceCode" id="cb3">
@@ -553,6 +555,7 @@ should contain just one rule named <em>countreads</em>.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="choosing-the-right-wildcards" class="callout-inner">
 <h3 class="callout-title">Choosing the right wildcards</h3>
 <div class="callout-content">
@@ -574,7 +577,7 @@ be <code>ref1_counts/fq.2.count</code>, etc.)?</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>In all cases, there is no need to change the <code>shell</code> part
 of the rule at all.</p>
@@ -656,6 +659,7 @@ are run.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div id="dry-run--n-mode" class="callout-inner">
 <h3 class="callout-title">Dry-run (-n) mode</h3>
 <div class="callout-content">
@@ -678,6 +682,7 @@ workflow gains more steps this will become very useful to us indeed.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="adding-a-rule-for-filtering-the-reads" class="callout-inner">
 <h3 class="callout-title">Adding a rule for filtering the reads</h3>
 <div class="callout-content">
@@ -702,7 +707,7 @@ but in a subdirectory named ‘trimmed’, for example:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <pre class="source"><code># Trim any FASTQ reads for base quality
 rule trimreads:
@@ -726,6 +731,7 @@ more files at once. For example:</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div id="about-fastq_quality_trimmer" class="callout-inner">
 <h3 class="callout-title">About fastq_quality_trimmer</h3>
 <div class="callout-content">
@@ -744,8 +750,8 @@ Snakefile</a> incorporating the changes made in this episode.</em></p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
+<span class="callout-header">Key Points</span>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>Snakemake rules are made generic with placeholders and
 wildcards</li>
@@ -794,7 +800,7 @@ sees a problem</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.12" class="external-link">sandpaper (0.16.12)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.6" class="external-link">varnish (1.0.6)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.17.1" class="external-link">sandpaper (0.17.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.7" class="external-link">varnish (1.0.7)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -817,7 +823,7 @@ sees a problem</li>
   "identifier": "https://carpentries-incubator.github.io/snakemake-novice-bioinformatics/02-placeholders.html",
   "dateCreated": "2021-03-26",
   "dateModified": "2024-10-07",
-  "datePublished": "2025-08-05"
+  "datePublished": "2025-08-12"
 }
 
   </script><script>
